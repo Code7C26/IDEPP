@@ -29,7 +29,7 @@ DB_CONFIG = {
 # 2. CONFIGURACION DE LA DETECCION
 # ==========================================
 FRAMES_SEGUIDOS_PARA_ALERTA = 10   # fotogramas seguidos detectando antes de alertar
-TIEMPO_COOLDOWN = 10               # segundos de espera entre alertas
+TIEMPO_COOLDOWN = 20               # segundos de espera entre alertas (más que los 10 s que dura la alarma del robot)
 CONFIANZA_MINIMA = 0.60            # 60 % para detectar personas
 SIMILITUD_ROSTRO = 0.40            # que tan parecido tiene que ser el rostro (0 a 1)
 

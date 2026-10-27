@@ -36,7 +36,11 @@ const int AIN1 = 32;   // IN1
 const int AIN2 = 33;   // IN2
 const int BIN1 = 25;   // IN3
 const int BIN2 = 26;   // IN4
-const int BUZZER = 4;   // buzzer activo (+ al pin, - a GND). Suena con HIGH. Si no hay, no pasa nada.
+const int BUZZER = 4;   // buzzer activo (+ al pin, - a GND). Si no hay, no pasa nada.
+// Si el buzzer suena TODO EL TIEMPO y se calla con la alerta, es de los que
+// funcionan al reves (muchos modulos de 3 patas): cambiar HIGH por LOW aca.
+const int BUZZER_SUENA = HIGH;
+const int BUZZER_CALLA = (BUZZER_SUENA == HIGH) ? LOW : HIGH;
 
 // Sensores de linea (placas verdes RobotGroup con CNY70): 3 cables
 //   VCC -> 3V3 (NO a 5V: la senal subiria a 5V y el ESP32 aguanta 3.3V)
@@ -53,7 +57,8 @@ VL53L0X sensorDistancia;
 // ---------- 3. AJUSTES ----------
 const int VELOCIDAD = 200;            // 0 a 255
 const int VELOCIDAD_GIRO = 170;       // velocidad al corregir para volver a la linea
-const int UMBRAL_NEGRO = 2000;        // 0 a 4095. Mas que esto = el sensor ve NEGRO (ver /sensores)
+const int UMBRAL_NEGRO = 1000;        // 0 a 4095. Mas que esto = el sensor ve NEGRO (ver /sensores)
+                                      // Medido a 3V3: blanco 0-450, cinta negra 1900-2700
 const int DISTANCIA_MINIMA = 200;     // mm. Si hay algo mas cerca, frena (200 mm = 20 cm)
 const unsigned long TIEMPO_ALERTA   = 10000; // ms que queda frenado con la alerta (10 s)
 const unsigned long PITIDO_MS = 300;        // ms que dura cada pitido y cada silencio
@@ -95,7 +100,7 @@ void recibirAlerta() {
   inicioAlerta = millis();
   frenar();
   mostrar("ALERTA! S/CASCO", nombre);
-  digitalWrite(BUZZER, HIGH);   // empieza a sonar la alarma
+  digitalWrite(BUZZER, BUZZER_SUENA);   // empieza a sonar la alarma
   sonando = true;
 
   servidor.send(200, "text/plain", "OK");
@@ -125,6 +130,7 @@ void setup() {
   pinMode(AIN1, OUTPUT); pinMode(AIN2, OUTPUT);
   pinMode(BIN1, OUTPUT); pinMode(BIN2, OUTPUT);
   pinMode(BUZZER, OUTPUT);
+  digitalWrite(BUZZER, BUZZER_CALLA);   // arranca callado
   frenar();
 
   lcd.init();
@@ -183,7 +189,7 @@ void loop() {
   if (enAlerta) {
     if (ahora - inicioAlerta >= TIEMPO_ALERTA) {
       enAlerta = false;
-      digitalWrite(BUZZER, LOW);   // apaga la alarma
+      digitalWrite(BUZZER, BUZZER_CALLA);   // apaga la alarma
       sonando = false;
       mostrar("SMAT", "Patrullando");
       return;
@@ -192,7 +198,7 @@ void loop() {
     // (solo prende o apaga cuando cambia, para no repetir la orden en cada vuelta)
     bool debeSonar = ((ahora - inicioAlerta) / PITIDO_MS) % 2 == 0;
     if (debeSonar != sonando) {
-      digitalWrite(BUZZER, debeSonar ? HIGH : LOW);
+      digitalWrite(BUZZER, debeSonar ? BUZZER_SUENA : BUZZER_CALLA);
       sonando = debeSonar;
     }
     return;   // mientras hay alerta, no se mueve
