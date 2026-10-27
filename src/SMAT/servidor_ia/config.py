@@ -27,8 +27,9 @@ if not _ENV:
 
 
 def dato(nombre, por_defecto=""):
-    """Busca un dato primero en las variables de entorno y después en servidor_ia/.env."""
-    return os.getenv(nombre) or _ENV.get(nombre, por_defecto)
+    """Busca un dato primero en las variables de entorno y después en servidor_ia/.env.
+    Si en el .env quedó vacío (ej. "DROID_URL="), usa el valor por defecto."""
+    return os.getenv(nombre) or _ENV.get(nombre) or por_defecto
 
 
 # IP que muestra la app IP Webcam (con /video al final)

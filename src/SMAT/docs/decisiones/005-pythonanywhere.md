@@ -1,6 +1,6 @@
 # 005 · Despliegue: todo en PythonAnywhere
 
-**Fecha:** 2026-10-05 · **Actualizada:** 2026-10-15 · **Estado:** aceptada
+**Fecha:** 2026-10-05 · **Actualizada:** 2026-10-15 · **Estado:** reemplazada por la 007 (22/10/2026: el plan gratis ya no tiene MySQL)
 
 ## Contexto
 La demo se muestra en red local y además tiene que existir una versión online accesible desde cualquier celular.

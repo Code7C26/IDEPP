@@ -30,3 +30,6 @@ servidor_ia/yolov8n.pt
 
 # Caché de Vite
 .vite/
+
+# Paquete para PythonAnywhere (se arma con backend/tools/armar_paquete.py)
+droid-e3d.tgz

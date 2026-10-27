@@ -1,11 +1,14 @@
 // Captura real de la app dentro de un marco de navegador (PC) o de celular.
 // Las imágenes están en public/capturas/<nombre>-claro.webp y <nombre>-oscuro.webp
 // (se sacan con datos de prueba, nunca con fotos de personas reales) y se elige según el tema.
+// width y height: el tamaño real de las imágenes. Con eso el navegador reserva el lugar antes de
+// cargarlas (son "lazy") y la página no salta cuando aparecen.
 export default function Captura({ nombre, alt, movil = false }) {
+  const [ancho, alto] = movil ? [640, 1280] : [1600, 1000]
   const imagenes = (
     <>
-      <img src={`/capturas/${nombre}-claro.webp`} alt={alt} loading="lazy" className="block w-full dark:hidden" />
-      <img src={`/capturas/${nombre}-oscuro.webp`} alt={alt} loading="lazy" className="hidden w-full dark:block" />
+      <img src={`/capturas/${nombre}-claro.webp`} alt={alt} width={ancho} height={alto} loading="lazy" className="block h-auto w-full dark:hidden" />
+      <img src={`/capturas/${nombre}-oscuro.webp`} alt={alt} width={ancho} height={alto} loading="lazy" className="hidden h-auto w-full dark:block" />
     </>
   )
 

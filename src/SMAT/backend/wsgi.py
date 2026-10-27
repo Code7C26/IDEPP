@@ -1,7 +1,7 @@
-"""Punto de entrada para publicar el backend en un servidor (PythonAnywhere). Ver docs/DESPLIEGUE.md.
+"""Punto de entrada para publicar el backend en un servidor (Render, con gunicorn). Ver docs/DESPLIEGUE.md.
 
-En la PC se usa "python app.py"; en el servidor, el archivo WSGI de PythonAnywhere importa
-"application" de acá. Antes crea las tablas que falten (igual que app.py al arrancar).
+En la PC se usa "python app.py"; en el servidor, gunicorn (Render) o el archivo WSGI de PythonAnywhere
+importan "application" de acá. Antes crea las tablas que falten (igual que app.py al arrancar).
 """
 import os
 import sys

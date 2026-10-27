@@ -9,6 +9,11 @@ https://claude.ai/code/artifact/9cf2ab6b-c137-4de5-9a5a-8910ab2784cf
 
 > El documento es privado al principio. Para que Toro lo edite: botón **Share** arriba del documento.
 
+**Borrador de las secciones técnicas de Toro** (5 · Diseño, 6 · Desarrollo, 7 · Pruebas y 11 · Capturas):
+[`secciones-toro.md`](secciones-toro.md), con las capturas de la app en [`capturas/`](capturas/). Se copian al documento.
+También en Word con formato APA y las capturas como figuras: [`secciones-toro.docx`](secciones-toro.docx)
+(abrirlo, Ctrl+A, Ctrl+C y pegarlo en el documento en línea o en Google Docs).
+
 ## Cómo pasarlo a Google Docs o PDF
 
 1. Abrir el documento con el link de arriba.

@@ -8,7 +8,7 @@ from datetime import datetime
 from flask import Blueprint, request
 
 from models import db, FotoRostro, Usuario
-from utils.archivos import ImagenInvalida, borrar_imagen, guardar_imagen
+from utils.archivos import AlmacenNoDisponible, ImagenInvalida, borrar_imagen, guardar_imagen
 from utils.auditoria import registrar
 from utils.decoradores import api_key_requerida, token_required
 
@@ -66,6 +66,8 @@ def subir_foto(user_id):
         ruta = guardar_imagen(request.files["imagen"], "rostros", user.id)
     except ImagenInvalida as e:
         return {"error": str(e)}, 400
+    except AlmacenNoDisponible:
+        return {"error": "No se pudo guardar la foto. Probá de nuevo en un rato."}, 503
     foto = FotoRostro(usuario_id=user.id, ruta_archivo=ruta, consentimiento_at=datetime.now(), cargada_por=request.user_id)
     db.session.add(foto)
     registrar("subir_rostro", f"Foto de rostro de '{user.usuario}' (con consentimiento)")

@@ -4,6 +4,8 @@ Flask-SQLAlchemy==3.1.1
 python-dotenv==1.0.1
 PyJWT==2.9.0
 PyMySQL==1.1.1
+psycopg2-binary==2.9.10   # Postgres (Supabase), para la versión de internet
 cryptography==50.0.2
 pywebpush==2.5.0
 reportlab==5.0.1
+gunicorn==23.0.0          # servidor web de la versión de internet (Render); en la PC no se usa

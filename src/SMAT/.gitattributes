@@ -1,0 +1,2 @@
+# Los scripts de bash corren en Linux (PythonAnywhere): siempre con finales de línea LF
+*.sh text eol=lf

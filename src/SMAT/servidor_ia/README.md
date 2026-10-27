@@ -47,12 +47,14 @@ con `registrar_trabajador.py`. `modelo_cascos.pt` sí está en el repo.
 ### Conexión con la web
 
 - **Misma PC que el backend:** no hay que configurar nada; toma la clave de `../backend/.env`.
-- **Otra PC:** definí antes de correr el motor (la clave te la pasa Toro por fuera de GitHub):
-  ```powershell
-  $env:DROID_URL = "http://<IP-de-la-PC-del-backend>:5000/api"
-  $env:YOLO_API_KEY = "<la clave>"
+- **Otra PC:** completá en tu `.env` (la clave te la pasa Toro por fuera de GitHub):
   ```
-- **Zona:** si no se configura, la web usa la zona donde está el robot. Para fijarla: `$env:DROID_ZONA_ID = "2"`.
+  DROID_URL=http://<IP-de-la-PC-del-backend>:5000/api
+  YOLO_API_KEY=<la clave>
+  ```
+  También sirven como variables de entorno (`$env:DROID_URL = "..."`), que tienen prioridad sobre el `.env`.
+- **Zona:** si no se configura, la web usa la zona donde está el robot. Para fijarla: `DROID_ZONA_ID=2` en el `.env`.
+- **Demo completa en la red local:** ver [`../docs/DEMO-LOCAL.md`](../docs/DEMO-LOCAL.md).
 - **Nombres:** para que la alerta quede a nombre de alguien, tiene que existir un empleado en la web
   con el mismo nombre que su carpeta. Para darlos de alta a todos de una vez:
   ```powershell

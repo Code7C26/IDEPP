@@ -87,7 +87,7 @@ frontend/src/
 
 ## 4. Orden de ejecución y calendario (inicio 05/10/2026, < 1 mes)
 
-`/siguiente` sigue este orden: **0 → E.0-E.1 → 1 → 2 → 3 → 4 → 5 → T → R → 6 → L → 7 → 8 → 9**.
+`/siguiente` sigue este orden: **0 → E.0-E.1 → 1 → 2 → 3 → 4 → 5 → T → R → 6 → L → 7 → 8 → 9 → D**.
 (Actualizado 07/10/2026: se suman T (pruebas en el repo) y R (rediseño SaaS) antes de la Fase 6; L pasa después de 6).
 La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes del profe van primero.
 
@@ -97,6 +97,9 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 | 2 · 12/10 | Fases 2, 3, 4 | E.3, E.4 marca | Robot + relé contra stubs |
 | 3 · 19/10 | Fase L, 5, 6 | E.5, E.6 | YOLO + facial, prueba conjunta |
 | 4 · 26/10 | Fases 7, 8, 9 (despliegue) | E.7-E.10 | Ajustes, demo |
+
+> **Estado al 21/10/2026:** la web va adelantada (Fases 0 a 8 listas) y la empresa está completa (E.0 a E.10).
+> Quedan la Fase 9, la prueba real con el hardware (6.5), el logo nuevo (E.11) y el documento final del FAT (Fase D).
 
 > Si hay atraso se ajusta en la bitácora; no se borra nada del plan (decisión: no recortar).
 
@@ -169,6 +172,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] 6.3 Evidencia en detalle y en AlertCard
 - [x] 6.4 `tools/simular_yolo.py`
 - [x] 6.6 Unir el servidor de IA de Morena (`servidor_ia/`) con el backend: alertas con foto, empleado por nombre y zona del robot; `tools/cargar_trabajadores_ia.py`
+- [x] 6.7 (Morena) IPs de la cámara y del robot en `servidor_ia/.env`; fotos de caras y modelos fuera de GitHub; el CI revisa `servidor_ia/` (PR #73)
 - [ ] 6.5 Prueba de integración real (`docs/integracion/PRUEBA.md`, guía lista) con la cámara, el robot y la máquina (#48)
 
 ### Fase 7 · Tiempo real
@@ -184,10 +188,10 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] 8.5 Página Auditoría (#56)
 
 ### Fase 9 · Pulido y despliegue
-- [ ] 9.1 Revisión 360px / PC / modo oscuro; errores y estados de carga (#57)
-- [ ] 9.2 Guía de demo local (IP de la PC, firewall) (#58)
-- [ ] 9.3 Todo en PythonAnywhere: Flask sirve la web (`docs/DESPLIEGUE.md`; repo listo el 15/10, falta crear la cuenta) (#59)
-- [ ] 9.4 README final con capturas y guion de demo (#60)
+- [x] 9.1 Revisión 360px / PC / modo oscuro; errores y estados de carga (#57) · `tests/e2e/test_revision_visual.py`
+- [x] 9.2 Guía de demo local (IP de la PC, firewall) (#58) · `docs/DEMO-LOCAL.md`
+- [ ] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007; PythonAnywhere gratis ya no tiene MySQL). Código listo y probado con Postgres; faltan las cuentas (#59)
+- [ ] 9.4 README final con capturas y guion de demo (#60) · README al día con capturas y links a la demo (21/10); falta rehacer las capturas con el logo nuevo (#72) y sumar el resultado de la 6.5
 
 ### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y deja `TODO (socio)` donde falte una decisión.
@@ -202,6 +206,15 @@ Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y d
 - [x] E.8 Legal (forma jurídica, propiedad intelectual, normativa EPP, datos personales)
 - [x] E.9 FODA
 - [x] E.10 Pitch y guion para el jurado/cliente
+- [ ] E.11 (Morena) Logo nuevo: SVG, PNG y manual de marca; después Toro lo cambia en la web (`Logo.jsx`, favicon, íconos de la PWA) (#72)
+
+### Fase D · Documento final del FAT (`docs/SMAT/documentacion-final/`)
+Se edita en línea entre los dos (link en el README de esa carpeta); lo que falta está marcado `[COMPLETAR]`.
+- [ ] D.1 (Toro) Diseño (5), desarrollo de la web (6), pruebas (7) y capturas de GitHub (11) · borrador listo en `docs/SMAT/documentacion-final/secciones-toro.md` (falta pegarlo y las capturas de GitHub)
+- [ ] D.2 (Morena) Armado del robot, modelo de IA, sensor que falta y fotos (6)
+- [ ] D.3 (Los dos) Portada, ideación, organización, marketing, presentación y anexos (1 a 4 y 8 a 11)
+- [ ] D.4 (Cada uno) Reflexión individual, balance y conclusión (10)
+- [ ] D.5 Pasar a Google Docs con formato APA y guardar el PDF final (`documento-final-droid-e3d.pdf`)
 
 ### Tareas del profe (sección viva, se llena con `/tarea-profe`)
 Formato: `- [ ] P.N descripción (#issue)`

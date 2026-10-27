@@ -86,15 +86,18 @@ export default function Empleados() {
     { clave: 'acciones', titulo: '', clase: 'text-right', render: acciones },
   ]
 
+  // Si el servidor no respondió, no decimos que no hay empleados: no sabemos cuántos hay
+  const vacio = usuarios.error ? 'No se pudo cargar la lista' : 'No hay empleados con esos filtros'
+
   return (
     <>
-      <Titulo titulo="Empleados" subtitulo={usuarios.datos ? `${filas.length} de ${todos.length} personas` : 'Cargando…'}>
+      <Titulo titulo="Empleados" subtitulo={usuarios.cargando && !usuarios.datos ? 'Cargando…' : `${filas.length} de ${todos.length} personas`}>
         <button type="button" className={botonPrimario} onClick={() => abrir({})}>+ Nuevo empleado</button>
       </Titulo>
       <Filtros campos={campos} valores={filtros} onCambiar={setFiltros} />
       {(usuarios.error || (error && !formulario && !aBaja)) && <p role="alert" className={`mt-4 ${mensajeError}`}>{usuarios.error || error}</p>}
 
-      <div className="mt-4 hidden md:block"><Tabla columnas={columnas} filas={filas} vacio="No hay empleados con esos filtros" /></div>
+      <div className="mt-4 hidden md:block"><Tabla columnas={columnas} filas={filas} vacio={vacio} /></div>
       <ul className="mt-4 space-y-2 md:hidden">
         {filas.map((u) => (
           <li key={u.id} className="rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs dark:border-zinc-800 dark:bg-zinc-900">
@@ -103,7 +106,7 @@ export default function Empleados() {
             <div className="mt-3 border-t border-zinc-100 pt-2 text-sm dark:border-zinc-800">{acciones(u)}</div>
           </li>
         ))}
-        {filas.length === 0 && !usuarios.cargando && <li className="rounded-2xl bg-white p-6 text-center text-sm text-zinc-500 dark:bg-zinc-900">No hay empleados con esos filtros.</li>}
+        {filas.length === 0 && !usuarios.cargando && <li className="rounded-2xl bg-white p-6 text-center text-sm text-zinc-500 dark:bg-zinc-900">{vacio}.</li>}
       </ul>
 
       <PanelLateral abierto={Boolean(formulario)} onCerrar={() => setFormulario(null)}

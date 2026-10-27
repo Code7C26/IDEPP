@@ -5,6 +5,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
+# default=...        lo pone Python cuando la app guarda algo.
+# server_default=... lo pone la base cuando se inserta con SQL directo. Son los mismos DEFAULT que
+#                    database/schema.sql; hacen falta en Postgres (Supabase), donde las tablas se
+#                    crean desde estos modelos y no desde schema.sql.
+
 
 class Zona(db.Model):
     """Una zona de la fábrica: tiene una máquina y un EPP obligatorio."""
@@ -13,13 +18,13 @@ class Zona(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), unique=True, nullable=False)
     maquina = db.Column(db.String(100))                        # ej. "Sierra circular"
-    epp_requerido = db.Column(db.String(200), default="")      # texto: "casco,guantes,lentes"
-    maquina_activa = db.Column(db.Boolean, default=True)       # False = la máquina debe estar parada
+    epp_requerido = db.Column(db.String(200), default="", server_default="")      # texto: "casco,guantes,lentes"
+    maquina_activa = db.Column(db.Boolean, default=True, server_default=db.true())       # False = la máquina debe estar parada
     # Posición en el mapa de la fábrica (grilla): x, y, ancho y alto en celdas
-    grilla_x = db.Column(db.Integer, default=0)
-    grilla_y = db.Column(db.Integer, default=0)
-    ancho = db.Column(db.Integer, default=2)
-    alto = db.Column(db.Integer, default=2)
+    grilla_x = db.Column(db.Integer, default=0, server_default="0")
+    grilla_y = db.Column(db.Integer, default=0, server_default="0")
+    ancho = db.Column(db.Integer, default=2, server_default="2")
+    alto = db.Column(db.Integer, default=2, server_default="2")
 
     def to_dict(self):
         epp = [e for e in (self.epp_requerido or "").split(",") if e]
@@ -39,10 +44,10 @@ class Usuario(db.Model):
     contrasena = db.Column(db.String(255), nullable=False)     # hash, nunca la clave en texto
     nombre = db.Column(db.String(100), nullable=False)
     legajo = db.Column(db.String(20), unique=True)             # número de legajo del empleado
-    rol = db.Column(db.Enum("empleado", "encargado"), nullable=False)
+    rol = db.Column(db.Enum("empleado", "encargado", name="rol_usuario"), nullable=False)   # name: lo pide Postgres
     zona_id = db.Column(db.Integer, db.ForeignKey("zonas.id"))
-    activo = db.Column(db.Boolean, default=True)               # False = dado de baja
-    created_at = db.Column(db.DateTime, default=datetime.now)
+    activo = db.Column(db.Boolean, default=True, server_default=db.true())               # False = dado de baja
+    created_at = db.Column(db.DateTime, default=datetime.now, server_default=db.func.now())
 
     zona = db.relationship("Zona", backref="usuarios")
 
@@ -66,11 +71,11 @@ class Incidencia(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     tipo = db.Column(db.String(50), nullable=False)            # sin_casco, sin_guantes...
-    timestamp = db.Column(db.DateTime, default=datetime.now)
+    timestamp = db.Column(db.DateTime, default=datetime.now, server_default=db.func.now())
     zona_id = db.Column(db.Integer, db.ForeignKey("zonas.id"), nullable=False)
     empleado_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
-    confianza = db.Column(db.Float, default=0.0)               # 0 a 1 (viene de YOLO)
-    estado = db.Column(db.String(20), default="activa")        # activa / resuelta
+    confianza = db.Column(db.Float, default=0.0, server_default="0")               # 0 a 1 (viene de YOLO)
+    estado = db.Column(db.String(20), default="activa", server_default="activa")        # activa / resuelta
     imagen_url = db.Column(db.String(255))                     # foto de evidencia
     resuelta_por = db.Column(db.Integer, db.ForeignKey("usuarios.id"))
     resuelta_at = db.Column(db.DateTime)
@@ -123,7 +128,7 @@ class Comentario(db.Model):
     incidencia_id = db.Column(db.Integer, db.ForeignKey("incidencias.id", ondelete="CASCADE"), nullable=False)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id", ondelete="SET NULL"))
     texto = db.Column(db.String(500), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now)
+    created_at = db.Column(db.DateTime, default=datetime.now, server_default=db.func.now())
 
     incidencia = db.relationship("Incidencia", backref=db.backref("comentarios", cascade="all, delete-orphan",
                                                                  passive_deletes=True, order_by="Comentario.id"))
@@ -149,7 +154,7 @@ class SuscripcionPush(db.Model):
     endpoint = db.Column(db.String(500), unique=True, nullable=False)
     p256dh = db.Column(db.String(255), nullable=False)
     auth = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now)
+    created_at = db.Column(db.DateTime, default=datetime.now, server_default=db.func.now())
 
 
 class Auditoria(db.Model):
@@ -159,8 +164,8 @@ class Auditoria(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))   # None = una máquina (YOLO/ESP32)
     accion = db.Column(db.String(50), nullable=False)                  # ej. "resolver_incidencia"
-    detalle = db.Column(db.String(255), default="")
-    created_at = db.Column(db.DateTime, default=datetime.now)
+    detalle = db.Column(db.String(255), default="", server_default="")
+    created_at = db.Column(db.DateTime, default=datetime.now, server_default=db.func.now())
 
     usuario = db.relationship("Usuario")
 
@@ -181,11 +186,11 @@ class Robot(db.Model):
     COMANDOS = ("iniciar", "pausar", "detener", "emergencia")
 
     id = db.Column(db.Integer, primary_key=True)
-    estado = db.Column(db.String(20), default="detenido")
-    bateria = db.Column(db.Integer, default=100)                 # porcentaje 0 a 100
+    estado = db.Column(db.String(20), default="detenido", server_default="detenido")
+    bateria = db.Column(db.Integer, default=100, server_default="100")                 # porcentaje 0 a 100
     zona_actual_id = db.Column(db.Integer, db.ForeignKey("zonas.id"))
     comando_pendiente = db.Column(db.String(20))                 # lo que el robot todavía no ejecutó
-    url_video = db.Column(db.String(255), default="")            # stream MJPEG del servidor de IA
+    url_video = db.Column(db.String(255), default="", server_default="")            # stream MJPEG del servidor de IA
     ultima_conexion = db.Column(db.DateTime)                     # último reporte del ESP32
 
     zona_actual = db.relationship("Zona")
@@ -212,7 +217,7 @@ class PuntoRuta(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     orden = db.Column(db.Integer, nullable=False)
     zona_id = db.Column(db.Integer, db.ForeignKey("zonas.id"), nullable=False)
-    tiempo_espera_seg = db.Column(db.Integer, default=30)
+    tiempo_espera_seg = db.Column(db.Integer, default=30, server_default="30")
 
     zona = db.relationship("Zona")
 

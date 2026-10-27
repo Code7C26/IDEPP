@@ -18,6 +18,7 @@ from routes.push import push_bp
 from routes.reports import reports_bp
 from routes.comentarios import comentarios_bp
 from routes.auditoria import auditoria_bp
+from utils.archivos import crear_bucket, usa_supabase
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -66,7 +67,7 @@ def health():
 
 # ---------- La web compilada (npm run build) ----------
 # Si existe frontend/dist, Flask sirve también la web. Así la API y la web están en la misma dirección
-# (en PythonAnywhere, o en la PC en http://localhost:5000) y no hace falta CORS. Ver docs/DESPLIEGUE.md.
+# (en Render, o en la PC en http://localhost:5000) y no hace falta CORS. Ver docs/DESPLIEGUE.md.
 mimetypes.add_type("application/manifest+json", ".webmanifest")   # el manifest de la PWA
 
 
@@ -85,6 +86,14 @@ def crear_datos_iniciales():
     """Crea las tablas que falten. Los datos de ejemplo vienen de database/schema.sql."""
     db.create_all()
     obtener_robot()  # asegura que exista la fila del robot
+    if db.engine.dialect.name == "postgresql":
+        # Supabase publica las tablas por su propia API web. Con RLS (seguridad por fila) activado y sin
+        # reglas, esa API no puede leer nada. Nuestro backend entra como dueño de las tablas: a él no lo afecta.
+        for tabla in db.metadata.sorted_tables:
+            db.session.execute(db.text(f'ALTER TABLE "{tabla.name}" ENABLE ROW LEVEL SECURITY'))
+        db.session.commit()
+    if usa_supabase():
+        crear_bucket()   # el lugar donde se guardan las fotos en internet
 
 
 if __name__ == "__main__":

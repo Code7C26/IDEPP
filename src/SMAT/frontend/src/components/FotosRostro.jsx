@@ -78,10 +78,19 @@ export default function FotosRostro({ usuarioId, propias = false }) {
 
       {lista.length < maximo && (
         <form onSubmit={subir} className="mt-4 space-y-3 rounded-xl border border-dashed border-zinc-300 p-4 dark:border-zinc-700">
+          {/* El input del navegador queda oculto (en el celular cortaba su texto): se usa un botón propio.
+              Como está dentro de la etiqueta, tocar el botón abre igual el selector de archivos. */}
           <label className="block text-sm font-medium">
             Nueva foto
-            <input ref={entrada} type="file" accept="image/jpeg,image/png" onChange={elegir}
-                   className="mt-1 block w-full text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-zinc-100 file:px-3 file:py-2 file:text-sm file:font-medium hover:file:bg-zinc-200 dark:file:bg-zinc-800 dark:file:text-zinc-200" />
+            <input ref={entrada} type="file" accept="image/jpeg,image/png" onChange={elegir} className="peer sr-only" />
+            <span className="mt-1 flex items-center gap-3 rounded-lg peer-focus-visible:ring-2 peer-focus-visible:ring-marca">
+              <span className="shrink-0 cursor-pointer rounded-lg bg-zinc-100 px-3 py-2 font-medium hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700">
+                Elegir foto
+              </span>
+              <span className="min-w-0 truncate font-normal text-zinc-500 dark:text-zinc-400">
+                {archivo ? archivo.name : 'Ninguna foto elegida'}
+              </span>
+            </span>
           </label>
           <label className="flex items-start gap-2 text-sm">
             <input type="checkbox" checked={consiento} onChange={(e) => setConsiento(e.target.checked)} className="mt-0.5 size-4 accent-marca" />

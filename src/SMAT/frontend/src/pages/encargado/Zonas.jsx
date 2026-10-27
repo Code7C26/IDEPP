@@ -48,7 +48,7 @@ export default function Zonas() {
 
   return (
     <>
-      <Titulo titulo="Zonas" subtitulo={zonas.datos ? `${lista.length} zonas en la fábrica` : 'Cargando…'}>
+      <Titulo titulo="Zonas" subtitulo={zonas.cargando && !zonas.datos ? 'Cargando…' : `${lista.length} zonas en la fábrica`}>
         <button type="button" className={botonPrimario} onClick={() => abrirFormulario({})}>+ Nueva zona</button>
       </Titulo>
       {zonas.error && <p role="alert" className={`mb-4 ${mensajeError}`}>{zonas.error}</p>}

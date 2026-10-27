@@ -4,7 +4,7 @@ from flask import Blueprint, request
 from sqlalchemy import or_
 
 from models import db, Incidencia, Usuario, Zona, obtener_robot
-from utils.archivos import ImagenInvalida, guardar_imagen
+from utils.archivos import AlmacenNoDisponible, ImagenInvalida, guardar_imagen
 from utils.auditoria import registrar
 from utils.decoradores import token_required, rol_requerido, api_key_requerida
 from utils.push import notificar_alerta
@@ -170,6 +170,9 @@ def crear_incidencia():
         except ImagenInvalida as e:
             db.session.rollback()
             return {"error": str(e)}, 400
+        except AlmacenNoDisponible as e:
+            # La alerta y la parada de la máquina importan más que la foto: se guarda igual, sin foto
+            print(f"[AVISO] Alerta #{inc.id} sin foto: {e}")
 
     # Seguridad: si la zona tiene máquina, se detiene hasta que el encargado la reactive.
     # La parada la hace el sistema (no una persona), por eso queda en auditoría sin usuario.
