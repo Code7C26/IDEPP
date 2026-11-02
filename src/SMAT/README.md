@@ -42,7 +42,7 @@ Más capturas en [`docs/SMAT/documentacion-final/capturas/`](../../docs/SMAT/doc
 
 ## Estado técnico (21/10/2026)
 
-Pruebas automáticas en el repo: **105 de la API** (pytest) y **112 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 17 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
+Pruebas automáticas en el repo: **112 de la API** (pytest), que corren contra MySQL y contra Postgres, y **112 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 17 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
 
 | Área | Estado |
 |---|---|
@@ -56,8 +56,8 @@ Pruebas automáticas en el repo: **105 de la API** (pytest) y **112 de punta a p
 | Tiempo real: cartel y sonido, web instalable (PWA), notificaciones push | ✅ Funciona (push e instalación en el celular solo con https) |
 | Reportes con gráficos y ranking, CSV, PDF mensual, comentarios, auditoría | ✅ Funciona |
 | Servidor de IA de Morena (`servidor_ia/`) conectado con la web | ✅ Conectado; falta la prueba real con la cámara y el robot |
-| Publicación en internet (Render + Supabase) | 🔜 Código listo y probado con Postgres; falta crear las cuentas (9.3) |
-| Hardware (robot, relé, cámara) | En desarrollo por Morena. Mientras tanto: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
+| Publicación en internet (Render + Supabase) | 🔜 Código listo y probado con Postgres; Supabase cargado; falta publicar en Render (9.3) |
+| Hardware (robot, relé, cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`; falta conectarlo con la web y la prueba real (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
 
 El detalle tarea por tarea está en [`docs/PLAN.md`](docs/PLAN.md) y los documentos de la empresa y el reporte de avance en [`docs/SMAT/`](../../docs/SMAT/) (en la raíz del repo).
 
@@ -159,7 +159,7 @@ cd C:\Users\tomas\Fat\TOUCH-ID\src\SMAT
 backend\venv\Scripts\activate
 pip install -r backend\requirements-dev.txt      # una sola vez
 
-python -m pytest backend\tests        # 105 pruebas de la API (~30 s), usan la base robot_db_test
+python -m pytest backend\tests        # 112 pruebas de la API (~2 min), usan la base robot_db_test
 python tests\correr_e2e.py            # 112 pruebas con navegador real (~8 min), usan robot_db_e2e
 ```
 Las pruebas **nunca tocan la base de desarrollo** (`robot_db`). Las de punta a punta levantan su propio backend (puerto 5001) y su propia web (5174), y prueban también el robot con el ESP32 simulado.

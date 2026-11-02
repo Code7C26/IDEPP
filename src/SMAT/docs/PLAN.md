@@ -98,8 +98,8 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 | 3 · 19/10 | Fase L, 5, 6 | E.5, E.6 | YOLO + facial, prueba conjunta |
 | 4 · 26/10 | Fases 7, 8, 9 (despliegue) | E.7-E.10 | Ajustes, demo |
 
-> **Estado al 21/10/2026:** la web va adelantada (Fases 0 a 8 listas) y la empresa está completa (E.0 a E.10).
-> Quedan la Fase 9, la prueba real con el hardware (6.5), el logo nuevo (E.11) y el documento final del FAT (Fase D).
+> **Estado al 02/11/2026:** web lista (Fases 0 a 8, 9.1 y 9.2) y empresa completa (E.0 a E.10). Quedan publicar (9.3),
+> conectar el robot real con la web (6.8) y probarlo (6.5), el logo nuevo (E.11), el README final (9.4) y el documento final (Fase D).
 
 > Si hay atraso se ajusta en la bitácora; no se borra nada del plan (decisión: no recortar).
 
@@ -173,6 +173,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] 6.4 `tools/simular_yolo.py`
 - [x] 6.6 Unir el servidor de IA de Morena (`servidor_ia/`) con el backend: alertas con foto, empleado por nombre y zona del robot; `tools/cargar_trabajadores_ia.py`
 - [x] 6.7 (Morena) IPs de la cámara y del robot en `servidor_ia/.env`; fotos de caras y modelos fuera de GitHub; el CI revisa `servidor_ia/` (PR #73)
+- [ ] 6.8 (Morena) Conectar `robot_droid.ino` con la web: órdenes, estado y zona (sin esto, la web lo ve sin conexión y rechaza las alertas sin zona)
 - [ ] 6.5 Prueba de integración real (`docs/integracion/PRUEBA.md`, guía lista) con la cámara, el robot y la máquina (#48)
 
 ### Fase 7 · Tiempo real
@@ -190,7 +191,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 ### Fase 9 · Pulido y despliegue
 - [x] 9.1 Revisión 360px / PC / modo oscuro; errores y estados de carga (#57) · `tests/e2e/test_revision_visual.py`
 - [x] 9.2 Guía de demo local (IP de la PC, firewall) (#58) · `docs/DEMO-LOCAL.md`
-- [ ] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007; PythonAnywhere gratis ya no tiene MySQL). Código listo y probado con Postgres; faltan las cuentas (#59)
+- [ ] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007). Código listo y probado con Postgres; datos cargados en Supabase el 22/10; falta la clave de Storage y publicar en Render (#59)
 - [ ] 9.4 README final con capturas y guion de demo (#60) · README al día con capturas y links a la demo (21/10); falta rehacer las capturas con el logo nuevo (#72) y sumar el resultado de la 6.5
 
 ### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
