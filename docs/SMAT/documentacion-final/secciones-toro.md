@@ -4,7 +4,7 @@
 > **6 · Desarrollo (software)**, **7 · Pruebas** y **11 · Anexos (capturas)**. Para pasarlo al
 > documento en línea (link en [`README.md`](README.md)): copiar cada sección debajo de su título y
 > después aplicar el formato APA en Google Docs. Lo que falta está marcado **[COMPLETAR]**.
-> Datos al 21/10/2026.
+> Datos al 02/11/2026.
 
 ---
 
@@ -44,12 +44,12 @@ Cada decisión importante quedó registrada en `src/SMAT/docs/decisiones/`, con 
 | 002 · Comunicación con el ESP32 | HTTP con consulta periódica | MQTT | No necesita otro servidor (broker), anda igual en la red local y en internet, y se prueba con el navegador |
 | 003 · Diseño visual | Tailwind CSS | CSS propio, librerías de componentes | Interfaz coherente en celular y PC, con modo oscuro, sin escribir CSS a mano |
 | 004 · Avisos al celular | Web instalable (PWA) + notificaciones push | WebSockets, app nativa | Las alertas llegan aunque la web esté cerrada, sin publicar una app en las tiendas |
-| 005 · Publicación | PythonAnywhere (API y web en el mismo lugar) | Vercel + Supabase | Gratis, una sola cuenta y un solo lugar para mantener |
+| 007 · Publicación | Render (API y web) + Supabase (base y fotos) | PythonAnywhere, que dejó de ofrecer MySQL gratis, y SQLite | Gratis, y usa servicios que se emplean en la industria |
 | 006 · Medida de cumplimiento | Días sin alertas sobre los días del período | Alertas por persona | Se explica en una frase y es justo entre zonas que el robot visita con distinta frecuencia |
 
 ### 5.3 Base de datos
 
-Usamos MySQL (MariaDB de XAMPP) con 9 tablas:
+Usamos 9 tablas. En la PC y en la demo local están en MySQL (MariaDB de XAMPP); en la versión de internet, en Postgres (Supabase). El mismo código funciona con los dos motores:
 
 | Tabla | Guarda |
 |---|---|
@@ -91,6 +91,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 - Antes de subir una foto de rostro hay que **dar el consentimiento** expreso (Ley 25.326). Cada persona puede borrar sus fotos cuando quiera.
 - Todas las acciones importantes quedan en la **auditoría**.
 - Las descargas en CSV están protegidas para que Excel no ejecute fórmulas escondidas en los datos.
+- En internet, las fotos están en un almacenamiento privado (Supabase Storage) y las tablas tienen activada la seguridad por fila (RLS), para que solo el backend pueda leerlas.
 
 ---
 
@@ -99,9 +100,9 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 ### 6.1 Forma de trabajo
 
 - **Planificación por fases:** el trabajo se dividió en fases y tareas en `src/SMAT/docs/PLAN.md`. Cada tarea se marca cuando está terminada.
-- **GitHub:** repositorio `Code7C26/TOUCH-ID` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 21/10 hubo **31 issues** de SMAT (**27 cerrados**).
-- **Ramas y Pull Requests:** cada socio trabaja en su rama (`SMAT-web`, `SMAT-hardware`, `SMAT-empresa`) y los cambios entran a `main` solo con un Pull Request. Hasta el 21/10 se integraron **18 Pull Requests** y **46 commits**.
-- **Pruebas automáticas en cada cambio:** GitHub Actions corre todas las pruebas antes de aceptar un Pull Request (ver sección 7). Hasta el 21/10 corrió **29 veces**.
+- **GitHub:** repositorio `Code7C26/TOUCH-ID` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 02/11 hubo **31 issues** de SMAT (**27 cerrados**).
+- **Ramas y Pull Requests:** cada socio trabaja en su rama (`SMAT-web`, `SMAT-hardware`, `SMAT-empresa`) y los cambios entran a `main` solo con un Pull Request. Hasta el 02/11 se integraron **24 Pull Requests** y **54 commits**.
+- **Pruebas automáticas en cada cambio:** GitHub Actions corre todas las pruebas antes de aceptar un Pull Request (ver sección 7). Hasta el 02/11 corrió **39 veces**.
 - **Registro:** una bitácora semanal (`docs/BITACORA.md`) y las decisiones técnicas por escrito (`docs/decisiones/`).
 - **Herramientas:** Visual Studio Code, Git y GitHub, XAMPP (MySQL) y **Claude Code**, un asistente de programación con inteligencia artificial que usamos para escribir y revisar código, pruebas y documentación. Cada cambio se revisó y se probó antes de integrarlo.
 
@@ -120,7 +121,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 | L · Página pública | 08/10 | Página de SMAT con capturas reales y planes |
 | 7 · Tiempo real | 08/10 | Cartel y sonido de alertas, web instalable y notificaciones push |
 | 8 · Reportes | 09/10 | Gráficos, ranking de cumplimiento, descargas en CSV y PDF mensual para la ART, comentarios y auditoría |
-| 9 · Pulido y publicación | 15 al 21/10 | Preparación para PythonAnywhere, revisión de todas las pantallas y guía de la demo local |
+| 9 · Pulido y publicación | 15 al 22/10 | Revisión de todas las pantallas, guía de la demo local y preparación de la versión de internet en Render + Supabase |
 
 ### 6.3 Funcionalidades principales
 
@@ -150,7 +151,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 ### 6.5 Publicación
 
 - **Demo en la red local:** la notebook hace de servidor y los celulares, el robot y la IA se conectan por WiFi. La guía paso a paso (IP, firewall, configuración de cada pieza y problemas comunes) está en `src/SMAT/docs/DEMO-LOCAL.md`.
-- **Versión en internet:** PythonAnywhere, con la API y la web en la misma dirección (`docs/DESPLIEGUE.md`). **[COMPLETAR]** Dirección final cuando se publique.
+- **Versión en internet:** Render sirve la API y la web en la misma dirección; Supabase guarda la base y las fotos (`docs/DESPLIEGUE.md`). El backend se adaptó para funcionar con Postgres además de MySQL. **[COMPLETAR]** Dirección final cuando se publique.
 
 ---
 
@@ -158,11 +159,11 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 
 ### 7.1 Pruebas automáticas
 
-El proyecto tiene **217 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
+El proyecto tiene **224 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
 
 | Tipo | Cantidad | Herramienta | Qué prueban |
 |---|---|---|---|
-| **De la API** (backend) | 105 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot y máquinas, reportes, comentarios, auditoría, notificaciones, conexión con la IA y robustez |
+| **De la API** (backend) | 112 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot y máquinas, reportes, comentarios, auditoría, notificaciones, conexión con la IA y robustez. Corren dos veces: contra MySQL y contra Postgres, el motor de la versión de internet |
 | **De punta a punta** (navegador real) | 112 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
 
 Las pruebas usan **bases de datos propias** (`robot_db_test` y `robot_db_e2e`): nunca tocan los datos reales.
@@ -196,6 +197,8 @@ Además, revisa que cada pantalla **avise si el servidor no responde**, en lugar
 | En la página pública, una imagen del celular se veía como una barra negra hasta cargar | Capturas de la revisión visual | Se reserva el tamaño de la imagen antes de cargarla |
 | El comando para cargar la base no andaba en PowerShell | Al escribir la guía de la demo | Se usa `cmd /c` |
 | Si un dato del `.env` de la IA quedaba vacío, se perdía la dirección del backend | Al revisar la configuración | Se usa el valor por defecto |
+| En Postgres, las alertas cargadas con SQL directo quedaban sin estado | Al correr las pruebas contra Postgres | Se copiaron a los modelos los valores por defecto de `schema.sql` |
+| PythonAnywhere dejó de ofrecer MySQL en el plan gratis | Al crear la cuenta | Se cambió a Render + Supabase (decisión 007) |
 
 ### 7.5 Prueba real con el hardware
 

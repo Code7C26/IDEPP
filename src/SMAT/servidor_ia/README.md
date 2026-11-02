@@ -53,7 +53,8 @@ con `registrar_trabajador.py`. `modelo_cascos.pt` sí está en el repo.
   YOLO_API_KEY=<la clave>
   ```
   También sirven como variables de entorno (`$env:DROID_URL = "..."`), que tienen prioridad sobre el `.env`.
-- **Zona:** si no se configura, la web usa la zona donde está el robot. Para fijarla: `DROID_ZONA_ID=2` en el `.env`.
+- **Zona:** si no se configura, la web usa la zona que informó el robot. **Si el robot no la informó, la web rechaza la
+  alerta (error 400).** Para fijarla: `DROID_ZONA_ID=2` en el `.env`.
 - **Demo completa en la red local:** ver [`../docs/DEMO-LOCAL.md`](../docs/DEMO-LOCAL.md).
 - **Nombres:** para que la alerta quede a nombre de alguien, tiene que existir un empleado en la web
   con el mismo nombre que su carpeta. Para darlos de alta a todos de una vez:

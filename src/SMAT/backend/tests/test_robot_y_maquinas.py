@@ -23,6 +23,18 @@ def test_una_orden_se_repite_hasta_que_el_robot_la_confirma(cliente, encargada):
     assert r == {"comando": None, "estado": "recorriendo"}
 
 
+def test_el_reporte_alcanza_para_recibir_y_confirmar_ordenes(cliente, encargada):
+    """robot_droid.ino usa solo POST /robot/reporte: la respuesta trae la orden y ahí mismo la confirma."""
+    cliente.post("/api/robot/comando", json={"comando": "iniciar"}, headers=encargada)
+    assert cliente.post("/api/robot/reporte", json={}, headers=ROBOT).json["comando"] == "iniciar"
+    r = cliente.post("/api/robot/reporte", json={"estado": "recorriendo", "comando_ejecutado": "iniciar"}, headers=ROBOT).json
+    assert r["comando"] is None and r["estado"] == "recorriendo"
+    # Un reporte sin "estado" no pisa la emergencia que acaba de mandar el encargado
+    cliente.post("/api/robot/comando", json={"comando": "emergencia"}, headers=encargada)
+    r = cliente.post("/api/robot/reporte", json={"zona_actual_id": 1}, headers=ROBOT).json
+    assert r["comando"] == "emergencia" and r["estado"] == "emergencia"
+
+
 def test_reporte_con_datos_invalidos(cliente):
     for datos in ({"bateria": 150}, {"estado": "volando"}, {"zona_actual_id": 99}):
         assert cliente.post("/api/robot/reporte", json=datos, headers=ROBOT).status_code == 400

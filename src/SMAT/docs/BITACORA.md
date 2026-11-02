@@ -2,6 +2,26 @@
 
 > Una entrada por semana (más nueva arriba). Se genera con `/bitacora`.
 
+## Semana 5 · desde el 02/11/2026
+
+**Hecho**
+- 02/11: Se ponen al día el documento final (224 pruebas, Render + Supabase), el README, las guías y esta bitácora.
+
+**Problemas**
+- Al revisar el sketch del robot para la demo: todavía no habla con la web, así que la web lo muestra «Sin conexión» y sus botones no le llegan. Además, si el robot no informa su zona y no hay `DROID_ZONA_ID`, la web rechaza las alertas de la cámara (error 400). Se documenta en `DEMO-LOCAL.md` y queda la tarea 6.8.
+- El proyecto de Supabase se pausó por falta de uso: hay que reactivarlo desde su panel antes de publicar.
+
+**Próximos pasos**
+- Conectar el robot con la web (6.8) y hacer la prueba real (6.5, #48). Publicar en Render (9.3). Logo nuevo (#72) y README final (9.4).
+
+## Semana 4 · desde el 26/10/2026
+
+**Hecho**
+- 27/10: Morena corrige la alarma que no cortaba, ajusta el umbral del sensor de línea a lo medido (blanco 0-450, cinta negra 1900-2700), suma el buzzer configurable y lleva a 20 s la espera entre alertas (PR #83).
+
+**Problemas**
+- Según Morena: el sensor de línea del GPIO 34 no reacciona (se compraron TCRT5000) y el VL53L0X todavía no se probó conectado.
+
 ## Semana 3 · desde el 19/10/2026
 
 **Hecho**
@@ -12,6 +32,7 @@
 - 21/10: **Fase 9.1**: prueba automática que recorre las 17 pantallas en celular y PC, en claro y oscuro, y con el servidor caído (78 casos). Arreglos: Empleados y Zonas quedaban en «Cargando…» sin servidor, y el botón para elegir la foto de rostro cortaba su texto en el celular. 105 pruebas de la API y 112 de punta a punta.
 - 21/10: **Fase 9.2**: `docs/DEMO-LOCAL.md`, guía para la demo sin internet (IP, firewall, dónde va la IP en cada pieza, simuladores y problemas comunes). La IA ahora lee también `DROID_URL` y `YOLO_API_KEY` de `servidor_ia/.env`. El README cargaba el esquema con `<`, que en PowerShell no anda: ahora usa `cmd /c`.
 - 22/10: Secciones técnicas de Toro del documento final, en Markdown y en Word con formato APA (`docs/SMAT/documentacion-final/`). Consentimientos de las fotos confirmados. Morena sube por PR el sketch del robot con sensores de línea y de distancia (#77).
+- 22/10: Datos de ejemplo cargados en Supabase con `tools/cargar_supabase.py`; login comprobado. Falta publicar en Render.
 - 22/10: **Fase 9.3**: PythonAnywhere gratis ya no tiene MySQL, así que la versión online pasa a **Render + Supabase** (decisión 007). El backend funciona con MySQL y con Postgres; las 105 pruebas de la API corren también contra Postgres en GitHub Actions; las fotos van a Supabase Storage; `tools/cargar_supabase.py` carga los datos de ejemplo.
 
 **Problemas**
