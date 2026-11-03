@@ -10,8 +10,9 @@ CARPETA = os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "publi
 @pytest.mark.parametrize("archivo", ["robot.html", "fabrica.html", "patrulla.html"])
 def test_usan_solo_archivos_locales(archivo):
     texto = open(os.path.join(CARPETA, archivo), encoding="utf-8").read()
-    assert not re.findall(r"""(?:src|href)=["']https?://""", texto)
-    assert "cdn.jsdelivr.net" not in texto and "fonts.googleapis.com" not in texto
+    # Ningún enlace a internet, ni pedidos desde el código. Los juegos y renders no tienen por qué salir de la web
+    assert not re.findall(r"https?://", texto)
+    assert not re.findall(r"\bfetch\(|XMLHttpRequest|WebSocket", texto)
     # Cada archivo que piden tiene que existir, y embebido.js tiene que cargar antes que su código
     pedidos = re.findall(r"""(?:src|href)=["']/robot3d/([^"']+)["']""", texto)
     assert pedidos[:1] == ["fuentes.css"] and pedidos[1] == "embebido.js"
