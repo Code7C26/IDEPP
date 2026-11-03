@@ -53,7 +53,7 @@ export default function InicioPublico() {
       </section>
 
       <Seccion antetitulo="El robot" titulo="Recorre las zonas y frena la máquina donde falta el equipo"
-               descripcion="Así se ve en la plataforma: dónde está el robot, qué zona tiene una falta y qué máquina se detuvo.">
+               descripcion="Modelo 3D del robot que patrulla la fábrica y controla que cada trabajador tenga el casco puesto. Arrastrá para girarlo.">
         <RobotSimulado />
       </Seccion>
 

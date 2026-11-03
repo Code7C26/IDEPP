@@ -4,6 +4,13 @@
 /* Modo oscuro manual: se activa cuando <html> tiene la clase "dark" (lo maneja TemaContext). */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Tipografías del render 3D del robot (public/fuentes): solo se descargan en las páginas que lo muestran.
+   IBM Plex Sans es un solo archivo con todos los pesos; se declara como 400 y 600, igual que en el render original. */
+@font-face { font-family: "Archivo Black"; font-weight: 400; font-display: swap; src: url("/fuentes/archivo-black.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-display: swap; src: url("/fuentes/ibm-plex-sans.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-display: swap; src: url("/fuentes/ibm-plex-sans.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 500; font-display: swap; src: url("/fuentes/ibm-plex-mono-500.woff2") format("woff2"); }
+
 /* Colores de la marca (docs/SMAT/EMPRESA-SMAT/03-marca/manual-de-marca.md).
    Estilo SaaS: el amarillo es el ACENTO (logo, elemento activo, foco); los botones principales usan tinta.
    Se usan como clases: bg-marca, text-alerta, border-ok, etc. */
@@ -14,6 +21,10 @@
   --color-alerta: #dc2626;       /* rojo: alertas activas, emergencia */
   --color-ok: #16a34a;           /* verde: todo en orden */
   --color-tinta: #1f2328;        /* texto oscuro sobre amarillo */
+
+  /* Se usan como clases font-robot y font-robot-mono */
+  --font-robot: "IBM Plex Sans", system-ui, sans-serif;
+  --font-robot-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
   /* sombras más suaves que las de fábrica, típicas de un panel SaaS */
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);

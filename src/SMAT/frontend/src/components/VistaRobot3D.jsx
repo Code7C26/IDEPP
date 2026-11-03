@@ -1,64 +1,29 @@
-// Vista 3D de la planta con el robot, y debajo una línea de texto que dice dónde está.
-// El texto es lo que vale: el dibujo lo acompaña. Si el equipo no puede mostrar 3D (sin WebGL, o sin
-// conexión para descargar Three.js) se ve el mapa de siempre.
+// El render del robot con sus datos reales, para el empleado y el encargado.
+// El cartel dice dónde está y el modelo muestra su estado: las orugas giran solo si está recorriendo, la
+// pantalla cambia, la baliza titila en emergencia y sin conexión se ve gris. Dónde anda se ve en el mapa.
 // Props:
-//   zonas, ruta (lista de zona_id en orden) y robot: los datos de la API (o los de useRobotSimulado)
+//   robot            lo que devuelve la API (GET /robot/posicion o /robot/estado)
+//   zonas, ruta      para el mapa (ruta: lista de zona_id en orden)
 //   alertasPorZona   { zona_id: cantidad }; null si no se conocen (el empleado solo ve las suyas)
-//   zonaResaltada    id de la zona que se marca como "Tu zona" (opcional)
-//   alerta           el robot acaba de detectar una falta (opcional)
-//   simulada         muestra el cartel "Simulación"
-//   texto            reemplaza a la línea de texto (opcional)
-import { Component, lazy, Suspense, useState } from 'react'
-import { hayWebgl, textoPosicion } from '../utils/robot3d.js'
+//   zonaResaltada    id de la zona que se remarca en el mapa: la del empleado (opcional)
+import { estadoDelRender, textoPosicion } from '../utils/robot3d.js'
 import MapaFabrica from './MapaFabrica.jsx'
+import Escenario, { BotonesVista, useVista } from './robot3d/Escenario.jsx'
 
-const PlantaRobot3D = lazy(() => import('./robot3d/PlantaRobot3D.jsx'))
-
-// Si no se pudo descargar la parte 3D (por ejemplo, sin conexión), avisa en vez de romper la página
-class SiFalla extends Component {
-  state = { fallo: false }
-
-  static getDerivedStateFromError() {
-    return { fallo: true }
-  }
-
-  componentDidCatch() {
-    this.props.onFallo()
-  }
-
-  render() {
-    return this.state.fallo ? null : this.props.children
-  }
-}
-
-const gesto = () => (window.matchMedia('(pointer: coarse)').matches ? 'Girá la vista con dos dedos.' : 'Arrastrá para girar la vista.')
-
-export default function VistaRobot3D({ zonas = [], ruta = [], robot, alertasPorZona = null, zonaResaltada = null, alerta = false, simulada = false, texto }) {
-  const [con3d, setCon3d] = useState(hayWebgl)
-  const datos = { zonas, ruta, robot, alertasPorZona, zonaResaltada, alerta }
+export default function VistaRobot3D({ robot, zonas = [], ruta = [], alertasPorZona = null, zonaResaltada = null }) {
+  const vista = useVista()
+  const { tono, ...estado } = estadoDelRender(robot)
 
   return (
     <figure>
-      {con3d ? (
-        <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-zinc-200 sm:aspect-[16/10] dark:bg-zinc-800">
-          <SiFalla onFallo={() => setCon3d(false)}>
-            <Suspense fallback={<p className="grid size-full place-items-center text-sm text-zinc-500 dark:text-zinc-400">Preparando la vista 3D…</p>}>
-              <PlantaRobot3D datos={datos} onFallo={() => setCon3d(false)} />
-            </Suspense>
-          </SiFalla>
-          {simulada && <span className="absolute top-3 left-3 rounded-full bg-tinta px-3 py-1 text-xs font-semibold text-white">Simulación</span>}
-        </div>
-      ) : (
-        <div className="relative">
-          <MapaFabrica zonas={zonas} robot={robot} ruta={ruta} alertasPorZona={alertasPorZona} />
-          {simulada && <span className="absolute top-3 left-3 rounded-full bg-tinta px-3 py-1 text-xs font-semibold text-white">Simulación</span>}
-        </div>
-      )}
-      <figcaption className="mt-3">
-        <p role="status" className="font-medium">{texto || textoPosicion(robot)}</p>
-        <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
-          La posición se muestra por zona; el paso de una a otra es una animación.{con3d && ` ${gesto()}`}
-        </p>
+      <Escenario estado={estado} tono={tono} texto={textoPosicion(robot)} vista={vista} />
+      <div className="mt-3 flex flex-wrap gap-2"><BotonesVista vista={vista} /></div>
+      <div className="mt-4">
+        <MapaFabrica zonas={zonas} robot={robot} ruta={ruta} alertasPorZona={alertasPorZona} seleccionada={zonaResaltada} />
+      </div>
+      <figcaption className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
+        El mapa muestra en qué zona está el robot: la posición se conoce por zona, no al centímetro.
+        {zonaResaltada && ' Tu zona es la que tiene el borde más grueso.'}
       </figcaption>
     </figure>
   )

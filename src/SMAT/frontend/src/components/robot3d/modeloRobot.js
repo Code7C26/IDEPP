@@ -1,7 +1,7 @@
 // Modelo 3D del robot DROID-E3D: orugas, cuerpo, pantalla, brazos, cuello y cabeza con la cámara.
-// Está armado con piezas de Three.js (no hay un archivo de modelo). Mide unas 2,5 unidades de alto;
-// el frente mira hacia +Z y las orugas apoyan en y = 0.
-// Uso: const robot = crearRobot(); escena.add(robot.grupo); robot.ponerPantalla('escaneando')
+// Es el del render "Robot SMAT 3D", pieza por pieza: si se cambia allá, hay que cambiarlo acá.
+// Está armado con piezas de Three.js (no hay un archivo de modelo).
+// Uso: const robot = crearRobot(); escena.add(robot.grupo); robot.ponerPantalla('ok')
 import * as THREE from 'three'
 
 // Medidas del cuerpo: varias piezas se ubican a partir de estas
@@ -24,7 +24,7 @@ export function texturaDeCanvas(ancho, alto, dibujar = () => {}) {
   const ctx = canvas.getContext('2d')
   dibujar(ctx, ancho, alto)
   const textura = new THREE.CanvasTexture(canvas)
-  textura.colorSpace = THREE.SRGBColorSpace
+  textura.encoding = THREE.sRGBEncoding
   textura.anisotropy = 4
   return { textura, ctx }
 }
@@ -250,10 +250,19 @@ function dibujarCasco(ctx, x, y, tamano, color) {
   ctx.fillRect(x - tamano * 0.12, y - tamano, tamano * 0.24, tamano)
 }
 
-const LETRA = 'system-ui, "Segoe UI", Arial, sans-serif'
+const LETRA = '"IBM Plex Sans", sans-serif'
 
-// Lo que muestra la pantallita según el modo
+// Lo que muestra la pantallita según el modo. ok, escaneando y sin_casco son las del render original;
+// espera, emergencia y apagado se agregaron para mostrar el estado real del robot.
 const PANTALLAS = {
+  ok: (ctx) => {
+    ctx.fillStyle = '#0f6b35'; ctx.fillRect(0, 0, 240, 240)
+    dibujarCasco(ctx, 120, 110, 52, '#f2d000')
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 12; ctx.lineCap = 'round'
+    ctx.beginPath(); ctx.moveTo(150, 128); ctx.lineTo(166, 146); ctx.lineTo(196, 112); ctx.stroke()
+    ctx.fillStyle = '#ffffff'
+    ctx.font = `700 34px ${LETRA}`; ctx.fillText('CASCO OK', 120, 192)
+  },
   escaneando: (ctx) => {
     ctx.fillStyle = '#123a8c'; ctx.fillRect(0, 0, 240, 240)
     ctx.strokeStyle = '#7fb0ff'; ctx.lineWidth = 6
@@ -268,14 +277,14 @@ const PANTALLAS = {
     ctx.fillStyle = '#ffffff'
     ctx.font = `700 34px ${LETRA}`; ctx.fillText('EN ESPERA', 120, 192)
   },
-  falta_epp: (ctx) => {
+  sin_casco: (ctx) => {
     ctx.fillStyle = '#b3161c'; ctx.fillRect(0, 0, 240, 240)
     dibujarCasco(ctx, 120, 108, 52, '#f2d000')
     ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 14; ctx.lineCap = 'round'
     ctx.beginPath(); ctx.arc(120, 90, 78, 0, Math.PI * 2); ctx.stroke()
     ctx.beginPath(); ctx.moveTo(65, 35); ctx.lineTo(175, 145); ctx.stroke()
     ctx.fillStyle = '#ffffff'
-    ctx.font = `700 32px ${LETRA}`; ctx.fillText('FALTA EPP', 120, 196)
+    ctx.font = `700 32px ${LETRA}`; ctx.fillText('SIN CASCO!', 120, 196)
     ctx.font = `600 20px ${LETRA}`; ctx.fillText('MAQUINA PARADA', 120, 224)
   },
   emergencia: (ctx) => {
@@ -330,7 +339,7 @@ function armarPuerta(robot, M) {
   const logo = texturaDeCanvas(512, 128, (ctx, ancho, alto) => {
     ctx.clearRect(0, 0, ancho, alto)
     ctx.fillStyle = '#1b1b1b'
-    ctx.font = '900 96px "Arial Black", Arial, sans-serif'
+    ctx.font = '400 96px "Archivo Black", "Arial Black", sans-serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.fillText('SMAT', ancho / 2 - 30, alto / 2 + 4)
@@ -523,11 +532,13 @@ export function crearRobot() {
   // La baliza y los ojos titilan en rojo. ahora = milisegundos, como los da requestAnimationFrame
   function titilar(ahora) {
     const prendida = Math.sin(ahora / 110) > 0
+    M.baliza.color.setHex(0xff2a1a)
     M.baliza.emissive.setHex(prendida ? 0xff2a1a : 0x330000)
     materialAro.emissive.setHex(prendida ? 0x991010 : 0x220000)
-    luzAlerta.intensity = prendida ? 3 : 0
+    luzAlerta.intensity = prendida ? 2.2 : 0
   }
   function apagarBaliza() {
+    M.baliza.color.setHex(0xb01818)
     M.baliza.emissive.setHex(0x000000)
     materialAro.emissive.setHex(0x000000)
     luzAlerta.intensity = 0

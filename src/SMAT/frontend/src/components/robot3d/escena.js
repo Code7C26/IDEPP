@@ -1,365 +1,168 @@
-// Escena 3D: la planta (una baldosa por zona, armada con su lugar en la grilla), la ruta y el robot.
-// No sabe nada de React: PlantaRobot3D.jsx la crea y le pasa los datos con actualizar().
-// Regla: el robot solo se mueve cuando cambia su zona. No se inventa movimiento: sin conexión queda
-// gris y quieto, y entre dos zonas se desliza con una animación (la posición real se conoce por zona).
+// Escena 3D del robot: la misma del render "Robot SMAT 3D" (cámara, luces, piso con la línea amarilla y
+// el casco de referencia), con Three.js 0.128 como el original, para que se vea igual.
+// No sabe nada de React: EscenaRobot.jsx la crea y le pasa el estado con ponerEstado().
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { estadoVisible, medidasGrilla, resumenZona } from '../../utils/mapa.js'
 import { crearRobot, texturaDeCanvas } from './modeloRobot.js'
 
-const CELDA = 2                 // cada celda de la grilla mide 2 unidades
-const ESCALA_ROBOT = 1.25
-const PIXELES_POR_CELDA = 170   // resolución del dibujo de cada baldosa
-const SEGUNDOS_ENTRE_ZONAS = 2
-const PISO_RADIO = 60
-const DIRECCION_CAMARA = new THREE.Vector3(0.16, 0.8, 1).normalize()
+export function crearEscena(contenedor) {
+  const reducirMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const celular = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700
 
-const COLORES = {
-  claro: {
-    piso: '#d4d6cf', lineaPiso: 'rgba(0,0,0,.07)', nombre: '#18181b', maquina: '#52525b', resaltada: '#c99400',
-    ok: { fondo: '#d6ebdc', borde: '#16a34a', texto: '#15803d' },
-    alerta: { fondo: '#f6d2d2', borde: '#dc2626', texto: '#b91c1c' },
-    detenida: { fondo: '#fde3cb', borde: '#f97316', texto: '#c2410c' },
-    neutro: { fondo: '#eeefeb', borde: '#9aa09a', texto: '#52525b' },
-  },
-  oscuro: {
-    piso: '#2a2d30', lineaPiso: 'rgba(255,255,255,.05)', nombre: '#f4f4f5', maquina: '#d4d4d8', resaltada: '#f5b800',
-    ok: { fondo: '#1c3a2a', borde: '#22c55e', texto: '#4ade80' },
-    alerta: { fondo: '#4f2022', borde: '#ef4444', texto: '#fca5a5' },
-    detenida: { fondo: '#4f2f17', borde: '#f97316', texto: '#fdba74' },
-    neutro: { fondo: '#35383c', borde: '#71717a', texto: '#d4d4d8' },
-  },
-}
-
-// En el celular: sin sombras y con menos resolución, para que no gaste batería
-const esCelular = () => window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 700
-
-export function crearEscena(contenedor, { oscuro: oscuroInicial = false, onContextoPerdido = () => {} } = {}) {
-  const celular = esCelular()
-  const movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  let oscuro = oscuroInicial
-
-  // Si el equipo no tiene WebGL, esto da error: lo atrapa PlantaRobot3D y se muestra el mapa 2D
+  // Si el equipo no tiene WebGL, esto da error: lo atrapa EscenaRobot y la página sigue andando
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, celular ? 1.75 : 2))
-  renderer.shadowMap.enabled = !celular
-  renderer.shadowMap.type = THREE.PCFShadowMap
-  contenedor.appendChild(renderer.domElement)
-  renderer.domElement.style.display = 'block'
-  renderer.domElement.addEventListener('webglcontextlost', (e) => { e.preventDefault(); onContextoPerdido() })
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  renderer.shadowMap.enabled = true
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap
+  renderer.outputEncoding = THREE.sRGBEncoding
+  const lienzo = renderer.domElement
+  lienzo.style.display = 'block'
+  lienzo.style.width = '100%'
+  lienzo.style.height = '100%'
+  lienzo.style.touchAction = 'pan-y'
+  contenedor.appendChild(lienzo)
 
   const escena = new THREE.Scene()
-  const camara = new THREE.PerspectiveCamera(32, 4 / 3, 0.1, 300)
-  const objetivo = new THREE.Vector3(0, 0.7, 0.4)
+  const camara = new THREE.PerspectiveCamera(35, 4 / 3, 0.1, 100)
+  camara.position.set(4.4, 3.2, 5.2)
 
-  // Solo se puede girar: la rueda del mouse sigue moviendo la página. En el celular se gira con dos
-  // dedos, porque un dedo tiene que seguir sirviendo para bajar por la página.
-  const controles = new OrbitControls(camara, renderer.domElement)
-  controles.target.copy(objetivo)
+  const controles = new OrbitControls(camara, lienzo)
+  controles.target.set(0, 1.4, 0)
   controles.enableDamping = true
-  controles.enablePan = false
-  controles.enableZoom = false
-  controles.maxPolarAngle = Math.PI * 0.45
-  controles.touches = { ONE: null, TWO: THREE.TOUCH.DOLLY_ROTATE }
-  renderer.domElement.style.touchAction = 'pan-y'
+  controles.minDistance = 3
+  controles.maxDistance = 12
+  controles.maxPolarAngle = Math.PI * 0.49
+  controles.autoRotate = !reducirMovimiento
+  controles.autoRotateSpeed = 1.2
+  controles.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE }
 
-  // Se dibuja solo cuando algo cambió: así la página no gasta de más mientras el robot está quieto
-  let hayQueDibujar = true
-  controles.addEventListener('change', () => { hayQueDibujar = true })
+  // En una página larga el render no puede atrapar el scroll: la rueda hace zoom solo con Ctrl, y con
+  // un dedo se sigue bajando por la página. Con dos dedos se gira y se hace zoom.
+  const usarRueda = (e) => { controles.enableZoom = e.ctrlKey }
+  const dejarPasarUnDedo = (e) => { if (e.touches.length === 1) e.stopPropagation() }
+  contenedor.addEventListener('wheel', usarRueda, { capture: true, passive: true })
+  contenedor.addEventListener('touchstart', dejarPasarUnDedo, { capture: true, passive: true })
+  contenedor.addEventListener('touchmove', dejarPasarUnDedo, { capture: true, passive: true })
 
-  // Luces (los valores están pensados para las luces físicas de Three.js)
-  escena.add(new THREE.HemisphereLight(0xffffff, 0x8a8f80, 1.25))
-  const sol = new THREE.DirectionalLight(0xffffff, 1.7)
-  sol.position.set(6, 16, 7)
+  // Luces
+  escena.add(new THREE.HemisphereLight(0xffffff, 0x8a8f80, 0.75))
+  const sol = new THREE.DirectionalLight(0xffffff, 0.9)
+  sol.position.set(4, 7, 3)
   sol.castShadow = true
-  sol.shadow.mapSize.set(2048, 2048)
+  const lado = celular ? 1024 : 2048     // en el celular, sombras con menos detalle para que no se trabe
+  sol.shadow.mapSize.set(lado, lado)
+  sol.shadow.camera.left = -4
+  sol.shadow.camera.right = 4
+  sol.shadow.camera.top = 4
+  sol.shadow.camera.bottom = -4
   sol.shadow.bias = -0.0005
   escena.add(sol)
-  const relleno = new THREE.DirectionalLight(0xdfe8ff, 0.5)
-  relleno.position.set(-7, 5, -3)
+  const relleno = new THREE.DirectionalLight(0xdfe8ff, 0.35)
+  relleno.position.set(-5, 3, -2)
   escena.add(relleno)
 
-  // Piso de la fábrica, con baldosas
-  const dibujoPiso = texturaDeCanvas(128, 128)
-  dibujoPiso.textura.wrapS = THREE.RepeatWrapping
-  dibujoPiso.textura.wrapT = THREE.RepeatWrapping
-  dibujoPiso.textura.repeat.set(PISO_RADIO, PISO_RADIO)
-  const materialPiso = new THREE.MeshStandardMaterial({ map: dibujoPiso.textura, roughness: 0.95 })
-  const piso = new THREE.Mesh(new THREE.CircleGeometry(PISO_RADIO, 48), materialPiso)
+  // Piso de fábrica con línea de seguridad
+  const dibujoPiso = texturaDeCanvas(1024, 1024, (ctx, ancho, alto) => {
+    ctx.fillStyle = '#9aa096'
+    ctx.fillRect(0, 0, ancho, alto)
+    ctx.strokeStyle = 'rgba(0,0,0,.08)'
+    ctx.lineWidth = 2
+    for (let i = 0; i <= ancho; i += 128) {
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, alto); ctx.stroke()
+      ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(ancho, i); ctx.stroke()
+    }
+    ctx.fillStyle = '#f2b705'
+    ctx.fillRect(ancho * 0.5 - 18, 0, 36, alto)
+  })
+  const piso = new THREE.Mesh(new THREE.CircleGeometry(9, 64), new THREE.MeshStandardMaterial({ map: dibujoPiso.textura, roughness: 0.95 }))
   piso.rotation.x = -Math.PI / 2
   piso.receiveShadow = true
   escena.add(piso)
 
-  function pintarPiso() {
-    const c = COLORES[oscuro ? 'oscuro' : 'claro']
-    const { ctx } = dibujoPiso
-    ctx.fillStyle = c.piso
-    ctx.fillRect(0, 0, 128, 128)
-    ctx.strokeStyle = c.lineaPiso
-    ctx.lineWidth = 3
-    ctx.strokeRect(0, 0, 128, 128)
-    dibujoPiso.textura.needsUpdate = true
-  }
-  pintarPiso()
-
   const robot = crearRobot()
-  robot.grupo.scale.setScalar(ESCALA_ROBOT)
   escena.add(robot.grupo)
 
-  // ---------- Planta ----------
-  const grupoZonas = new THREE.Group()
-  const grupoRuta = new THREE.Group()
-  escena.add(grupoZonas, grupoRuta)
-  const baldosas = new Map()      // id de zona -> { zona, ctx, textura, ancho, alto, clave }
-  const materialRuta = new THREE.MeshStandardMaterial({ color: 0xf5b800, roughness: 0.6, transparent: true, opacity: 0.75 })
-  let grilla = { columnas: 6, filas: 4 }
-  let firmaPlanta = null
-  let firmaRuta = null
-
-  // Dónde se para el robot en una zona: corrido del centro, para no tapar el nombre de la zona
-  function puntoDeZona(zona) {
-    return new THREE.Vector3(
-      (zona.grilla_x + zona.ancho * 0.78 - grilla.columnas / 2) * CELDA, 0,
-      (zona.grilla_y + zona.alto * 0.72 - grilla.filas / 2) * CELDA,
-    )
-  }
-  // Sin zona informada, el robot espera al borde de la planta
-  const puntoDeEspera = () => new THREE.Vector3(0, 0, (grilla.filas / 2) * CELDA + 1.4)
-
-  function vaciar(grupo) {
-    grupo.children.forEach((o) => {
-      o.geometry.dispose()
-      if (o.material !== materialRuta) { o.material.map?.dispose(); o.material.dispose() }
-    })
-    grupo.clear()
-  }
-
-  function armarPlanta(zonas) {
-    vaciar(grupoZonas)
-    baldosas.clear()
-    grilla = medidasGrilla(zonas)
-    zonas.forEach((zona) => {
-      const margen = 0.14   // calle entre zonas
-      const ancho = zona.ancho * CELDA - margen
-      const alto = zona.alto * CELDA - margen
-      const { textura, ctx } = texturaDeCanvas(Math.min(zona.ancho * PIXELES_POR_CELDA, 1024), Math.min(zona.alto * PIXELES_POR_CELDA, 1024))
-      const malla = new THREE.Mesh(new THREE.PlaneGeometry(ancho, alto), new THREE.MeshStandardMaterial({ map: textura, roughness: 0.9 }))
-      malla.rotation.x = -Math.PI / 2
-      malla.position.set((zona.grilla_x + zona.ancho / 2 - grilla.columnas / 2) * CELDA, 0.01, (zona.grilla_y + zona.alto / 2 - grilla.filas / 2) * CELDA)
-      malla.receiveShadow = true
-      grupoZonas.add(malla)
-      baldosas.set(zona.id, { ctx, textura, clave: null })
-    })
-    const limite = (Math.max(grilla.columnas, grilla.filas) * CELDA) / 2 + 4
-    Object.assign(sol.shadow.camera, { left: -limite, right: limite, top: limite, bottom: -limite, far: 60 })
-    sol.shadow.camera.updateProjectionMatrix()
-    encuadrar()
-  }
-
-  function pintarBaldosa(zona, alertasPorZona, zonaResaltada) {
-    const baldosa = baldosas.get(zona.id)
-    const estado = estadoVisible(zona, alertasPorZona)
-    const resumen = resumenZona(zona, estado, alertasPorZona?.[zona.id] || 0)
-    const resaltada = zona.id === zonaResaltada
-    const clave = [zona.nombre, zona.maquina, estado, resumen, resaltada, oscuro].join('|')
-    if (baldosa.clave === clave) return
-    baldosa.clave = clave
-
-    const c = COLORES[oscuro ? 'oscuro' : 'claro']
-    const { ctx, textura } = baldosa
-    const { width: ancho, height: alto } = ctx.canvas
-    const grosor = resaltada ? 16 : 7
-    ctx.fillStyle = c[estado].fondo
-    ctx.fillRect(0, 0, ancho, alto)
-    ctx.strokeStyle = resaltada ? c.resaltada : c[estado].borde
-    ctx.lineWidth = grosor
-    ctx.strokeRect(grosor / 2, grosor / 2, ancho - grosor, alto - grosor)
-
-    ctx.textBaseline = 'alphabetic'
-    ctx.textAlign = 'left'
-    const letra = 'system-ui, "Segoe UI", Arial, sans-serif'
-    ctx.fillStyle = c.nombre
-    ctx.font = `700 60px ${letra}`
-    ctx.fillText(zona.nombre, 26, 78, ancho - 52)
-    if (zona.maquina) {
-      ctx.fillStyle = c.maquina
-      ctx.font = `500 36px ${letra}`
-      ctx.fillText(zona.maquina, 26, 124, ancho - 52)
-    }
-    ctx.fillStyle = c[estado].texto
-    ctx.font = `600 38px ${letra}`
-    ctx.fillText(resaltada ? `Tu zona${resumen ? ` · ${resumen}` : ''}` : resumen, 26, alto - 28, ancho - 52)
-    textura.needsUpdate = true
-  }
-
-  // La línea amarilla que sigue el robot: une sus paradas y vuelve a la primera
-  function armarRuta(ruta, zonas) {
-    vaciar(grupoRuta)
-    const puntos = ruta.map((id) => zonas.find((z) => z.id === id)).filter(Boolean).map(puntoDeZona)
-    if (puntos.length < 2) return
-    puntos.forEach((a, i) => {
-      const b = puntos[(i + 1) % puntos.length]
-      const largo = a.distanceTo(b)
-      if (!largo) return
-      const tramo = new THREE.Mesh(new THREE.BoxGeometry(largo, 0.02, 0.08), materialRuta)
-      tramo.position.set((a.x + b.x) / 2, 0.025, (a.z + b.z) / 2)
-      tramo.rotation.y = -Math.atan2(b.z - a.z, b.x - a.x)
-      tramo.receiveShadow = true
-      grupoRuta.add(tramo)
-    })
-  }
-
-  // ---------- Cámara ----------
-  // La aleja lo justo para que entre toda la planta, sin cambiar el ángulo que eligió el usuario
-  function encuadrar() {
-    const ancho = grilla.columnas * CELDA + 1
-    const fondo = grilla.filas * CELDA + 4     // incluye el lugar donde espera el robot, al borde de la planta
-    const tangente = Math.tan(THREE.MathUtils.degToRad(camara.fov / 2))
-    const distancia = Math.max(ancho / (2 * tangente * camara.aspect), (fondo * 0.78) / (2 * tangente)) * 1.08
-    const direccion = camara.position.lengthSq() ? camara.position.clone().sub(objetivo) : DIRECCION_CAMARA.clone()
-    camara.position.copy(objetivo).add(direccion.setLength(distancia))
-    controles.update()
-    hayQueDibujar = true
-  }
+  // Casco de referencia: lo que busca la IA
+  const amarillo = new THREE.MeshStandardMaterial({ color: 0xf2b705, roughness: 0.55 })
+  const casco = new THREE.Group()
+  casco.add(new THREE.Mesh(new THREE.SphereGeometry(0.28, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), amarillo))
+  casco.add(new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.025, 32), amarillo))
+  const cresta = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.025, 8, 32, Math.PI), amarillo)
+  cresta.rotation.y = Math.PI / 2
+  casco.add(cresta)
+  casco.position.set(-1.9, 0.02, 1.6)
+  casco.rotation.y = 0.6
+  casco.traverse((o) => {
+    if (o.isMesh) { o.castShadow = true; o.receiveShadow = true }
+  })
+  escena.add(casco)
 
   function medir() {
     const { clientWidth: ancho, clientHeight: alto } = contenedor
     if (!ancho || !alto) return
     renderer.setSize(ancho, alto, false)
-    renderer.domElement.style.width = '100%'
-    renderer.domElement.style.height = '100%'
     camara.aspect = ancho / alto
     camara.updateProjectionMatrix()
-    encuadrar()
   }
   const observaTamano = new ResizeObserver(medir)
   observaTamano.observe(contenedor)
+  medir()
 
-  // Fuera de la pantalla no se dibuja nada
+  // Fuera de la pantalla no se dibuja nada, para no gastar batería
   let enPantalla = true
-  const observaVista = new IntersectionObserver(([e]) => { enPantalla = e.isIntersecting; hayQueDibujar = true })
+  const observaVista = new IntersectionObserver(([e]) => { enPantalla = e.isIntersecting })
   observaVista.observe(contenedor)
 
-  // ---------- Movimiento ----------
-  let destino = null        // adónde va el robot
-  let velocidad = 1
-  let rumbo = 0             // hacia dónde mira
-  let baliza = false
-  let primeraVez = true
-
-  function irHacia(punto) {
-    if (destino && destino.equals(punto)) return
-    destino = punto
-    const distancia = robot.grupo.position.distanceTo(punto)
-    if (primeraVez || movimientoReducido) {
-      robot.grupo.position.copy(punto)
-    } else if (distancia > 0.01) {
-      velocidad = distancia / SEGUNDOS_ENTRE_ZONAS
-      rumbo = Math.atan2(punto.x - robot.grupo.position.x, punto.z - robot.grupo.position.z)
-    }
-    primeraVez = false
-    hayQueDibujar = true
-  }
-
-  let idCuadro = 0
+  let orugas = false      // si las orugas giran
+  let alerta = false      // si la baliza y los ojos titilan
   let ultimo = performance.now()
+  let idCuadro = 0
   function cuadro(ahora) {
     idCuadro = requestAnimationFrame(cuadro)
     const dt = Math.min(0.05, (ahora - ultimo) / 1000)
     ultimo = ahora
     if (!enPantalla) return
-
-    if (destino) {
-      const posicion = robot.grupo.position
-      const falta = posicion.distanceTo(destino)
-      if (falta > 0.001) {
-        posicion.addScaledVector(destino.clone().sub(posicion).normalize(), Math.min(falta, velocidad * dt))
-        robot.moverOrugas(dt * 0.9)
-        hayQueDibujar = true
-      } else {
-        rumbo = 0     // al llegar mira hacia la cámara, para que se lea su pantalla
-      }
-      // Gira de a poco, por el camino más corto
-      const giro = Math.atan2(Math.sin(rumbo - robot.grupo.rotation.y), Math.cos(rumbo - robot.grupo.rotation.y))
-      if (Math.abs(giro) > 0.002) {
-        robot.grupo.rotation.y += movimientoReducido ? giro : giro * Math.min(1, dt * 5)
-        hayQueDibujar = true
-      }
-    }
-    if (baliza) {
-      robot.titilar(ahora)
-      hayQueDibujar = true
-    }
+    if (orugas && !reducirMovimiento) robot.moverOrugas(dt * 0.35)
+    if (alerta) robot.titilar(ahora)
     controles.update()
-    if (hayQueDibujar) {
-      renderer.render(escena, camara)
-      hayQueDibujar = false
-    }
+    renderer.render(escena, camara)
   }
   idCuadro = requestAnimationFrame(cuadro)
 
-  // ---------- Lo que usa PlantaRobot3D ----------
-  // datos: { zonas, ruta (ids en orden), robot, alertasPorZona (null = no se conocen),
-  //          zonaResaltada (id de "tu zona"), alerta (el robot acaba de detectar una falta) }
-  function actualizar({ zonas = [], ruta = [], robot: datosRobot, alertasPorZona = null, zonaResaltada = null, alerta = false }) {
-    const planta = zonas.map((z) => [z.id, z.grilla_x, z.grilla_y, z.ancho, z.alto].join()).join(';')
-    if (planta !== firmaPlanta) {
-      firmaPlanta = planta
-      armarPlanta(zonas)
-      firmaRuta = null      // la ruta se dibuja sobre la planta: hay que volver a armarla
-    }
-    zonas.forEach((z) => pintarBaldosa(z, alertasPorZona, zonaResaltada))
-    const rutaNueva = ruta.join()
-    if (rutaNueva !== firmaRuta) {
-      firmaRuta = rutaNueva
-      armarRuta(ruta, zonas)
-    }
-
-    hayQueDibujar = true
-    // Hasta tener los datos el robot no se muestra: si no, "viajaría" hasta su zona al abrir la página
-    robot.grupo.visible = Boolean(zonas.length && datosRobot)
-    if (!robot.grupo.visible) return
-
-    const conectado = Boolean(datosRobot.conectado)
-    const zona = zonas.find((z) => z.id === datosRobot.zona_actual_id)
-    irHacia(zona ? puntoDeZona(zona) : puntoDeEspera())
-    robot.ponerApagado(!conectado)
-
-    const emergencia = conectado && datosRobot.estado === 'emergencia'
-    const pantalla = !conectado ? 'apagado'
-      : alerta ? 'falta_epp'
-        : emergencia ? 'emergencia'
-          : datosRobot.estado === 'recorriendo' ? 'escaneando' : 'espera'
-    robot.ponerPantalla(pantalla)
-
-    const balizaNueva = conectado && (alerta || emergencia)
-    if (baliza && !balizaNueva) robot.apagarBaliza()
-    baliza = balizaNueva
+  return {
+    // estado: { pantalla (ver PANTALLAS en modeloRobot.js), alerta, orugas, apagado }
+    ponerEstado(estado) {
+      robot.ponerPantalla(estado.pantalla)
+      robot.ponerApagado(estado.apagado)
+      if (alerta && !estado.alerta) robot.apagarBaliza()
+      alerta = estado.alerta
+      orugas = estado.orugas
+    },
+    girar(valor) {
+      controles.autoRotate = valor && !reducirMovimiento
+    },
+    verDeFrente() {
+      camara.position.set(0.6, 1.9, 5.8)
+      controles.target.set(0, 1.5, 0)
+      controles.update()
+    },
+    destruir() {
+      cancelAnimationFrame(idCuadro)
+      observaTamano.disconnect()
+      observaVista.disconnect()
+      contenedor.removeEventListener('wheel', usarRueda, { capture: true })
+      contenedor.removeEventListener('touchstart', dejarPasarUnDedo, { capture: true })
+      contenedor.removeEventListener('touchmove', dejarPasarUnDedo, { capture: true })
+      controles.dispose()
+      escena.traverse((o) => {
+        if (!o.isMesh) return
+        o.geometry.dispose()
+        o.material.map?.dispose()
+        o.material.dispose()
+      })
+      renderer.dispose()
+      renderer.forceContextLoss()   // el navegador permite pocos contextos 3D a la vez: se libera enseguida
+      lienzo.remove()
+    },
   }
-
-  function ponerTema(valor) {
-    if (valor === oscuro) return
-    oscuro = valor
-    pintarPiso()
-    hayQueDibujar = true
-  }
-
-  function destruir() {
-    cancelAnimationFrame(idCuadro)
-    observaTamano.disconnect()
-    observaVista.disconnect()
-    controles.dispose()
-    escena.traverse((o) => {
-      if (!o.isMesh) return
-      o.geometry.dispose()
-      o.material.map?.dispose()
-      o.material.dispose()
-    })
-    renderer.dispose()
-    renderer.forceContextLoss()   // el navegador permite pocos contextos 3D a la vez: se libera enseguida
-    renderer.domElement.remove()
-  }
-
-  medir()
-  return { actualizar, ponerTema, destruir }
 }

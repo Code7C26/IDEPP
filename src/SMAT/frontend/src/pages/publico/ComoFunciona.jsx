@@ -62,8 +62,8 @@ export default function ComoFunciona() {
         <Pasos detalle />
       </Seccion>
 
-      <Seccion antetitulo="En la planta" titulo="El recorrido del robot, zona por zona"
-               descripcion="El robot sigue su ruta y avisa en qué zona está. Si detecta una falta, esa zona se marca y su máquina se detiene hasta que el encargado la reactive.">
+      <Seccion antetitulo="En la planta" titulo="El robot que recorre la planta"
+               descripcion="Girá el modelo y probá qué pasa cuando detecta a alguien sin casco: frena, avisa en su pantalla y prende la luz de alerta.">
         <RobotSimulado />
       </Seccion>
 

@@ -1,4 +1,4 @@
-// Textos y controles de la vista 3D del robot.
+// Textos y controles del render 3D del robot.
 import { haceCuanto } from './formato.js'
 
 const ESTADOS = { recorriendo: 'Recorriendo', pausado: 'Pausado', detenido: 'Detenido', emergencia: 'EMERGENCIA' }
@@ -12,6 +12,15 @@ export function textoPosicion(robot) {
   }
   const estado = ESTADOS[robot.estado] || robot.estado
   return robot.zona_actual ? `En ${robot.zona_actual} · ${estado}` : `${estado} · sin zona informada`
+}
+
+// Cómo se ve el modelo según el robot real. No inventa movimiento: las orugas giran solo si está recorriendo.
+// La pantalla no dice "CASCO OK": la web no sabe si el trabajador que tiene adelante lo lleva puesto.
+export function estadoDelRender(robot) {
+  if (!robot?.conectado) return { pantalla: 'apagado', alerta: false, orugas: false, apagado: true, tono: 'apagado' }
+  if (robot.estado === 'emergencia') return { pantalla: 'emergencia', alerta: true, orugas: false, apagado: false, tono: 'alerta' }
+  if (robot.estado === 'recorriendo') return { pantalla: 'escaneando', alerta: false, orugas: true, apagado: false, tono: 'ok' }
+  return { pantalla: 'espera', alerta: false, orugas: false, apagado: false, tono: 'aviso' }
 }
 
 // ¿El equipo puede dibujar 3D? Se revisa antes de descargar Three.js.
