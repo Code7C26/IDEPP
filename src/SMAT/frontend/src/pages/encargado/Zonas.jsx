@@ -58,8 +58,11 @@ export default function Zonas() {
       {/* El mapa espera a las alertas: sin ellas pintaría todo en verde, como si estuviera en orden */}
       {lista.length > 0 && activas.datos && (
         <section className={`${tarjeta} mb-6`}>
-          <MapaFabrica zonas={lista} alertasPorZona={contarPorZona(activas.datos.incidencias)} onSeleccionar={abrirFormulario} />
-          <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Tocá una zona del mapa para editarla.</p>
+          {/* Con un ancho máximo, para que en la PC las tarjetas de abajo no queden fuera de la pantalla */}
+          <div className="mx-auto max-w-3xl">
+            <MapaFabrica zonas={lista} alertasPorZona={contarPorZona(activas.datos.incidencias)} onSeleccionar={abrirFormulario} />
+            <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Tocá una zona del mapa para editarla.</p>
+          </div>
         </section>
       )}
 
