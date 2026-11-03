@@ -1,7 +1,7 @@
 """Pantallas del empleado: inicio, mis alertas, perfil y permisos."""
 from datetime import date, timedelta
 
-from conftest import api, selector, sesion
+from conftest import ROBOT, api, esperar_texto, selector, sesion
 
 
 def test_inicio_muestra_zona_epp_y_cumplimiento(base_limpia, abrir):
@@ -91,4 +91,33 @@ def test_perfil_fotos_de_rostro_con_consentimiento(base_limpia, abrir):
     pag.get_by_role("button", name="Tocá para borrar").click()
     pag.get_by_text("Foto borrada").wait_for()
     assert api("/users/1/rostros", token=sesion("juan")["token"])["fotos"] == []
+    assert not pag.errores
+
+
+def test_el_empleado_ve_donde_esta_el_robot(base_limpia, abrir):
+    pag = abrir("juan", "/app")
+    assert pag.get_by_text("Sin conexión · el robot nunca se conectó").is_visible()
+
+    # El texto sigue a lo que informa el robot
+    api("/robot/reporte", cabeceras=ROBOT, datos={"estado": "recorriendo", "zona_actual_id": 2})
+    assert esperar_texto(pag, "En Zona B · Recorriendo", 6)
+    api("/robot/reporte", cabeceras=ROBOT, datos={"zona_actual_id": 3})
+    assert esperar_texto(pag, "En Zona C · Recorriendo", 6)
+    api("/robot/reporte", cabeceras=ROBOT, datos={"zona_actual_id": None, "estado": "detenido"})
+    assert esperar_texto(pag, "Detenido · sin zona informada", 6)
+    assert pag.locator("figure canvas").count() + pag.locator('figure svg[aria-label="Plano de la fábrica"]').count() == 1
+    assert not pag.errores
+
+
+def test_sin_3d_se_ve_el_mapa_y_no_afirma_que_todo_esta_en_orden(base_limpia, abrir):
+    """El empleado no ve las alertas de las otras zonas: el mapa no puede decir «Todo en orden»."""
+    pag = abrir("juan", "/app")
+    pag.context.add_init_script("HTMLCanvasElement.prototype.getContext = () => null")   # como un equipo sin WebGL
+    pag.reload()
+    pag.wait_for_timeout(1500)
+    figura = pag.locator("figure")
+    assert figura.locator('svg[aria-label="Plano de la fábrica"]').is_visible()
+    assert figura.locator("canvas").count() == 0
+    assert figura.get_by_text("Todo en orden").count() == 0
+    assert figura.get_by_text("Máquina en marcha").first.is_visible()
     assert not pag.errores

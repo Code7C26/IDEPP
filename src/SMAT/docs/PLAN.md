@@ -15,8 +15,8 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 ### Pública (sin login)
 | Ruta | Página | Qué muestra |
 |---|---|---|
-| `/` | Inicio | Qué es DROID-E3D, el problema, botón "Pedir demo" |
-| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → parada de máquina |
+| `/` | Inicio | Qué es DROID-E3D, el problema, render 3D con un recorrido simulado, botón "Pedir demo" |
+| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → parada de máquina, render 3D con un recorrido simulado |
 | `/planes` | Planes | Robot + abono de la web + mantenimiento |
 | `/nosotros` | Nosotros | SMAT, división de TOUCH; equipo |
 | `/contacto` | Contacto | mailto + WhatsApp |
@@ -25,7 +25,7 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 ### Empleado (celular) · bajo `/app`
 | Ruta | Página | Qué muestra |
 |---|---|---|
-| `/app` | Inicio | Estado de su zona, EPP que debe usar, % cumplimiento, últimas alertas |
+| `/app` | Inicio | Estado de su zona, EPP que debe usar, % cumplimiento, render 3D con la zona del robot, últimas alertas |
 | `/app/mis-alertas` | Mis alertas | Alertas donde él fue detectado, con foto, filtro por fecha, comentar |
 | `/app/perfil` | Perfil | Datos, zona, EPP, fotos de rostro, activar notificaciones |
 
@@ -36,7 +36,7 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 | `/app/incidencias` | Incidencias | Tabla con filtros, detalle con foto, comentarios, resolver |
 | `/app/empleados` | Empleados | CRUD, asignación de zona, fotos de rostro con consentimiento |
 | `/app/zonas` | Zonas | CRUD, máquina, EPP, posición en la grilla, reactivar máquina |
-| `/app/robot` | Robot | Video en vivo, estado, batería, ruta, iniciar/pausar, EMERGENCIA |
+| `/app/robot` | Robot | Video en vivo, render 3D con la zona del robot, estado, batería, ruta, iniciar/pausar, EMERGENCIA |
 | `/app/reportes` | Reportes | Gráficos, ranking de cumplimiento, CSV y PDF |
 | `/app/auditoria` | Auditoría | Quién hizo qué y cuándo |
 
@@ -199,7 +199,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] M.2 Verla funcionando sin el robot: `tools/demo_en_vivo.py` lanza juntos los simuladores (#87)
 - [x] M.3 Pulido visual: textos del mapa, tarjetas en celular, filtros, fechas de incidencias, períodos de reportes y panel (#89)
 - [x] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver (#90)
-- [ ] M.5 Render 3D en la web (Three.js): empleado y encargado con datos reales por zona; Inicio y Cómo funciona con un recorrido simulado
+- [x] M.5 Render 3D en la web (Three.js): empleado y encargado con datos reales por zona; Inicio y Cómo funciona con un recorrido simulado (#93)
 - [ ] M.6 (con Morena) El robot cuenta marcas en el piso e informa su zona; PR borrador hacia `SMAT-hardware`
 
 ### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)

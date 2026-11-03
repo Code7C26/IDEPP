@@ -5,6 +5,7 @@ import Icono from '../../components/Icono.jsx'
 import { Antetitulo, botonClaro, botonOscuro, Caracteristica, LlamadoDemo, Seccion } from '../../components/publico/Bloques.jsx'
 import Captura from '../../components/publico/Captura.jsx'
 import Pasos from '../../components/publico/Pasos.jsx'
+import RobotSimulado from '../../components/publico/RobotSimulado.jsx'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 
 const BENEFICIOS = [
@@ -50,6 +51,11 @@ export default function InicioPublico() {
           <Captura nombre="panel" alt="Panel del encargado con las alertas del día, el mapa de la fábrica y el estado del robot" />
         </div>
       </section>
+
+      <Seccion antetitulo="El robot" titulo="Recorre las zonas y frena la máquina donde falta el equipo"
+               descripcion="Así se ve en la plataforma: dónde está el robot, qué zona tiene una falta y qué máquina se detuvo.">
+        <RobotSimulado />
+      </Seccion>
 
       <Seccion gris antetitulo="Por qué DROID-E3D" titulo="Control continuo del equipo de protección, sin perseguir a nadie"
                descripcion="Pensado para PyMEs industriales que quieren cumplir con la normativa de seguridad e higiene sin sumar supervisores.">

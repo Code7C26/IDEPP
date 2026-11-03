@@ -142,6 +142,7 @@ Estos endpoints los usa el encargado con sesión (`Authorization: Bearer ...`); 
 | Endpoint | Para qué |
 |---|---|
 | ✅ `GET /robot/estado` | Estado, batería, zona, comando pendiente y `conectado` (reportó hace menos de 10 s) |
+| ✅ `GET /robot/posicion` | Para cualquier sesión, también la del empleado: solo `estado`, `conectado`, `zona_actual_id`, `zona_actual` y `ultima_conexion` |
 | ✅ `POST /robot/comando` | `{"comando": "iniciar" \| "pausar" \| "detener" \| "emergencia"}` · 409 si es `iniciar` y el robot no está conectado |
 | ✅ `PUT /robot/ruta` | `{"ruta": [{"zona_id": 1, "tiempo_espera_seg": 30}, ...]}` (el orden de la lista es el recorrido; espera de 5 a 3600 s) |
 | ✅ `PUT /robot/video` | `{"url_video": "http://<IP-PC-YOLO>:8080/video"}` · texto vacío = sin video |

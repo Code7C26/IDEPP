@@ -78,6 +78,24 @@ def test_ordenes_al_robot_y_parada_de_emergencia(robot_simulado, abrir):
     assert not pag.errores
 
 
+def test_la_vista_3d_sigue_al_robot_simulado(robot_simulado, abrir):
+    pag = abrir("maria", "/app/robot")
+    assert esperar_texto(pag, "Conectado", 6, exacto=False)
+    pag.get_by_role("button", name="Iniciar").click()
+    linea = pag.locator("figure [role=status]")
+    # El robot simulado cambia de zona cada 1,5 s: el texto tiene que pasar por más de una
+    vistas = set()
+    for _ in range(40):
+        vistas.add(linea.inner_text())
+        if len({t for t in vistas if t.startswith("En Zona")}) >= 2:
+            break
+        pag.wait_for_timeout(500)
+    assert len({t for t in vistas if t.startswith("En Zona")}) >= 2, vistas
+    pag.get_by_role("button", name="Detener", exact=True).click()
+    assert esperar_texto(pag, "Detenido")
+    assert not pag.errores
+
+
 def test_editar_la_ruta(robot_simulado, abrir):
     pag = abrir("maria", "/app/robot")
     pag.get_by_role("button", name="Quitar Zona D").click()

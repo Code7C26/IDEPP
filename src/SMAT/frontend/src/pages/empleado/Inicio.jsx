@@ -1,14 +1,16 @@
-// Inicio del empleado: estado de su zona, EPP obligatorio, su cumplimiento y sus últimas alertas.
+// Inicio del empleado: estado de su zona, EPP obligatorio, su cumplimiento, dónde está el robot y sus últimas alertas.
 import { Link } from 'react-router-dom'
-import { getIncidents, getMe } from '../../api/client.js'
+import { getIncidents, getMe, getRobotPosition, getRobotRoute, getZones } from '../../api/client.js'
 import AlertCard from '../../components/AlertCard.jsx'
 import Icono from '../../components/Icono.jsx'
 import StatCard from '../../components/StatCard.jsx'
 import Titulo from '../../components/Titulo.jsx'
+import VistaRobot3D from '../../components/VistaRobot3D.jsx'
 import ZonaCard from '../../components/ZonaCard.jsx'
 import { useAuth } from '../../context/AuthContext.jsx'
 import usePolling from '../../hooks/usePolling.js'
 import { calcularCumplimiento } from '../../utils/cumplimiento.js'
+import { tarjeta } from '../../utils/estilos.js'
 import { fechaHaceDias } from '../../utils/formato.js'
 
 const DIAS = 30
@@ -32,11 +34,14 @@ export default function Inicio() {
   const { usuario } = useAuth()
   const yo = usePolling(() => getMe(), 10000) // la zona y el estado de la máquina pueden cambiar
   const alertas = usePolling(() => getIncidents({ desde: fechaHaceDias(DIAS - 1), limit: 200 }), 8000)
+  const posicion = usePolling(() => getRobotPosition(), 3000)
+  const zonas = usePolling(() => getZones(), 15000)
+  const ruta = usePolling(() => getRobotRoute(), 60000)
 
   const lista = alertas.datos?.incidencias || []
   const activas = lista.filter((i) => i.estado === 'activa').length
   const cumplimiento = calcularCumplimiento(lista, DIAS)
-  const error = yo.error || alertas.error
+  const error = yo.error || alertas.error || posicion.error
 
   return (
     <>
@@ -53,6 +58,13 @@ export default function Inicio() {
       </div>
 
       <ZonaCard zona={yo.datos?.zona_detalle} />
+
+      <section className={`${tarjeta} mt-5`}>
+        <h2 className="mb-3 text-lg font-semibold">Dónde está el robot</h2>
+        {/* Sin alertasPorZona: el empleado solo ve las suyas, así que no se pinta el estado de las otras zonas */}
+        <VistaRobot3D zonas={zonas.datos?.zonas} robot={posicion.datos} ruta={(ruta.datos?.ruta || []).map((p) => p.zona_id)}
+                      zonaResaltada={yo.datos?.zona_detalle?.id} />
+      </section>
 
       <div className="mt-6 mb-3 flex items-baseline justify-between">
         <h2 className="text-lg font-semibold">Tus últimas alertas</h2>

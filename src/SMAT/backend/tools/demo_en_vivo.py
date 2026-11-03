@@ -35,7 +35,8 @@ def main():
     ap = argparse.ArgumentParser(description="Lanza juntos el robot simulado y la IA simulada")
     ap.add_argument("--url", default=URL_LOCAL, help="dirección del backend (por defecto, esta PC)")
     ap.add_argument("--cada", type=float, default=30, help="segundos entre una alerta y la siguiente")
-    ap.add_argument("--velocidad", type=float, default=10, help="velocidad del robot: 1 = tiempo real")
+    # A velocidad 3 el robot para unos 10 s en cada zona y la batería simulada le dura más de media hora
+    ap.add_argument("--velocidad", type=float, default=3, help="velocidad del robot: 1 = tiempo real")
     ap.add_argument("--duracion", type=float, default=0, help="corta solo a los N segundos (0 = hasta Ctrl+C)")
     args = ap.parse_args()
 
