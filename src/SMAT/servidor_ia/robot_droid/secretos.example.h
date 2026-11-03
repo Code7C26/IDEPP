@@ -8,6 +8,7 @@ const char* WIFI_CLAVE  = "CLAVE_DE_TU_WIFI";
 #define URL_BACKEND "http://192.168.0.10:5000/api"
 // La ROBOT_API_KEY de src/SMAT/backend/.env (te la pasa Toro por fuera de GitHub):
 #define ROBOT_API_KEY "PEGAR_ROBOT_API_KEY"
-// Id de la zona donde anda el robot (Zona A = 1). La web la necesita para saber
-// donde paso cada alerta y que maquina detener:
+// Id de la zona que informa hasta leer la ruta de la web (Zona A = 1). Despues la zona
+// sale de la ruta y de las marcas del piso. La web la necesita para saber donde paso
+// cada alerta y que maquina detener:
 #define ZONA_DEL_ROBOT 1
