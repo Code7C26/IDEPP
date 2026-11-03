@@ -1,6 +1,8 @@
 """Página pública de SMAT (sin login): secciones, menú del celular, contacto y acceso a la app."""
 from urllib.parse import unquote
 
+from conftest import API
+
 # Reemplaza window.open para ver qué enlace se abriría (mail o WhatsApp) sin salir de la página
 ESPIAR_ABRIR = "window.__abierto = null; window.open = (url) => { window.__abierto = url }"
 
@@ -67,3 +69,16 @@ def test_ingresar_lleva_al_login_o_a_la_app(base_limpia, abrir):
     con_sesion.get_by_role("banner").get_by_role("link", name="Ir a la app").click()
     con_sesion.wait_for_timeout(800)
     assert con_sesion.url.endswith("/app/panel")
+
+
+def test_las_paginas_publicas_muestran_un_recorrido_simulado(base_limpia, abrir):
+    for ruta in ("/", "/como-funciona"):
+        pag = abrir(None, ruta)
+        pedidos = []
+        pag.on("request", lambda r: pedidos.append(r.url))
+        pag.reload()
+        figura = pag.locator("figure")
+        figura.get_by_text("Simulación", exact=True).wait_for(timeout=3000)
+        figura.get_by_text("En Zona B · Recorriendo").wait_for(timeout=9000)    # avanza solo
+        assert not [p for p in pedidos if p.startswith(API)]                    # nunca muestra al robot real
+        assert not pag.errores

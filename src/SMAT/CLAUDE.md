@@ -13,7 +13,7 @@ El ESP32 consulta por HTTP al backend qué comando ejecutar y si su máquina deb
 
 ## Stack
 - backend/: Flask + Flask-SQLAlchemy + PyMySQL + JWT. `python app.py` (puerto 5000). MySQL de XAMPP.
-- frontend/: React 18 + Vite + react-router-dom + Tailwind (+ recharts, vite-plugin-pwa). `npm run dev` (5173).
+- frontend/: React 18 + Vite + react-router-dom + Tailwind (+ recharts, vite-plugin-pwa, three). `npm run dev` (5173).
 - Roles: `empleado` (ve lo suyo) y `encargado` (panel, gestión, robot, reportes, auditoría).
 - Claves en `.env` (nunca en el repo): `YOLO_API_KEY`, `ROBOT_API_KEY`, `VAPID_*`.
 

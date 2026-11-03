@@ -40,3 +40,10 @@ def test_la_app_abre_sin_conexion(contexto):
     assert pag.get_by_role("button", name="Ingresar").is_visible()
     pag.goto(PWA + "/como-funciona")
     assert pag.locator("h1").first.is_visible()
+
+
+def test_three_no_se_descarga_al_instalar_la_app():
+    """Three.js pesa mucho: solo lo baja quien abre una vista 3D, no todos los que instalan la PWA."""
+    service_worker = urllib.request.urlopen(f"{PWA}/sw.js").read().decode()
+    assert "assets/index-" in service_worker
+    assert "assets/three-" not in service_worker
