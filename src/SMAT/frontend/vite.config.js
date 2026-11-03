@@ -27,6 +27,7 @@ const pwa = VitePWA({
   },
   workbox: {
     globPatterns: ['**/*.{js,css,html,svg,png,webp}'],
+    globIgnores: ['**/three-*.js'],      // Three.js pesa mucho: solo lo descarga quien abre una vista 3D
     navigateFallback: '/index.html',     // sin conexión, cualquier página abre la app guardada
     navigateFallbackDenylist: [/^\/api\//],   // ...menos la API, que está en la misma dirección que la web
     importScripts: ['sw-push.js'],       // public/sw-push.js: recibe y muestra las notificaciones push
@@ -36,4 +37,10 @@ const pwa = VitePWA({
 export default defineConfig({
   plugins: [react(), tailwindcss(), pwa], // tailwindcss() genera solo las clases que usamos
   server: { port: 5173 },
+  build: {
+    rollupOptions: {
+      // Three.js va en su propio archivo (three-*.js) para poder dejarlo afuera de lo que guarda la PWA
+      output: { manualChunks: (ruta) => (ruta.includes('node_modules/three/') ? 'three' : undefined) },
+    },
+  },
 })

@@ -4,12 +4,13 @@
 //  - el robot se mueve de zona en zona con una animación; su recorrido se dibuja punteado
 // Props:
 //   zonas            lista de zonas (con grilla_x, grilla_y, ancho, alto)
-//   alertasPorZona   { zona_id: cantidad de alertas activas }
+//   alertasPorZona   { zona_id: cantidad de alertas activas }; null si no se conocen (el empleado solo
+//                    ve las suyas): el mapa no dice "Todo en orden", solo si la máquina está parada
 //   robot            { zona_actual_id, conectado } (opcional)
 //   ruta             lista de zona_id en el orden del recorrido (opcional)
 //   seleccionada     id de la zona resaltada (opcional)
 //   onSeleccionar    función(zona) al tocar una zona (opcional; si no se pasa, el mapa es solo para mirar)
-import { estadoZona, medidasGrilla } from '../utils/mapa.js'
+import { estadoVisible, medidasGrilla, resumenZona } from '../utils/mapa.js'
 import { NOMBRES_EPP } from '../utils/formato.js'
 import Icono from './Icono.jsx'
 import RobotEnMapa from './RobotEnMapa.jsx'
@@ -18,9 +19,10 @@ const CELDA = 100   // cada celda mide 100 unidades dentro del SVG (se escala so
 const MARGEN = 5
 
 const COLORES = {
-  ok: { caja: 'fill-ok/15 stroke-ok', texto: 'fill-ok', resumen: 'Todo en orden' },
-  alerta: { caja: 'fill-alerta/20 stroke-alerta', texto: 'fill-alerta', resumen: null },
-  detenida: { caja: 'fill-naranja/20 stroke-naranja', texto: 'fill-naranja', resumen: 'Máquina detenida' },
+  ok: { caja: 'fill-ok/15 stroke-ok', texto: 'fill-ok' },
+  alerta: { caja: 'fill-alerta/20 stroke-alerta', texto: 'fill-alerta' },
+  detenida: { caja: 'fill-naranja/20 stroke-naranja', texto: 'fill-naranja' },
+  neutro: { caja: 'fill-zinc-200/40 stroke-zinc-400 dark:fill-zinc-700/30 dark:stroke-zinc-600', texto: 'fill-zinc-500 dark:fill-zinc-400' },
 }
 
 // Borde claro detrás de cada letra: el texto se sigue leyendo aunque el recorrido pase por debajo
@@ -35,11 +37,13 @@ function medidas(zona) {
 }
 const centro = (zona) => [(zona.grilla_x + zona.ancho / 2) * CELDA, (zona.grilla_y + zona.alto / 2) * CELDA]
 
-function ZonaEnMapa({ zona, alertas, seleccionada, onSeleccionar }) {
-  const estado = estadoZona(zona, alertas)
+function ZonaEnMapa({ zona, alertasPorZona, seleccionada, onSeleccionar }) {
+  const alertas = alertasPorZona?.[zona.id] || 0
+  const estado = estadoVisible(zona, alertasPorZona)
   const { x, y, ancho, alto } = medidas(zona)
   const interactiva = Boolean(onSeleccionar)
-  const resumen = `${zona.nombre}: ${estado === 'alerta' ? `${alertas} alerta(s) activa(s)` : COLORES[estado].resumen}`
+  const textoEstado = resumenZona(zona, estado, alertas)
+  const resumen = `${zona.nombre}: ${estado === 'alerta' ? `${alertas} alerta(s) activa(s)` : textoEstado}`
   const epp = zona.epp_requerido || []
 
   return (
@@ -71,7 +75,7 @@ function ZonaEnMapa({ zona, alertas, seleccionada, onSeleccionar }) {
       )}
 
       <text x={x + 14} y={y + alto - 16} className={`text-[22px] font-semibold ${COLORES[estado].texto} ${HALO}`}>
-        {estado === 'alerta' ? `${alertas} alerta${alertas > 1 ? 's' : ''}` : COLORES[estado].resumen}
+        {textoEstado}
       </text>
     </g>
   )
@@ -121,7 +125,7 @@ export default function MapaFabrica({ zonas, alertasPorZona = {}, robot, ruta = 
       <rect width={ancho} height={alto} fill="url(#celdas)" />
       <Recorrido zonas={zonas} ruta={ruta} />
       {zonas.map((zona) => (
-        <ZonaEnMapa key={zona.id} zona={zona} alertas={alertasPorZona[zona.id] || 0}
+        <ZonaEnMapa key={zona.id} zona={zona} alertasPorZona={alertasPorZona}
                     seleccionada={seleccionada === zona.id} onSeleccionar={onSeleccionar} />
       ))}
       <Paradas zonas={zonas} ruta={ruta} />
