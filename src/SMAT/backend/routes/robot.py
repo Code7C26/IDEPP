@@ -14,12 +14,21 @@ from utils.validacion import es_entero, id_valido, leer_json
 robot_bp = Blueprint("robot", __name__)
 
 
+def descartar_inicio_vencido(robot):
+    """Si el robot se desconectó antes de tomar un "iniciar", esa orden ya no vale: al volver (quizás días
+    después) arrancaría solo, sin que nadie lo espere. Las paradas no se descartan: esas sí tienen que llegar."""
+    if robot.comando_pendiente == "iniciar" and not robot.conectado():
+        robot.comando_pendiente = None
+
+
 @robot_bp.route("/robot/comando-pendiente", methods=["GET"])
 @api_key_requerida("ROBOT_API_KEY")
 def comando_pendiente():
     """El ESP32 del robot pregunta cada 1-2 s qué tiene que hacer.
     comando: iniciar | pausar | detener | emergencia | null (nada nuevo)."""
     robot = obtener_robot()
+    descartar_inicio_vencido(robot)
+    db.session.commit()
     return {"comando": robot.comando_pendiente, "estado": robot.estado}
 
 
@@ -30,6 +39,7 @@ def reporte_del_robot():
     estado, bateria (0-100), zona_actual_id, comando_ejecutado (para confirmar que ya lo hizo)."""
     data = leer_json()
     robot = obtener_robot()
+    descartar_inicio_vencido(robot)   # antes de actualizar ultima_conexion: después ya figuraría conectado
 
     if "estado" in data:
         if data["estado"] not in Robot.ESTADOS:
@@ -78,6 +88,9 @@ def enviar_comando():
     # Después de una emergencia no se puede arrancar de golpe: primero hay que "detener"
     if robot.estado == "emergencia" and comando in ("iniciar", "pausar"):
         return {"error": "El robot está en emergencia: primero enviá 'detener' para salir de ese estado"}, 409
+    # Sin conexión no se guarda un "iniciar": el robot arrancaría solo cuando vuelva
+    if comando == "iniciar" and not robot.conectado():
+        return {"error": "El robot no está conectado: para iniciarlo tiene que estar encendido y en línea"}, 409
 
     robot.comando_pendiente = comando
     if comando == "emergencia":
