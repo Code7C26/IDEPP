@@ -46,10 +46,10 @@ export default function Inicio() {
       {!alertas.cargando && <Estado activas={activas} />}
 
       <div className="mb-5 grid grid-cols-3 gap-3">
-        {/* sin ícono: en el celular son 3 tarjetas angostas y el título necesita el lugar */}
-        <StatCard titulo="Cumplimiento" valor={alertas.cargando ? '…' : `${cumplimiento.porcentaje}%`} detalle={`últimos ${DIAS} días`} />
-        <StatCard titulo="Racha" valor={alertas.cargando ? '…' : cumplimiento.racha} detalle="días sin alertas" />
-        <StatCard titulo="Activas" valor={alertas.cargando ? '…' : activas} detalle="sin resolver" />
+        {/* sin ícono y compactas: en el celular son 3 tarjetas angostas y el título necesita el lugar */}
+        <StatCard compacta titulo="Cumplimiento" valor={alertas.cargando ? '…' : `${cumplimiento.porcentaje}%`} detalle={`últimos ${DIAS} días`} />
+        <StatCard compacta titulo="Racha" valor={alertas.cargando ? '…' : cumplimiento.racha} detalle="días sin alertas" />
+        <StatCard compacta titulo="Activas" valor={alertas.cargando ? '…' : activas} detalle="sin resolver" />
       </div>
 
       <ZonaCard zona={yo.datos?.zona_detalle} />

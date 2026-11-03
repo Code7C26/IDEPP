@@ -87,7 +87,8 @@ export default function Panel() {
         <div className="space-y-6">
           <TarjetaRobot robot={robot.datos} />
           <section>
-            <h2 className="mb-3 text-lg font-semibold">Zonas con más alertas</h2>
+            <h2 className="text-lg font-semibold">Zonas con más alertas</h2>
+            <p className="mb-3 text-xs text-zinc-500 dark:text-zinc-400">Desde el inicio, activas y resueltas</p>
             <Tabla claveFila="zona" filas={s?.top_zonas || []}
                    columnas={[{ clave: 'zona', titulo: 'Zona' }, { clave: 'incidencias', titulo: 'Alertas', clase: 'text-right tabular-nums' }]} />
           </section>
