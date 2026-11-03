@@ -91,7 +91,7 @@ Remove-NetFirewallRule -DisplayName "DROID-E3D (puerto 5000)"
 | Pieza | Qué se configura | Dónde |
 |---|---|---|
 | Celulares y proyector | Abrir `http://IP:5000` | Navegador |
-| ESP32 del robot | `URL_BASE = "http://IP:5000/api"` y `ROBOT_KEY` | `docs/integracion/esp32_robot.ino` (se vuelve a cargar al ESP32) |
+| ESP32 del robot | `URL_BACKEND "http://IP:5000/api"`, `ROBOT_API_KEY` y `ZONA_DEL_ROBOT` | `servidor_ia/robot_droid/secretos.h` (se vuelve a cargar al ESP32) |
 | ESP32 de la máquina | `URL_BASE = "http://IP:5000/api"` y `ROBOT_KEY` | `docs/integracion/esp32_maquina.ino` |
 | IA en la PC de Morena | `DROID_URL=http://IP:5000/api`, `YOLO_API_KEY`, `URL_CAMARA_CELULAR`, `URL_ESP32_ALERTA` | `servidor_ia/.env` (copia de `.env.example`) |
 | IA en la misma notebook | Solo `URL_CAMARA_CELULAR` y `URL_ESP32_ALERTA`: la clave la lee de `backend/.env` | `servidor_ia/.env` |
@@ -131,7 +131,7 @@ confía en `localhost`. Para mostrarlas en el celular, usar la versión online (
 | Abre en la notebook pero no en ningún celular | La WiFi tiene aislamiento de clientes: usá el hotspot de un celular |
 | Error 404 o página vacía en `http://IP:5000` | Falta `npm run build` (paso 1) |
 | «No se pudo conectar con el servidor» | El backend se cerró o MySQL está apagado en XAMPP |
-| El robot figura «Sin conexión» | `URL_BASE` del ESP32 con la IP vieja, o el ESP32 en otra WiFi |
+| El robot figura «Sin conexión» | `URL_BACKEND` con la IP vieja o el ESP32 en otra WiFi. En `http://<IP-del-robot>/sensores` se ve la última respuesta de la web (200 = bien, 401 = clave mal, negativo = no llega) |
 | Las alertas de la IA no llegan | `DROID_URL` o `YOLO_API_KEY` mal en `servidor_ia/.env` (el motor muestra el error en la consola) |
 | La IA dice «Desconocido» | El nombre de la carpeta de fotos no coincide con el del empleado: `python tools\cargar_trabajadores_ia.py` |
 

@@ -7,15 +7,21 @@
 //    http://<IP_DEL_ESP32>/alerta_seguridad con "nombre",
 //    el robot FRENA, muestra el nombre en la LCD y suena el buzzer.
 //  - A los TIEMPO_ALERTA ms vuelve a andar solo.
+//  - Si secretos.h tiene URL_BACKEND, habla con la web: recibe las ordenes
+//    (iniciar, pausar, detener, emergencia) y le cuenta su estado y su zona.
+//    En ese caso arranca DETENIDO y espera el "Iniciar" de la web.
 //
 //  Librerias (Herramientas > Administrar bibliotecas):
 //    - "LiquidCrystal I2C" (Frank de Brabander)
 //    - "VL53L0X" (Pololu)
+//    - "ArduinoJson" (Benoit Blanchon)
 //  Placa: "ESP32 Dev Module".
 // ============================================================
 
 #include <WiFi.h>
 #include <WebServer.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <VL53L0X.h>
@@ -24,6 +30,15 @@
 // El nombre y la clave del WiFi van en secretos.h (no se sube a GitHub).
 // Para crearlo: copiar secretos.example.h como secretos.h y poner tus datos.
 #include "secretos.h"
+
+// Si secretos.h no tiene los datos de la web, el robot anda como siempre, sin la web.
+#ifndef URL_BACKEND
+  #define URL_BACKEND ""
+  #define ROBOT_API_KEY ""
+#endif
+#ifndef ZONA_DEL_ROBOT
+  #define ZONA_DEL_ROBOT 1
+#endif
 
 // Si la LCD no muestra nada, probar con 0x3F en vez de 0x27
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -62,6 +77,7 @@ const int UMBRAL_NEGRO = 1000;        // 0 a 4095. Mas que esto = el sensor ve N
 const int DISTANCIA_MINIMA = 200;     // mm. Si hay algo mas cerca, frena (200 mm = 20 cm)
 const unsigned long TIEMPO_ALERTA   = 10000; // ms que queda frenado con la alerta (10 s)
 const unsigned long PITIDO_MS = 300;        // ms que dura cada pitido y cada silencio
+const unsigned long REPORTE_MS = 1500;      // cada cuanto habla con la web
 
 // ---------- Variables internas ----------
 WebServer servidor(80);
@@ -72,6 +88,15 @@ unsigned long inicioAlerta = 0;
 bool hayDistancia = false;   // si el VL53L0X respondio al arrancar
 bool hayObstaculo = false;
 int distanciaMm = 0;
+
+// Lo que comparten el loop (mueve el robot) y tareaWeb (habla con la web).
+// "volatile": las dos partes corren a la vez y cada una tiene que ver lo ultimo que puso la otra.
+const char* volatile estadoRobot = "recorriendo";   // lo que se le cuenta a la web
+const char* textoEstado = "Patrullando";            // lo que muestra la LCD
+const char* volatile comandoPorAplicar = nullptr;   // orden que llego de la web y falta cumplir
+const char* volatile comandoEjecutado = nullptr;    // orden cumplida que falta confirmarle a la web
+volatile bool informarEstado = true;                // el estado cambio y la web todavia no lo sabe
+volatile int ultimoCodigoWeb = 0;                   // ultima respuesta de la web (se ve en /sensores)
 
 // ---------- Motores ----------
 void motor(int pin1, int pin2, int vel) {
@@ -91,6 +116,27 @@ void mostrar(String linea1, String linea2) {
   lcd.setCursor(0, 1); lcd.print(linea2.substring(0, 16));
 }
 
+// ---------- Estado del robot ----------
+void cambiarEstado(const char* estado, bool anda, const char* texto) {
+  estadoRobot = estado;
+  textoEstado = texto;
+  patrullando = anda;
+  informarEstado = true;
+  if (!anda) frenar();
+  if (!enAlerta) mostrar("SMAT", texto);   // durante una alerta la LCD sigue mostrando el nombre
+}
+
+bool enEmergencia() { return strcmp(estadoRobot, "emergencia") == 0; }
+
+void aplicarComando(const char* comando) {
+  if (strcmp(comando, "iniciar") == 0) {
+    if (!enEmergencia()) cambiarEstado("recorriendo", true, "Patrullando");
+  }
+  else if (strcmp(comando, "pausar") == 0)     cambiarEstado("pausado", false, "Pausado");
+  else if (strcmp(comando, "detener") == 0)    cambiarEstado("detenido", false, "Detenido");
+  else if (strcmp(comando, "emergencia") == 0) cambiarEstado("emergencia", false, "EMERGENCIA");
+}
+
 // ---------- Lo que recibe de la compu ----------
 void recibirAlerta() {
   String nombre = servidor.hasArg("nombre") ? servidor.arg("nombre") : "Desconocido";
@@ -107,11 +153,18 @@ void recibirAlerta() {
 }
 
 void paginaInicio() {
-  servidor.send(200, "text/plain", enAlerta ? "SMAT: EN ALERTA" : "SMAT: patrullando");
+  servidor.send(200, "text/plain", enAlerta ? String("SMAT: EN ALERTA") : "SMAT: " + String(estadoRobot));
 }
 
-void parar()    { patrullando = false; frenar(); mostrar("SMAT", "Detenido");  servidor.send(200, "text/plain", "Detenido"); }
-void arrancar() { patrullando = true;  mostrar("SMAT", "Patrullando"); servidor.send(200, "text/plain", "Patrullando"); }
+void parar() { cambiarEstado("detenido", false, "Detenido"); servidor.send(200, "text/plain", "Detenido"); }
+void arrancar() {
+  if (enEmergencia()) {   // despues de una emergencia solo se sale con "Detener" desde la web
+    servidor.send(409, "text/plain", "En emergencia: primero Detener desde la web");
+    return;
+  }
+  cambiarEstado("recorriendo", true, "Patrullando");
+  servidor.send(200, "text/plain", "Patrullando");
+}
 
 // Para calibrar: abrir http://<IP_DEL_ESP32>/sensores en el navegador
 // y ver cuanto marca cada sensor sobre el piso y sobre la linea negra.
@@ -119,8 +172,68 @@ void verSensores() {
   String texto = "Linea izq: " + String(analogRead(SENSOR_IZQ)) +
                  "\nLinea der: " + String(analogRead(SENSOR_DER)) +
                  "\nUmbral negro: " + String(UMBRAL_NEGRO) +
-                 "\nDistancia: " + (hayDistancia ? String(distanciaMm) + " mm" : String("sin sensor"));
+                 "\nDistancia: " + (hayDistancia ? String(distanciaMm) + " mm" : String("sin sensor")) +
+                 "\nEstado: " + String(estadoRobot) +
+                 "\nWeb: " + (strlen(URL_BACKEND) == 0 ? String("sin configurar") : "ultima respuesta " + String(ultimoCodigoWeb));
   servidor.send(200, "text/plain", texto);
+}
+
+// ---------- Conexion con la web ----------
+// Devuelve el texto fijo de una orden conocida (nullptr si no hay orden o no se conoce).
+const char* ordenConocida(const char* comando) {
+  if (comando == nullptr) return nullptr;
+  for (const char* orden : {"iniciar", "pausar", "detener", "emergencia"}) {
+    if (strcmp(comando, orden) == 0) return orden;
+  }
+  return nullptr;
+}
+
+// Corre en una tarea aparte, en el otro nucleo del ESP32. Consultar la web tarda: si esto estuviera
+// en el loop, mientras espera la respuesta el robot dejaria de mirar la linea y se saldria.
+// Usa solo POST /robot/reporte: cuenta como "latido" (mas de 10 s sin reporte = "Sin conexion" en
+// la web) y la respuesta trae la orden pendiente. La orden se repite hasta confirmarla con
+// comando_ejecutado. Contrato completo: src/SMAT/docs/API.md
+void tareaWeb(void*) {
+  for (;;) {
+    vTaskDelay(pdMS_TO_TICKS(REPORTE_MS));
+    if (WiFi.status() != WL_CONNECTED) continue;
+
+    JsonDocument envio;
+    envio["zona_actual_id"] = ZONA_DEL_ROBOT;   // sin zona, la web rechaza las alertas de la camara
+    // El estado se manda solo cuando cambia: asi un reporte nunca pisa la emergencia que acaba de
+    // mandar el encargado desde la web.
+    const char* estadoEnviado = estadoRobot;
+    bool mandaEstado = informarEstado;
+    if (mandaEstado) envio["estado"] = estadoEnviado;
+    const char* ejecutado = comandoEjecutado;
+    if (ejecutado != nullptr) envio["comando_ejecutado"] = ejecutado;
+    String cuerpo;
+    serializeJson(envio, cuerpo);
+
+    HTTPClient http;
+    http.setConnectTimeout(3000);
+    http.setTimeout(3000);
+    http.begin(String(URL_BACKEND) + "/robot/reporte");
+    http.addHeader("X-API-KEY", ROBOT_API_KEY);
+    http.addHeader("Content-Type", "application/json");
+    int codigo = http.POST(cuerpo);
+    ultimoCodigoWeb = codigo;
+
+    if (codigo == 200) {
+      // Si cambio algo mientras esperabamos la respuesta, se manda en el proximo reporte
+      if (mandaEstado && estadoEnviado == estadoRobot) informarEstado = false;
+      if (ejecutado != nullptr && comandoEjecutado == ejecutado) comandoEjecutado = nullptr;
+
+      JsonDocument respuesta;
+      if (!deserializeJson(respuesta, http.getString())) {
+        const char* orden = ordenConocida(respuesta["comando"]);
+        if (orden != nullptr) comandoPorAplicar = orden;   // lo cumple el loop
+      }
+    } else {
+      Serial.println("La web respondio " + String(codigo) + ": " + (codigo > 0 ? http.getString() : http.errorToString(codigo)));
+    }
+    http.end();
+  }
 }
 
 // ============================================================
@@ -178,6 +291,14 @@ void setup() {
   servidor.on("/sensores", verSensores);
   servidor.begin();
 
+  // Con la web, arranca detenido y espera el "Iniciar" (sin la web, patrulla solo como siempre)
+  if (strlen(URL_BACKEND) > 0) {
+    estadoRobot = "detenido";
+    textoEstado = "Detenido";
+    patrullando = false;
+    xTaskCreatePinnedToCore(tareaWeb, "web", 10000, NULL, 1, NULL, 0);
+  }
+
   delay(3000);
 }
 
@@ -185,13 +306,21 @@ void loop() {
   servidor.handleClient();
   unsigned long ahora = millis();
 
+  // Orden que llego de la web (va primero: tiene que frenar aunque haya una alerta u obstaculo)
+  const char* orden = comandoPorAplicar;
+  if (orden != nullptr) {
+    comandoPorAplicar = nullptr;
+    aplicarComando(orden);
+    comandoEjecutado = orden;
+  }
+
   // Termina la alerta: apaga buzzer y vuelve a patrullar
   if (enAlerta) {
     if (ahora - inicioAlerta >= TIEMPO_ALERTA) {
       enAlerta = false;
       digitalWrite(BUZZER, BUZZER_CALLA);   // apaga la alarma
       sonando = false;
-      mostrar("SMAT", "Patrullando");
+      mostrar("SMAT", textoEstado);   // vuelve a lo que estaba haciendo (patrullando, detenido...)
       return;
     }
     // Alarma intermitente: pi... pi... pi...
