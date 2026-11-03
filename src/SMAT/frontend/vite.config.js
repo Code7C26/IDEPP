@@ -27,9 +27,10 @@ const pwa = VitePWA({
   },
   workbox: {
     globPatterns: ['**/*.{js,css,html,svg,png,webp}'],
-    globIgnores: ['**/three-*.js'],      // Three.js pesa mucho: solo lo descarga quien abre una vista 3D
+    globIgnores: ['robot3d/**'],         // los renders y el juego pesan mucho: solo los descarga quien los abre
     navigateFallback: '/index.html',     // sin conexión, cualquier página abre la app guardada
-    navigateFallbackDenylist: [/^\/api\//],   // ...menos la API, que está en la misma dirección que la web
+    // ...menos la API, que está en la misma dirección que la web, y los renders y el juego, que son páginas propias
+    navigateFallbackDenylist: [/^\/api\//, /^\/robot3d\//],
     importScripts: ['sw-push.js'],       // public/sw-push.js: recibe y muestra las notificaciones push
   },
 })
@@ -37,10 +38,4 @@ const pwa = VitePWA({
 export default defineConfig({
   plugins: [react(), tailwindcss(), pwa], // tailwindcss() genera solo las clases que usamos
   server: { port: 5173 },
-  build: {
-    rollupOptions: {
-      // Three.js va en su propio archivo (three-*.js) para poder dejarlo afuera de lo que guarda la PWA
-      output: { manualChunks: (ruta) => (ruta.includes('node_modules/three/') ? 'three' : undefined) },
-    },
-  },
 })

@@ -11,6 +11,7 @@
 - 03/11: **Fase M.3**: pulido visual. La revisión automática ahora detecta textos que se salen de su tarjeta (#89).
 - 03/11: **Fase M.4**: se pueden resolver varias alertas a la vez, y el panel muestra la más vieja sin resolver (#90).
 - 03/11: **Fase M.5**: el render 3D del robot está en la web: datos reales por zona para el empleado y el encargado, y un recorrido simulado en las páginas públicas (#93).
+- 03/11: **Fase M.5 (ajuste)**: a pedido de Toro, la web usa sus archivos originales en iframes: los renders «Robot SMAT 3D» y «SMAT en la fábrica», y el juego «Patrulla SMAT». Se descarta la versión reescrita a mano (#98).
 - 03/11: **Fase M.6 (en curso)**: el robot cuenta marcas en el piso e informa su zona. Quedó en el PR borrador #96, solo compilado: falta probarlo en el robot con Morena (#95).
 
 **Problemas**

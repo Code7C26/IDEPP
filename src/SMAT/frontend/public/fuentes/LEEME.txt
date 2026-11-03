@@ -1,0 +1,7 @@
+Tipografías del render 3D del robot, las mismas que usa el render original. Licencia SIL Open Font License 1.1:
+https://openfontlicense.org
+
+- Archivo Black: Copyright The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)
+- IBM Plex Sans e IBM Plex Mono: Copyright IBM Corp. (https://github.com/IBM/plex)
+
+Descargadas de Google Fonts (subconjunto latino).

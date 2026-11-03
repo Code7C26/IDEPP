@@ -1,4 +1,4 @@
-// Textos y controles de la vista 3D del robot.
+// Textos y controles de la posición del robot y de los renders 3D.
 import { haceCuanto } from './formato.js'
 
 const ESTADOS = { recorriendo: 'Recorriendo', pausado: 'Pausado', detenido: 'Detenido', emergencia: 'EMERGENCIA' }
@@ -14,7 +14,7 @@ export function textoPosicion(robot) {
   return robot.zona_actual ? `En ${robot.zona_actual} · ${estado}` : `${estado} · sin zona informada`
 }
 
-// ¿El equipo puede dibujar 3D? Se revisa antes de descargar Three.js.
+// ¿El equipo puede dibujar 3D? Se revisa antes de cargar un render.
 export function hayWebgl() {
   try {
     const canvas = document.createElement('canvas')
