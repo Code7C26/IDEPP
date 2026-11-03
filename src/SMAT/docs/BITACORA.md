@@ -11,6 +11,7 @@
 - 03/11: **Fase M.3**: pulido visual. La revisión automática ahora detecta textos que se salen de su tarjeta (#89).
 - 03/11: **Fase M.4**: se pueden resolver varias alertas a la vez, y el panel muestra la más vieja sin resolver (#90).
 - 03/11: **Fase M.5**: el render 3D del robot está en la web: datos reales por zona para el empleado y el encargado, y un recorrido simulado en las páginas públicas (#93).
+- 03/11: **Fase M.5 (ajuste)**: el render queda igual al original a pedido de Toro: misma versión de Three.js, cámara, luces, piso, casco y tipografías. La planta en 3D se descarta y la zona se ve en el mapa (#98).
 - 03/11: **Fase M.6 (en curso)**: el robot cuenta marcas en el piso e informa su zona. Quedó en el PR borrador #96, solo compilado: falta probarlo en el robot con Morena (#95).
 
 **Problemas**

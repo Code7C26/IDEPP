@@ -71,14 +71,23 @@ def test_ingresar_lleva_al_login_o_a_la_app(base_limpia, abrir):
     assert con_sesion.url.endswith("/app/panel")
 
 
-def test_las_paginas_publicas_muestran_un_recorrido_simulado(base_limpia, abrir):
+def test_las_paginas_publicas_muestran_el_modelo_del_robot(base_limpia, abrir):
     for ruta in ("/", "/como-funciona"):
         pag = abrir(None, ruta)
         pedidos = []
         pag.on("request", lambda r: pedidos.append(r.url))
         pag.reload()
         figura = pag.locator("figure")
-        figura.get_by_text("Simulación", exact=True).wait_for(timeout=3000)
-        figura.get_by_text("En Zona B · Recorriendo").wait_for(timeout=9000)    # avanza solo
+        figura.get_by_text("Patrullando · casco OK").wait_for(timeout=3000)
+        assert figura.get_by_text("Chasis DROID-E3D").is_visible()
+        assert figura.get_by_text("no muestra datos de un robot real").is_visible()
+
+        figura.get_by_role("button", name="Simular trabajador sin casco").click()
+        assert figura.get_by_text("Alerta · sin casco · detenido").is_visible()
+        figura.get_by_role("button", name="Volver a patrullar").click()
+        assert figura.get_by_text("Patrullando · casco OK").is_visible()
+
+        figura.get_by_role("button", name="Pausar giro automático").click()
+        assert figura.get_by_role("button", name="Activar giro automático").is_visible()
         assert not [p for p in pedidos if p.startswith(API)]                    # nunca muestra al robot real
         assert not pag.errores
