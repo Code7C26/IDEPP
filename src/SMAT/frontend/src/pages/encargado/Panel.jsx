@@ -74,7 +74,8 @@ export default function Panel() {
         <section className={tarjeta}>
           <h2 className="mb-3 text-lg font-semibold">Mapa de la fábrica</h2>
           {zonas.cargando && <p className="text-sm text-zinc-500">Cargando…</p>}
-          {zonas.datos && (
+          {/* El mapa espera a las alertas: sin ellas pintaría todo en verde, como si estuviera en orden */}
+          {zonas.datos && activas.datos && (
             <MapaFabrica zonas={zonas.datos.zonas} alertasPorZona={alertasPorZona} robot={robot.datos}
                          ruta={(ruta.datos?.ruta || []).map((p) => p.zona_id)} seleccionada={zonaAbierta}
                          onSeleccionar={(z) => setZonaAbierta(z.id)} />
