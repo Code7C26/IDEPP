@@ -1,7 +1,7 @@
 """Página pública de SMAT (sin login): secciones, menú del celular, contacto y acceso a la app."""
 from urllib.parse import unquote
 
-from conftest import API
+from conftest import centrar_render
 
 # Reemplaza window.open para ver qué enlace se abriría (mail o WhatsApp) sin salir de la página
 ESPIAR_ABRIR = "window.__abierto = null; window.open = (url) => { window.__abierto = url }"
@@ -77,11 +77,11 @@ def test_los_renders_y_el_juego_andan_en_la_web_sin_nada_de_internet(base_limpia
              ("/como-funciona", "Chasis DROID-E3D", "Vista de frente"),
              ("/juego", "Cómo se juega", "JUGAR"))
     for ruta, texto, boton in casos:
-        pag = abrir_3d(None, ruta)
+        pag = abrir_3d(None, ruta, ancho=640, alto=700)
         pedidos = []
         pag.on("request", lambda r: pedidos.append(r.url))
         pag.reload()
-        pag.locator("iframe").first.scroll_into_view_if_needed()
+        centrar_render(pag)
         marco = pag.frame_locator("iframe").first
         marco.locator("canvas").wait_for(timeout=10000)
         marco.get_by_text(texto).first.wait_for(timeout=5000)
@@ -95,7 +95,7 @@ def test_los_renders_y_el_juego_andan_en_la_web_sin_nada_de_internet(base_limpia
 
 
 def test_se_puede_jugar_a_patrulla_smat(base_limpia, abrir_3d):
-    pag = abrir_3d(None, "/juego")
+    pag = abrir_3d(None, "/juego", ancho=640, alto=700)
     juego = pag.frame_locator("iframe")
     juego.get_by_role("button", name="JUGAR").click()
     assert juego.locator("#hud").is_visible()

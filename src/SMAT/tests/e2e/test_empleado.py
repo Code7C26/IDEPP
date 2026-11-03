@@ -1,7 +1,7 @@
 """Pantallas del empleado: inicio, mis alertas, perfil y permisos."""
 from datetime import date, timedelta
 
-from conftest import ROBOT, api, esperar_texto, selector, sesion
+from conftest import ROBOT, api, centrar_render, esperar_texto, selector, sesion
 
 
 def test_inicio_muestra_zona_epp_y_cumplimiento(base_limpia, abrir):
@@ -126,12 +126,11 @@ def test_sin_3d_avisa_y_el_mapa_no_afirma_que_todo_esta_en_orden(base_limpia, ab
 
 
 def test_el_empleado_ve_la_simulacion_aclarada_como_tal(base_limpia, abrir_3d):
-    pag = abrir_3d("juan", "/app")
+    pag = abrir_3d("juan", "/app", ancho=480, alto=700)
     figura = pag.locator("figure")
     assert figura.get_by_text("Simulación", exact=True).is_visible()
     assert figura.get_by_text("no muestra tu fábrica ni al robot real").is_visible()
-    marco = figura.locator("iframe")
-    marco.scroll_into_view_if_needed()
+    centrar_render(pag)
     escena = pag.frame_locator("figure iframe")
     escena.locator("canvas").wait_for(timeout=10000)
     assert escena.get_by_role("button", name="Seguir al robot").is_visible()

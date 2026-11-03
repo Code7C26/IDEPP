@@ -80,6 +80,9 @@ def test_ordenes_al_robot_y_parada_de_emergencia(robot_simulado, abrir):
 
 def test_la_vista_3d_sigue_al_robot_simulado(robot_simulado, abrir):
     pag = abrir("maria", "/app/robot")
+    # Acá está la parada de emergencia: la simulación 3D no arranca sola, porque comparte el hilo con la página
+    assert pag.locator("figure iframe").count() == 0
+    assert pag.get_by_role("button", name="Ver la simulación").is_visible() or pag.get_by_text("no puede mostrar el modelo 3D").is_visible()
     assert esperar_texto(pag, "Conectado", 6, exacto=False)
     pag.get_by_role("button", name="Iniciar").click()
     linea = pag.locator("figure [role=status]")

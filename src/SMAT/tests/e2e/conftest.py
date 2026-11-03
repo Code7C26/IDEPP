@@ -108,7 +108,7 @@ def base_limpia():
     recrear_base(os.getenv("E2E_DB", "robot_db_e2e"))
 
 
-def _abridor(navegador, request):
+def _abridor(navegador, request, capturar=True):
     """Generador con la función abrir(usuario, ruta): al final de la prueba guarda una captura y cierra todo."""
     contextos = []
 
@@ -133,7 +133,8 @@ def _abridor(navegador, request):
     os.makedirs(CAPTURAS, exist_ok=True)
     for i, (ctx, pagina) in enumerate(contextos):
         try:
-            pagina.screenshot(path=os.path.join(CAPTURAS, f"{request.node.name}-{i}.png"), full_page=True)
+            if capturar:
+                pagina.screenshot(path=os.path.join(CAPTURAS, f"{request.node.name}-{i}.png"), full_page=True)
         finally:
             ctx.close()
 
@@ -146,5 +147,12 @@ def abrir(navegador, request):
 
 @pytest.fixture
 def abrir_3d(navegador_3d, request):
-    """Igual que abrir, en el navegador con WebGL."""
-    yield from _abridor(navegador_3d, request)
+    """Igual que abrir, en el navegador con WebGL. Sin placa de video el 3D frena toda la página: en estas
+    pruebas conviene una ventana chica, y hay que bajar hasta el render con centrar_render."""
+    yield from _abridor(navegador_3d, request, capturar=False)
+
+
+def centrar_render(pagina):
+    """Lleva el render a la pantalla. No usa scroll_into_view_if_needed: espera que la página esté quieta, y
+    con el 3D corriendo por software puede no llegar a estarlo."""
+    pagina.evaluate("document.querySelector('iframe').scrollIntoView({ block: 'center' })")
