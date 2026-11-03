@@ -1,0 +1,6 @@
+/* Las tipografías de los renders y del juego, guardadas acá para que anden sin internet.
+   IBM Plex Sans es un solo archivo con todos los pesos; se declara como 400 y 600, igual que en los originales. */
+@font-face { font-family: "Archivo Black"; font-weight: 400; font-display: swap; src: url("fuentes/archivo-black.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-display: swap; src: url("fuentes/ibm-plex-sans.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-display: swap; src: url("fuentes/ibm-plex-sans.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 500; font-display: swap; src: url("fuentes/ibm-plex-mono-500.woff2") format("woff2"); }

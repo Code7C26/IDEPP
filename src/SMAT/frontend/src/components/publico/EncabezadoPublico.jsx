@@ -9,6 +9,7 @@ import Logo from '../Logo.jsx'
 
 export const SECCIONES = [
   { ruta: '/como-funciona', texto: 'Cómo funciona' },
+  { ruta: '/juego', texto: 'Juego' },
   { ruta: '/planes', texto: 'Planes' },
   { ruta: '/nosotros', texto: 'Nosotros' },
   { ruta: '/contacto', texto: 'Contacto' },

@@ -5,7 +5,7 @@ import Icono from '../../components/Icono.jsx'
 import { Antetitulo, botonClaro, botonOscuro, Caracteristica, LlamadoDemo, Seccion } from '../../components/publico/Bloques.jsx'
 import Captura from '../../components/publico/Captura.jsx'
 import Pasos from '../../components/publico/Pasos.jsx'
-import RobotSimulado from '../../components/publico/RobotSimulado.jsx'
+import RenderEmbebido from '../../components/RenderEmbebido.jsx'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 
 const BENEFICIOS = [
@@ -52,9 +52,11 @@ export default function InicioPublico() {
         </div>
       </section>
 
-      <Seccion antetitulo="El robot" titulo="Recorre las zonas y frena la máquina donde falta el equipo"
-               descripcion="Modelo 3D del robot que patrulla la fábrica y controla que cada trabajador tenga el casco puesto. Arrastrá para girarlo.">
-        <RobotSimulado />
+      <Seccion antetitulo="El robot en acción">
+        <div className="mt-6"><RenderEmbebido archivo="fabrica" titulo="SMAT en la fábrica: simulación del recorrido del robot" /></div>
+        <Link to="/juego" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-marca-oscuro hover:underline dark:text-marca">
+          Manejalo vos en el juego <Icono nombre="flecha" className="size-4" />
+        </Link>
       </Seccion>
 
       <Seccion gris antetitulo="Por qué DROID-E3D" titulo="Control continuo del equipo de protección, sin perseguir a nadie"

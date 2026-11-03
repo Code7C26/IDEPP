@@ -2,7 +2,7 @@
 import { Caracteristica, EncabezadoPagina, LlamadoDemo, Seccion } from '../../components/publico/Bloques.jsx'
 import Captura from '../../components/publico/Captura.jsx'
 import Pasos from '../../components/publico/Pasos.jsx'
-import RobotSimulado from '../../components/publico/RobotSimulado.jsx'
+import RenderEmbebido from '../../components/RenderEmbebido.jsx'
 import Icono from '../../components/Icono.jsx'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 
@@ -62,9 +62,8 @@ export default function ComoFunciona() {
         <Pasos detalle />
       </Seccion>
 
-      <Seccion antetitulo="En la planta" titulo="El robot que recorre la planta"
-               descripcion="Girá el modelo y probá qué pasa cuando detecta a alguien sin casco: frena, avisa en su pantalla y prende la luz de alerta.">
-        <RobotSimulado />
+      <Seccion antetitulo="El robot">
+        <div className="mt-6"><RenderEmbebido archivo="robot" titulo="Robot SMAT: modelo 3D del robot" /></div>
       </Seccion>
 
       <Seccion gris antetitulo="El sistema" titulo="Cuatro partes conectadas por la red de la planta"

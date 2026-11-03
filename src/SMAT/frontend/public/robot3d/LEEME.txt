@@ -1,0 +1,13 @@
+Renders y juego de SMAT, hechos en Claude. No se editan acá: se cambian en Claude, se descargan y se copian con
+backend/tools/copiar_renders.py, que solo reemplaza los enlaces a internet por estos archivos locales.
+
+robot.html     Robot SMAT 3D
+fabrica.html   SMAT en la fábrica
+patrulla.html  Patrulla SMAT (el juego)
+embebido.js    Los acomoda cuando están dentro de la web. Abiertos solos, no hace nada.
+
+Terceros:
+- three.min.js y OrbitControls.js: Three.js 0.128.0, licencia MIT (https://github.com/mrdoob/three.js)
+- fuentes/: licencia SIL Open Font License 1.1 (https://openfontlicense.org), descargadas de Google Fonts
+  Archivo Black: Copyright The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)
+  IBM Plex Sans e IBM Plex Mono: Copyright IBM Corp. (https://github.com/IBM/plex)
