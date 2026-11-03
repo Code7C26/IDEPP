@@ -138,7 +138,12 @@ export const updateUser = (id, datos) => request(`/users/${id}`, { method: 'PUT'
 // "Dar de baja" no borra al empleado (se perdería su historial): lo marca como inactivo
 export const deactivateUser = (id) => request(`/users/${id}`, { method: 'DELETE' })
 
-// ---------- Robot (solo encargado) ----------
+// ---------- Robot ----------
+
+// Dónde está el robot: para cualquier usuario con sesión (solo zona, estado y conexión)
+export const getRobotPosition = () => request('/robot/posicion')
+
+// Lo que sigue es solo para el encargado
 
 // Estado, batería, zona actual y si está conectado
 export const getRobot = () => request('/robot/estado')

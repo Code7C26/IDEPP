@@ -1,6 +1,6 @@
 """Robot y máquinas. Dos tipos de endpoints:
  - Para los ESP32: exigen el header X-API-KEY (ROBOT_API_KEY).
- - Para la web: exigen sesión de encargado (header Authorization)."""
+ - Para la web: exigen sesión de encargado (header Authorization). La posición la puede ver cualquier sesión."""
 from datetime import datetime
 from urllib.parse import urlsplit
 
@@ -8,7 +8,7 @@ from flask import Blueprint, request
 
 from models import db, Robot, Zona, PuntoRuta, obtener_robot
 from utils.auditoria import registrar
-from utils.decoradores import api_key_requerida, rol_requerido, sesion_o_api_key
+from utils.decoradores import api_key_requerida, rol_requerido, sesion_o_api_key, token_required
 from utils.validacion import es_entero, id_valido, leer_json
 
 robot_bp = Blueprint("robot", __name__)
@@ -73,6 +73,15 @@ def reporte_del_robot():
 def estado_del_robot():
     """Estado actual: estado, batería, zona, comando pendiente y si está conectado."""
     return obtener_robot().to_dict()
+
+
+@robot_bp.route("/robot/posicion", methods=["GET"])
+@token_required
+def posicion_del_robot():
+    """Dónde está el robot, para cualquier usuario con sesión (el empleado lo ve en su Inicio).
+    Solo estos datos: la dirección del video y las órdenes siguen siendo solo para el encargado."""
+    robot = obtener_robot().to_dict()
+    return {campo: robot[campo] for campo in ("estado", "conectado", "zona_actual_id", "zona_actual", "ultima_conexion")}
 
 
 @robot_bp.route("/robot/comando", methods=["POST"])

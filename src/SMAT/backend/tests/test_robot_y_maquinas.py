@@ -103,6 +103,20 @@ def test_una_parada_pendiente_no_se_descarta_al_volver(cliente, encargada):
     assert cliente.post("/api/robot/reporte", json={}, headers=ROBOT).json["comando"] == "emergencia"
 
 
+def test_cualquier_sesion_ve_la_posicion_y_nada_mas(cliente, encargada, empleado):
+    assert cliente.get("/api/robot/posicion").status_code == 401
+    assert cliente.get("/api/robot/posicion", headers=ROBOT).status_code == 401
+    cliente.post("/api/robot/reporte", json={"estado": "recorriendo", "zona_actual_id": 2, "bateria": 80}, headers=ROBOT)
+    for sesion in (empleado, encargada):
+        r = cliente.get("/api/robot/posicion", headers=sesion)
+        assert r.status_code == 200
+        # Ni la dirección del video ni las órdenes: esos datos siguen siendo solo para el encargado
+        assert set(r.json) == {"estado", "conectado", "zona_actual_id", "zona_actual", "ultima_conexion"}
+        assert r.json["zona_actual"] == "Zona B" and r.json["conectado"] is True
+    desconectar_robot()
+    assert cliente.get("/api/robot/posicion", headers=empleado).json["conectado"] is False
+
+
 def test_ruta(cliente, encargada, empleado):
     assert [p["zona_id"] for p in cliente.get("/api/robot/ruta", headers=encargada).json["ruta"]] == [1, 2, 3, 4]
     assert len(cliente.get("/api/robot/ruta", headers=ROBOT).json["ruta"]) == 4
