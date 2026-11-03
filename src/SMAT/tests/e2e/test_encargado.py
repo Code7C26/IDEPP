@@ -26,6 +26,28 @@ def test_panel_mapa_abre_el_detalle_de_la_zona(base_limpia, abrir):
     assert not pag.errores
 
 
+def test_mapa_de_zonas_muestra_las_alertas_activas(base_limpia, abrir):
+    """El mapa de Zonas no puede decir "Todo en orden" en una zona con alertas sin resolver."""
+    activas = api("/incidents?zona_id=2&estado=activa&limit=1", token=token())["total"]
+    assert activas > 0
+    pag = abrir("maria", "/app/zonas")
+    zona_b = pag.locator('svg g[role="button"]', has_text="Zona B")
+    assert zona_b.get_attribute("aria-label") == f"Zona B: {activas} alerta(s) activa(s)"
+    assert zona_b.get_by_text("Todo en orden").count() == 0
+    assert not pag.errores
+
+
+def test_sin_conexion_el_robot_no_se_puede_iniciar_y_avisa_que_los_datos_son_viejos(base_limpia, abrir):
+    pag = abrir("maria", "/app/robot")                            # sin robot simulado: nunca se conectó
+    assert pag.get_by_text("Sin conexión", exact=True).is_visible()
+    assert pag.get_by_role("button", name="Iniciar").is_disabled()
+    assert pag.get_by_text("tiene que estar encendido y conectado").is_visible()
+    assert pag.get_by_role("button", name="PARADA DE EMERGENCIA").is_enabled()
+    panel = abrir("maria", "/app/panel")
+    assert panel.get_by_text("sin datos", exact=True).first.is_visible()   # no inventa una batería de 100 %
+    assert not pag.errores and not panel.errores
+
+
 def test_panel_detalle_de_zona_lleva_a_sus_incidencias(base_limpia, abrir):
     pag = abrir("maria", "/app/panel")
     pag.locator('svg g[role="button"]', has_text="Zona B").click()

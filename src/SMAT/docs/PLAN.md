@@ -194,6 +194,14 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [ ] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007). Código listo y probado con Postgres; datos cargados en Supabase el 22/10; falta la clave de Storage y publicar en Render (#59)
 - [ ] 9.4 README final con capturas y guion de demo (#60) · README al día con capturas y links a la demo (21/10); falta rehacer las capturas con el logo nuevo (#72) y sumar el resultado de la 6.5
 
+### Fase M · Mejoras de la web y render 3D (pedido del usuario, 03/11/2026)
+- [x] M.1 Errores graves: el mapa de Zonas muestra las alertas activas; sin conexión no se puede iniciar el robot y un `iniciar` sin tomar se descarta al volver; la batería sin conexión se rotula como último dato (#85)
+- [ ] M.2 Verla funcionando sin el robot: `tools/demo_en_vivo.py` lanza juntos los simuladores
+- [ ] M.3 Pulido visual: textos del mapa, tarjetas en celular, filtros, fechas de incidencias, períodos de reportes y panel
+- [ ] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver
+- [ ] M.5 Render 3D en la web (Three.js): empleado y encargado con datos reales por zona; Inicio y Cómo funciona con un recorrido simulado
+- [ ] M.6 (con Morena) El robot cuenta marcas en el piso e informa su zona; PR borrador hacia `SMAT-hardware`
+
 ### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y deja `TODO (socio)` donde falte una decisión.
 - [x] E.0 Estructura con plantillas y `EMPRESA-SMAT/README.md` índice
