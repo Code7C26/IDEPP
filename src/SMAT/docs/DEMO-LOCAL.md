@@ -110,12 +110,16 @@ Con el backend andando, en otra ventana de PowerShell:
 ```powershell
 cd C:\Users\tomas\Fat\TOUCH-ID\src\SMAT\backend
 venv\Scripts\activate
-python tools\simular_esp32.py --velocidad 10 --maquinas     # robot que recorre las zonas + máquinas
-python tools\simular_yolo.py --cada 15                       # una alerta con foto cada 15 s
+python tools\demo_en_vivo.py             # robot que recorre las zonas + máquinas + una alerta con foto cada 30 s
+python tools\demo_en_vivo.py --cada 15   # lo mismo, con una alerta cada 15 s
 ```
 
 En la web: **Robot → Iniciar** y se ve al robot moverse en el mapa. Las alertas llegan solas al Panel,
-con sonido y un aviso en pantalla.
+con sonido y un aviso en pantalla. Para cortarlo: `Ctrl+C`.
+
+Agrega alertas ficticias y detiene máquinas en la base local, pero no borra nada. Apunta siempre a esta PC,
+aunque el `.env` tenga `DROID_URL` con la versión online. Si solo necesitás una de las dos partes, usá
+`tools\simular_esp32.py` o `tools\simular_yolo.py`.
 
 ## 7. Lo que no anda sin https
 

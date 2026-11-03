@@ -196,7 +196,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 
 ### Fase M · Mejoras de la web y render 3D (pedido del usuario, 03/11/2026)
 - [x] M.1 Errores graves: el mapa de Zonas muestra las alertas activas; sin conexión no se puede iniciar el robot y un `iniciar` sin tomar se descarta al volver; la batería sin conexión se rotula como último dato (#85)
-- [ ] M.2 Verla funcionando sin el robot: `tools/demo_en_vivo.py` lanza juntos los simuladores
+- [x] M.2 Verla funcionando sin el robot: `tools/demo_en_vivo.py` lanza juntos los simuladores (#87)
 - [ ] M.3 Pulido visual: textos del mapa, tarjetas en celular, filtros, fechas de incidencias, períodos de reportes y panel
 - [ ] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver
 - [ ] M.5 Render 3D en la web (Three.js): empleado y encargado con datos reales por zona; Inicio y Cómo funciona con un recorrido simulado
