@@ -2,6 +2,7 @@
 import { Caracteristica, EncabezadoPagina, LlamadoDemo, Seccion } from '../../components/publico/Bloques.jsx'
 import Captura from '../../components/publico/Captura.jsx'
 import Pasos from '../../components/publico/Pasos.jsx'
+import RobotSimulado from '../../components/publico/RobotSimulado.jsx'
 import Icono from '../../components/Icono.jsx'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 
@@ -59,6 +60,11 @@ export default function ComoFunciona() {
 
       <Seccion antetitulo="Paso a paso" titulo="Qué pasa cuando alguien trabaja sin su equipo">
         <Pasos detalle />
+      </Seccion>
+
+      <Seccion antetitulo="En la planta" titulo="El recorrido del robot, zona por zona"
+               descripcion="El robot sigue su ruta y avisa en qué zona está. Si detecta una falta, esa zona se marca y su máquina se detiene hasta que el encargado la reactive.">
+        <RobotSimulado />
       </Seccion>
 
       <Seccion gris antetitulo="El sistema" titulo="Cuatro partes conectadas por la red de la planta"
