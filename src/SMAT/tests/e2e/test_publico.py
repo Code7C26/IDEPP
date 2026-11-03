@@ -71,23 +71,33 @@ def test_ingresar_lleva_al_login_o_a_la_app(base_limpia, abrir):
     assert con_sesion.url.endswith("/app/panel")
 
 
-def test_las_paginas_publicas_muestran_el_modelo_del_robot(base_limpia, abrir):
-    for ruta in ("/", "/como-funciona"):
-        pag = abrir(None, ruta)
+def test_los_renders_y_el_juego_andan_en_la_web_sin_nada_de_internet(base_limpia, abrir_3d):
+    """Son los archivos originales de public/robot3d. Ningún pedido sale de la web: tienen que andar sin conexión."""
+    casos = (("/", "Registro de incidencias", "Seguir al robot"),
+             ("/como-funciona", "Chasis DROID-E3D", "Vista de frente"),
+             ("/juego", "Cómo se juega", "JUGAR"))
+    for ruta, texto, boton in casos:
+        pag = abrir_3d(None, ruta)
         pedidos = []
         pag.on("request", lambda r: pedidos.append(r.url))
         pag.reload()
-        figura = pag.locator("figure")
-        figura.get_by_text("Patrullando · casco OK").wait_for(timeout=3000)
-        assert figura.get_by_text("Chasis DROID-E3D").is_visible()
-        assert figura.get_by_text("no muestra datos de un robot real").is_visible()
-
-        figura.get_by_role("button", name="Simular trabajador sin casco").click()
-        assert figura.get_by_text("Alerta · sin casco · detenido").is_visible()
-        figura.get_by_role("button", name="Volver a patrullar").click()
-        assert figura.get_by_text("Patrullando · casco OK").is_visible()
-
-        figura.get_by_role("button", name="Pausar giro automático").click()
-        assert figura.get_by_role("button", name="Activar giro automático").is_visible()
-        assert not [p for p in pedidos if p.startswith(API)]                    # nunca muestra al robot real
+        pag.locator("iframe").first.scroll_into_view_if_needed()
+        marco = pag.frame_locator("iframe").first
+        marco.locator("canvas").wait_for(timeout=10000)
+        marco.get_by_text(texto).first.wait_for(timeout=5000)
+        assert marco.get_by_role("button", name=boton).is_visible()
+        afuera = [p for p in pedidos if not p.startswith(("http://localhost", "http://127.0.0.1", "data:", "blob:"))]
+        assert not afuera, afuera
         assert not pag.errores
+        # El iframe se ajusta a su contenido: no queda con barra de scroll propia
+        assert pag.locator("iframe").first.evaluate(
+            "m => m.contentDocument.documentElement.scrollHeight <= m.clientHeight + 2")
+
+
+def test_se_puede_jugar_a_patrulla_smat(base_limpia, abrir_3d):
+    pag = abrir_3d(None, "/juego")
+    juego = pag.frame_locator("iframe")
+    juego.get_by_role("button", name="JUGAR").click()
+    assert juego.locator("#hud").is_visible()
+    assert not juego.locator("#menu").is_visible()
+    assert not pag.errores

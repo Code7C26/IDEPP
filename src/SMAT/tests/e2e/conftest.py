@@ -78,14 +78,28 @@ def pytest_sessionstart(session):
 
 
 @pytest.fixture(scope="session")
-def navegador():
-    canal = os.getenv("NAVEGADOR", "chromium")
+def playwright_sesion():
+    """Una sola por corrida: Playwright no permite abrir dos a la vez."""
     with sync_playwright() as p:
-        # channel="chromium" usa el navegador completo sin ventana. Sin channel, Playwright usa una versión
-        # recortada ("headless shell") que no tiene notificaciones y hace fallar las pruebas de la Fase 7.
-        nav = p.chromium.launch(channel=canal, headless=True)
-        yield nav
-        nav.close()
+        yield p
+
+
+@pytest.fixture(scope="session")
+def navegador(playwright_sesion):
+    # channel="chromium" usa el navegador completo sin ventana. Sin channel, Playwright usa una versión
+    # recortada ("headless shell") que no tiene notificaciones y hace fallar las pruebas de la Fase 7.
+    nav = playwright_sesion.chromium.launch(channel=os.getenv("NAVEGADOR", "chromium"), headless=True)
+    yield nav
+    nav.close()
+
+
+@pytest.fixture(scope="session")
+def navegador_3d(playwright_sesion):
+    """Con WebGL por software, para probar los renders y el juego. Va aparte porque es más lento."""
+    nav = playwright_sesion.chromium.launch(channel=os.getenv("NAVEGADOR", "chromium"), headless=True,
+                                            args=["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
+    yield nav
+    nav.close()
 
 
 @pytest.fixture
@@ -94,9 +108,8 @@ def base_limpia():
     recrear_base(os.getenv("E2E_DB", "robot_db_e2e"))
 
 
-@pytest.fixture
-def abrir(navegador, request):
-    """abrir(usuario, ruta) -> página ya logueada (usuario=None: sin sesión). Al final de la prueba guarda una captura."""
+def _abridor(navegador, request):
+    """Generador con la función abrir(usuario, ruta): al final de la prueba guarda una captura y cierra todo."""
     contextos = []
 
     def _abrir(usuario, ruta, ancho=1280, alto=900, tema="claro"):
@@ -123,3 +136,15 @@ def abrir(navegador, request):
             pagina.screenshot(path=os.path.join(CAPTURAS, f"{request.node.name}-{i}.png"), full_page=True)
         finally:
             ctx.close()
+
+
+@pytest.fixture
+def abrir(navegador, request):
+    """abrir(usuario, ruta) -> página ya logueada (usuario=None: sin sesión). Al final de la prueba guarda una captura."""
+    yield from _abridor(navegador, request)
+
+
+@pytest.fixture
+def abrir_3d(navegador_3d, request):
+    """Igual que abrir, en el navegador con WebGL."""
+    yield from _abridor(navegador_3d, request)

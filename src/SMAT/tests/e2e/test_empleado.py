@@ -117,9 +117,24 @@ def test_sin_3d_avisa_y_el_mapa_no_afirma_que_todo_esta_en_orden(base_limpia, ab
     pag.wait_for_timeout(1500)
     figura = pag.locator("figure")
     assert figura.get_by_text("no puede mostrar el modelo 3D").is_visible()
+    assert figura.locator("iframe").count() == 0
     assert figura.get_by_text("Sin conexión · el robot nunca se conectó").is_visible()
     assert figura.locator('svg[aria-label="Plano de la fábrica"]').is_visible()
-    assert figura.locator("canvas").count() == 0
     assert figura.get_by_text("Todo en orden").count() == 0
     assert figura.get_by_text("Máquina en marcha").first.is_visible()
+    assert not pag.errores
+
+
+def test_el_empleado_ve_la_simulacion_aclarada_como_tal(base_limpia, abrir_3d):
+    pag = abrir_3d("juan", "/app")
+    figura = pag.locator("figure")
+    assert figura.get_by_text("Simulación", exact=True).is_visible()
+    assert figura.get_by_text("no muestra tu fábrica ni al robot real").is_visible()
+    marco = figura.locator("iframe")
+    marco.scroll_into_view_if_needed()
+    escena = pag.frame_locator("figure iframe")
+    escena.locator("canvas").wait_for(timeout=10000)
+    assert escena.get_by_role("button", name="Seguir al robot").is_visible()
+    # Solo la escena: sin el título ni el registro de faltas de ejemplo, que se confundirían con datos reales
+    assert not escena.get_by_text("Registro de incidencias").is_visible()
     assert not pag.errores

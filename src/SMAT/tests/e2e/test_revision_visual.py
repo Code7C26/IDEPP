@@ -15,6 +15,7 @@ from conftest import API
 PANTALLAS = [
     (None, "/"),
     (None, "/como-funciona"),
+    (None, "/juego"),
     (None, "/planes"),
     (None, "/nosotros"),
     (None, "/contacto"),
