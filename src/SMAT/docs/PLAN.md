@@ -173,7 +173,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] 6.4 `tools/simular_yolo.py`
 - [x] 6.6 Unir el servidor de IA de Morena (`servidor_ia/`) con el backend: alertas con foto, empleado por nombre y zona del robot; `tools/cargar_trabajadores_ia.py`
 - [x] 6.7 (Morena) IPs de la cámara y del robot en `servidor_ia/.env`; fotos de caras y modelos fuera de GitHub; el CI revisa `servidor_ia/` (PR #73)
-- [ ] 6.8 (Morena) Conectar `robot_droid.ino` con la web: órdenes, estado y zona (sin esto, la web lo ve sin conexión y rechaza las alertas sin zona)
+- [ ] 6.8 (Morena) Conectar `robot_droid.ino` con la web: órdenes, estado y zona (sin esto, la web lo ve sin conexión y rechaza las alertas sin zona). Código solo compilado en el PR borrador #96
 - [ ] 6.5 Prueba de integración real (`docs/integracion/PRUEBA.md`, guía lista) con la cámara, el robot y la máquina (#48)
 
 ### Fase 7 · Tiempo real
@@ -200,7 +200,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] M.3 Pulido visual: textos del mapa, tarjetas en celular, filtros, fechas de incidencias, períodos de reportes y panel (#89)
 - [x] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver (#90)
 - [x] M.5 Render 3D en la web (Three.js): empleado y encargado con datos reales por zona; Inicio y Cómo funciona con un recorrido simulado (#93)
-- [ ] M.6 (con Morena) El robot cuenta marcas en el piso e informa su zona; PR borrador hacia `SMAT-hardware`
+- [ ] M.6 (con Morena) El robot cuenta marcas en el piso e informa su zona. Código solo compilado en el PR borrador #96 (#95); falta arreglar el sensor del GPIO 34, poner las marcas y probarlo en el robot
 
 ### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y deja `TODO (socio)` donde falte una decisión.
