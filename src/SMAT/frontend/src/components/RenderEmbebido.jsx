@@ -4,14 +4,18 @@
 //   archivo      'robot' | 'fabrica' | 'patrulla'
 //   titulo       para los lectores de pantalla
 //   soloEscena   sin el título ni los paneles de abajo del archivo (opcional)
+//   aPedido      se carga recién al tocar un botón (opcional). El 3D comparte el hilo con la página: donde hay
+//                controles que no pueden demorarse, como la parada de emergencia, no arranca solo
 import { useEffect, useRef, useState } from 'react'
 import { useTema } from '../context/TemaContext.jsx'
+import { botonSecundario } from '../utils/estilos.js'
 import { hayWebgl } from '../utils/robot3d.js'
 
-export default function RenderEmbebido({ archivo, titulo, soloEscena = false }) {
+export default function RenderEmbebido({ archivo, titulo, soloEscena = false, aPedido = false }) {
   const marco = useRef(null)
   const [alto, setAlto] = useState(null)      // lo avisa el archivo (public/robot3d/embebido.js)
   const [con3d] = useState(hayWebgl)
+  const [abierto, setAbierto] = useState(!aPedido)
   const { oscuro } = useTema()
 
   useEffect(() => {
@@ -30,6 +34,7 @@ export default function RenderEmbebido({ archivo, titulo, soloEscena = false }) 
   useEffect(ponerTema, [oscuro])   // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!con3d) return <p className="text-sm text-zinc-500 dark:text-zinc-400">Este equipo no puede mostrar el modelo 3D del robot.</p>
+  if (!abierto) return <button type="button" className={botonSecundario} onClick={() => setAbierto(true)}>Ver la simulación</button>
 
   return (
     <iframe ref={marco} src={`/robot3d/${archivo}.html${soloEscena ? '?solo=escena' : ''}`} title={titulo} loading="lazy" onLoad={ponerTema}

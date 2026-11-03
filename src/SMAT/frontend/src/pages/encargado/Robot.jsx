@@ -71,7 +71,8 @@ export default function Robot() {
             <section className={tarjeta}>
               <h2 className="mb-3 text-lg font-semibold">Dónde está el robot</h2>
               <VistaRobot3D zonas={zonas.datos?.zonas} robot={r} ruta={(ruta.datos?.ruta || []).map((p) => p.zona_id)}
-                            alertasPorZona={activas.datos ? contarPorZona(activas.datos.incidencias) : null} />
+                            alertasPorZona={activas.datos ? contarPorZona(activas.datos.incidencias) : null}
+                            simulacionAPedido />   {/* acá está la parada de emergencia: el 3D no arranca solo */}
             </section>
           </div>
           <div className="space-y-6">
