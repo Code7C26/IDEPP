@@ -69,7 +69,12 @@ export default function Incidencias() {
   }
 
   const columnas = [
-    { clave: 'timestamp', titulo: 'Cuándo', ordenable: true, render: (i) => <span title={formatearFecha(i.timestamp)}>{haceCuanto(i.timestamp)}</span> },
+    { clave: 'timestamp', titulo: 'Cuándo', ordenable: true, render: (i) => (
+      <span className="block whitespace-nowrap">
+        {formatearFecha(i.timestamp)}
+        <span className="block text-xs text-zinc-500 dark:text-zinc-400">{haceCuanto(i.timestamp)}</span>
+      </span>
+    ) },
     { clave: 'zona', titulo: 'Zona', ordenable: true },
     { clave: 'empleado_nombre', titulo: 'Empleado', ordenable: true, render: (i) => (
       <span className="flex items-center gap-2.5"><Avatar nombre={i.empleado_nombre} tamano="sm" />{i.empleado_nombre}</span>
