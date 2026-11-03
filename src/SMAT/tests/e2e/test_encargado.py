@@ -79,6 +79,45 @@ def test_incidencias_filtros_y_resolver(base_limpia, abrir):
     assert pag.get_by_text("Resuelta por").is_visible()
 
 
+def test_resolver_varias_alertas_a_la_vez(base_limpia, abrir):
+    activas_antes = api("/incidents?estado=activa&limit=1", token=token())["total"]
+    assert activas_antes >= 3
+    pag = abrir("maria", "/app/incidencias")
+
+    marcas = pag.get_by_role("checkbox", name="Marcar la alerta")
+    assert marcas.count() >= 3                                    # solo las activas se pueden marcar
+    marcas.nth(0).check()
+    marcas.nth(1).check()
+    assert pag.get_by_text("2 alertas marcadas").is_visible()
+
+    # Cancelar la confirmación no resuelve nada
+    pag.get_by_role("button", name="Resolver 2 alertas").click()
+    ventana = pag.get_by_role("dialog", name="Resolver 2 alertas")
+    assert ventana.get_by_text("no se reactivan").is_visible()
+    ventana.get_by_role("button", name="Cancelar").click()
+    assert api("/incidents?estado=activa&limit=1", token=token())["total"] == activas_antes
+
+    pag.get_by_role("button", name="Resolver 2 alertas").click()
+    pag.get_by_role("dialog", name="Resolver 2 alertas").get_by_role("button", name="Sí, resolver").click()
+    assert esperar_texto(pag, "2 alertas marcadas como resueltas", 4)
+    assert api("/incidents?estado=activa&limit=1", token=token())["total"] == activas_antes - 2
+    assert pag.get_by_role("button", name="Desmarcar").count() == 0
+
+    # "Marcar todas" toma solo las activas de la página, y un filtro nuevo desmarca
+    pag.get_by_role("checkbox", name="Marcar todas las activas").check()
+    assert pag.get_by_role("button", name="Desmarcar").is_visible()
+    selector(pag, "Zona").select_option(label="Zona A")
+    pag.wait_for_timeout(500)
+    assert pag.get_by_role("button", name="Desmarcar").count() == 0
+    assert not pag.errores
+
+
+def test_el_panel_muestra_hace_cuanto_esta_la_alerta_mas_vieja(base_limpia, abrir):
+    pag = abrir("maria", "/app/panel")
+    assert pag.get_by_text("Sin resolver · la más vieja, hace", exact=False).is_visible()
+    assert not pag.errores
+
+
 def test_incidencias_en_celular_usa_tarjetas(abrir):
     pag = abrir("maria", "/app/incidencias", ancho=390, alto=844)
     assert pag.locator("article").count() > 0 and not pag.locator("table").first.is_visible()

@@ -198,7 +198,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] M.1 Errores graves: el mapa de Zonas muestra las alertas activas; sin conexión no se puede iniciar el robot y un `iniciar` sin tomar se descarta al volver; la batería sin conexión se rotula como último dato (#85)
 - [x] M.2 Verla funcionando sin el robot: `tools/demo_en_vivo.py` lanza juntos los simuladores (#87)
 - [x] M.3 Pulido visual: textos del mapa, tarjetas en celular, filtros, fechas de incidencias, períodos de reportes y panel (#89)
-- [ ] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver
+- [x] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver (#90)
 - [ ] M.5 Render 3D en la web (Three.js): empleado y encargado con datos reales por zona; Inicio y Cómo funciona con un recorrido simulado
 - [ ] M.6 (con Morena) El robot cuenta marcas en el piso e informa su zona; PR borrador hacia `SMAT-hardware`
 

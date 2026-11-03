@@ -14,6 +14,7 @@ import Titulo from '../../components/Titulo.jsx'
 import { useAvisos } from '../../context/AvisosContext.jsx'
 import usePolling from '../../hooks/usePolling.js'
 import { mensajeError, tarjeta } from '../../utils/estilos.js'
+import { haceCuanto } from '../../utils/formato.js'
 import { contarPorZona } from '../../utils/mapa.js'
 import { calcularTendencia } from '../../utils/tendencia.js'
 
@@ -60,7 +61,7 @@ export default function Panel() {
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StatCard titulo="Alertas activas" valor={s?.incidencias_activas} icono="alerta" tono={s?.incidencias_activas ? 'alerta' : 'ok'}
-                  detalle={s?.incidencias_activas ? 'Sin resolver ahora' : 'Todo resuelto'} />
+                  detalle={s?.incidencias_activas ? `Sin resolver · la más vieja, ${haceCuanto(s.activa_mas_antigua)}` : 'Todo resuelto'} />
         <StatCard titulo="Hoy" valor={s?.incidencias_hoy} icono="reportes" tono="marca"
                   tendencia={s && calcularTendencia(s.incidencias_hoy, s.incidencias_ayer, 'ayer')}
                   serie={serie.slice(-7)} />

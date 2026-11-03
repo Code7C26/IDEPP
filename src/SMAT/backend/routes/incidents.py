@@ -91,7 +91,8 @@ def listar_incidencias():
 @rol_requerido("encargado")
 def estadisticas():
     """Números del panel. "Semana" = los últimos 7 días calendario contando hoy.
-    serie_14_dias: alertas por día (la más vieja primero, la última es hoy), para los mini gráficos."""
+    serie_14_dias: alertas por día (la más vieja primero, la última es hoy), para los mini gráficos.
+    activa_mas_antigua: cuándo se detectó la alerta que lleva más tiempo sin resolver (o null si no hay)."""
     inicio_hoy = datetime.combine(datetime.now().date(), datetime.min.time())
     inicio_quincena = inicio_hoy - timedelta(days=13)
 
@@ -111,7 +112,9 @@ def estadisticas():
         .limit(3)
         .all()
     )
+    mas_antigua = db.session.query(db.func.min(Incidencia.timestamp)).filter(Incidencia.estado == "activa").scalar()
     return {
+        "activa_mas_antigua": mas_antigua.isoformat() if mas_antigua else None,
         "incidencias_hoy": serie[-1]["total"],
         "incidencias_ayer": serie[-2]["total"],
         "incidencias_semana": sum(d["total"] for d in serie[7:]),
@@ -185,15 +188,39 @@ def crear_incidencia():
     return {**inc.to_dict(), "maquina_detenida": parada}, 201
 
 
+def marcar_resuelta(inc):
+    """Deja la alerta resuelta a nombre del encargado de esta sesión y lo anota en la auditoría.
+    No reactiva la máquina: eso se decide aparte, desde Zonas."""
+    inc.estado = "resuelta"
+    inc.resuelta_por = request.user_id
+    inc.resuelta_at = datetime.now()
+    registrar("resolver_incidencia", f"Incidencia #{inc.id} ({inc.tipo}, {inc.zona.nombre})")
+
+
 @incidents_bp.route("/incidents/<int:inc_id>/resolver", methods=["PUT"])
 @rol_requerido("encargado")
 def resolver_incidencia(inc_id):
     inc = db.get_or_404(Incidencia, inc_id)
     if inc.estado == "resuelta":
         return {"error": "La incidencia ya estaba resuelta"}, 409
-    inc.estado = "resuelta"
-    inc.resuelta_por = request.user_id
-    inc.resuelta_at = datetime.now()
-    registrar("resolver_incidencia", f"Incidencia #{inc.id} ({inc.tipo}, {inc.zona.nombre})")
+    marcar_resuelta(inc)
     db.session.commit()
     return inc.to_dict()
+
+
+@incidents_bp.route("/incidents/resolver-varias", methods=["POST"])
+@rol_requerido("encargado")
+def resolver_varias():
+    """Resuelve varias alertas de una vez. Body: {"ids": [1, 2, 3]} (hasta 200).
+    Las que ya estaban resueltas (o no existen) se omiten sin error: otro encargado pudo resolverlas recién.
+    Devuelve cuántas se resolvieron y cuántas se omitieron."""
+    ids = leer_json().get("ids")
+    if not isinstance(ids, list) or not ids or len(ids) > 200 or not all(id_valido(i) for i in ids):
+        return {"error": "'ids' debe ser una lista de 1 a 200 ids de alertas"}, 400
+
+    ids = set(ids)
+    activas = Incidencia.query.filter(Incidencia.id.in_(ids), Incidencia.estado == "activa").all()
+    for inc in activas:
+        marcar_resuelta(inc)
+    db.session.commit()
+    return {"resueltas": len(activas), "omitidas": len(ids) - len(activas)}
