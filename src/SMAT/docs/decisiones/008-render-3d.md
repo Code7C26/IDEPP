@@ -25,6 +25,8 @@ se cambian en Claude, se descargan y se copian con `backend/tools/copiar_renders
 - No entran en lo que guarda la PWA, porque pesan mucho. Sin conexión, en una app instalada, no se ven.
 - **El 3D comparte el hilo con la página** y, sin placa de video, la deja lenta (se vio en GitHub Actions). Por eso en
   `/app/robot`, donde está la parada de emergencia, la simulación se carga recién al tocar «Ver la simulación».
+  Por lo mismo, en GitHub Actions solo se dibuja el juego: la fábrica y el robot en 3D dentro de las páginas se prueban
+  en una máquina con video (`python tests/correr_e2e.py -k "renders or escena"`).
 - Sin WebGL la página avisa y sigue andando.
 - **Son simulaciones.** Sus operarios, faltas y sectores son de ejemplo, y no están conectados al robot real. Por eso
   en la app del empleado y del encargado llevan el cartel «Simulación» y se ve solo la escena, sin el registro de

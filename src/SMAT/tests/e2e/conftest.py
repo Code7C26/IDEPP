@@ -152,6 +152,11 @@ def abrir_3d(navegador_3d, request):
     yield from _abridor(navegador_3d, request, capturar=False)
 
 
+# GitHub Actions no tiene placa de video: la fábrica y el robot en 3D tardan más que el límite de las pruebas.
+# El juego, que es más liviano en una ventana chica, sí corre ahí.
+solo_con_video = pytest.mark.skipif(os.getenv("CI") == "true", reason="sin placa de video el 3D tarda demasiado")
+
+
 def centrar_render(pagina):
     """Lleva el render a la pantalla. No usa scroll_into_view_if_needed: espera que la página esté quieta, y
     con el 3D corriendo por software puede no llegar a estarlo."""

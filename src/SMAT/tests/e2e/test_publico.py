@@ -1,7 +1,7 @@
 """Página pública de SMAT (sin login): secciones, menú del celular, contacto y acceso a la app."""
 from urllib.parse import unquote
 
-from conftest import centrar_render
+from conftest import centrar_render, solo_con_video
 
 # Reemplaza window.open para ver qué enlace se abriría (mail o WhatsApp) sin salir de la página
 ESPIAR_ABRIR = "window.__abierto = null; window.open = (url) => { window.__abierto = url }"
@@ -71,23 +71,41 @@ def test_ingresar_lleva_al_login_o_a_la_app(base_limpia, abrir):
     assert con_sesion.url.endswith("/app/panel")
 
 
-def test_los_renders_y_el_juego_andan_en_la_web_sin_nada_de_internet(base_limpia, abrir_3d):
-    """Son los archivos originales de public/robot3d. Ningún pedido sale de la web: tienen que andar sin conexión."""
-    casos = (("/", "Registro de incidencias", "Seguir al robot"),
-             ("/como-funciona", "Chasis DROID-E3D", "Vista de frente"),
-             ("/juego", "Cómo se juega", "JUGAR"))
-    for ruta, texto, boton in casos:
-        pag = abrir_3d(None, ruta, ancho=640, alto=700)
+def test_los_renders_y_el_juego_no_piden_nada_a_internet(base_limpia, abrir):
+    """Son los archivos originales de public/robot3d y tienen que andar sin conexión el día de la demo.
+    No hace falta que dibujen: acá se mira qué piden al cargar, abiertos directamente."""
+    casos = (("fabrica", "Registro de incidencias"), ("robot", "Chasis DROID-E3D"), ("patrulla", "Cómo se juega"))
+    for archivo, texto in casos:
+        pag = abrir(None, f"/robot3d/{archivo}.html")
         pedidos = []
         pag.on("request", lambda r: pedidos.append(r.url))
         pag.reload()
+        pag.get_by_text(texto).first.wait_for(timeout=5000)
+        pag.wait_for_timeout(500)
+        assert any(p.endswith("/robot3d/three.min.js") for p in pedidos), pedidos
+        afuera = [p for p in pedidos if not p.startswith(("http://localhost", "http://127.0.0.1", "data:", "blob:"))]
+        assert not afuera, afuera
+
+
+def test_las_paginas_publicas_llevan_cada_render_en_su_lugar(base_limpia, abrir):
+    for ruta, archivo in (("/", "fabrica"), ("/como-funciona", "robot"), ("/juego", "patrulla")):
+        pag = abrir(None, ruta)
+        # Sin WebGL (GitHub Actions) la página avisa en vez de cargar el archivo
+        marcos = pag.locator("iframe")
+        assert marcos.count() == 1 and f"/robot3d/{archivo}.html" in marcos.get_attribute("src") or pag.get_by_text("no puede mostrar el modelo 3D").is_visible()
+        assert not pag.errores
+
+
+@solo_con_video
+def test_los_renders_se_ven_dentro_de_las_paginas(base_limpia, abrir_3d):
+    casos = (("/", "Registro de incidencias", "Seguir al robot"), ("/como-funciona", "Chasis DROID-E3D", "Vista de frente"))
+    for ruta, texto, boton in casos:
+        pag = abrir_3d(None, ruta, ancho=640, alto=700)
         centrar_render(pag)
         marco = pag.frame_locator("iframe").first
         marco.locator("canvas").wait_for(timeout=10000)
         marco.get_by_text(texto).first.wait_for(timeout=5000)
         assert marco.get_by_role("button", name=boton).is_visible()
-        afuera = [p for p in pedidos if not p.startswith(("http://localhost", "http://127.0.0.1", "data:", "blob:"))]
-        assert not afuera, afuera
         assert not pag.errores
         # El iframe se ajusta a su contenido: no queda con barra de scroll propia
         assert pag.locator("iframe").first.evaluate(
