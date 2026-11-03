@@ -6,6 +6,7 @@
 
 **Hecho**
 - 02/11: Se ponen al día el documento final (224 pruebas, Render + Supabase), el README, las guías y esta bitácora.
+- 03/11: **Fase M.1**: el mapa de Zonas ya no dice «Todo en orden» con alertas activas; el robot no puede arrancar solo al reconectarse; la batería sin conexión se rotula como último dato (#85).
 
 **Problemas**
 - Al revisar el sketch del robot para la demo: todavía no habla con la web, así que la web lo muestra «Sin conexión» y sus botones no le llegan. Además, si el robot no informa su zona y no hay `DROID_ZONA_ID`, la web rechaza las alertas de la cámara (error 400). Se documenta en `DEMO-LOCAL.md` y queda la tarea 6.8.
