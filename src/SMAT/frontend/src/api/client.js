@@ -69,6 +69,9 @@ export const getIncidents = (filtros) => request(`/incidents${armarConsulta(filt
 
 export const resolveIncident = (id) => request(`/incidents/${id}/resolver`, { method: 'PUT' })
 
+// Resuelve varias de una vez. Devuelve { resueltas, omitidas }.
+export const resolveIncidents = (ids) => request('/incidents/resolver-varias', { method: 'POST', body: JSON.stringify({ ids }) })
+
 // Comentarios de una alerta (el encargado y el empleado detectado). texto: de 1 a 500 caracteres
 export const getComentarios = (incidenciaId) => request(`/incidents/${incidenciaId}/comentarios`)
 export const comentar = (incidenciaId, texto) =>

@@ -204,6 +204,13 @@ Comentarios: el encargado en cualquier alerta; el empleado, solo en las suyas (s
 
 Cada incidencia trae además `cantidad_comentarios`.
 
+Resolver alertas (solo encargado; no reactiva la máquina y queda en la auditoría):
+
+| Endpoint | Para qué |
+|---|---|
+| ✅ `PUT /incidents/<id>/resolver` | Resuelve una alerta. `409` si ya estaba resuelta |
+| ✅ `POST /incidents/resolver-varias` | `{"ids": [1, 2, 3]}` (hasta 200) → `{"resueltas": 2, "omitidas": 1}`. Las ya resueltas o inexistentes se omiten sin error |
+
 | Endpoint | Para qué |
 |---|---|
 | ✅ `GET /auditoria` | Solo el encargado. Registros del más nuevo al más viejo. Filtros: `accion`, `usuario_id` (un id o `sistema`), `desde`, `hasta`, `q` (busca en el detalle), `page`, `limit` (25; máx. 100). Devuelve también `acciones` y `usuarios` para armar los filtros |
