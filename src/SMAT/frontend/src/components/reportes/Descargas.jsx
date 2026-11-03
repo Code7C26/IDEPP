@@ -46,7 +46,8 @@ export default function Descargas({ periodo }) {
         </select>
         <button type="button" className={botonPrimario} disabled={Boolean(bajando)}
                 onClick={() => bajar('pdf', () => descargarInformePDF(mes), 'Informe descargado')}>
-          <Icono nombre="documento" className="size-4" />{bajando === 'pdf' ? 'Generando…' : 'Informe PDF'}
+          <Icono nombre="documento" className="size-4" />{/* "del mes": es de un mes entero, no sigue al período elegido en la pantalla */}
+          {bajando === 'pdf' ? 'Generando…' : 'Informe PDF del mes'}
         </button>
       </div>
     </div>
