@@ -99,8 +99,8 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 | 3 · 19/10 | Fase L, 5, 6 | E.5, E.6 | YOLO + facial, prueba conjunta |
 | 4 · 26/10 | Fases 7, 8, 9 (despliegue) | E.7-E.10 | Ajustes, demo |
 
-> **Estado al 02/11/2026:** web lista (Fases 0 a 8, 9.1 y 9.2) y empresa completa (E.0 a E.10). Quedan publicar (9.3),
-> conectar el robot real con la web (6.8) y probarlo (6.5), el logo nuevo (E.11), el README final (9.4) y el documento final (Fase D).
+> **Estado al 04/11/2026:** web lista (Fases 0 a 8, 9.1, 9.2 y M.1 a M.5) y empresa completa (E.0 a E.10). Quedan publicar (9.3),
+> probar en el robot real la conexión con la web y las marcas del piso (6.8, M.6 y 6.5), el logo nuevo (E.11), el README final (9.4) y el documento final (Fase D).
 
 > Si hay atraso se ajusta en la bitácora; no se borra nada del plan (decisión: no recortar).
 
