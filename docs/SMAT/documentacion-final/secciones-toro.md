@@ -46,6 +46,7 @@ Cada decisión importante quedó registrada en `src/SMAT/docs/decisiones/`, con 
 | 004 · Avisos al celular | Web instalable (PWA) + notificaciones push | WebSockets, app nativa | Las alertas llegan aunque la web esté cerrada, sin publicar una app en las tiendas |
 | 007 · Publicación | Render (API y web) + Supabase (base y fotos) | PythonAnywhere, que dejó de ofrecer MySQL gratis, y SQLite | Gratis, y usa servicios que se emplean en la industria |
 | 006 · Medida de cumplimiento | Días sin alertas sobre los días del período | Alertas por persona | Se explica en una frase y es justo entre zonas que el robot visita con distinta frecuencia |
+| 008 · Renders 3D y juego | Los archivos originales dentro de la web, en iframes | Reescribirlos como componentes de React | Se ven exactamente igual y se actualizan copiándolos. Reescribirlos no quedaba igual |
 
 ### 5.3 Base de datos
 
@@ -67,8 +68,8 @@ Usamos 9 tablas. En la PC y en la demo local están en MySQL (MariaDB de XAMPP);
 
 | Quién | Pantallas |
 |---|---|
-| **Público** (sin cuenta) | Inicio, Cómo funciona, Planes, Nosotros, Contacto e Ingresar |
-| **Empleado** (pensado para el celular) | Inicio (su zona, el EPP obligatorio y su cumplimiento), Mis alertas y Mi perfil (con sus fotos de rostro) |
+| **Público** (sin cuenta) | Inicio, Cómo funciona, Juego, Planes, Nosotros, Contacto e Ingresar |
+| **Empleado** (pensado para el celular) | Inicio (su zona, el EPP obligatorio, su cumplimiento y dónde está el robot), Mis alertas y Mi perfil (con sus fotos de rostro) |
 | **Encargado** (celular y PC) | Panel, Incidencias, Robot, Zonas, Empleados, Reportes y Auditoría |
 
 Cada persona ve solo lo que le corresponde: un empleado no puede entrar a las pantallas del
@@ -122,30 +123,34 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 | 7 · Tiempo real | 08/10 | Cartel y sonido de alertas, web instalable y notificaciones push |
 | 8 · Reportes | 09/10 | Gráficos, ranking de cumplimiento, descargas en CSV y PDF mensual para la ART, comentarios y auditoría |
 | 9 · Pulido y publicación | 15 al 22/10 | Revisión de todas las pantallas, guía de la demo local y preparación de la versión de internet en Render + Supabase |
+| M · Mejoras | 03/11 | Corrección de errores graves, demo sin hardware con un solo comando, resolver varias alertas a la vez, renders 3D y juego integrados en la web |
 
 ### 6.3 Funcionalidades principales
 
 **Encargado** (capturas 2 a 6 del anexo):
 - **Panel** con las alertas activas, la comparación con el día y la semana anterior, el mapa de la fábrica, el estado del robot y las últimas alertas.
-- **Incidencias:** lista con filtros, foto de evidencia, resolución de alertas y comentarios con el empleado.
-- **Robot:** iniciar, pausar, detener y parada de emergencia, ruta editable y video en vivo.
+- **Incidencias:** lista con filtros, foto de evidencia, resolución de alertas (de a una o varias a la vez) y comentarios con el empleado.
+- **Robot:** iniciar, pausar, detener y parada de emergencia, ruta editable, video en vivo y su zona en el mapa. Sin conexión no se puede iniciar, para que nunca arranque solo al volver.
 - **Zonas:** máquina, EPP obligatorio, ubicación en el mapa, y detener o reactivar la máquina.
 - **Empleados:** altas, bajas, cambios de zona y fotos de rostro.
 - **Reportes:** alertas por día, por tipo de EPP y por zona, y ranking de cumplimiento. Se descargan en CSV y en un PDF mensual con firmas, para la ART.
 - **Auditoría:** quién hizo qué y cuándo, con filtros.
 
 **Empleado** (capturas 7 y 8 del anexo):
-- **Inicio:** estado de su zona, el EPP que tiene que usar, su porcentaje de cumplimiento y su racha de días sin alertas.
+- **Inicio:** estado de su zona, el EPP que tiene que usar, su porcentaje de cumplimiento, su racha de días sin alertas y en qué zona está el robot.
 - **Mis alertas:** su historial, con la foto de cada alerta y la posibilidad de comentar.
 - **Mi perfil:** sus datos, el tema de la pantalla, sus fotos de rostro (con consentimiento) y las notificaciones.
 
 **Público** (captura 1 del anexo): página de SMAT que presenta el producto, cómo funciona, los planes y el contacto.
 
+**Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot SMAT 3D» (el modelo del robot), «SMAT en la fábrica» (una simulación del recorrido) y el juego «Patrulla SMAT», donde se maneja el robot por la planta. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
+
 ### 6.4 Integración con el hardware y la IA
 
 - El servidor de IA de Morena (`src/SMAT/servidor_ia/`) se conectó con el backend mediante `conexion_droid.py`. Cada alerta llega a la web con la foto, el nombre del trabajador reconocido y la zona donde está el robot, y detiene la máquina de esa zona.
 - Las direcciones de la cámara, del robot y del backend se configuran en un archivo `.env`. Así, si cambia la red, no hace falta tocar el código.
-- Para trabajar sin el hardware armamos dos simuladores: `simular_esp32.py` (un robot que recorre las zonas y las máquinas) y `simular_yolo.py` (envía alertas con foto). Con ellos se puede hacer la demo completa aunque falte una pieza.
+- Para trabajar sin el hardware armamos dos simuladores: `simular_esp32.py` (un robot que recorre las zonas y las máquinas) y `simular_yolo.py` (envía alertas con foto). `demo_en_vivo.py` lanza los dos con un solo comando, así se puede hacer la demo completa aunque falte una pieza.
+- El robot sabe en qué zona está contando marcas en el piso: una cinta que cruza la línea en la entrada de cada zona, que detectan sus dos sensores de línea. La posición se conoce por zona, no al centímetro. El código está compilado, pero todavía no se probó en el robot (Pull Request borrador #96).
 - **[COMPLETAR]** Resultado de la prueba real con el robot, la cámara y la máquina (tarea 6.5, `docs/integracion/PRUEBA.md`).
 
 ### 6.5 Publicación
@@ -159,20 +164,23 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 
 ### 7.1 Pruebas automáticas
 
-El proyecto tiene **224 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
+El proyecto tiene **255 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
 
 | Tipo | Cantidad | Herramienta | Qué prueban |
 |---|---|---|---|
-| **De la API** (backend) | 112 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot y máquinas, reportes, comentarios, auditoría, notificaciones, conexión con la IA y robustez. Corren dos veces: contra MySQL y contra Postgres, el motor de la versión de internet |
-| **De punta a punta** (navegador real) | 112 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
+| **De la API** (backend) | 124 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot y máquinas, reportes, comentarios, auditoría, notificaciones, conexión con la IA y robustez. Corren dos veces: contra MySQL y contra Postgres, el motor de la versión de internet |
+| **De punta a punta** (navegador real) | 131 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
 
 Las pruebas usan **bases de datos propias** (`robot_db_test` y `robot_db_e2e`): nunca tocan los datos reales.
 
+En GitHub Actions se saltean 3 de punta a punta: dos dibujan los renders 3D, que tardan demasiado porque ese servidor no tiene placa de video, y una necesita el servicio de notificaciones de Edge. Esas se corren en una computadora con Edge y placa de video.
+
 ### 7.2 Revisión de todas las pantallas (tarea 9.1)
 
-Una prueba recorre automáticamente las **17 pantallas** en **celular (360 px) y PC**, en **modo claro y oscuro**: son 68 combinaciones. En cada una controla que:
+Una prueba recorre automáticamente las **18 pantallas** en **celular (360 px) y PC**, en **modo claro y oscuro**: son 72 combinaciones. En cada una controla que:
 - no haya errores de la página,
 - no aparezca scroll horizontal,
+- ningún texto se salga de su tarjeta,
 - no quede un «Cargando…» trabado,
 - el tema se aplique bien,
 - no haya imágenes rotas.
@@ -199,6 +207,11 @@ Además, revisa que cada pantalla **avise si el servidor no responde**, en lugar
 | Si un dato del `.env` de la IA quedaba vacío, se perdía la dirección del backend | Al revisar la configuración | Se usa el valor por defecto |
 | En Postgres, las alertas cargadas con SQL directo quedaban sin estado | Al correr las pruebas contra Postgres | Se copiaron a los modelos los valores por defecto de `schema.sql` |
 | PythonAnywhere dejó de ofrecer MySQL en el plan gratis | Al crear la cuenta | Se cambió a Render + Supabase (decisión 007) |
+| El mapa de Zonas decía «Todo en orden» aunque hubiera alertas activas | Revisión de las pantallas | El mapa recibe las alertas y espera a tenerlas antes de dibujarse |
+| Si se tocaba Iniciar con el robot desconectado, habría arrancado solo al volver, aunque fuera días después | Revisión del código | Sin conexión no se acepta Iniciar, y una orden sin tomar se descarta. Las órdenes de parada sí se guardan |
+| Sin conexión, la batería se veía en verde, como si fuera un dato actual | Revisión de las pantallas | Se muestra en gris, como último dato |
+| «Cumplimiento» se salía de su tarjeta en el celular | Revisión de las pantallas | Tarjeta compacta, y la prueba automática ahora busca textos desbordados |
+| Sin placa de video, el render 3D dejaba lenta toda la página | GitHub Actions | En la pantalla con la parada de emergencia se carga recién al tocar un botón, y fuera de la pantalla se pausa |
 
 ### 7.5 Prueba real con el hardware
 

@@ -151,5 +151,6 @@ confía en `localhost`. Para mostrarlas en el celular, usar la versión online (
 - [ ] XAMPP: MySQL en Start · `python app.py` andando
 - [ ] `http://IP:5000/api/health` responde desde un celular
 - [ ] ESP32 y `servidor_ia/.env` con la IP de hoy, y `DROID_ZONA_ID` si el robot no informa su zona
-- [ ] Simuladores listos por si falla el hardware
+- [ ] Simuladores listos por si falla el hardware (`tools\demo_en_vivo.py`)
+- [ ] Renders y juego probados en esta notebook (`/`, `/como-funciona` y `/juego`): andan sin internet, pero sin placa de video van lentos
 - [ ] Notebook enchufada y con la suspensión desactivada

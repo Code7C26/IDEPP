@@ -14,12 +14,16 @@
 - 03/11: **Fase M.5 (ajuste)**: a pedido de Toro, la web usa sus archivos originales en iframes: los renders «Robot SMAT 3D» y «SMAT en la fábrica», y el juego «Patrulla SMAT». Se descarta la versión reescrita a mano (#98).
 - 03/11: **Fase M.6 (en curso)**: el robot cuenta marcas en el piso e informa su zona. Quedó en el PR borrador #96, solo compilado: falta probarlo en el robot con Morena (#95).
 
+- 04/11: Se borra la versión del render reescrita a mano y se ponen al día el documento final (255 pruebas), el README y la guía de la demo. Se sacan de la base local las 90 alertas ficticias de la demo, con respaldo.
+
 **Problemas**
+- Reescribir el render a mano no quedaba igual al original: se perdió tiempo hasta usar los archivos de Toro directamente (decisión 008).
+- Sin placa de video, el 3D frena toda la página. Se vio en GitHub Actions, y por eso en `/app/robot` se carga a pedido.
 - Al revisar el sketch del robot para la demo: todavía no habla con la web, así que la web lo muestra «Sin conexión» y sus botones no le llegan. Además, si el robot no informa su zona y no hay `DROID_ZONA_ID`, la web rechaza las alertas de la cámara (error 400). Se documenta en `DEMO-LOCAL.md` y queda la tarea 6.8.
 - El proyecto de Supabase se pausó por falta de uso: hay que reactivarlo desde su panel antes de publicar.
 
 **Próximos pasos**
-- Conectar el robot con la web (6.8) y hacer la prueba real (6.5, #48). Publicar en Render (9.3). Logo nuevo (#72) y README final (9.4).
+- Con Morena: arreglar el sensor del GPIO 34, poner las marcas en el piso, cargar el PR #96 y hacer la prueba real (6.5, #48). Publicar en Render (9.3). Logo nuevo (#72) y README final (9.4).
 
 ## Semana 4 · desde el 26/10/2026
 
