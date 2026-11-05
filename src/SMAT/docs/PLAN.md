@@ -100,7 +100,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 | 4 · 26/10 | Fases 7, 8, 9 (despliegue) | E.7-E.10 | Ajustes, demo |
 
 > **Estado al 04/11/2026:** web lista (Fases 0 a 8, 9.1, 9.2 y M.1 a M.5) y empresa completa (E.0 a E.10). Quedan publicar (9.3),
-> probar en el robot real la conexión con la web y las marcas del piso (6.8, M.6 y 6.5), el README final (9.4) y el documento final (Fase D).
+> armar el robot nuevo (ruedas y ESP32-S3) y conectarlo con la web (6.8, M.6 y 6.5), lo que pide el issue #101 (M.8 a M.10), el README final (9.4) y el documento final (Fase D).
 
 > Si hay atraso se ajusta en la bitácora; no se borra nada del plan (decisión: no recortar).
 
@@ -174,7 +174,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] 6.4 `tools/simular_yolo.py`
 - [x] 6.6 Unir el servidor de IA de Morena (`servidor_ia/`) con el backend: alertas con foto, empleado por nombre y zona del robot; `tools/cargar_trabajadores_ia.py`
 - [x] 6.7 (Morena) IPs de la cámara y del robot en `servidor_ia/.env`; fotos de caras y modelos fuera de GitHub; el CI revisa `servidor_ia/` (PR #73)
-- [ ] 6.8 (Morena) Conectar `robot_droid.ino` con la web: órdenes, estado y zona (sin esto, la web lo ve sin conexión y rechaza las alertas sin zona). Código solo compilado en el PR borrador #96
+- [ ] 6.8 (Morena) Conectar el robot nuevo (ESP32-S3) con la web: órdenes, estado y zona (sin esto, la web lo ve sin conexión y rechaza las alertas sin zona). El PR borrador #96 es para el robot anterior: hay que adaptarlo
 - [ ] 6.5 Prueba de integración real (`docs/integracion/PRUEBA.md`, guía lista) con la cámara, el robot y la máquina (#48)
 
 ### Fase 7 · Tiempo real
@@ -201,7 +201,11 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] M.3 Pulido visual: textos del mapa, tarjetas en celular, filtros, fechas de incidencias, períodos de reportes y panel (#89)
 - [x] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver (#90)
 - [x] M.5 Renders 3D y juego en la web: los archivos originales de Claude, en iframes (decisión 008). Empleado y encargado con la zona real en el mapa y la simulación aclarada; Inicio, Cómo funciona y `/juego` con los archivos completos (#93)
-- [ ] M.6 (con Morena) El robot cuenta marcas en el piso e informa su zona. Código solo compilado en el PR borrador #96 (#95); falta arreglar el sensor del GPIO 34, poner las marcas y probarlo en el robot
+- [ ] M.6 (con Morena) El robot informa su zona (#95). Las marcas en el piso dependen de los sensores de línea, que el robot nuevo todavía no tiene: hay que volver a definirlo
+- [x] M.7 Textos de la web: el robot actual y lo que hoy detecta la IA (#101)
+- [ ] M.8 Función bilingüe español-inglés (#101)
+- [ ] M.9 Versión interactiva: chatbot simple de preguntas frecuentes (#101)
+- [ ] M.10 Actualizar los renders en Claude con el robot nuevo y volver a copiarlos (`tools/copiar_renders.py`)
 
 ### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y deja `TODO (socio)` donde falte una decisión.

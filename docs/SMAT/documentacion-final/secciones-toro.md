@@ -16,7 +16,7 @@ DROID-E3D tiene cuatro partes que se comunican por la red WiFi de la planta:
 
 | Parte | Qué hace | Tecnología | Responsable |
 |---|---|---|---|
-| **Robot oruga** | Recorre las zonas de la fábrica con una cámara | ESP32 | Morena |
+| **Robot** (con ruedas) | Recorre las zonas de la fábrica con una cámara | ESP32-S3 y ESP32-CAM | Morena |
 | **Servidor de IA** | Detecta si falta el casco, los guantes, los lentes o el chaleco, y reconoce la cara del trabajador | Python, YOLO, OpenCV | Morena |
 | **Backend** | Recibe las alertas, las guarda y da las órdenes al robot y a las máquinas | Python, Flask, MySQL | Toro |
 | **Aplicación web** | Muestra las alertas, el mapa, el robot y los reportes al encargado y a cada empleado | React | Toro |
@@ -150,7 +150,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 - El servidor de IA de Morena (`src/SMAT/servidor_ia/`) se conectó con el backend mediante `conexion_droid.py`. Cada alerta llega a la web con la foto, el nombre del trabajador reconocido y la zona donde está el robot, y detiene la máquina de esa zona.
 - Las direcciones de la cámara, del robot y del backend se configuran en un archivo `.env`. Así, si cambia la red, no hace falta tocar el código.
 - Para trabajar sin el hardware armamos dos simuladores: `simular_esp32.py` (un robot que recorre las zonas y las máquinas) y `simular_yolo.py` (envía alertas con foto). `demo_en_vivo.py` lanza los dos con un solo comando, así se puede hacer la demo completa aunque falte una pieza.
-- El robot sabe en qué zona está contando marcas en el piso: una cinta que cruza la línea en la entrada de cada zona, que detectan sus dos sensores de línea. La posición se conoce por zona, no al centímetro. El código está compilado, pero todavía no se probó en el robot (Pull Request borrador #96).
+- La web muestra en qué zona está el robot a partir de lo que él informa; la posición se conoce por zona, no al centímetro. El robot cambió el 29/10 (ruedas y ESP32-S3), así que su conexión con la web, escrita para el robot anterior (Pull Request borrador #96), hay que adaptarla antes de la prueba real.
 - **[COMPLETAR]** Resultado de la prueba real con el robot, la cámara y la máquina (tarea 6.5, `docs/integracion/PRUEBA.md`).
 
 ### 6.5 Publicación

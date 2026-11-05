@@ -15,6 +15,7 @@
 - 03/11: **Fase M.6 (en curso)**: el robot cuenta marcas en el piso e informa su zona. Quedó en el PR borrador #96, solo compilado: falta probarlo en el robot con Morena (#95).
 
 - 04/11: Se borra la versión del render reescrita a mano y se ponen al día el documento final (255 pruebas), el README y la guía de la demo. Se sacan de la base local las 90 alertas ficticias de la demo, con respaldo.
+- 05/11: Morena avisa que el robot cambió el 29/10 (ruedas y ESP32-S3) y arma el #101 con lo que falta antes de exponer. Entra el logo nuevo (#72). **Fase M.7**: la web deja de decir «oruga» y aclara que hoy la IA detecta el casco.
 
 **Problemas**
 - Reescribir el render a mano no quedaba igual al original: se perdió tiempo hasta usar los archivos de Toro directamente (decisión 008).
@@ -23,7 +24,7 @@
 - El proyecto de Supabase se pausó por falta de uso: hay que reactivarlo desde su panel antes de publicar.
 
 **Próximos pasos**
-- Con Morena: arreglar el sensor del GPIO 34, poner las marcas en el piso, cargar el PR #96 y hacer la prueba real (6.5, #48). Publicar en Render (9.3). Logo nuevo (#72) y README final (9.4).
+- Lo que pide Morena en el #101: bilingüe, chatbot, versión online para el QR, costos y pitch con las piezas nuevas. Con Morena: conectar el robot nuevo y hacer la prueba real (6.5, #48). Capturas con el logo nuevo y README final (9.4).
 
 ## Semana 4 · desde el 26/10/2026
 

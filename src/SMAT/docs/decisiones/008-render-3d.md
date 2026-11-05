@@ -36,5 +36,6 @@ se cambian en Claude, se descargan y se copian con `backend/tools/copiar_renders
   acerca, y el jurado puede preguntarlo. Se aceptó porque el robot igual se ve en la planta y su recorrido es fijo.
 - **El empleado no ve las alertas de otros.** En su mapa, las demás zonas no dicen «Todo en orden»: solo si su máquina
   está parada.
-- Los archivos dicen cosas que el proyecto todavía no tiene decididas: «Pantalla TFT» (`robot_droid.ino` usa una LCD de
-  2 líneas) y solo hablan del casco (la web habla de 4 EPP). Se corrigen en Claude si hace falta.
+- Los archivos muestran el robot anterior: orugas, driver DRV8833 y pantalla de 1,3". El robot cambió el 29/10 a ruedas,
+  TB6612FNG, ESP32-S3 y pantalla de 1,54". Se actualizan en Claude y se vuelven a copiar; hasta entonces, «Cómo
+  funciona» aclara debajo del render que es un modelo de diseño.
