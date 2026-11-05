@@ -100,7 +100,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 | 4 · 26/10 | Fases 7, 8, 9 (despliegue) | E.7-E.10 | Ajustes, demo |
 
 > **Estado al 04/11/2026:** web lista (Fases 0 a 8, 9.1, 9.2 y M.1 a M.5) y empresa completa (E.0 a E.10). Quedan publicar (9.3),
-> probar en el robot real la conexión con la web y las marcas del piso (6.8, M.6 y 6.5), el logo nuevo (E.11), el README final (9.4) y el documento final (Fase D).
+> probar en el robot real la conexión con la web y las marcas del piso (6.8, M.6 y 6.5), el README final (9.4) y el documento final (Fase D).
 
 > Si hay atraso se ajusta en la bitácora; no se borra nada del plan (decisión: no recortar).
 
@@ -216,7 +216,7 @@ Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y d
 - [x] E.8 Legal (forma jurídica, propiedad intelectual, normativa EPP, datos personales)
 - [x] E.9 FODA
 - [x] E.10 Pitch y guion para el jurado/cliente
-- [ ] E.11 (Morena) Logo nuevo: SVG, PNG y manual de marca; después Toro lo cambia en la web (`Logo.jsx`, favicon, íconos de la PWA) (#72)
+- [x] E.11 (Morena) Logo nuevo: SVG, PNG y manual de marca; cambiado en la web (`Logo.jsx`, favicon, íconos de la PWA) (#72)
 
 ### Fase D · Documento final del FAT (`docs/SMAT/documentacion-final/`)
 Se edita en línea entre los dos (link en el README de esa carpeta); lo que falta está marcado `[COMPLETAR]`.

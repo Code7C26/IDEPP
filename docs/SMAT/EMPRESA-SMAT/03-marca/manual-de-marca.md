@@ -1,6 +1,6 @@
 # Manual de marca
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v2) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 05/11/2026
 
 **Para qué sirve:** reglas visuales y de tono. La web de DROID-E3D ya usa estos colores (definidos en `src/SMAT/frontend/src/index.css`).
 
@@ -17,7 +17,7 @@
 
 ## 2. Logo
 
-**Isotipo DROID-E3D:** un escudo amarillo (protección) con el visor de un robot y dos «ojos» que escanean.
+**Isotipo DROID-E3D:** una letra **D** amarilla con el lente de una cámara adentro (el robot que mira), sobre un cuadrado color tinta con las puntas redondeadas. Reemplaza al escudo de la v1 (06/10/2026).
 
 | Archivo | Uso |
 |---|---|
@@ -26,8 +26,8 @@
 | `logo/smat.svg` | Logotipo de la empresa |
 
 - **Tamaño mínimo:** 24 px de alto en pantalla, 8 mm impreso.
-- **Espacio libre alrededor:** el ancho de un «ojo» del robot, como mínimo, en los cuatro lados.
-- **Sobre fondo oscuro:** el escudo se mantiene amarillo; el texto pasa a blanco.
+- **Espacio libre alrededor:** el radio del lente, como mínimo, en los cuatro lados.
+- **Sobre fondo oscuro:** la D se mantiene amarilla y el cuadrado no cambia, aunque se funda con el fondo; el texto pasa a blanco.
 - **No hacer:** deformar o rotar el logo, cambiarle los colores, ponerle sombras, ubicarlo sobre fotos que no dejen leerlo.
 
 ## 3. Colores
@@ -36,10 +36,10 @@
 |---|---|---|
 | **Amarillo seguridad** (principal) | `#F5B800` | Logo, acentos, elemento activo del menú y foco del teclado |
 | Amarillo oscuro | `#C99400` | Botón al pasar el mouse, texto amarillo sobre blanco |
-| **Tinta** | `#1F2328` | Botones principales de la web, texto sobre amarillo, visor del logo, franja de seguridad |
+| **Tinta** | `#1F2328` | Botones principales de la web, texto sobre amarillo, fondo y lente del logo, franja de seguridad |
 | **Rojo alerta** | `#DC2626` | Alertas activas, parada de emergencia, errores |
 | **Verde OK** | `#16A34A` | Todo en orden, alertas resueltas |
-| Naranja | `#F97316` | Advertencias, ojo del robot |
+| Naranja | `#F97316` | Advertencias, brillo del lente del logo |
 | Grises | `#F4F4F5` a `#09090B` | Fondos y textos (escala *zinc*) |
 
 **Franja de seguridad:** rayas diagonales amarillo/tinta de 12 px, como la cinta de peligro. Se usa arriba de la barra de la web y del login.
