@@ -58,7 +58,7 @@ Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra M
 | Reportes con gráficos y ranking, CSV, PDF mensual, comentarios, auditoría | ✅ Funciona |
 | Servidor de IA de Morena (`servidor_ia/`) conectado con la web | ✅ Conectado; falta la prueba real con la cámara y el robot |
 | Publicación en internet (Render + Supabase) | 🔜 Código listo y probado con Postgres; Supabase cargado; falta publicar en Render (9.3) |
-| Hardware (robot, relé, cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`; la conexión con la web y la zona por marcas en el piso están en el PR borrador #96, solo compilado; falta la prueba real (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
+| Hardware (robot, relé, cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`; el robot cambió el 29/10 a ruedas y ESP32-S3, con pruebas por pieza en `servidor_ia/walle_*` (PR #83). La conexión con la web del PR borrador #96 es para el robot anterior y hay que adaptarla; falta la prueba real (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
 
 El detalle tarea por tarea está en [`docs/PLAN.md`](docs/PLAN.md) y los documentos de la empresa y el reporte de avance en [`docs/SMAT/`](../../docs/SMAT/) (en la raíz del repo).
 

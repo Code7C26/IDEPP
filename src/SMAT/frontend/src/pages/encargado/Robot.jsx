@@ -61,8 +61,13 @@ export default function Robot() {
       {robot.cargando && <p className="text-sm text-zinc-500">Cargando…</p>}
 
       {r && (
-        <div className="grid items-start gap-6 xl:grid-cols-2">
-          <div className="space-y-6">
+        // En el celular los controles van primero: la parada de emergencia tiene que verse sin bajar.
+        // En la PC, los controles y la ruta van a la derecha, y la cámara y el mapa a la izquierda.
+        <div className="grid items-start gap-6 xl:grid-cols-2 xl:grid-rows-[auto_1fr]">
+          <div className="xl:col-start-2 xl:row-start-1">
+            <ControlesRobot robot={r} onComando={mandar} />
+          </div>
+          <div className="space-y-6 xl:col-start-1 xl:row-span-2 xl:row-start-1">
             <section className={tarjeta}>
               <h2 className="mb-3 text-lg font-semibold">Cámara</h2>
               <VideoEnVivo url={r.url_video} />
@@ -75,8 +80,7 @@ export default function Robot() {
                             simulacionAPedido />   {/* acá está la parada de emergencia: el 3D no arranca solo */}
             </section>
           </div>
-          <div className="space-y-6">
-            <ControlesRobot robot={r} onComando={mandar} />
+          <div className="xl:col-start-2 xl:row-start-2">
             {ruta.datos && zonas.datos && (
               <RutaRobot ruta={ruta.datos.ruta.map(({ zona_id, tiempo_espera_seg }) => ({ zona_id, tiempo_espera_seg }))}
                          zonas={zonas.datos.zonas} onGuardar={guardarRuta} />

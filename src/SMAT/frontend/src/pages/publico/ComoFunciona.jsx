@@ -8,7 +8,7 @@ import useTituloPagina from '../../hooks/useTituloPagina.js'
 
 // Esquema: qué partes hay y cómo se hablan
 const PARTES = [
-  { icono: 'robot', nombre: 'Robot', detalle: 'ESP32 + cámara' },
+  { icono: 'robot', nombre: 'Robot', detalle: 'ESP32-S3 + cámara ESP32-CAM' },
   { icono: 'ia', nombre: 'Servidor de IA', detalle: 'YOLO + reconocimiento facial' },
   { icono: 'panel', nombre: 'Plataforma web', detalle: 'Alertas, mapa, reportes' },
   { icono: 'maquina', nombre: 'Máquina', detalle: 'ESP32 + relé de corte' },
@@ -49,7 +49,7 @@ function Esquema() {
 }
 
 export default function ComoFunciona() {
-  useTituloPagina('Cómo funciona', 'Un robot con cámara recorre la planta, la IA detecta la falta de casco, guantes, lentes o chaleco, avisa con foto y detiene la máquina de esa zona.')
+  useTituloPagina('Cómo funciona', 'Un robot con cámara recorre la planta, la IA detecta la falta de casco, avisa con foto y detiene la máquina de esa zona.')
 
   return (
     <>
@@ -64,6 +64,10 @@ export default function ComoFunciona() {
 
       <Seccion antetitulo="El robot">
         <div className="mt-6"><RenderEmbebido archivo="robot" titulo="Robot SMAT: modelo 3D del robot" /></div>
+        {/* Hasta que el render se actualice en Claude: muestra el robot anterior (decisión 008) */}
+        <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
+          Modelo de diseño: el robot actual cambió a ruedas y a otras piezas. Este modelo se va a actualizar.
+        </p>
       </Seccion>
 
       <Seccion gris antetitulo="El sistema" titulo="Cuatro partes conectadas por la red de la planta"
