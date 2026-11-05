@@ -48,6 +48,17 @@ def test_sin_conexion_el_robot_no_se_puede_iniciar_y_avisa_que_los_datos_son_vie
     assert not pag.errores and not panel.errores
 
 
+def test_en_el_celular_la_parada_de_emergencia_se_ve_sin_bajar(base_limpia, abrir):
+    pag = abrir("maria", "/app/robot", ancho=390, alto=800)
+    boton = pag.get_by_role("button", name="PARADA DE EMERGENCIA")
+    assert boton.is_visible()
+    caja = boton.bounding_box()
+    menu_inferior = 70
+    assert caja["y"] + caja["height"] <= 800 - menu_inferior, caja
+    assert pag.evaluate("window.scrollY") == 0
+    assert not pag.errores
+
+
 def test_panel_detalle_de_zona_lleva_a_sus_incidencias(base_limpia, abrir):
     pag = abrir("maria", "/app/panel")
     pag.locator('svg g[role="button"]', has_text="Zona B").click()
