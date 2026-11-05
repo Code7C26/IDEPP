@@ -25,7 +25,7 @@ const PARA_QUIEN = [
 ]
 
 export default function InicioPublico() {
-  useTituloPagina('', 'DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin casco, guantes, lentes o chaleco, avisa al instante y detiene la máquina de esa zona.')
+  useTituloPagina('', 'DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin casco, avisa al instante y detiene la máquina de esa zona.')
 
   return (
     <>
@@ -33,7 +33,7 @@ export default function InicioPublico() {
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(245,184,0,0.18),transparent)]" />
         <div className="mx-auto max-w-6xl px-4 pt-16 pb-10 text-center md:px-8 md:pt-24">
           <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
-            <span className="size-2 rounded-full bg-ok" /> Casco · guantes · lentes · chaleco
+            <span className="size-2 shrink-0 rounded-full bg-ok" /> Hoy detecta casco · Próximo: guantes, lentes y chaleco
           </p>
           <h1 className="mx-auto mt-6 max-w-4xl text-5xl font-extrabold tracking-tight text-balance md:text-6xl">
             Seguridad que <span className="text-marca-oscuro dark:text-marca">recorre la planta</span>

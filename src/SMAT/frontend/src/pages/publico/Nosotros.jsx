@@ -13,7 +13,7 @@ const VALORES = [
 
 const EQUIPO = [
   { nombre: 'Toro', rol: 'Socio · Software y web', texto: 'Plataforma web, base de datos, servidor y despliegue.' },
-  { nombre: 'Morena', rol: 'Socia · Hardware e IA', texto: 'Robot oruga, ESP32, corte de máquinas, cámara, YOLO y reconocimiento facial.' },
+  { nombre: 'Morena', rol: 'Socia · Hardware e IA', texto: 'Robot con ruedas y ESP32-S3, corte de máquinas, cámara, YOLO y reconocimiento facial.' },
 ]
 
 export default function Nosotros() {

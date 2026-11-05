@@ -109,3 +109,12 @@ def test_se_puede_jugar_a_patrulla_smat(base_limpia, abrir_3d):
     assert juego.locator("#hud").is_visible()
     assert not juego.locator("#menu").is_visible()
     assert not pag.errores
+
+
+def test_la_web_describe_el_robot_actual_y_lo_que_detecta_hoy(abrir):
+    """El robot ya no es oruga, y la IA hoy detecta solo el casco (issue #101)."""
+    for ruta in ("/", "/como-funciona", "/nosotros"):
+        contenido = abrir(None, ruta).locator("body").inner_text().lower()
+        assert "oruga" not in contenido, ruta
+        assert "casco, guantes, lentes y chaleco" not in contenido, ruta
+    assert abrir(None, "/").get_by_text("Hoy detecta casco").is_visible()
