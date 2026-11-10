@@ -27,6 +27,21 @@ export function estadoZona(zona, alertasActivas = 0) {
   return 'ok'
 }
 
+// Igual, pero sin saber siempre las alertas: el empleado solo ve las suyas (alertasPorZona = null).
+// En ese caso no se puede afirmar que una zona está en orden: solo se sabe si su máquina está parada.
+export function estadoVisible(zona, alertasPorZona) {
+  if (alertasPorZona) return estadoZona(zona, alertasPorZona[zona.id] || 0)
+  return zona.maquina && !zona.maquina_activa ? 'detenida' : 'neutro'
+}
+
+// Frase corta para mostrar en cada zona según su estado
+export function resumenZona(zona, estado, alertas = 0) {
+  if (estado === 'alerta') return `${alertas} alerta${alertas > 1 ? 's' : ''}`
+  if (estado === 'detenida') return 'Máquina detenida'
+  if (estado === 'ok') return 'Todo en orden'
+  return zona.maquina ? 'Máquina en marcha' : ''
+}
+
 // Cuenta las alertas activas de cada zona: { 2: 3, 4: 1 }
 export function contarPorZona(incidencias) {
   return incidencias.reduce((cuenta, inc) => {

@@ -1,18 +1,18 @@
-// Logo provisorio de DROID-E3D (un escudo con la "cara" del robot), hasta el manual de marca (E.4).
+// Logo de DROID-E3D: una letra D amarilla con el lente de una cámara (ver el manual de marca).
 // conTexto = muestra también "DROID-E3D by SMAT" al lado.
 export default function Logo({ conTexto = true, className = 'size-9' }) {
   return (
     <span className="inline-flex items-center gap-2">
-      <svg viewBox="0 0 40 40" className={className} aria-hidden="true">
-        {/* escudo amarillo = protección */}
-        <path d="M20 2l15 5.5v11c0 9.5-6.5 16-15 19.5C11.5 34.5 5 28 5 18.5v-11z" fill="#f5b800" />
-        {/* visor del robot */}
-        <rect x="11" y="13" width="18" height="11" rx="5.5" fill="#1f2328" />
-        {/* ojos: el izquierdo "escanea" */}
-        <circle cx="16.5" cy="18.5" r="2.4" fill="#f5b800" />
-        <circle cx="23.5" cy="18.5" r="1.6" fill="#f97316" />
-        {/* antena */}
-        <path d="M20 13V9" stroke="#1f2328" strokeWidth="2" strokeLinecap="round" />
+      <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
+        {/* fondo: cuadrado con puntas redondeadas */}
+        <rect x="2" y="2" width="60" height="60" rx="14" fill="#1f2328" />
+        {/* letra D amarilla */}
+        <path d="M15 12h17c13 0 21 9 21 20s-8 20-21 20H15z" fill="#f5b800" />
+        {/* lente de la cámara */}
+        <circle cx="31" cy="32" r="12" fill="#1f2328" />
+        <circle cx="31" cy="32" r="5.5" fill="#f5b800" />
+        {/* brillo naranja del lente */}
+        <circle cx="34.5" cy="28.5" r="2.3" fill="#f97316" />
       </svg>
       {conTexto && (
         <span className="leading-none">

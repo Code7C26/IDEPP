@@ -22,11 +22,12 @@ En la PC todo sigue igual (MySQL de XAMPP). El backend usa Postgres solo cuando 
    - *Database password:* tocá **Generate a password** y **guardala** (la vas a necesitar en el paso 2).
    - *Region:* **South America (São Paulo)**, la más cercana.
    - Tocá **Create new project** y esperá 1 o 2 minutos.
-3. Arriba, botón **Connect** → pestaña **Connection string** → *Method:* **Session pooler**. Copiá la dirección:
+3. Arriba, botón **Connect** → tarjeta **Direct** (*Connection string*) → *Connection Method:* **Session pooler**. Copiá la dirección:
    ```
-   postgresql://postgres.xxxx:[YOUR-PASSWORD]@aws-0-sa-east-1.pooler.supabase.com:5432/postgres
+   postgresql://postgres.xxxx:[YOUR-PASSWORD]@aws-1-sa-east-1.pooler.supabase.com:5432/postgres
    ```
-   Cambiá `[YOUR-PASSWORD]` por la contraseña del punto 2. Esa es la **DATABASE_URL**.
+   Cambiá `[YOUR-PASSWORD]` por la contraseña del punto 2. Esa es la **DATABASE_URL**. Si la contraseña tiene
+   símbolos, hay que codificarlos (`#` se escribe `%23`, `@` se escribe `%40`).
    > Tiene que ser la del **Session pooler** (puerto 5432). La *Direct connection* no anda desde Render
    > (usa IPv6) y la del *Transaction pooler* (6543) no conviene para un servidor que queda prendido.
 4. Menú de la izquierda → **Project Settings** → **Data API**: copiá la **Project URL** (`https://xxxx.supabase.co`).
@@ -48,7 +49,8 @@ python tools\cargar_supabase.py
 Te pide la **DATABASE_URL** del paso 1 (no se ve mientras la pegás) y una **contraseña nueva** para los usuarios de
 ejemplo (`maria`, `juan`...). La de siempre, `pass123`, está publicada en el README, y en internet cualquiera podría
 usarla. El script crea las tablas, copia los datos y activa la seguridad de Supabase (RLS). Si lo corrés dos veces,
-la segunda no hace nada.
+la segunda no hace nada. Si ya tenés la dirección en un archivo de variables, podés usar
+`python tools\cargar_supabase.py --env RUTA_DEL_ARCHIVO`.
 
 ## 3. Render: publicar la web (una sola vez)
 
@@ -117,7 +119,7 @@ Nada a mano: cada vez que se mergea un Pull Request a `main` que cambia `src/SMA
 - **Render se duerme** a los 15 minutos sin visitas: la primera visita después tarda alrededor de 1 minuto en
   responder. **Antes de mostrarla, abrila unos minutos antes.**
 - **Supabase pausa el proyecto** si no se usa durante una semana. Se reactiva desde su panel (**Restore project**)
-  y los datos no se pierden.
+  y los datos no se pierden. Mientras está pausado, conectarse da el error `tenant/user ... not found`.
 - Las fotos van a Supabase Storage (1 GB gratis), porque el disco de Render se borra cada vez que se duerme.
 
 ---

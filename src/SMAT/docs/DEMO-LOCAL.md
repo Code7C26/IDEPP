@@ -95,9 +95,13 @@ Remove-NetFirewallRule -DisplayName "DROID-E3D (puerto 5000)"
 | ESP32 de la máquina | `URL_BASE = "http://IP:5000/api"` y `ROBOT_KEY` | `docs/integracion/esp32_maquina.ino` |
 | IA en la PC de Morena | `DROID_URL=http://IP:5000/api`, `YOLO_API_KEY`, `URL_CAMARA_CELULAR`, `URL_ESP32_ALERTA` | `servidor_ia/.env` (copia de `.env.example`) |
 | IA en la misma notebook | Solo `URL_CAMARA_CELULAR` y `URL_ESP32_ALERTA`: la clave la lee de `backend/.env` | `servidor_ia/.env` |
+| Zona de las alertas | `DROID_ZONA_ID=1` si el robot no informa en qué zona está (ver abajo) | `servidor_ia/.env` |
 | Video en vivo | La URL de la cámara: `http://<IP-del-celular-cámara>:8080/video` | Web → **Robot** → Dirección del video |
 
 Las claves (`ROBOT_API_KEY`, `YOLO_API_KEY`) están en `backend\.env` y se pasan **por fuera de GitHub**.
+
+> **Importante:** la IA no sabe en qué zona está: usa la que informa el robot. Si el robot no la informó y no hay
+> `DROID_ZONA_ID`, la web **rechaza la alerta** (error 400): no aparece nada y la máquina no se detiene.
 
 ## 6. Si falta el hardware: simuladores
 
@@ -106,12 +110,16 @@ Con el backend andando, en otra ventana de PowerShell:
 ```powershell
 cd C:\Users\tomas\Fat\TOUCH-ID\src\SMAT\backend
 venv\Scripts\activate
-python tools\simular_esp32.py --velocidad 10 --maquinas     # robot que recorre las zonas + máquinas
-python tools\simular_yolo.py --cada 15                       # una alerta con foto cada 15 s
+python tools\demo_en_vivo.py             # robot que recorre las zonas + máquinas + una alerta con foto cada 30 s
+python tools\demo_en_vivo.py --cada 15   # lo mismo, con una alerta cada 15 s
 ```
 
 En la web: **Robot → Iniciar** y se ve al robot moverse en el mapa. Las alertas llegan solas al Panel,
-con sonido y un aviso en pantalla.
+con sonido y un aviso en pantalla. Para cortarlo: `Ctrl+C`.
+
+Agrega alertas ficticias y detiene máquinas en la base local, pero no borra nada. Apunta siempre a esta PC,
+aunque el `.env` tenga `DROID_URL` con la versión online. Si solo necesitás una de las dos partes, usá
+`tools\simular_esp32.py` o `tools\simular_yolo.py`.
 
 ## 7. Lo que no anda sin https
 
@@ -133,6 +141,7 @@ confía en `localhost`. Para mostrarlas en el celular, usar la versión online (
 | «No se pudo conectar con el servidor» | El backend se cerró o MySQL está apagado en XAMPP |
 | El robot figura «Sin conexión» | `URL_BASE` del ESP32 con la IP vieja, o el ESP32 en otra WiFi |
 | Las alertas de la IA no llegan | `DROID_URL` o `YOLO_API_KEY` mal en `servidor_ia/.env` (el motor muestra el error en la consola) |
+| El motor dice «La web rechazó la alerta (400): Zona inexistente» | Poné `DROID_ZONA_ID=1` en `servidor_ia/.env`, o conectá el robot para que informe su zona |
 | La IA dice «Desconocido» | El nombre de la carpeta de fotos no coincide con el del empleado: `python tools\cargar_trabajadores_ia.py` |
 
 ## Lista para el día de la demo
@@ -141,6 +150,7 @@ confía en `localhost`. Para mostrarlas en el celular, usar la versión online (
 - [ ] IP de la notebook anotada: `____`
 - [ ] XAMPP: MySQL en Start · `python app.py` andando
 - [ ] `http://IP:5000/api/health` responde desde un celular
-- [ ] ESP32 y `servidor_ia/.env` con la IP de hoy
-- [ ] Simuladores listos por si falla el hardware
+- [ ] ESP32 y `servidor_ia/.env` con la IP de hoy, y `DROID_ZONA_ID` si el robot no informa su zona
+- [ ] Simuladores listos por si falla el hardware (`tools\demo_en_vivo.py`)
+- [ ] Renders y juego probados en esta notebook (`/`, `/como-funciona` y `/juego`): andan sin internet, pero sin placa de video van lentos
 - [ ] Notebook enchufada y con la suspensión desactivada

@@ -15,8 +15,9 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 ### Pública (sin login)
 | Ruta | Página | Qué muestra |
 |---|---|---|
-| `/` | Inicio | Qué es DROID-E3D, el problema, botón "Pedir demo" |
-| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → parada de máquina |
+| `/` | Inicio | Qué es DROID-E3D, el problema, render «SMAT en la fábrica», botón "Pedir demo" |
+| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → parada de máquina, render «Robot SMAT 3D» |
+| `/juego` | Juego | «Patrulla SMAT» |
 | `/planes` | Planes | Robot + abono de la web + mantenimiento |
 | `/nosotros` | Nosotros | SMAT, división de TOUCH; equipo |
 | `/contacto` | Contacto | mailto + WhatsApp |
@@ -25,7 +26,7 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 ### Empleado (celular) · bajo `/app`
 | Ruta | Página | Qué muestra |
 |---|---|---|
-| `/app` | Inicio | Estado de su zona, EPP que debe usar, % cumplimiento, últimas alertas |
+| `/app` | Inicio | Estado de su zona, EPP que debe usar, % cumplimiento, zona real del robot en el mapa, simulación «SMAT en la fábrica», últimas alertas |
 | `/app/mis-alertas` | Mis alertas | Alertas donde él fue detectado, con foto, filtro por fecha, comentar |
 | `/app/perfil` | Perfil | Datos, zona, EPP, fotos de rostro, activar notificaciones |
 
@@ -36,7 +37,7 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 | `/app/incidencias` | Incidencias | Tabla con filtros, detalle con foto, comentarios, resolver |
 | `/app/empleados` | Empleados | CRUD, asignación de zona, fotos de rostro con consentimiento |
 | `/app/zonas` | Zonas | CRUD, máquina, EPP, posición en la grilla, reactivar máquina |
-| `/app/robot` | Robot | Video en vivo, estado, batería, ruta, iniciar/pausar, EMERGENCIA |
+| `/app/robot` | Robot | Video en vivo, zona real en el mapa, simulación «SMAT en la fábrica», estado, batería, ruta, iniciar/pausar, EMERGENCIA |
 | `/app/reportes` | Reportes | Gráficos, ranking de cumplimiento, CSV y PDF |
 | `/app/auditoria` | Auditoría | Quién hizo qué y cuándo |
 
@@ -98,8 +99,8 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 | 3 · 19/10 | Fase L, 5, 6 | E.5, E.6 | YOLO + facial, prueba conjunta |
 | 4 · 26/10 | Fases 7, 8, 9 (despliegue) | E.7-E.10 | Ajustes, demo |
 
-> **Estado al 21/10/2026:** la web va adelantada (Fases 0 a 8 listas) y la empresa está completa (E.0 a E.10).
-> Quedan la Fase 9, la prueba real con el hardware (6.5), el logo nuevo (E.11) y el documento final del FAT (Fase D).
+> **Estado al 04/11/2026:** web lista (Fases 0 a 8, 9.1, 9.2 y M.1 a M.5) y empresa completa (E.0 a E.10). Quedan publicar (9.3),
+> armar el robot nuevo (ruedas y ESP32-S3) y conectarlo con la web (6.8, M.6 y 6.5), lo que pide el issue #101 (M.8 a M.10), el README final (9.4) y el documento final (Fase D).
 
 > Si hay atraso se ajusta en la bitácora; no se borra nada del plan (decisión: no recortar).
 
@@ -173,6 +174,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] 6.4 `tools/simular_yolo.py`
 - [x] 6.6 Unir el servidor de IA de Morena (`servidor_ia/`) con el backend: alertas con foto, empleado por nombre y zona del robot; `tools/cargar_trabajadores_ia.py`
 - [x] 6.7 (Morena) IPs de la cámara y del robot en `servidor_ia/.env`; fotos de caras y modelos fuera de GitHub; el CI revisa `servidor_ia/` (PR #73)
+- [ ] 6.8 (Morena) Conectar el robot nuevo (ESP32-S3) con la web: órdenes, estado y zona (sin esto, la web lo ve sin conexión y rechaza las alertas sin zona). El PR borrador #96 es para el robot anterior: hay que adaptarlo
 - [ ] 6.5 Prueba de integración real (`docs/integracion/PRUEBA.md`, guía lista) con la cámara, el robot y la máquina (#48)
 
 ### Fase 7 · Tiempo real
@@ -190,8 +192,20 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 ### Fase 9 · Pulido y despliegue
 - [x] 9.1 Revisión 360px / PC / modo oscuro; errores y estados de carga (#57) · `tests/e2e/test_revision_visual.py`
 - [x] 9.2 Guía de demo local (IP de la PC, firewall) (#58) · `docs/DEMO-LOCAL.md`
-- [ ] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007; PythonAnywhere gratis ya no tiene MySQL). Código listo y probado con Postgres; faltan las cuentas (#59)
+- [ ] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007). Código listo y probado con Postgres; datos cargados en Supabase el 22/10; falta la clave de Storage y publicar en Render (#59)
 - [ ] 9.4 README final con capturas y guion de demo (#60) · README al día con capturas y links a la demo (21/10); falta rehacer las capturas con el logo nuevo (#72) y sumar el resultado de la 6.5
+
+### Fase M · Mejoras de la web y render 3D (pedido del usuario, 03/11/2026)
+- [x] M.1 Errores graves: el mapa de Zonas muestra las alertas activas; sin conexión no se puede iniciar el robot y un `iniciar` sin tomar se descarta al volver; la batería sin conexión se rotula como último dato (#85)
+- [x] M.2 Verla funcionando sin el robot: `tools/demo_en_vivo.py` lanza juntos los simuladores (#87)
+- [x] M.3 Pulido visual: textos del mapa, tarjetas en celular, filtros, fechas de incidencias, períodos de reportes y panel (#89)
+- [x] M.4 Funciones nuevas: resolver varias alertas a la vez y ver la alerta más vieja sin resolver (#90)
+- [x] M.5 Renders 3D y juego en la web: los archivos originales de Claude, en iframes (decisión 008). Empleado y encargado con la zona real en el mapa y la simulación aclarada; Inicio, Cómo funciona y `/juego` con los archivos completos (#93)
+- [ ] M.6 (con Morena) El robot informa su zona (#95). Las marcas en el piso dependen de los sensores de línea, que el robot nuevo todavía no tiene: hay que volver a definirlo
+- [x] M.7 Textos de la web: el robot actual y lo que hoy detecta la IA (#101)
+- [ ] M.8 Función bilingüe español-inglés (#101)
+- [ ] M.9 Versión interactiva: chatbot simple de preguntas frecuentes (#101)
+- [ ] M.10 Actualizar los renders en Claude con el robot nuevo y volver a copiarlos (`tools/copiar_renders.py`)
 
 ### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y deja `TODO (socio)` donde falte una decisión.
@@ -206,7 +220,7 @@ Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y d
 - [x] E.8 Legal (forma jurídica, propiedad intelectual, normativa EPP, datos personales)
 - [x] E.9 FODA
 - [x] E.10 Pitch y guion para el jurado/cliente
-- [ ] E.11 (Morena) Logo nuevo: SVG, PNG y manual de marca; después Toro lo cambia en la web (`Logo.jsx`, favicon, íconos de la PWA) (#72)
+- [x] E.11 (Morena) Logo nuevo: SVG, PNG y manual de marca; cambiado en la web (`Logo.jsx`, favicon, íconos de la PWA) (#72)
 
 ### Fase D · Documento final del FAT (`docs/SMAT/documentacion-final/`)
 Se edita en línea entre los dos (link en el README de esa carpeta); lo que falta está marcado `[COMPLETAR]`.

@@ -15,6 +15,7 @@ from conftest import API
 PANTALLAS = [
     (None, "/"),
     (None, "/como-funciona"),
+    (None, "/juego"),
     (None, "/planes"),
     (None, "/nosotros"),
     (None, "/contacto"),
@@ -34,6 +35,25 @@ PANTALLAS = [
 
 # nombre: (ancho, alto)
 TAMANOS = {"celular": (360, 740), "pc": (1366, 768)}
+
+# Textos que se salen del relleno de su tarjeta. El scroll de costado no los detecta: la página no se ensancha,
+# pero el texto se pisa con el borde. No se miran las tablas ni el mapa (tablas con scroll propio, SVG recortado).
+TEXTOS_DESBORDADOS = """() => {
+  const salidos = []
+  const caminante = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
+  while (caminante.nextNode()) {
+    const nodo = caminante.currentNode
+    const padre = nodo.parentElement
+    const tarjeta = padre.closest('.rounded-2xl')
+    if (!nodo.textContent.trim() || !tarjeta || padre.closest('svg, table, select, .overflow-x-auto, .overflow-hidden')) continue
+    const rango = document.createRange()
+    rango.selectNodeContents(nodo)
+    const texto = rango.getBoundingClientRect()
+    const estilo = getComputedStyle(tarjeta), caja = tarjeta.getBoundingClientRect()
+    if (texto.width && texto.right > caja.right - parseFloat(estilo.paddingRight) + 1) salidos.push(nodo.textContent.trim().slice(0, 40))
+  }
+  return salidos
+}"""
 
 
 def _nombre(pantalla):
@@ -62,6 +82,9 @@ def test_pantalla_se_ve_bien(abrir, pantalla, tamano, tema):
         pag.wait_for_timeout(250)
     else:
         pytest.fail(f"{ruta} quedó en «Cargando…»")
+
+    salidos = pag.evaluate(TEXTOS_DESBORDADOS)
+    assert not salidos, f"{ruta} tiene textos que se salen de su tarjeta en {tamano}: {salidos}"
 
     oscuro = pag.evaluate("document.documentElement.classList.contains('dark')")
     assert oscuro == (tema == "oscuro"), f"{ruta}: el tema {tema} no se aplicó"

@@ -2,6 +2,7 @@
 // Ej: <StatCard titulo="Hoy" valor={3} icono="reportes" tono="marca"
 //               tendencia={calcularTendencia(3, 1, 'ayer')} serie={[0, 1, 3]} />
 // icono es opcional: en pantallas angostas conviene omitirlo para que el título tenga lugar.
+// compacta: menos relleno y letra más chica en el celular, para poner 3 tarjetas en una fila.
 import Icono from './Icono.jsx'
 import MiniGrafico from './MiniGrafico.jsx'
 
@@ -18,12 +19,12 @@ const TENDENCIA = {
   igual: { flecha: '■', clase: 'text-zinc-600 bg-zinc-100 dark:bg-zinc-800 dark:text-zinc-300' },
 }
 
-export default function StatCard({ titulo, valor, detalle, icono, tono = 'neutro', tendencia, serie }) {
+export default function StatCard({ titulo, valor, detalle, icono, tono = 'neutro', tendencia, serie, compacta = false }) {
   const t = tendencia && TENDENCIA[tendencia.direccion]
   return (
-    <div className="flex flex-col rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+    <div className={`flex min-w-0 flex-col rounded-2xl border border-zinc-200/80 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900 ${compacta ? 'p-2.5 sm:p-5' : 'p-5'}`}>
       <div className="flex items-start justify-between gap-2">
-        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">{titulo}</p>
+        <p className={`min-w-0 font-medium text-zinc-500 wrap-anywhere dark:text-zinc-400 ${compacta ? 'text-xs sm:text-sm' : 'text-sm'}`}>{titulo}</p>
         {icono && (
           <span className={`grid size-9 shrink-0 place-items-center rounded-lg ${TONOS[tono]}`}>
             <Icono nombre={icono} />

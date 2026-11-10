@@ -8,7 +8,8 @@ Uso, desde src/SMAT/backend con el venv activado:
 Pide:
   - la dirección de Supabase: botón "Connect" → "Session pooler" (con tu contraseña de la base adentro).
   - una contraseña nueva para los usuarios de ejemplo: la de siempre, "pass123", está en el README.
-También se pueden pasar como variables de entorno: DATABASE_URL y CLAVE_EJEMPLO.
+También se pueden pasar como variables de entorno (DATABASE_URL y CLAVE_EJEMPLO), o la dirección
+desde el archivo de variables de Render:  python tools/cargar_supabase.py --env RUTA_DEL_ARCHIVO
 """
 import getpass
 import os
@@ -29,6 +30,10 @@ BASE_TEMPORAL = "robot_db_supabase_test"   # en el MySQL de la PC; se borra al t
 
 
 def pedir_direccion():
+    # --env ARCHIVO: la toma del archivo de variables de Render (así no hay que pegarla)
+    if "--env" in sys.argv:
+        from dotenv import dotenv_values
+        os.environ.setdefault("DATABASE_URL", dotenv_values(sys.argv[sys.argv.index("--env") + 1]).get("DATABASE_URL", ""))
     url = os.getenv("DATABASE_URL") or getpass.getpass("Dirección de Supabase (Connect → Session pooler): ").strip()
     if not url.startswith(("postgresql://", "postgres://")):
         sys.exit("Esa no es una dirección de Postgres: tiene que empezar con postgresql://")

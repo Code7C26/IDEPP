@@ -69,6 +69,9 @@ export const getIncidents = (filtros) => request(`/incidents${armarConsulta(filt
 
 export const resolveIncident = (id) => request(`/incidents/${id}/resolver`, { method: 'PUT' })
 
+// Resuelve varias de una vez. Devuelve { resueltas, omitidas }.
+export const resolveIncidents = (ids) => request('/incidents/resolver-varias', { method: 'POST', body: JSON.stringify({ ids }) })
+
 // Comentarios de una alerta (el encargado y el empleado detectado). texto: de 1 a 500 caracteres
 export const getComentarios = (incidenciaId) => request(`/incidents/${incidenciaId}/comentarios`)
 export const comentar = (incidenciaId, texto) =>
@@ -135,7 +138,12 @@ export const updateUser = (id, datos) => request(`/users/${id}`, { method: 'PUT'
 // "Dar de baja" no borra al empleado (se perdería su historial): lo marca como inactivo
 export const deactivateUser = (id) => request(`/users/${id}`, { method: 'DELETE' })
 
-// ---------- Robot (solo encargado) ----------
+// ---------- Robot ----------
+
+// Dónde está el robot: para cualquier usuario con sesión (solo zona, estado y conexión)
+export const getRobotPosition = () => request('/robot/posicion')
+
+// Lo que sigue es solo para el encargado
 
 // Estado, batería, zona actual y si está conectado
 export const getRobot = () => request('/robot/estado')

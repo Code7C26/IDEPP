@@ -1,7 +1,7 @@
 """Incidencias: permisos por rol, filtros, estadísticas, resolver y alta desde YOLO."""
 import pytest
 
-from tests.conftest import JUAN, YOLO
+from tests.conftest import JUAN, MARIA, YOLO
 
 
 def test_el_encargado_ve_todas(cliente, encargada):
@@ -32,6 +32,45 @@ def test_estadisticas_solo_para_el_encargado(cliente, encargada, empleado):
     assert cliente.get("/api/stats", headers=empleado).status_code == 403
     s = cliente.get("/api/stats", headers=encargada).json
     assert s["incidencias_activas"] == 4 and s["empleados_activos"] == 6
+
+
+def test_resolver_varias(cliente, encargada, empleado):
+    url = "/api/incidents/resolver-varias"
+    activas = [i["id"] for i in cliente.get("/api/incidents?estado=activa&limit=200", headers=encargada).json["incidencias"]]
+    assert len(activas) >= 3
+
+    assert cliente.post(url, json={"ids": activas}).status_code == 401
+    assert cliente.post(url, json={"ids": activas}, headers=empleado).status_code == 403
+    for cuerpo in ({}, {"ids": []}, {"ids": "1"}, {"ids": [True]}, {"ids": [0]}, {"ids": ["1"]}, {"ids": list(range(1, 202))}):
+        assert cliente.post(url, json=cuerpo, headers=encargada).status_code == 400
+
+    # Resuelve las pedidas, una sola vez aunque venga repetida, y quedan a nombre del encargado
+    r = cliente.post(url, json={"ids": [activas[0], activas[0], activas[1]]}, headers=encargada)
+    assert r.status_code == 200 and r.json == {"resueltas": 2, "omitidas": 0}
+    resueltas = cliente.get("/api/incidents?estado=resuelta&limit=200", headers=encargada).json["incidencias"]
+    nuevas = [i for i in resueltas if i["id"] in activas[:2]]
+    assert len(nuevas) == 2 and all(i["resuelta_por"] == MARIA and i["resuelta_at"] for i in nuevas)
+
+    # Las que ya estaban resueltas o no existen se omiten sin error
+    r = cliente.post(url, json={"ids": [activas[0], activas[2], 99999]}, headers=encargada)
+    assert r.json == {"resueltas": 1, "omitidas": 2}
+
+
+def test_resolver_varias_no_reactiva_la_maquina_y_queda_en_la_auditoria(cliente, encargada):
+    inc = cliente.post("/api/incidents", json={"tipo": "sin_casco", "zona_id": 1, "confianza": 0.9}, headers=YOLO).json
+    assert inc["maquina_detenida"] is True
+    cliente.post("/api/incidents/resolver-varias", json={"ids": [inc["id"]]}, headers=encargada)
+    zona = cliente.get("/api/zones/1", headers=encargada).json
+    assert zona["maquina_activa"] is False
+    auditoria = cliente.get("/api/auditoria?accion=resolver_incidencia", headers=encargada).json["registros"]
+    assert any(f"#{inc['id']} " in r["detalle"] for r in auditoria)
+
+
+def test_stats_informa_la_alerta_mas_vieja_sin_resolver(cliente, encargada):
+    activas = cliente.get("/api/incidents?estado=activa&orden=timestamp&limit=200", headers=encargada).json["incidencias"]
+    assert cliente.get("/api/stats", headers=encargada).json["activa_mas_antigua"] == activas[0]["timestamp"]
+    cliente.post("/api/incidents/resolver-varias", json={"ids": [i["id"] for i in activas]}, headers=encargada)
+    assert cliente.get("/api/stats", headers=encargada).json["activa_mas_antigua"] is None
 
 
 def test_resolver(cliente, encargada, empleado):

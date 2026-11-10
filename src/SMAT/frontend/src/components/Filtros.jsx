@@ -12,7 +12,7 @@ export default function Filtros({ campos, valores, onCambiar }) {
   const hayFiltros = Object.values(valores).some((v) => v !== '' && v != null)
 
   return (
-    <div className="grid grid-cols-2 items-end gap-3 rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs sm:grid-cols-[repeat(auto-fill,minmax(150px,1fr))] dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="grid grid-cols-2 items-end gap-3 rounded-2xl border border-zinc-200/80 bg-white p-4 shadow-xs sm:grid-cols-[repeat(auto-fill,minmax(130px,1fr))] dark:border-zinc-800 dark:bg-zinc-900">
       {campos.map((campo) => (
         <label key={campo.nombre} className="min-w-0 text-xs font-medium text-zinc-500 dark:text-zinc-400">
           {campo.etiqueta}

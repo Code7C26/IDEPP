@@ -60,12 +60,12 @@ def robot_simulado():
 def test_ordenes_al_robot_y_parada_de_emergencia(robot_simulado, abrir):
     pag = abrir("maria", "/app/robot")
     assert esperar_texto(pag, "Conectado", 6, exacto=False)
-    assert pag.get_by_role("button", name="Pausar").is_disabled()
+    assert pag.get_by_role("button", name="Pausar", exact=True).is_disabled()
 
     pag.get_by_role("button", name="Iniciar").click()
     assert esperar_texto(pag, "Recorriendo")                      # lo confirma el robot simulado
     assert "ORDEN «iniciar»" in robot_simulado()
-    pag.get_by_role("button", name="Pausar").click()
+    pag.get_by_role("button", name="Pausar", exact=True).click()
     assert esperar_texto(pag, "Pausado")
 
     pag.get_by_role("button", name="PARADA DE EMERGENCIA").click()
@@ -75,6 +75,27 @@ def test_ordenes_al_robot_y_parada_de_emergencia(robot_simulado, abrir):
     pag.get_by_role("button", name="Detener", exact=True).click()
     assert esperar_texto(pag, "Detenido")
     assert pag.get_by_role("button", name="Iniciar").is_enabled()
+    assert not pag.errores
+
+
+def test_la_vista_3d_sigue_al_robot_simulado(robot_simulado, abrir):
+    pag = abrir("maria", "/app/robot")
+    # Acá está la parada de emergencia: la simulación 3D no arranca sola, porque comparte el hilo con la página
+    assert pag.locator("figure iframe").count() == 0
+    assert pag.get_by_role("button", name="Ver la simulación").is_visible() or pag.get_by_text("no puede mostrar el modelo 3D").is_visible()
+    assert esperar_texto(pag, "Conectado", 6, exacto=False)
+    pag.get_by_role("button", name="Iniciar").click()
+    linea = pag.locator("figure [role=status]")
+    # El robot simulado cambia de zona cada 1,5 s: el texto tiene que pasar por más de una
+    vistas = set()
+    for _ in range(40):
+        vistas.add(linea.text_content())
+        if len({t for t in vistas if t.startswith("En Zona")}) >= 2:
+            break
+        pag.wait_for_timeout(500)
+    assert len({t for t in vistas if t.startswith("En Zona")}) >= 2, vistas
+    pag.get_by_role("button", name="Detener", exact=True).click()
+    assert esperar_texto(pag, "Detenido")
     assert not pag.errores
 
 

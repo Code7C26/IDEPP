@@ -40,9 +40,9 @@ Más capturas en [`docs/SMAT/documentacion-final/capturas/`](../../docs/SMAT/doc
 - **Guion para el jurado** (quién habla, demo paso a paso, plan B y preguntas posibles): [`guion-jurado.md`](../../docs/SMAT/EMPRESA-SMAT/09-presentaciones/guion-jurado.md).
 - **Usuarios:** `maria` (encargada) y `juan` (empleado), contraseña `pass123` (ver la tabla de abajo).
 
-## Estado técnico (21/10/2026)
+## Estado técnico (04/11/2026)
 
-Pruebas automáticas en el repo: **105 de la API** (pytest) y **112 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 17 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
+Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra MySQL y contra Postgres, y **131 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 17 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
 
 | Área | Estado |
 |---|---|
@@ -52,12 +52,13 @@ Pruebas automáticas en el repo: **105 de la API** (pytest) y **112 de punta a p
 | Backend: foto de evidencia en las alertas y fotos de rostro con consentimiento (Ley 25.326) | ✅ Funciona |
 | Frontend: diseño estilo SaaS (claro/oscuro, celular y PC), pantallas del empleado y del encargado | ✅ Funciona |
 | Frontend: control del robot con video en vivo, mapa con recorrido, detalle de cada zona | ✅ Funciona con el simulador |
-| Página pública de SMAT (`/`, `/como-funciona`, `/planes`, `/nosotros`, `/contacto`) | ✅ Funciona; mail y WhatsApp de contacto en `frontend/.env` |
+| Renders 3D y juego (`/`, `/como-funciona`, `/juego`): archivos originales en `frontend/public/robot3d`, decisión 008 | ✅ Funciona; son simulaciones, no están conectadas al robot real |
+| Página pública de SMAT (`/`, `/como-funciona`, `/juego`, `/planes`, `/nosotros`, `/contacto`) | ✅ Funciona; mail y WhatsApp de contacto en `frontend/.env` |
 | Tiempo real: cartel y sonido, web instalable (PWA), notificaciones push | ✅ Funciona (push e instalación en el celular solo con https) |
 | Reportes con gráficos y ranking, CSV, PDF mensual, comentarios, auditoría | ✅ Funciona |
 | Servidor de IA de Morena (`servidor_ia/`) conectado con la web | ✅ Conectado; falta la prueba real con la cámara y el robot |
-| Publicación en internet (Render + Supabase) | 🔜 Código listo y probado con Postgres; falta crear las cuentas (9.3) |
-| Hardware (robot, relé, cámara) | En desarrollo por Morena. Mientras tanto: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
+| Publicación en internet (Render + Supabase) | 🔜 Código listo y probado con Postgres; Supabase cargado; falta publicar en Render (9.3) |
+| Hardware (robot, relé, cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`; el robot cambió el 29/10 a ruedas y ESP32-S3, con pruebas por pieza en `servidor_ia/walle_*` (PR #83). La conexión con la web del PR borrador #96 es para el robot anterior y hay que adaptarla; falta la prueba real (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
 
 El detalle tarea por tarea está en [`docs/PLAN.md`](docs/PLAN.md) y los documentos de la empresa y el reporte de avance en [`docs/SMAT/`](../../docs/SMAT/) (en la raíz del repo).
 
@@ -140,8 +141,10 @@ Abrí: http://localhost:5173 . Para entrar desde el celular, poné la IP de tu P
 ```powershell
 cd backend
 venv\Scripts\activate
-python tools\simular_esp32.py --velocidad 10 --maquinas
+python tools\demo_en_vivo.py    # robot simulado + máquinas + una alerta ficticia con foto cada 30 s
 ```
+Agrega alertas ficticias y detiene máquinas en la base local. Para solo el robot, sin alertas: `python tools\simular_esp32.py --velocidad 3 --maquinas`.
+
 Con el backend y la web andando, entrá como `maria` a **Robot** y tocá **Iniciar**: el robot simulado recorre las zonas, reporta su batería y obedece pausar, detener y la parada de emergencia. Con `--maquinas` también se ve cuándo se «corta» y se «reactiva» cada máquina.
 
 ### Probar la integración con la IA sin hardware
@@ -159,8 +162,8 @@ cd C:\Users\tomas\Fat\TOUCH-ID\src\SMAT
 backend\venv\Scripts\activate
 pip install -r backend\requirements-dev.txt      # una sola vez
 
-python -m pytest backend\tests        # 105 pruebas de la API (~30 s), usan la base robot_db_test
-python tests\correr_e2e.py            # 112 pruebas con navegador real (~8 min), usan robot_db_e2e
+python -m pytest backend\tests        # 124 pruebas de la API (~2 min), usan la base robot_db_test
+python tests\correr_e2e.py            # 131 pruebas con navegador real (~9 min), usan robot_db_e2e
 ```
 Las pruebas **nunca tocan la base de desarrollo** (`robot_db`). Las de punta a punta levantan su propio backend (puerto 5001) y su propia web (5174), y prueban también el robot con el ESP32 simulado.
 En GitHub corren solas en cada Pull Request (`.github/workflows/smat-ci.yml`): si algo se rompe, el PR muestra una cruz roja.

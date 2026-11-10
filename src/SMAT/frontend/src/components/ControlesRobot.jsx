@@ -1,8 +1,9 @@
 // Botones para mandarle órdenes al robot y ver en qué estado está.
 //  - robot: lo que devuelve GET /api/robot/estado
 //  - onComando(comando): manda la orden (devuelve una promesa)
-// Reglas (las mismas que valida el backend): después de una EMERGENCIA no se puede iniciar ni pausar;
-// hay que tocar "Detener" para salir de ese estado.
+// Reglas (las mismas que valida el backend):
+//  - después de una EMERGENCIA no se puede iniciar ni pausar; hay que tocar "Detener" para salir de ese estado
+//  - sin conexión no se puede iniciar: el robot arrancaría solo cuando vuelva
 import { useState } from 'react'
 import { haceCuanto } from '../utils/formato.js'
 import { botonSecundario, mensajeError, tarjeta } from '../utils/estilos.js'
@@ -43,11 +44,13 @@ export default function ControlesRobot({ robot, onComando }) {
       <p className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500 dark:text-zinc-400">
         <span className={`size-2 rounded-full ${robot.conectado ? 'bg-ok' : 'bg-zinc-400'}`} />
         {robot.conectado ? 'Conectado' : robot.ultima_conexion ? `Último dato ${haceCuanto(robot.ultima_conexion)} (${estado.texto.toLowerCase()})` : 'Nunca se conectó'}
-        {' · '}Batería {robot.bateria}% · Zona: {robot.zona_actual || 'sin datos'}
+        {/* Sin conexión son datos viejos: se aclara para que no parezcan lo que pasa ahora */}
+        {robot.conectado && ` · Batería ${robot.bateria}% · Zona: ${robot.zona_actual || 'sin datos'}`}
+        {!robot.conectado && robot.ultima_conexion && ` · Última batería ${robot.bateria}% · Última zona: ${robot.zona_actual || 'sin datos'}`}
       </p>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
-        {boton('iniciar', 'Iniciar', 'play', robot.estado === 'recorriendo' || enEmergencia)}
+        {boton('iniciar', 'Iniciar', 'play', !robot.conectado || robot.estado === 'recorriendo' || enEmergencia)}
         {boton('pausar', 'Pausar', 'pausa', robot.estado !== 'recorriendo')}
         {boton('detener', 'Detener', 'stop', robot.estado === 'detenido' && !enEmergencia && !robot.comando_pendiente)}
       </div>
@@ -59,10 +62,15 @@ export default function ControlesRobot({ robot, onComando }) {
         <Icono nombre="alerta" className="size-6" /> PARADA DE EMERGENCIA
       </button>
 
+      {!robot.conectado && <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">Para iniciarlo, el robot tiene que estar encendido y conectado. Sin conexión solo se pueden mandar órdenes de parada.</p>}
       {enEmergencia && <p className="mt-3 rounded-lg bg-alerta/10 px-3 py-2 text-sm text-alerta">El robot está en emergencia. Para volver a usarlo, primero tocá <strong>Detener</strong>.</p>}
       {robot.comando_pendiente && (
         <p role="status" className="mt-3 rounded-lg bg-marca/15 px-3 py-2 text-sm">
-          Orden enviada: <strong>{robot.comando_pendiente}</strong>. {robot.conectado ? 'Esperando que el robot la confirme…' : 'El robot no está conectado: la recibirá cuando vuelva.'}
+          Orden enviada: <strong>{robot.comando_pendiente}</strong>. {robot.conectado
+            ? 'Esperando que el robot la confirme…'
+            : robot.comando_pendiente === 'iniciar'
+              ? 'El robot se desconectó antes de tomarla: se va a cancelar y hay que iniciarlo de nuevo.'
+              : 'El robot no está conectado: la recibirá cuando vuelva.'}
         </p>
       )}
       {!robot.conectado && robot.comando_pendiente === 'emergencia' && (

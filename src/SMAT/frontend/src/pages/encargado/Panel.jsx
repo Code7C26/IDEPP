@@ -14,6 +14,7 @@ import Titulo from '../../components/Titulo.jsx'
 import { useAvisos } from '../../context/AvisosContext.jsx'
 import usePolling from '../../hooks/usePolling.js'
 import { mensajeError, tarjeta } from '../../utils/estilos.js'
+import { haceCuanto } from '../../utils/formato.js'
 import { contarPorZona } from '../../utils/mapa.js'
 import { calcularTendencia } from '../../utils/tendencia.js'
 
@@ -60,7 +61,7 @@ export default function Panel() {
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <StatCard titulo="Alertas activas" valor={s?.incidencias_activas} icono="alerta" tono={s?.incidencias_activas ? 'alerta' : 'ok'}
-                  detalle={s?.incidencias_activas ? 'Sin resolver ahora' : 'Todo resuelto'} />
+                  detalle={s?.incidencias_activas ? `Sin resolver · la más vieja, ${haceCuanto(s.activa_mas_antigua)}` : 'Todo resuelto'} />
         <StatCard titulo="Hoy" valor={s?.incidencias_hoy} icono="reportes" tono="marca"
                   tendencia={s && calcularTendencia(s.incidencias_hoy, s.incidencias_ayer, 'ayer')}
                   serie={serie.slice(-7)} />
@@ -74,7 +75,8 @@ export default function Panel() {
         <section className={tarjeta}>
           <h2 className="mb-3 text-lg font-semibold">Mapa de la fábrica</h2>
           {zonas.cargando && <p className="text-sm text-zinc-500">Cargando…</p>}
-          {zonas.datos && (
+          {/* El mapa espera a las alertas: sin ellas pintaría todo en verde, como si estuviera en orden */}
+          {zonas.datos && activas.datos && (
             <MapaFabrica zonas={zonas.datos.zonas} alertasPorZona={alertasPorZona} robot={robot.datos}
                          ruta={(ruta.datos?.ruta || []).map((p) => p.zona_id)} seleccionada={zonaAbierta}
                          onSeleccionar={(z) => setZonaAbierta(z.id)} />
@@ -86,7 +88,8 @@ export default function Panel() {
         <div className="space-y-6">
           <TarjetaRobot robot={robot.datos} />
           <section>
-            <h2 className="mb-3 text-lg font-semibold">Zonas con más alertas</h2>
+            <h2 className="text-lg font-semibold">Zonas con más alertas</h2>
+            <p className="mb-3 text-xs text-zinc-500 dark:text-zinc-400">Desde el inicio, activas y resueltas</p>
             <Tabla claveFila="zona" filas={s?.top_zonas || []}
                    columnas={[{ clave: 'zona', titulo: 'Zona' }, { clave: 'incidencias', titulo: 'Alertas', clase: 'text-right tabular-nums' }]} />
           </section>

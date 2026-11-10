@@ -22,6 +22,7 @@ import Zonas from './pages/encargado/Zonas.jsx'
 import ComoFunciona from './pages/publico/ComoFunciona.jsx'
 import Contacto from './pages/publico/Contacto.jsx'
 import InicioPublico from './pages/publico/InicioPublico.jsx'
+import Juego from './pages/publico/Juego.jsx'
 import Nosotros from './pages/publico/Nosotros.jsx'
 import Planes from './pages/publico/Planes.jsx'
 
@@ -43,6 +44,7 @@ export default function App() {
       <Route element={<LayoutPublico />}>
         <Route index element={<InicioPublico />} />
         <Route path="como-funciona" element={<ComoFunciona />} />
+        <Route path="juego" element={<Juego />} />
         <Route path="planes" element={<Planes />} />
         <Route path="nosotros" element={<Nosotros />} />
         <Route path="contacto" element={<Contacto />} />

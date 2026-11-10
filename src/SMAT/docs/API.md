@@ -134,13 +134,16 @@ Consultala al arrancar y cada vez que recibas `iniciar`, por si el encargado la 
 
 **Después de una `emergencia`** el backend rechaza `iniciar` y `pausar` (409) hasta que el encargado envíe `detener`. Así el robot no puede volver a arrancar solo.
 
+**Sin conexión** (más de 10 s sin reportar) el backend rechaza `iniciar` (409). Si el robot se desconecta con un `iniciar` sin tomar, esa orden se descarta cuando vuelve: nunca arranca solo. `pausar`, `detener` y `emergencia` sí se guardan y le llegan al volver. Para el ESP32 no cambia nada.
+
 ### 2b. Lo que hace la web (para que sepas qué te va a llegar)
 Estos endpoints los usa el encargado con sesión (`Authorization: Bearer ...`); el ESP32 no los llama.
 
 | Endpoint | Para qué |
 |---|---|
 | ✅ `GET /robot/estado` | Estado, batería, zona, comando pendiente y `conectado` (reportó hace menos de 10 s) |
-| ✅ `POST /robot/comando` | `{"comando": "iniciar" \| "pausar" \| "detener" \| "emergencia"}` |
+| ✅ `GET /robot/posicion` | Para cualquier sesión, también la del empleado: solo `estado`, `conectado`, `zona_actual_id`, `zona_actual` y `ultima_conexion` |
+| ✅ `POST /robot/comando` | `{"comando": "iniciar" \| "pausar" \| "detener" \| "emergencia"}` · 409 si es `iniciar` y el robot no está conectado |
 | ✅ `PUT /robot/ruta` | `{"ruta": [{"zona_id": 1, "tiempo_espera_seg": 30}, ...]}` (el orden de la lista es el recorrido; espera de 5 a 3600 s) |
 | ✅ `PUT /robot/video` | `{"url_video": "http://<IP-PC-YOLO>:8080/video"}` · texto vacío = sin video |
 
@@ -201,6 +204,13 @@ Comentarios: el encargado en cualquier alerta; el empleado, solo en las suyas (s
 | ✅ `POST /incidents/<id>/comentarios` | `{"texto": "..."}` (1 a 500 caracteres) → `201`. Avisa por push a la otra parte y queda en la auditoría |
 
 Cada incidencia trae además `cantidad_comentarios`.
+
+Resolver alertas (solo encargado; no reactiva la máquina y queda en la auditoría):
+
+| Endpoint | Para qué |
+|---|---|
+| ✅ `PUT /incidents/<id>/resolver` | Resuelve una alerta. `409` si ya estaba resuelta |
+| ✅ `POST /incidents/resolver-varias` | `{"ids": [1, 2, 3]}` (hasta 200) → `{"resueltas": 2, "omitidas": 1}`. Las ya resueltas o inexistentes se omiten sin error |
 
 | Endpoint | Para qué |
 |---|---|
