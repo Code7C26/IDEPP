@@ -1,6 +1,7 @@
 import os
 os.environ["OPENCV_FFMPEG_LOGLEVEL"] = "-8"   # oculta los avisos "overread"
 
+import threading
 import time
 import urllib.request
 from datetime import datetime
@@ -29,9 +30,10 @@ DB_CONFIG = {
 # ==========================================
 # 2. CONFIGURACION DE LA DETECCION
 # ==========================================
-FRAMES_SEGUIDOS_PARA_ALERTA = 10   # fotogramas seguidos detectando antes de alertar
+FRAMES_SEGUIDOS_PARA_ALERTA = 3    # fotogramas seguidos detectando antes de alertar (sin placa de video hay ~1-2 por segundo)
 TIEMPO_COOLDOWN = 20               # segundos de espera entre alertas (más que los 10 s que dura la alarma del robot)
-CONFIANZA_MINIMA = 0.60            # 60 % para detectar personas
+CONFIANZA_MINIMA = 0.40            # 40 %: con la ESP32-CAM el modelo de EPP da entre 40 y 60 %
+TAMANO_IMAGEN_IA = 416             # tamaño con el que mira YOLO: mas chico = mas rapido (640 tarda el doble)
 SIMILITUD_ROSTRO = 0.40            # que tan parecido tiene que ser el rostro (0 a 1)
 
 # Modelos que reconocen el equipo de proteccion (EPP). Se usa el primero que este en la carpeta:
@@ -209,6 +211,40 @@ def enviar_alerta_esp32(trabajador):
 # ==========================================
 # 5. PROGRAMA PRINCIPAL
 # ==========================================
+class CamaraEnVivo:
+    """Lee la camara en segundo plano y se queda SOLO con la ultima foto.
+    Asi, aunque YOLO tarde (sin placa de video), siempre analiza lo que pasa AHORA
+    y el video no se va atrasando con fotos viejas acumuladas."""
+
+    def __init__(self, url):
+        self.url = url
+        self.cap = cv2.VideoCapture(url)
+        self.foto = None
+        self.candado = threading.Lock()
+        threading.Thread(target=self._leer_siempre, daemon=True).start()
+
+    def abierta(self):
+        return self.cap.isOpened()
+
+    def _leer_siempre(self):
+        while True:
+            ok, foto = self.cap.read()
+            if not ok:
+                print("[ERROR] Se perdio el video. Reintentando...")
+                time.sleep(1)
+                self.cap.release()
+                self.cap = cv2.VideoCapture(self.url)
+                continue
+            with self.candado:
+                self.foto = foto
+
+    def ultima_foto(self):
+        """Devuelve la foto mas nueva (y la marca como usada) o None si no llego una nueva."""
+        with self.candado:
+            foto, self.foto = self.foto, None
+        return foto
+
+
 def iniciar_patrullaje():
     modelo, clases = cargar_modelo()
     modo_epp = len(clases) > 0   # False = modo personas (sin modelo de EPP)
@@ -226,8 +262,8 @@ def iniciar_patrullaje():
     ultimo_nombre = "Desconocido"   # ultimo trabajador reconocido durante la deteccion
 
     print(f"[INFO] Conectando a la camara del robot: {URL_CAMARA}")
-    cap = cv2.VideoCapture(URL_CAMARA)
-    if not cap.isOpened():
+    camara = CamaraEnVivo(URL_CAMARA)
+    if not camara.abierta():
         print("[ERROR] No se pudo abrir la camara del robot. Revisa la IP en el Monitor Serie"
               " y que nadie mas este mirando el video (la camara atiende a uno solo).")
         return
@@ -236,16 +272,14 @@ def iniciar_patrullaje():
     print("[INFO] Patrullaje iniciado. Toca la ventana del video y apreta 'q' para salir.")
 
     while True:
-        ok, frame = cap.read()
-        if not ok:
-            print("[ERROR] Se perdio el video. Reintentando...")
-            time.sleep(1)
-            cap.release()
-            cap = cv2.VideoCapture(URL_CAMARA)
+        frame = camara.ultima_foto()
+        if frame is None:          # todavia no llego una foto nueva
+            if cv2.waitKey(10) & 0xFF == ord("q"):
+                break
             continue
 
         frame = cv2.resize(frame, (640, 480))
-        resultados = modelo(frame, verbose=False)
+        resultados = modelo(frame, imgsz=TAMANO_IMAGEN_IA, conf=CONFIANZA_MINIMA, verbose=False)
 
         faltas_en_frame = {}   # falta -> mejor confianza en este fotograma (ej. "Falta de Casco": 87.0)
 
@@ -301,8 +335,10 @@ def iniciar_patrullaje():
             if frames_seguidos[falta] >= FRAMES_SEGUIDOS_PARA_ALERTA:
                 confianza = faltas_en_frame[falta]
                 print(f"\n[ALERTA] {falta}: {ultimo_nombre}")
-                registrar_incidencia_bd(falta, ultimo_nombre, confianza)
-                enviar_alerta_esp32(ultimo_nombre)
+                # En segundo plano: si MySQL o el robot no responden, el video no se congela
+                threading.Thread(target=registrar_incidencia_bd,
+                                 args=(falta, ultimo_nombre, confianza), daemon=True).start()
+                threading.Thread(target=enviar_alerta_esp32, args=(ultimo_nombre,), daemon=True).start()
                 reportar_a_la_web(falta, ultimo_nombre, confianza, frame)
                 ultimo_aviso = ahora
                 frames_seguidos = {}
@@ -316,7 +352,7 @@ def iniciar_patrullaje():
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 
-    cap.release()
+    camara.cap.release()
     cv2.destroyAllWindows()
     print("[INFO] Sistema apagado.")
 
