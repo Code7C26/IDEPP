@@ -1,5 +1,6 @@
 """
-Registra las fotos de un trabajador usando la camara del celular.
+Registra las fotos de un trabajador usando la camara del robot (ESP32-CAM).
+Antes cerrar motor_ia_robot.py: la camara atiende a uno solo a la vez.
 
 Uso:
   1. Ejecutar:  python registrar_trabajador.py
@@ -13,7 +14,7 @@ os.environ["OPENCV_FFMPEG_LOGLEVEL"] = "-8"
 import cv2
 
 # La IP de la cámara se pone en servidor_ia/.env (ver config.py)
-from config import URL_CAMARA_CELULAR
+from config import URL_CAMARA
 
 
 CARPETA_FOTOS = "fotos_trabajadores"
@@ -27,7 +28,7 @@ carpeta = os.path.join(CARPETA_FOTOS, nombre)
 os.makedirs(carpeta, exist_ok=True)
 cantidad = len(os.listdir(carpeta))
 
-cap = cv2.VideoCapture(URL_CAMARA_CELULAR)
+cap = cv2.VideoCapture(URL_CAMARA)
 if not cap.isOpened():
     print("No se pudo abrir la camara. Revisa la IP.")
     raise SystemExit

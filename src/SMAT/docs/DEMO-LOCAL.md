@@ -93,10 +93,10 @@ Remove-NetFirewallRule -DisplayName "DROID-E3D (puerto 5000)"
 | Celulares y proyector | Abrir `http://IP:5000` | Navegador |
 | ESP32 del robot | `URL_BACKEND "http://IP:5000/api"`, `ROBOT_API_KEY` y `ZONA_DEL_ROBOT` | `servidor_ia/robot_droid/secretos.h` (se vuelve a cargar al ESP32) |
 | ESP32 de la máquina | `URL_BASE = "http://IP:5000/api"` y `ROBOT_KEY` | `docs/integracion/esp32_maquina.ino` |
-| IA en la PC de Morena | `DROID_URL=http://IP:5000/api`, `YOLO_API_KEY`, `URL_CAMARA_CELULAR`, `URL_ESP32_ALERTA` | `servidor_ia/.env` (copia de `.env.example`) |
-| IA en la misma notebook | Solo `URL_CAMARA_CELULAR` y `URL_ESP32_ALERTA`: la clave la lee de `backend/.env` | `servidor_ia/.env` |
+| IA en la PC de Morena | `DROID_URL=http://IP:5000/api`, `YOLO_API_KEY`, `URL_CAMARA`, `URL_ESP32_ALERTA` | `servidor_ia/.env` (copia de `.env.example`) |
+| IA en la misma notebook | Solo `URL_CAMARA` y `URL_ESP32_ALERTA`: la clave la lee de `backend/.env` | `servidor_ia/.env` |
 | Zona de las alertas | `DROID_ZONA_ID=1` si el robot no informa en qué zona está (ver abajo) | `servidor_ia/.env` |
-| Video en vivo | La URL de la cámara: `http://<IP-del-celular-cámara>:8080/video` | Web → **Robot** → Dirección del video |
+| Video en vivo | El video que reenvía la IA: `http://<IP-de-la-PC-de-la-IA>:8080/video` | Web → **Robot** → Dirección del video |
 
 Las claves (`ROBOT_API_KEY`, `YOLO_API_KEY`) están en `backend\.env` y se pasan **por fuera de GitHub**.
 
