@@ -46,6 +46,14 @@ con `registrar_trabajador.py`. `modelo_cascos.pt` sí está en el repo.
 
 ### Conexión con la web
 
+- **Robot (`robot_droid/`):** copiá `secretos.example.h` como `secretos.h` y completá `URL_BACKEND`, `ROBOT_API_KEY` y
+  `ZONA_DEL_ROBOT`. Con eso arranca detenido, obedece a la web (Iniciar, Pausar, Detener y Emergencia) y le informa su
+  estado y su zona. Sin esos datos, anda como antes: patrulla solo, sin la web. Necesita la librería **ArduinoJson**.
+- **Zona del robot:** la saca de la ruta de `/app/robot` y de marcas en el piso. Poné una cinta negra que cruce la línea
+  en la entrada de cada zona, lo bastante ancha para que los 2 sensores la vean a la vez: una marca por parada, en el
+  mismo orden que la ruta. Al tocar Iniciar, el robot tiene que estar adentro de la primera zona de la ruta. En
+  `http://<IP-del-robot>/sensores` se ven las marcas contadas y la zona que informa. Si se saltea una marca, la zona
+  queda corrida hasta el próximo Iniciar. El ajuste es `MARCA_MS`, en `robot_droid.ino`.
 - **Misma PC que el backend:** no hay que configurar nada; toma la clave de `../backend/.env`.
 - **Otra PC:** completá en tu `.env` (la clave te la pasa Toro por fuera de GitHub):
   ```
