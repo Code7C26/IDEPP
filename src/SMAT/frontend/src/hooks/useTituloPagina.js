@@ -2,7 +2,7 @@
 // Uso: useTituloPagina('Planes', 'Precios del robot y del abono mensual.')
 import { useEffect } from 'react'
 
-const MARCA = 'DROID-E3D by SMAT'
+const MARCA = 'DROID-E3D by IDEPP'
 
 export default function useTituloPagina(titulo, descripcion) {
   useEffect(() => {
