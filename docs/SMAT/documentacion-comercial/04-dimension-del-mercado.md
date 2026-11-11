@@ -1,6 +1,6 @@
 # Dimensión del mercado: ¿cuántos clientes reales tenemos? · DROID-E3D
 
-> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** SMAT (división de TOUCH)
+> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
 > **Equipo:** Toro · Morena · **Actualizado:** 08/10/2026
 
 **Nuestro cliente:** una PyME industrial con producción en planta (metalúrgica, plásticos, muebles, alimentos,

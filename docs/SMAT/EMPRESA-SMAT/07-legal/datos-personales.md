@@ -16,7 +16,7 @@
 | Rol | Quién | Qué significa |
 |---|---|---|
 | **Responsable** de la base de datos | La fábrica cliente | Decide para qué se usan los datos; registra la base y responde ante los empleados |
-| **Encargado del tratamiento** | SMAT | Procesa los datos solo para prestar el servicio, según el contrato (cláusula 8) |
+| **Encargado del tratamiento** | IDEPP | Procesa los datos solo para prestar el servicio, según el contrato (cláusula 8) |
 
 ## 3. Qué datos guardamos
 
@@ -42,7 +42,7 @@
 
 ## 6. Registro de la base
 
-La fábrica debe evaluar si corresponde **inscribir la base de datos** en el registro de la AAIP. SMAT le entrega la descripción de los datos (esta tabla) para hacerlo.
+La fábrica debe evaluar si corresponde **inscribir la base de datos** en el registro de la AAIP. IDEPP le entrega la descripción de los datos (esta tabla) para hacerlo.
 
 ## 7. En el proyecto final
 
@@ -50,8 +50,8 @@ Para la demo **no se usan datos reales**: los empleados de la base son ficticios
 
 ### Fotos del servidor de IA en GitHub (actualizado 21/10/2026)
 
-- Hasta el 19/10/2026, las fotos con las que la IA reconoce caras (`src/SMAT/servidor_ia/fotos_trabajadores/`) estaban subidas al repo. Eran de 8 personas, entre ellas compañeros de TOUCH.
+- Hasta el 19/10/2026, las fotos con las que la IA reconoce caras (`src/SMAT/servidor_ia/fotos_trabajadores/`) estaban subidas al repo. Eran de 8 personas, entre ellas compañeros de TOUCH-ID.
 - Desde el 19/10 **ya no se suben**: la carpeta está en `.gitignore` y las fotos se pasan por fuera de GitHub (PR #73).
-- **Siguen en el historial de git**, aunque no se vean en la versión actual. El repo es **privado**. **No se reescribe el historial**, porque cambiaría el repo de todo TOUCH (unos 30 colaboradores).
+- **Siguen en el historial de git**, aunque no se vean en la versión actual. El repo es **privado**. **No se reescribe el historial**, porque cambiaría el repo de toda IDEPP (unos 30 colaboradores).
 - Si alguien pide que se borren sus fotos: se borra su carpeta en cada PC que tenga la copia y sus fotos en la web (Mi perfil o Empleados). Si además exige sacarlas del historial, se decide con TOUCH y el profe.
 - ✅ **Consentimientos confirmados** (22/10/2026): las 8 personas de las fotos dieron su consentimiento (modelo en la sección 5). Si alguien lo retira, se borra su carpeta y sus fotos en la web, como se indica arriba.

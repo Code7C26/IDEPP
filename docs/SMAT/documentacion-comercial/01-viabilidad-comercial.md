@@ -1,10 +1,10 @@
 # Modelo de negocio y viabilidad comercial · DROID-E3D
 
-> **Materia:** Emprendimiento (en conjunto con FAT) · **Profesora:** Tamara Piccinni · **Agencia:** SMAT (división de TOUCH)
+> **Materia:** Emprendimiento (en conjunto con FAT) · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
 > **Equipo:** Toro (software y web) · Morena (hardware e IA) · **Actualizado:** 08/10/2026
 
 **Valores:** relevados en octubre de 2026, con la fuente de cada uno. Para pasar de dólares a pesos se usa
-**USD 1 = $1.550** (dólar de referencia del 06/10/2026, el mismo que usa TOUCH en su informe). Los precios de
+**USD 1 = $1.550** (dólar de referencia del 06/10/2026, el mismo que usa el equipo de TOUCH-ID en su informe). Los precios de
 hardware se fijan en dólares porque en pesos cambian todas las semanas.
 
 ---
@@ -76,7 +76,7 @@ Antes de sumar una función, la pasamos por este filtro. Analizamos las cuatro m
 |---|---|---|---|
 | Servidor de la plataforma (PythonAnywhere, plan Developer) | USD 10 por mes | 10,00 | [Blog oficial de PythonAnywhere: nuevos planes 2026](https://blog.pythonanywhere.com/222/) (el plan de USD 5 dejó de existir) |
 | Web pública y app (Vercel o Netlify, plan gratuito) | $0 | 0,00 | Planes gratuitos de cada proveedor |
-| Dominio `droide3d.com.ar` | $8.500 por año | 0,46 | NIC Argentina, Resolución 5/2024 (relevado por TOUCH, 10/2026) |
+| Dominio `droide3d.com.ar` | $8.500 por año | 0,46 | NIC Argentina, Resolución 5/2024 (relevado por el equipo de TOUCH-ID, 10/2026) |
 | **Legal:** marca «DROID-E3D» en el INPI, clase 9 | $40.569 (100 UMAPI), pago único por 10 años | 2,18 (prorrateado en el 1.er año) | Valor al 15/09/2026 (esderecho.com.ar e iProfesional, relevado por TOUCH) |
 | **Legal:** registro del software en la DNDA | $3.800 + 0,2 % del precio (≈ $6.820) = $10.620 | 0,57 (prorrateado en el 1.er año) | argentina.gob.ar, trámite «Registrar un software puesto en conocimiento público» |
 | Horas de mantenimiento de la plataforma (20 h por mes × USD 8) | USD 160 por mes | 160,00 | Valor hora: ver 3.3 |
@@ -113,7 +113,7 @@ medio da **≈ $9.100 la hora** (176 h por mes). Sumando ≈ 35 % de cargas, her
 | Plan | Precio | Qué incluye |
 |---|---|---|
 | **Plan Compra** (el que se ofrece hoy) | **USD 2.200** pago único **+ USD 70 por mes** | Robot, corte de 2 máquinas, servidor de IA, instalación y capacitación; el abono cubre plataforma, soporte, actualizaciones y una visita cada 3 meses |
-| Plan Servicio (alquiler, desde 2028) | USD 260 por mes, mínimo 12 meses | Todo incluido, el equipo es de SMAT |
+| Plan Servicio (alquiler, desde 2028) | USD 260 por mes, mínimo 12 meses | Todo incluido, el equipo es de IDEPP |
 
 **Por qué este modelo y no otro:**
 
@@ -148,10 +148,10 @@ precios: venden por cotización a multinacionales; nuestro precio apunta a la Py
 
 | Qué se protege | Dónde | Pasos | Costo | Cuándo |
 |---|---|---|---|---|
-| **Marca** «DROID-E3D» (y después «SMAT») | **INPI** | 1) Búsqueda de antecedentes (gratis). 2) Solicitud online con clave fiscal: marca mixta (nombre + logo), **clase 9** (aparatos y software) y luego **clase 42** (servicios de software). 3) Pago del arancel. 4) Publicación: si nadie se opone en 30 días, queda concedida. Dura 10 años y se renueva. | $40.569 por clase | Antes del primer cliente |
+| **Marca** «DROID-E3D» (y después «IDEPP») | **INPI** | 1) Búsqueda de antecedentes (gratis). 2) Solicitud online con clave fiscal: marca mixta (nombre + logo), **clase 9** (aparatos y software) y luego **clase 42** (servicios de software). 3) Pago del arancel. 4) Publicación: si nadie se opone en 30 días, queda concedida. Dura 10 años y se renueva. | $40.569 por clase | Antes del primer cliente |
 | **Software** (plataforma web) | **DNDA** (por TAD) | El software **no se patenta**: se registra como obra bajo derecho de autor. Mientras no se venda: «depósito de obra inédita» ($1.400). Al venderse: registro de obra publicada ($3.800 + 0,2 % del precio) y entrega de una copia del código. | $1.400 hoy · $10.620 al vender | Inédita: ya · Publicada: con el primer cliente |
 | **Hardware** (robot) | INPI | Patente o modelo de utilidad solo si el robot tuviera una invención nueva. Hoy usa piezas comunes (oruga, ESP32, relé): **no conviene patentar**. La forma de la carcasa podría registrarse más adelante como **diseño industrial**. | — | Cuando haya diseño propio |
-| **Datos personales** (fotos de rostro) | **AAIP** | La base de datos es de cada fábrica: SMAT le entrega la descripción para que la inscriba en el Registro Nacional de Bases de Datos, y la web pide el consentimiento de cada empleado (Ley 25.326). | Sin costo | En cada instalación |
+| **Datos personales** (fotos de rostro) | **AAIP** | La base de datos es de cada fábrica: IDEPP le entrega la descripción para que la inscriba en el Registro Nacional de Bases de Datos, y la web pide el consentimiento de cada empleado (Ley 25.326). | Sin costo | En cada instalación |
 | **Licencia de YOLO** (IA) | Ultralytics | YOLO tiene licencia **AGPL-3.0**: si lo ofrecemos como servicio, hay que publicar el código del servidor de IA o comprar la licencia empresarial. **Decisión pendiente de Morena** antes de vender (ver `../EMPRESA-SMAT/07-legal/propiedad-intelectual.md`). | A cotizar | Antes del primer cliente |
 
 ---
@@ -188,4 +188,4 @@ precios: venden por cotización a multinacionales; nuestro precio apunta a la Py
 - Mercado Libre Argentina y tiendas de electrónica (HobbyTronica, PatagoniaTec, Starware, Nubbeo) — precio de la placa ESP32, octubre de 2026
 - iProfesional — comisiones de Mercado Pago
 - Intenseye — [precios por cotización](https://www.intenseye.com/pricing/)
-- Informe de costos y marco legal de TOUCH (`docs/costos_y_marco_legal.md` de este repositorio), del que se toman los valores de dominio, INPI y DNDA para que las dos divisiones usen los mismos números
+- Informe de costos y marco legal de TOUCH-ID (`docs/costos_y_marco_legal.md` de este repositorio), del que se toman los valores de dominio, INPI y DNDA para que las dos divisiones usen los mismos números

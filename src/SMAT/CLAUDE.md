@@ -1,12 +1,12 @@
 # DROID-E3D · app web (src/SMAT)
 
-**Jerarquía:** TOUCH (empresa madre, repo `Code7C26/TOUCH-ID`) → SMAT (división; socios Toro y Morena)
-→ DROID-E3D (producto de SMAT = robot + web). Marca: "DROID-E3D by SMAT · una división de TOUCH".
+**Jerarquía:** IDEPP (empresa de 5 socios, repo `Code7C26/IDEPP`) → dos productos: TOUCH-ID (Alexandra, Sol y Lola)
+y DROID-E3D (Toro y Morena = robot + web). En la web de DROID-E3D solo se muestra el equipo Toro y Morena. Marca: "DROID-E3D by IDEPP".
 
 Robot con ruedas y ESP32-S3 (desde el 29/10) recorre la fábrica, una cámara + IA YOLO detecta si los empleados usan su EPP
 (hoy casco; guantes, lentes y chaleco son lo próximo) e identifica al empleado por reconocimiento facial. Si no lo usan:
 alarma y/o parada de la máquina. Esta carpeta (`src/SMAT/`) es la app web; la empresa vive en `docs/SMAT/EMPRESA-SMAT/` (desde acá: `../../docs/SMAT/EMPRESA-SMAT/`).
-**Morena** es socia de SMAT y además responsable de hardware/IA (ESP32, relé, cámara, YOLO, facial). Hasta que tenga el hardware se usan simuladores y `docs/API.md`.
+**Morena** es socia de IDEPP y además responsable de hardware/IA (ESP32, relé, cámara, YOLO, facial). Hasta que tenga el hardware se usan simuladores y `docs/API.md`.
 
 Flujo: cámara → servidor YOLO → POST /api/incidents (este backend) → MySQL → web (+ push al celular).
 El ESP32 consulta por HTTP al backend qué comando ejecutar y si su máquina debe estar parada.
@@ -18,9 +18,9 @@ El ESP32 consulta por HTTP al backend qué comando ejecutar y si su máquina deb
 - Claves en `.env` (nunca en el repo): `YOLO_API_KEY`, `ROBOT_API_KEY`, `VAPID_*`.
 
 ## Repo y equipo
-- Repo `Code7C26/TOUCH-ID`. Ramas: `SMAT-web` (esta), `SMAT-empresa`, `SMAT-hardware`. PR a `main` al final de cada fase.
-- Estructura del repo (igual para TOUCH y SMAT): `assets/`, `design/`, `docs/`, `src/`, con una subcarpeta por empresa.
-  SMAT puede tocar: `src/SMAT/` (web, pruebas y `servidor_ia/` de Morena: su lógica de detección no se cambia, solo se conecta con el backend), `docs/SMAT/` (empresa, costos, reportes) y `.github/` (archivos `smat-*`).
+- Repo `Code7C26/IDEPP`. Ramas: `SMAT-web` (esta), `SMAT-empresa`, `SMAT-hardware`. PR a `main` al final de cada fase.
+- Estructura del repo (igual para TOUCH-ID y DROID-E3D): `assets/`, `design/`, `docs/`, `src/`, con una subcarpeta por producto (`TOUCH-ID/` y `SMAT/`).
+  IDEPP puede tocar: `src/SMAT/` (web, pruebas y `servidor_ia/` de Morena: su lógica de detección no se cambia, solo se conecta con el backend), `docs/SMAT/` (empresa, costos, reportes) y `.github/` (archivos `smat-*`).
   No tocar nada de `*/TOUCH-ID/` ni el `README.md` de la raíz.
 - Nunca `git add .` desde la raíz del repo ni push directo a `main`.
 - Al terminar una fase con todas las pruebas en verde, Claude abre el PR y lo mergea; se frena si algo falla o si cambia `docs/API.md` (lo revisa Morena).

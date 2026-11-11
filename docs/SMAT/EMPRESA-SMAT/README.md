@@ -1,8 +1,8 @@
 # EMPRESA-SMAT · documentos de la empresa
 
-<p align="center"><img src="03-marca/logo/droid-e3d.svg" alt="DROID-E3D by SMAT" width="320"></p>
+<p align="center"><img src="03-marca/logo/droid-e3d.svg" alt="DROID-E3D by IDEPP" width="320"></p>
 
-**SMAT** es una división de **TOUCH**; su producto es **DROID-E3D**, un robot que recorre la fábrica y controla con inteligencia artificial el uso del equipo de protección personal, más la web donde se gestionan las alertas.
+**IDEPP** es una empresa de 5 socios con dos productos: **TOUCH-ID** y **DROID-E3D**. Esta carpeta documenta **DROID-E3D**, un robot que recorre la fábrica y controla con inteligencia artificial el uso del equipo de protección personal, más la web donde se gestionan las alertas.
 Socios: **Toro** (software y web) y **Morena** (hardware e IA).
 
 **Pitch en 30 segundos:** [09-presentaciones/pitch.md](09-presentaciones/pitch.md)
@@ -14,8 +14,8 @@ Socios: **Toro** (software y web) y **Morena** (hardware e IA).
 | Área | Documento | Responsable | Estado |
 |---|---|---|---|
 | Identidad | [Misión, visión y valores](01-identidad/mision-vision-valores.md) | Toro | completo (v1) |
-| | [Historia de SMAT](01-identidad/historia.md) | Toro | completo (v1) |
-| | [Relación con TOUCH](01-identidad/relacion-con-TOUCH.md) | Toro | completo (v1) |
+| | [Historia de IDEPP](01-identidad/historia.md) | Toro | completo (v1) |
+| | [IDEPP y sus dos productos](01-identidad/idepp-y-sus-productos.md) | Toro | completo (v1) |
 | Organización | [Organigrama](02-organizacion/organigrama.md) | Toro | completo (v1) |
 | | [Roles y responsabilidades](02-organizacion/roles-y-responsabilidades.md) | Toro | completo (v1) |
 | | [Acuerdo de socios](02-organizacion/acuerdo-de-socios.md) | Toro | completo (v1) · **falta la conformidad de los dos socios** |

@@ -8,7 +8,7 @@
 
 | # | Parte | Quién | Min. | Qué se muestra |
 |---|---|---|---|---|
-| 1 | Presentación | Toro | 1 | SMAT, división de TOUCH; quiénes somos |
+| 1 | Presentación | Toro | 1 | IDEPP; quiénes somos |
 | 2 | El problema | Morena | 2 | Accidentes por no usar EPP; el supervisor no puede estar en todos lados |
 | 3 | La solución | Toro | 2 | Qué es DROID-E3D; diagrama cámara → IA → backend → web → máquina |
 | 4 | **Demo en vivo** | Morena (robot) y Toro (web) | 5 | Ver abajo |

@@ -27,4 +27,4 @@
 
 | Fecha | Tema |
 |---|---|
-| [06/10/2026](2026-10-06-arranque-de-smat.md) | Arranque de SMAT: repositorio, plan y documentos de la empresa |
+| [06/10/2026](2026-10-06-arranque-del-proyecto.md) | Arranque del proyecto DROID-E3D: repositorio, plan y documentos de la empresa |

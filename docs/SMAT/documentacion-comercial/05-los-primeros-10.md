@@ -1,6 +1,6 @@
 # Operación «Los primeros 10» · DROID-E3D
 
-> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** SMAT (división de TOUCH)
+> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
 > **Equipo:** Toro · Morena · **Actualizado:** 08/10/2026
 
 **Estrategia elegida:** **venta directa a empresas.** Nuestro cliente es una fábrica: nadie compra un robot de
@@ -35,7 +35,7 @@ mantenimiento industrial 4.0 que ya trabaja con sensores dentro de fábricas
 ([InfoNegocios](https://infonegocios.info/alta-gracia/sti-developments-una-pyme-de-alta-gracia-que-exporta-servicios-de-mantenimiento-4-0-a-multinacionales)).
 Puede recomendarnos a sus clientes (acción 3).
 
-**Sinergia con TOUCH:** Oreste Berta S.A. también está en la lista de TOUCH para Touch ID. Proponemos una visita
+**Sinergia con TOUCH-ID:** Oreste Berta S.A. también está en la lista del equipo de TOUCH-ID. Proponemos una visita
 conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) en la misma reunión.
 
 ---

@@ -1,4 +1,4 @@
-"""Genera los PDF de las entregas de SMAT (con carátula) y la imagen del Business Model Canvas.
+"""Genera los PDF de las entregas de IDEPP (con carátula) y la imagen del Business Model Canvas.
 
 - Cada entrega se escribe en Markdown (se lee directo en GitHub) y este script arma su PDF,
   listo para subir a Classroom, en la carpeta pdf/ al lado del .md.
@@ -73,12 +73,12 @@ def armar_html(ruta):
       <dl>
         <dt>Escuela</dt><dd>Técnico en Informática · Proyecto final integrador (FAT y Emprendimiento)</dd>
         <dt>Profesora</dt><dd>Tamara Piccinni</dd>
-        <dt>Agencia</dt><dd>SMAT, división de TOUCH</dd>
+        <dt>Agencia</dt><dd>IDEPP</dd>
         <dt>Equipo</dt><dd>Toro (software y web) · Morena (hardware e IA)</dd>
         <dt>Fecha</dt><dd>{date.today():%d/%m/%Y}</dd>
-        <dt>Repositorio</dt><dd>github.com/Code7C26/TOUCH-ID · docs/SMAT/</dd>
+        <dt>Repositorio</dt><dd>github.com/Code7C26/IDEPP · docs/SMAT/</dd>
       </dl>
-      <div class="marca">{logo}<span>DROID-E3D<small>by SMAT · una división de TOUCH</small></span></div>
+      <div class="marca">{logo}<span>DROID-E3D<small>by IDEPP</small></span></div>
     </section>"""
     return f"<!doctype html><html lang='es'><head><meta charset='utf-8'><style>{ESTILO}</style></head><body>{portada}{cuerpo}</body></html>"
 
@@ -90,7 +90,7 @@ def generar_pdf(pagina, ruta_md):
     pagina.set_content(armar_html(ruta_md), wait_until="load")
     pagina.pdf(path=destino, format="A4", print_background=True, display_header_footer=True,
                header_template="<span></span>",
-               footer_template="<div style='font-size:8px;width:100%;text-align:center;color:#888'>DROID-E3D by SMAT · página <span class='pageNumber'></span> de <span class='totalPages'></span></div>",
+               footer_template="<div style='font-size:8px;width:100%;text-align:center;color:#888'>DROID-E3D by IDEPP · página <span class='pageNumber'></span> de <span class='totalPages'></span></div>",
                margin={"top": "18mm", "bottom": "20mm", "left": "16mm", "right": "16mm"})
     print("PDF:", os.path.relpath(destino, RAIZ))
 

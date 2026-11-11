@@ -6,12 +6,12 @@
 
 ---
 
-**DROID-E3D by SMAT · una división de TOUCH**
+**DROID-E3D by IDEPP**
 **Propuesta para:** [Nombre de la empresa] · **Atención:** [Nombre y cargo] · **Fecha:** [fecha] · **Validez:** 15 días
 
 ## 1. Quiénes somos
 
-SMAT diseña, fabrica e instala **DROID-E3D**, un robot que recorre la planta y controla con inteligencia artificial que los trabajadores usen su equipo de protección personal.
+IDEPP diseña, fabrica e instala **DROID-E3D**, un robot que recorre la planta y controla con inteligencia artificial que los trabajadores usen su equipo de protección personal.
 
 ## 2. Su situación
 
@@ -57,6 +57,6 @@ Precios en dólares, facturados en pesos al tipo de cambio vendedor del Banco Na
 
 ## 7. Aceptación
 
-| Por el cliente | Por SMAT |
+| Por el cliente | Por IDEPP |
 |---|---|
 | Nombre, cargo, firma y fecha | Nombre, firma y fecha |

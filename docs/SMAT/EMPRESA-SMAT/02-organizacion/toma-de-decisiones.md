@@ -14,7 +14,7 @@
 
 ## Cómo se decide una cuestión compartida
 
-1. Quien la propone abre un **Issue con la plantilla «SMAT · Decisión entre socios»** (etiqueta `smat:decision`): contexto, opciones con ventajas y desventajas.
+1. Quien la propone abre un **Issue con la plantilla «IDEPP · Decisión entre socios»** (etiqueta `smat:decision`): contexto, opciones con ventajas y desventajas.
 2. Cada socio **vota en el Issue** (comentario) en un máximo de **48 horas**.
 3. Si están de acuerdo, se anota el **resultado** y se cierra el Issue.
 4. Si no hay acuerdo: se vuelve a discutir en la reunión semanal. Si sigue el empate, se pide la opinión del profe supervisor y se respeta.

@@ -6,7 +6,7 @@
 
 ---
 
-### DROID-E3D by SMAT · Seguridad que recorre la planta
+### DROID-E3D by IDEPP · Seguridad que recorre la planta
 
 **El problema.** En una fábrica, un trabajador se saca los lentes «solo un minuto» frente a la sierra. Nadie lo ve: el supervisor está en otra zona o en otro turno. Así ocurren muchos accidentes que el equipo de protección habría evitado.
 
@@ -21,7 +21,7 @@
 
 **El negocio.** Clientes: PyMEs industriales de 20 a 200 empleados. Precio: **USD 2.200** de instalación + **USD 70 por mes**. Margen del 39 % por instalación. Meta: **25 fábricas en 2029**.
 
-**El equipo.** **SMAT**, división de TOUCH: **Toro** (software y web) y **Morena** (hardware e IA).
+**El equipo.** **IDEPP**: **Toro** (software y web) y **Morena** (hardware e IA).
 
 **Lo que pedimos.** Una fábrica que quiera ser nuestro **piloto** a mitad de precio, y contactos con responsables de seguridad e higiene.
 

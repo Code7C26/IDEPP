@@ -1,4 +1,4 @@
-# Documentación final · DROID-E3D by SMAT
+# Documentación final · DROID-E3D by IDEPP
 
 Documento final del Proyecto FAT 2026, armado según la *Guía Documentación Final del Proyecto*
 (11 secciones: portada, resumen, ideación, organización, diseño, desarrollo, pruebas, marketing,

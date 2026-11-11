@@ -1,41 +1,46 @@
-# Relación con TOUCH
+# IDEPP y sus dos productos
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v2) · **Responsable:** Morena · **Revisión:** Tiziano · **Actualizado:** 10/11/2026
 
-**Para qué sirve:** define qué es SMAT dentro de TOUCH, para evitar malentendidos con clientes y con el jurado.
+**Para qué sirve:** explica cómo está armada IDEPP y qué equipo hace cada producto, para evitar malentendidos con clientes y con el jurado.
 
-## Qué es cada una
+## Una empresa, dos productos
 
-| | **TOUCH** | **SMAT** |
+**IDEPP** es una sola empresa con **5 socios** y **dos productos**:
+
+| | **TOUCH-ID** | **DROID-E3D** |
 |---|---|---|
-| Qué es | Empresa madre (equipo del proyecto final) | División de TOUCH |
-| Integrantes | Alexandra, Sol y Lola | Toro y Morena (socios) |
-| Producto | **Touch ID**: asistencia por huella dactilar | **DROID-E3D**: robot que controla el uso de EPP |
+| Qué es | Asistencia por huella dactilar | Robot que controla el uso de EPP en la fábrica |
+| Equipo | Alexandra, Sol y Lola | Tiziano (Toro) y Morena |
 | Carpetas en el repo | `assets/`, `design/`, `docs/`, `src/` → subcarpeta `TOUCH-ID/` | Las mismas → subcarpeta `SMAT/` (`src/SMAT/` web e IA, `docs/SMAT/` empresa) |
+
+> Las carpetas y ramas de DROID-E3D todavía se llaman `SMAT` (el nombre anterior) porque el servidor y las pruebas automáticas dependen de esas rutas. Se renombran después de la defensa.
 
 ## Qué comparten
 
-- **El repositorio** `Code7C26/TOUCH-ID`, el tablero «Kanban TOUCH-ID» y el profe supervisor.
-- **El tipo de cliente:** fábricas y PyMEs industriales. Un mismo cliente puede usar Touch ID para la asistencia y DROID-E3D para la seguridad.
-- **La marca madre:** SMAT se presenta como «una división de TOUCH».
+- **La empresa y la marca:** los dos productos se presentan como de IDEPP.
+- **El repositorio** `Code7C26/IDEPP`, el tablero «Kanban TOUCH-ID» y el profe supervisor.
+- **El tipo de cliente:** fábricas y PyMEs industriales. Un mismo cliente puede usar TOUCH-ID para la asistencia y DROID-E3D para la seguridad.
 
-## Qué es independiente
+## Qué decide cada equipo
 
-- **Producto, plan y presupuesto:** SMAT decide sobre DROID-E3D sin consultar a TOUCH.
-- **Ramas y revisiones:** SMAT trabaja en `SMAT-web`, `SMAT-hardware` y `SMAT-empresa` y sus Pull Requests los revisan los socios de SMAT.
-- **Etiquetas y plantillas:** todo lo de SMAT lleva el prefijo `smat` para no mezclarse con TOUCH.
+- **Producto, plan y presupuesto:** cada equipo decide sobre su producto sin consultar al otro.
+- **Ramas y revisiones:** el equipo de DROID-E3D trabaja en `SMAT-web`, `SMAT-hardware` y `SMAT-empresa`, y sus Pull Requests los revisan Tiziano y Morena.
+- **Etiquetas y plantillas:** lo de DROID-E3D lleva el prefijo `smat` para no mezclarse con TOUCH-ID.
+- **Ganancias:** cada equipo se reparte lo que deja su producto (ver el [acuerdo de socios](../02-organizacion/acuerdo-de-socios.md)).
 
-## Qué se consulta con TOUCH
+## Qué se decide entre los 5
 
 - Cambios que afecten a todo el repositorio (por ejemplo, el `README.md` de la raíz o la configuración de GitHub).
-- Usar el nombre o el logo de TOUCH en materiales nuevos.
+- El nombre, el logo y la imagen de IDEPP.
 - Ofrecer a un mismo cliente los dos productos juntos (precio combinado).
+- El ingreso de un socio nuevo.
 
-## Cómo se presenta SMAT
+## Cómo se presenta
 
-- En documentos y la web: **«DROID-E3D by SMAT · una división de TOUCH»**.
-- Hablando: «Somos SMAT, la división de TOUCH que hace DROID-E3D».
+- En documentos y la web de DROID-E3D: **«DROID-E3D by IDEPP»**.
+- Hablando: «Somos IDEPP. Hacemos DROID-E3D, un robot que cuida la seguridad en la fábrica, y TOUCH-ID, para la asistencia».
 
 ## Oportunidad conjunta
 
-Touch ID sabe **quién está** en la planta; DROID-E3D sabe **si está protegido**. Integrados, el encargado podría ver en una sola pantalla la asistencia y el cumplimiento de EPP de cada trabajador. Se deja como línea futura, a conversar entre las dos empresas.
+TOUCH-ID sabe **quién está** en la planta; DROID-E3D sabe **si está protegido**. Integrados, el encargado podría ver en una sola pantalla la asistencia y el cumplimiento de EPP de cada trabajador. Es una línea futura de IDEPP, a conversar entre los dos equipos.

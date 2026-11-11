@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/SMAT/droid-e3d.png" alt="Logo DROID-E3D by SMAT" width="380">
+  <img src="../../assets/SMAT/droid-e3d.png" alt="Logo DROID-E3D by IDEPP" width="380">
 </p>
 
 <h3 align="center">Seguridad que recorre la planta</h3>
@@ -7,7 +7,7 @@
 <p align="center">
   Robot con inteligencia artificial que controla que los trabajadores de una fábrica usen su equipo de protección
   y detiene la máquina de la zona si no lo hacen.<br>
-  <b>DROID-E3D by SMAT</b> · una división de TOUCH
+  <b>DROID-E3D by IDEPP</b>
 </p>
 
 ---
@@ -17,7 +17,7 @@
 | Dato | Descripción |
 |---|---|
 | **Producto** | DROID-E3D |
-| **Agencia** | SMAT, división de TOUCH (empresa madre, creadora de Touch ID) |
+| **Agencia** | IDEPP (5 socios; dos productos: TOUCH-ID y DROID-E3D) |
 | **Equipo** | **Toro** (software y web) · **Morena** (hardware e IA) |
 | **Tipo de proyecto** | Hardware y software: robot con cámara + servidor de IA + plataforma web |
 | **Estado** | MVP al **75 %** (08/10/2026): la plataforma y la IA ya funcionan juntas; falta la prueba con el robot y el relé reales |
@@ -72,7 +72,7 @@ reactive.
 | React · Vite · Tailwind | Plataforma web y página pública (`src/SMAT/frontend/`) |
 | Pytest · Playwright · GitHub Actions | 76 pruebas de la API y 21 en el navegador en cada cambio |
 
-## 📁 Estructura de SMAT en el repositorio
+## 📁 Estructura de IDEPP en el repositorio
 
 ```text
 TOUCH-ID/
@@ -105,7 +105,7 @@ Todas con PDF y enlace para Classroom en [documentacion-comercial/README.md](doc
 
 | Consigna | Dónde |
 |---|---|
-| Daily 5: Issues y tablero Kanban | [Issues con etiqueta `smat:web`](https://github.com/Code7C26/TOUCH-ID/issues?q=label%3Asmat%3Aweb) y el tablero «Kanban TOUCH-ID» en GitHub Projects |
+| Daily 5: Issues y tablero Kanban | [Issues con etiqueta `smat:web`](https://github.com/Code7C26/IDEPP/issues?q=label%3Asmat%3Aweb) y el tablero «Kanban TOUCH-ID» en GitHub Projects |
 | Balance real del MVP | [Reporte del 08/10/2026 (75 %)](Reporte-Avance-DROID-E3D-2026-10-08.pdf) · [anterior, 05/10 (38 %)](Reporte-Avance-DROID-E3D-2026-10-05.pdf) |
 | Trabajo remoto autónomo (refactor, feat, docs) | Commits con esos prefijos en la rama `SMAT-web` y el [README técnico](../../src/SMAT/README.md) |
 | Bitácora técnica | [src/SMAT/docs/BITACORA.md](../../src/SMAT/docs/BITACORA.md) |

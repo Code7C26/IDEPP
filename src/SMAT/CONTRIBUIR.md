@@ -1,7 +1,7 @@
-# Cómo trabajamos · SMAT en el repo TOUCH-ID
+# Cómo trabajamos · DROID-E3D en el repo IDEPP
 
-SMAT es una división de TOUCH. Este repo es compartido: **no se tocan** las carpetas de TOUCH
-(las subcarpetas `TOUCH-ID/` de `assets/`, `design/`, `docs/` y `src/`). SMAT trabaja en `src/SMAT/` (web y
+IDEPP tiene dos productos: TOUCH-ID y DROID-E3D. Este repo es compartido: el equipo de DROID-E3D **no toca** las carpetas de TOUCH-ID
+(las subcarpetas `TOUCH-ID/` de `assets/`, `design/`, `docs/` y `src/`). DROID-E3D trabaja en `src/SMAT/` (web y
 servidor de IA), `docs/SMAT/` (empresa, costos y reportes) y en los archivos `smat-*` de `.github/`.
 
 ## Ramas
@@ -15,7 +15,7 @@ servidor de IA), `docs/SMAT/` (empresa, costos y reportes) y en los archivos `sm
 ## Flujo
 1. Trabajá en tu rama y hacé un commit por tarea: `Fase 2.3: Layout y NavBar` (+ `closes #N` si hay issue).
 2. Al terminar una fase abrí un Pull Request a `main` (plantilla `smat.md`).
-3. Lo revisa **el otro socio de SMAT** y lo mergea. TOUCH no interviene.
+3. Lo revisa **el otro socio de DROID-E3D** y lo mergea. El equipo de TOUCH-ID no interviene.
 4. Nunca se hace push directo a `main`.
 
 ## Comandos del día a día (PowerShell)

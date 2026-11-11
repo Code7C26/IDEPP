@@ -8,10 +8,10 @@
 
 | Nombre | Qué es | Cómo se escribe |
 |---|---|---|
-| **SMAT** | La empresa (división de TOUCH) | Siempre en mayúsculas. Nunca «Smat» ni «S.M.A.T.» |
+| **IDEPP** | La empresa (5 socios; dos productos: TOUCH-ID y DROID-E3D) | Siempre en mayúsculas. Nunca «Idepp» ni «I.D.E.P.P.» |
 | **DROID-E3D** | El producto (robot + web) | Mayúsculas con guion. Nunca «Droid E3D» ni «droide3d» |
-| **DROID-E3D by SMAT** | Firma del producto | En la web, documentos para clientes y presentaciones |
-| **SMAT · una división de TOUCH** | Firma institucional | En pie de página, contratos y la página «Nosotros» |
+| **DROID-E3D by IDEPP** | Firma del producto | En la web, documentos para clientes y presentaciones |
+| **IDEPP** | Firma institucional | En pie de página, contratos y la página «Nosotros» |
 
 **Qué significa «E3D»:** *Equipo de protección · Detección · Decisión · Detención*: el robot ve el equipo de protección, lo detecta con IA, decide si hay una falta y detiene la máquina si hace falta.
 
@@ -23,7 +23,7 @@
 |---|---|
 | `logo/droid-e3d-icono.svg` | Ícono solo: favicon, app del celular, redes |
 | `logo/droid-e3d.svg` | Ícono + nombre: encabezados, documentos |
-| `logo/smat.svg` | Logotipo de la empresa |
+| `logo/idepp.svg` | Logotipo de la empresa · **provisorio** (el definitivo lo eligen los 5 socios) |
 
 - **Tamaño mínimo:** 24 px de alto en pantalla, 8 mm impreso.
 - **Espacio libre alrededor:** el radio del lente, como mínimo, en los cuatro lados.

@@ -1,5 +1,5 @@
-name: "SMAT · Tarea del profe"
-description: Un pedido del profe (Classroom) para DROID-E3D o SMAT
+name: "DROID-E3D · Tarea del profe"
+description: Un pedido del profe (Classroom) para DROID-E3D
 title: "[Profe] "
 labels: ["smat:profe"]
 body:
@@ -19,7 +19,7 @@ body:
     id: area
     attributes:
       label: Área
-      options: [Web, Hardware, IA, Empresa SMAT, Fábrica cliente]
+      options: [Web, Hardware, IA, Empresa, Fábrica cliente]
     validations:
       required: true
   - type: textarea

@@ -1,10 +1,10 @@
-# FODA de SMAT
+# FODA de IDEPP
 
 > **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** fortalezas, oportunidades, debilidades y amenazas de la empresa y de DROID-E3D.
 
-> Hay un FODA anterior de TOUCH en `docs/TOUCH-ID/`; este es específico de SMAT y DROID-E3D.
+> Hay un FODA anterior de TOUCH en `docs/TOUCH-ID/`; este es específico de IDEPP y DROID-E3D.
 
 ## Matriz
 

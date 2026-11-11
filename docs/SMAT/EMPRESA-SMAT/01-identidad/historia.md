@@ -1,30 +1,28 @@
-# Historia de SMAT
+# Historia de IDEPP
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v2) · **Responsable:** Morena · **Revisión:** Tiziano · **Actualizado:** 10/11/2026
 
 **Para qué sirve:** cuenta cómo nació la empresa. Sirve para la presentación ante el jurado y los clientes.
 
 ## Cómo nació
 
-SMAT nace en 2026 dentro de **TOUCH**, el equipo del proyecto final del secundario de informática que trabaja en el repositorio `Code7C26/TOUCH-ID`. TOUCH desarrolla **Touch ID**, un sistema de asistencia por huella dactilar para trabajadores.
+IDEPP nace en 2026 en el proyecto final del secundario de informática. Cinco compañeros —**Alexandra, Sol, Lola, Tiziano (Toro) y Morena**— se proponen resolver problemas reales de las fábricas y PyMEs industriales con tecnología.
 
-Mientras TOUCH resolvía *quién entra y a qué hora*, apareció otro problema en el mismo tipo de clientes: **los accidentes por no usar el equipo de protección**. En muchas plantas el control del casco, los guantes o los lentes depende de que un supervisor lo vea, y eso no alcanza en turnos largos ni en plantas grandes.
+Al principio trabajaron como dos grupos con nombres propios: **TOUCH**, que desarrollaba un sistema de asistencia por huella, y **SMAT**, que desarrollaba un robot de seguridad. Los dos grupos compartían el repositorio, el profe y el tipo de cliente.
 
-De ahí surgió la idea de un robot que recorra la planta y haga ese control de forma automática. Para desarrollarla sin frenar a Touch ID se creó **SMAT**, una división de TOUCH con sus propios socios —**Toro** y **Morena**— y su propio producto: **DROID-E3D**.
+Con el avance del año vieron que tenían más en común que diferencias: los mismos clientes, la misma forma de trabajar y una idea de fondo compartida, que en la fábrica cada persona esté **registrada y segura**. Por eso decidieron unirse en una sola empresa, **IDEPP**, con dos productos y un equipo para cada uno.
 
 ## Hitos
 
 | Fecha | Hito |
 |---|---|
-| Sep. 2026 | Primera versión de la app web (login y lista de alertas). |
-| 05/10/2026 | SMAT se organiza como división de TOUCH; el proyecto se muda al repositorio compartido y se arma el plan completo. |
-| 05/10/2026 | Backend sólido: roles, zonas, incidencias, auditoría y conexión para el robot. Primer reporte de avance: **38 %** del MVP. |
-| 06/10/2026 | Nueva web con diseño propio (claro y oscuro, celular y PC) y pantallas del empleado. |
-| 06/10/2026 | Se crea la carpeta `EMPRESA-SMAT` y se documenta la empresa completa. |
-| 08/10/2026 | Morena reorganiza el repo con el mismo formato que TOUCH: la web pasa a `src/SMAT/`, la empresa a `docs/SMAT/EMPRESA-SMAT/` y se suma el servidor de IA. |
+| 2026 | Arranca el proyecto final. Se forman los dos equipos de trabajo, que comparten el repositorio `Code7C26/TOUCH-ID`. |
+| 05/10/2026 | El equipo del robot se organiza como empresa, con su propio plan, socios y documentos. |
+| 06/10/2026 | Se documenta la empresa completa: identidad, organización, marca, negocio, finanzas, legal y presentaciones. |
+| 10/11/2026 | Los 5 socios deciden ser **una sola empresa: IDEPP**, con dos productos: **TOUCH-ID** y **DROID-E3D**. El repositorio pasa a llamarse `Code7C26/IDEPP`. |
 
 ## Qué sigue
 
-1. **Octubre 2026:** terminar el panel del encargado y la integración real con el robot y la IA.
-2. **Noviembre 2026:** demo completa ante el jurado (alerta con foto, parada de máquina y control del robot desde la web).
-3. **2027:** prueba piloto en una fábrica real y primera venta.
+1. **Noviembre 2026:** presentar el avance de los dos productos ante el profe.
+2. **2 y 3 de diciembre de 2026:** defensa pública del proyecto final.
+3. **2027:** primeras pruebas en fábricas reales y ofrecer los dos productos juntos al mismo cliente.
