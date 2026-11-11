@@ -11,14 +11,12 @@ import mysql.connector
 from ultralytics import YOLO
 
 from conexion_droid import reportar_a_la_web   # manda cada alerta (con foto) a la web DROID-E3D
+# Las IPs de la cámara y del robot se ponen en servidor_ia/.env (ver config.py)
+from config import URL_CAMARA_CELULAR, URL_ESP32_ALERTA
 
 # ==========================================
 # 1. CAMBIAR ESTO CON TUS DATOS
 # ==========================================
-# IP que muestra la app IP Webcam (dejale el /video al final)
-URL_CAMARA_CELULAR = "http://172.100.177.186:8080/video"
-# IP que muestra la pantalla del robot (dejale /alerta_seguridad al final)
-URL_ESP32_ALERTA = "http://172.100.177.53/alerta_seguridad"
 
 DB_CONFIG = {
     "host": "localhost",

@@ -23,6 +23,10 @@
 | Imprevistos (10 %) | | 67 |
 | **Total** | | **≈ 740** |
 
+> **Actualización 08/10/2026 (precios reales):** la marca en el INPI cuesta $40.569 por clase (≈ USD 26) y el
+> hosting pasó a USD 10 por mes (6 meses = USD 60). Las dos diferencias casi se compensan, así que el total de
+> **≈ USD 740** se mantiene. Detalle: `../../documentacion-comercial/01-viabilidad-comercial.md`.
+
 ## Quién aporta
 
 | Socio | Aporte | Cómo |

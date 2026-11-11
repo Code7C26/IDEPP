@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { inicioSegunRol, useAuth } from '../context/AuthContext.jsx'
+import { useSonido } from '../context/SonidoContext.jsx'
 import { useTema } from '../context/TemaContext.jsx'
 import { menuAgrupado } from '../utils/menu.js'
 import Avatar from './Avatar.jsx'
@@ -15,6 +16,7 @@ const iconoChico = 'grid size-8 shrink-0 place-items-center rounded-lg text-zinc
 export default function BarraLateral() {
   const { usuario, cerrarSesion } = useAuth()
   const { oscuro, cambiarTema } = useTema()
+  const sonido = useSonido()
   const [colapsado, setColapsado] = useState(leerColapsado)
 
   const alternar = () => {
@@ -57,7 +59,7 @@ export default function BarraLateral() {
         ))}
       </nav>
 
-      <div className={`border-t border-zinc-200/80 p-3 dark:border-zinc-800 ${colapsado ? 'space-y-2' : ''}`}>
+      <div className="border-t border-zinc-200/80 p-3 dark:border-zinc-800">
         <div className={`flex items-center gap-2 ${colapsado ? 'flex-col' : ''}`}>
           <Avatar nombre={usuario?.nombre} />
           {!colapsado && (
@@ -66,6 +68,13 @@ export default function BarraLateral() {
               <p className="truncate text-xs text-zinc-500 capitalize dark:text-zinc-400">{usuario?.rol}{usuario?.zona ? ` · ${usuario.zona}` : ''}</p>
             </div>
           )}
+        </div>
+        {/* Sonido, tema y salir: en fila debajo del nombre (en columna si el menú está achicado) */}
+        <div className={`mt-2 flex items-center gap-1 ${colapsado ? 'flex-col' : ''}`}>
+          <button type="button" onClick={sonido.alternar} className={iconoChico} aria-pressed={sonido.activado}
+                  aria-label="Sonido de alertas" title={sonido.activado ? 'Silenciar alertas' : 'Activar sonido de alertas'}>
+            <Icono nombre={sonido.activado ? 'campana' : 'silencio'} className="size-4" />
+          </button>
           <button type="button" onClick={cambiarTema} className={iconoChico} aria-label={oscuro ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'} title="Cambiar tema">
             <Icono nombre={oscuro ? 'sol' : 'luna'} className="size-4" />
           </button>

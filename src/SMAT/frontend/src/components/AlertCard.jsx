@@ -4,6 +4,7 @@
 import { botonPrimario, botonSecundario } from '../utils/estilos.js'
 import { formatearFecha, haceCuanto, nombreTipo, porcentaje } from '../utils/formato.js'
 import Avatar from './Avatar.jsx'
+import ContadorComentarios from './ContadorComentarios.jsx'
 import Etiqueta, { tonoDeEstado } from './Etiqueta.jsx'
 import ImagenProtegida from './ImagenProtegida.jsx'
 
@@ -23,6 +24,7 @@ export default function AlertCard({ incidencia, onResolver, onVer }) {
         <div className="flex flex-wrap items-center gap-2">
           <strong className="text-sm font-semibold">{nombreTipo(incidencia.tipo)}</strong>
           <Etiqueta tono={tonoDeEstado(incidencia.estado)} punto={activa}>{incidencia.estado}</Etiqueta>
+          <ContadorComentarios cantidad={incidencia.cantidad_comentarios} />
         </div>
         <p className="truncate text-sm text-zinc-600 dark:text-zinc-300">
           {incidencia.empleado_nombre} · {incidencia.zona}

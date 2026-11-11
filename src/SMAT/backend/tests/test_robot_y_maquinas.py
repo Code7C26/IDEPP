@@ -15,12 +15,26 @@ def test_el_esp32_necesita_su_propia_clave(cliente):
 
 
 def test_una_orden_se_repite_hasta_que_el_robot_la_confirma(cliente, encargada):
+    cliente.post("/api/robot/reporte", json={}, headers=ROBOT)   # el robot se conecta
     cliente.post("/api/robot/comando", json={"comando": "iniciar"}, headers=encargada)
     assert comando(cliente) == "iniciar"
     cliente.post("/api/robot/reporte", json={"estado": "recorriendo", "bateria": 87, "zona_actual_id": 2}, headers=ROBOT)
     assert comando(cliente) == "iniciar"                       # todavía no la confirmó
     r = cliente.post("/api/robot/reporte", json={"comando_ejecutado": "iniciar"}, headers=ROBOT).json
     assert r == {"comando": None, "estado": "recorriendo"}
+
+
+def test_el_reporte_alcanza_para_recibir_y_confirmar_ordenes(cliente, encargada):
+    """robot_droid.ino usa solo POST /robot/reporte: la respuesta trae la orden y ahí mismo la confirma."""
+    cliente.post("/api/robot/reporte", json={}, headers=ROBOT)   # el robot se conecta
+    cliente.post("/api/robot/comando", json={"comando": "iniciar"}, headers=encargada)
+    assert cliente.post("/api/robot/reporte", json={}, headers=ROBOT).json["comando"] == "iniciar"
+    r = cliente.post("/api/robot/reporte", json={"estado": "recorriendo", "comando_ejecutado": "iniciar"}, headers=ROBOT).json
+    assert r["comando"] is None and r["estado"] == "recorriendo"
+    # Un reporte sin "estado" no pisa la emergencia que acaba de mandar el encargado
+    cliente.post("/api/robot/comando", json={"comando": "emergencia"}, headers=encargada)
+    r = cliente.post("/api/robot/reporte", json={"zona_actual_id": 1}, headers=ROBOT).json
+    assert r["comando"] == "emergencia" and r["estado"] == "emergencia"
 
 
 def test_reporte_con_datos_invalidos(cliente):
@@ -47,6 +61,60 @@ def test_ordenes_desde_la_web_y_reglas_de_la_emergencia(cliente, encargada, empl
     assert r["estado"] == "emergencia"                            # se ve enseguida, sin esperar al robot
     assert cliente.post("/api/robot/comando", json={"comando": "iniciar"}, headers=encargada).status_code == 409
     assert cliente.post("/api/robot/comando", json={"comando": "detener"}, headers=encargada).status_code == 200
+
+
+def desconectar_robot():
+    """Simula que el robot dejó de reportar hace 11 s."""
+    from app import app
+    from models import db, obtener_robot
+    with app.app_context():
+        obtener_robot().ultima_conexion = datetime.now() - timedelta(seconds=11)
+        db.session.commit()
+
+
+def test_sin_conexion_no_se_puede_iniciar_pero_si_frenar(cliente, encargada):
+    r = cliente.post("/api/robot/comando", json={"comando": "iniciar"}, headers=encargada)   # nunca se conectó
+    assert r.status_code == 409 and "no está conectado" in r.json["error"]
+    assert comando(cliente) is None                               # no quedó guardada
+    # Las órdenes que no arrancan nada se siguen guardando, para que lleguen cuando vuelva
+    for orden in ("pausar", "detener", "emergencia"):
+        assert cliente.post("/api/robot/comando", json={"comando": orden}, headers=encargada).status_code == 200
+        assert comando(cliente) == orden
+
+
+def test_un_iniciar_que_quedo_sin_tomar_se_descarta_al_volver(cliente, encargada):
+    """El robot nunca tiene que arrancar solo, días después de que alguien tocó Iniciar."""
+    # Volviendo con un reporte (es lo que usa robot_droid.ino)
+    cliente.post("/api/robot/reporte", json={}, headers=ROBOT)
+    cliente.post("/api/robot/comando", json={"comando": "iniciar"}, headers=encargada)
+    desconectar_robot()
+    assert cliente.post("/api/robot/reporte", json={"estado": "detenido"}, headers=ROBOT).json["comando"] is None
+    # Volviendo con una consulta (es lo que usa el simulador: primero pregunta, después reporta)
+    cliente.post("/api/robot/comando", json={"comando": "iniciar"}, headers=encargada)
+    desconectar_robot()
+    assert comando(cliente) is None
+    assert cliente.post("/api/robot/reporte", json={}, headers=ROBOT).json["comando"] is None
+
+
+def test_una_parada_pendiente_no_se_descarta_al_volver(cliente, encargada):
+    cliente.post("/api/robot/comando", json={"comando": "emergencia"}, headers=encargada)
+    desconectar_robot()
+    assert comando(cliente) == "emergencia"
+    assert cliente.post("/api/robot/reporte", json={}, headers=ROBOT).json["comando"] == "emergencia"
+
+
+def test_cualquier_sesion_ve_la_posicion_y_nada_mas(cliente, encargada, empleado):
+    assert cliente.get("/api/robot/posicion").status_code == 401
+    assert cliente.get("/api/robot/posicion", headers=ROBOT).status_code == 401
+    cliente.post("/api/robot/reporte", json={"estado": "recorriendo", "zona_actual_id": 2, "bateria": 80}, headers=ROBOT)
+    for sesion in (empleado, encargada):
+        r = cliente.get("/api/robot/posicion", headers=sesion)
+        assert r.status_code == 200
+        # Ni la dirección del video ni las órdenes: esos datos siguen siendo solo para el encargado
+        assert set(r.json) == {"estado", "conectado", "zona_actual_id", "zona_actual", "ultima_conexion"}
+        assert r.json["zona_actual"] == "Zona B" and r.json["conectado"] is True
+    desconectar_robot()
+    assert cliente.get("/api/robot/posicion", headers=empleado).json["conectado"] is False
 
 
 def test_ruta(cliente, encargada, empleado):

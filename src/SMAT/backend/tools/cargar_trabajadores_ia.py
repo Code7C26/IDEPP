@@ -3,6 +3,7 @@
 La IA de Morena reconoce a las personas por el nombre de su carpeta en
 src/SMAT/servidor_ia/fotos_trabajadores/<Nombre Apellido>/. La web vincula cada alerta con el
 empleado que tiene ESE MISMO nombre; si no existe, la alerta queda como "Desconocido".
+Esa carpeta NO está en GitHub (son caras reales): se pasa por fuera o se arma con registrar_trabajador.py.
 Este script da de alta a los que falten (usa la API como encargado, así queda en la auditoría).
 
 Uso (con el backend andando), desde src/SMAT/backend:
@@ -68,7 +69,10 @@ def main():
     args = ap.parse_args()
 
     if not os.path.isdir(CARPETA_FOTOS):
-        sys.exit(f"No encuentro la carpeta de fotos: {os.path.abspath(CARPETA_FOTOS)}")
+        # Desde el 19/10 las fotos no se suben a GitHub (datos personales), así que puede faltar
+        sys.exit(f"No encuentro la carpeta de fotos: {os.path.abspath(CARPETA_FOTOS)}\n"
+                 "Las fotos no están en GitHub: pedíselas a Morena y copialas en esa carpeta,\n"
+                 "o sacalas de nuevo con servidor_ia/registrar_trabajador.py.")
     api = Api(args.url)
     try:
         api.token = api.llamar("POST", "/login", {"usuario": args.encargado, "contrasena": args.clave})["token"]

@@ -1,6 +1,8 @@
 """Lectura segura de lo que manda el cliente. Cualquiera puede mandar cualquier cosa
 (un número donde va un texto, una lista en vez de un objeto...): estas funciones lo revisan
 para que el servidor responda con un error claro en vez de caerse."""
+from datetime import datetime
+
 from flask import request
 
 
@@ -33,3 +35,11 @@ def texto(datos, campo, nombre, maximo, obligatorio=False):
     if len(valor) > maximo:
         return None, f"{nombre} puede tener como máximo {maximo} caracteres"
     return valor, None
+
+
+def leer_fecha(texto):
+    """Convierte 'AAAA-MM-DD' en fecha (datetime a las 00:00). Devuelve None si no viene o es inválida."""
+    try:
+        return datetime.strptime(texto, "%Y-%m-%d") if isinstance(texto, str) and texto else None
+    except ValueError:
+        return None

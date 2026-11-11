@@ -16,7 +16,7 @@ En 3 años (2029), ser la opción de referencia para **PyMEs industriales de Arg
 
 - 25 fábricas usando DROID-E3D.
 - Una segunda versión del robot que también detecte riesgos del entorno (derrames, pasillos obstruidos).
-- Soporte técnico propio en el AMBA y en una provincia industrial más.
+- Soporte técnico propio en Córdoba (donde empezamos) y en el AMBA.
 
 ## Valores
 

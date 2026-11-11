@@ -3,6 +3,8 @@
 Levanta su PROPIO backend (puerto 5001) y su PROPIA web (puerto 5174) con una base de prueba
 (robot_db_e2e), corre las pruebas de tests/e2e y apaga todo al terminar. No toca tus datos
 ni los servidores que estés usando para desarrollar.
+Además compila la web (carpeta frontend/dist-e2e) y la sirve el mismo backend, como en el servidor
+de verdad (docs/DESPLIEGUE.md): así se prueban la PWA y las notificaciones, que solo existen compiladas.
 
 Uso, desde src/SMAT (con el venv del backend activado y MySQL andando):
     python tests/correr_e2e.py                      # en Windows usa Edge
@@ -35,13 +37,30 @@ def _cargar_base_datos():
 
 recrear_base = _cargar_base_datos()
 
+
+def _claves_push_nuevas():
+    """Claves VAPID creadas en el momento (nunca se guardan): así se prueban las notificaciones push."""
+    ruta = os.path.join(BACKEND, "tools", "generar_claves_push.py")
+    spec = importlib.util.spec_from_file_location("generar_claves_push", ruta)
+    modulo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modulo)
+    return modulo.generar_claves()
+
+
+VAPID_PUBLICA, VAPID_PRIVADA = _claves_push_nuevas()
+
 PUERTO_API, PUERTO_WEB = 5001, 5174
 CONFIG = {
     "DB_NAME": "robot_db_e2e", "FLASK_PORT": str(PUERTO_API), "FLASK_DEBUG": "0",
     "YOLO_API_KEY": "clave-yolo-e2e", "ROBOT_API_KEY": "clave-robot-e2e", "JWT_SECRET": "secreto-e2e",
     "API_URL": f"http://127.0.0.1:{PUERTO_API}/api", "WEB_URL": f"http://localhost:{PUERTO_WEB}",
+    # La web compilada la sirve el backend (como en PythonAnywhere): misma dirección que la API
+    "PWA_URL": f"http://localhost:{PUERTO_API}", "WEB_DIST": os.path.join(FRONTEND, "dist-e2e"),
+    "VAPID_PUBLIC_KEY": VAPID_PUBLICA, "VAPID_PRIVATE_KEY": VAPID_PRIVADA,
     "VITE_API_URL": f"http://127.0.0.1:{PUERTO_API}/api",
-    "UPLOAD_DIR": tempfile.mkdtemp(prefix="droid-e2e-uploads-"),   # las fotos de prueba no ensucian backend/uploads
+    "UPLOAD_DIR": tempfile.mkdtemp(prefix="droid-e2e-uploads-"),
+    # Contacto de la página pública: datos de mentira, solo para probar que el mensaje se arma bien
+    "VITE_CONTACTO_EMAIL": "demo@ejemplo.com", "VITE_CONTACTO_WHATSAPP": "5491100000000",   # las fotos de prueba no ensucian backend/uploads
 }
 
 
@@ -86,8 +105,13 @@ def main():
     npm = "npm.cmd" if os.name == "nt" else "npm"
     backend = arrancar([sys.executable, "app.py"], BACKEND, entorno, "backend.log")
     web = arrancar([npm, "run", "dev", "--", "--port", str(PUERTO_WEB), "--strictPort"], FRONTEND, entorno, "web.log")
+    # Versión compilada (con service worker) para las pruebas de la PWA. Usa "/api", igual que la publicada.
+    print("Compilando la web para las pruebas de la PWA…", flush=True)
+    with open(os.path.join(LOGS, "build.log"), "w", encoding="utf-8") as log:
+        compilo = subprocess.call([npm, "run", "build", "--", "--outDir", "dist-e2e"], cwd=FRONTEND,
+                                  env={**entorno, "VITE_API_URL": "/api"}, stdout=log, stderr=subprocess.STDOUT) == 0
     try:
-        if not esperar(f"{CONFIG['API_URL']}/health") or not esperar(CONFIG["WEB_URL"]):
+        if not compilo or not all(esperar(url) for url in (f"{CONFIG['API_URL']}/health", CONFIG["WEB_URL"], CONFIG["PWA_URL"])):
             print(f"No arrancaron los servidores. Revisá {LOGS}", file=sys.stderr)
             return 1
         print("Servidores listos. Corriendo las pruebas…", flush=True)

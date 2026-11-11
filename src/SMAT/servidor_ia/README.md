@@ -32,18 +32,30 @@ pip install -r requirements.txt          # una sola vez
 python motor_ia_robot.py                  # Q en la ventana del video para salir
 ```
 
-Antes de arrancar, en `motor_ia_robot.py` (y en `registrar_trabajador.py`) poné la IP de la cámara
-(`URL_CAMARA_CELULAR`) y la del robot (`URL_ESP32_ALERTA`).
+Antes de arrancar, copiá `.env.example` como `.env` (en esta carpeta) y poné la IP de la cámara
+(`URL_CAMARA_CELULAR`) y la del robot (`URL_ESP32_ALERTA`). El `.env` no se sube a GitHub, así que
+cuando cambia la red solo se toca ese archivo:
+```powershell
+Copy-Item .env.example .env
+notepad .env
+```
+
+**No se suben a GitHub:** `fotos_trabajadores/` (caras reales), `modelos/` y `yolov8n.pt`. Los
+modelos se descargan solos la primera vez. Las fotos se pasan por fuera de GitHub o se sacan de nuevo
+con `registrar_trabajador.py`. `modelo_cascos.pt` sí está en el repo.
 
 ### Conexión con la web
 
 - **Misma PC que el backend:** no hay que configurar nada; toma la clave de `../backend/.env`.
-- **Otra PC:** definí antes de correr el motor (la clave te la pasa Toro por fuera de GitHub):
-  ```powershell
-  $env:DROID_URL = "http://<IP-de-la-PC-del-backend>:5000/api"
-  $env:YOLO_API_KEY = "<la clave>"
+- **Otra PC:** completá en tu `.env` (la clave te la pasa Toro por fuera de GitHub):
   ```
-- **Zona:** si no se configura, la web usa la zona donde está el robot. Para fijarla: `$env:DROID_ZONA_ID = "2"`.
+  DROID_URL=http://<IP-de-la-PC-del-backend>:5000/api
+  YOLO_API_KEY=<la clave>
+  ```
+  También sirven como variables de entorno (`$env:DROID_URL = "..."`), que tienen prioridad sobre el `.env`.
+- **Zona:** si no se configura, la web usa la zona que informó el robot. **Si el robot no la informó, la web rechaza la
+  alerta (error 400).** Para fijarla: `DROID_ZONA_ID=2` en el `.env`.
+- **Demo completa en la red local:** ver [`../docs/DEMO-LOCAL.md`](../docs/DEMO-LOCAL.md).
 - **Nombres:** para que la alerta quede a nombre de alguien, tiene que existir un empleado en la web
   con el mismo nombre que su carpeta. Para darlos de alta a todos de una vez:
   ```powershell

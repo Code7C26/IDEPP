@@ -15,7 +15,10 @@ const ESTADOS = {
 export default function TarjetaRobot({ robot }) {
   if (!robot) return <section className={`${tarjeta} text-sm text-zinc-500`}>Cargando el robot…</section>
 
-  const bateriaBaja = robot.bateria <= 20
+  const bateriaBaja = robot.conectado && robot.bateria <= 20
+  // Sin conexión la batería y la zona son datos viejos; si nunca se conectó, ni siquiera hay datos
+  const sinDatos = !robot.ultima_conexion
+  const colorBateria = !robot.conectado ? 'bg-zinc-400' : bateriaBaja ? 'bg-alerta' : 'bg-ok'
   return (
     <section className={tarjeta}>
       <div className="flex items-start justify-between gap-2">
@@ -37,14 +40,15 @@ export default function TarjetaRobot({ robot }) {
 
       <div className="mt-4">
         <div className="mb-1 flex justify-between text-xs text-zinc-500 dark:text-zinc-400">
-          <span>Batería</span><span className={bateriaBaja ? 'font-semibold text-alerta' : ''}>{robot.bateria}%</span>
+          <span>{robot.conectado || sinDatos ? 'Batería' : 'Batería (último dato)'}</span>
+          <span className={bateriaBaja ? 'font-semibold text-alerta' : ''}>{sinDatos ? 'sin datos' : `${robot.bateria}%`}</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800" role="progressbar" aria-valuenow={robot.bateria} aria-valuemin="0" aria-valuemax="100" aria-label="Batería">
-          <div className={`h-full rounded-full ${bateriaBaja ? 'bg-alerta' : 'bg-ok'}`} style={{ width: `${robot.bateria}%` }} />
+        <div className="h-2 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-800" role="progressbar" aria-valuenow={sinDatos ? undefined : robot.bateria} aria-valuemin="0" aria-valuemax="100" aria-label="Batería">
+          <div className={`h-full rounded-full ${colorBateria}`} style={{ width: `${sinDatos ? 0 : robot.bateria}%` }} />
         </div>
       </div>
 
-      <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300">Zona actual: <strong>{robot.zona_actual || 'sin datos'}</strong></p>
+      <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300">{robot.conectado ? 'Zona actual' : 'Última zona'}: <strong>{robot.zona_actual || 'sin datos'}</strong></p>
       <Link to="/app/robot" className="mt-3 inline-block text-sm font-medium text-marca-oscuro hover:underline dark:text-marca">Ir al control del robot →</Link>
     </section>
   )

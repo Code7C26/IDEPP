@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" width="600" height="192">
+  <title>SMAT · una división de TOUCH</title>
+  <defs>
+    <pattern id="franja" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="6" height="12" fill="#F5B800"/>
+      <rect x="6" width="6" height="12" fill="#1F2328"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="200" height="6" fill="url(#franja)"/>
+  <text x="100" y="44" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="900" letter-spacing="6" fill="#1F2328">SMAT</text>
+  <text x="100" y="59" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" letter-spacing="1" fill="#71717A">UNA DIVISIÓN DE TOUCH</text>
+</svg>

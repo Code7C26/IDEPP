@@ -1,7 +1,8 @@
 // Cliente de la API: TODAS las llamadas al backend de Flask pasan por este archivo.
 // (Regla del proyecto: ningún componente usa fetch directamente.)
 
-// URL del backend. En el celular hay que poner la IP de la PC en frontend/.env (VITE_API_URL).
+// URL del backend. En "npm run dev" sale de frontend/.env (en el celular, con la IP de la PC).
+// En la versión compilada es "/api" (frontend/.env.production): la web y la API están en el mismo Flask.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 
 // Devuelve el token de la sesión guardada al hacer login, o undefined si no hay sesión.
@@ -68,9 +69,58 @@ export const getIncidents = (filtros) => request(`/incidents${armarConsulta(filt
 
 export const resolveIncident = (id) => request(`/incidents/${id}/resolver`, { method: 'PUT' })
 
+// Resuelve varias de una vez. Devuelve { resueltas, omitidas }.
+export const resolveIncidents = (ids) => request('/incidents/resolver-varias', { method: 'POST', body: JSON.stringify({ ids }) })
+
+// Comentarios de una alerta (el encargado y el empleado detectado). texto: de 1 a 500 caracteres
+export const getComentarios = (incidenciaId) => request(`/incidents/${incidenciaId}/comentarios`)
+export const comentar = (incidenciaId, texto) =>
+  request(`/incidents/${incidenciaId}/comentarios`, { method: 'POST', body: JSON.stringify({ texto }) })
+
 // ---------- Estadísticas (solo encargado) ----------
 
 export const getStats = () => request('/stats')
+
+// ---------- Reportes (solo encargado) ----------
+
+// periodo: { desde: 'AAAA-MM-DD', hasta: 'AAAA-MM-DD' }
+// Alertas por día (con el detalle por tipo), por tipo, por zona, activas/resueltas y paradas de máquina
+export const getReporteDiario = (periodo) => request(`/reports/diario${armarConsulta(periodo)}`)
+// Cumplimiento de cada empleado y de cada zona (días sin alertas / días del período)
+export const getRanking = (periodo) => request(`/reports/ranking${armarConsulta(periodo)}`)
+
+// Descarga un archivo del backend (CSV o PDF). Como hace falta el token, no alcanza con un link común:
+// se pide con fetch y después se "toca" un link invisible que guarda el archivo en la PC.
+async function descargar(ruta, nombreArchivo) {
+  let res
+  try {
+    res = await fetch(`${API_URL}${ruta}`, { headers: { Authorization: `Bearer ${getToken()}` } })
+  } catch {
+    throw new Error('No se pudo conectar con el servidor')
+  }
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new Error(data.error || `Error ${res.status} en el servidor`)
+  }
+  const enlace = document.createElement('a')
+  enlace.href = URL.createObjectURL(await res.blob())
+  enlace.download = nombreArchivo
+  document.body.appendChild(enlace)
+  enlace.click()
+  enlace.remove()
+  setTimeout(() => URL.revokeObjectURL(enlace.href), 1000)   // libera la memoria del archivo
+}
+
+// Las alertas del período en una planilla (se abre con Excel)
+export const descargarCSV = (periodo) =>
+  descargar(`/reports/incidencias.csv${armarConsulta(periodo)}`, `alertas_${periodo.desde}_a_${periodo.hasta}.csv`)
+// Informe mensual en PDF (para la ART y las inspecciones). mes: 'AAAA-MM'
+export const descargarInformePDF = (mes) => descargar(`/reports/mensual.pdf?mes=${mes}`, `informe-epp-${mes}.pdf`)
+
+// ---------- Auditoría (solo encargado) ----------
+
+// filtros (todos opcionales): { accion, usuario_id (un id o 'sistema'), desde, hasta, q, page, limit }
+export const getAuditoria = (filtros) => request(`/auditoria${armarConsulta(filtros)}`)
 
 // ---------- Zonas (leer: todos · crear, editar y borrar: encargado) ----------
 
@@ -88,7 +138,12 @@ export const updateUser = (id, datos) => request(`/users/${id}`, { method: 'PUT'
 // "Dar de baja" no borra al empleado (se perdería su historial): lo marca como inactivo
 export const deactivateUser = (id) => request(`/users/${id}`, { method: 'DELETE' })
 
-// ---------- Robot (solo encargado) ----------
+// ---------- Robot ----------
+
+// Dónde está el robot: para cualquier usuario con sesión (solo zona, estado y conexión)
+export const getRobotPosition = () => request('/robot/posicion')
+
+// Lo que sigue es solo para el encargado
 
 // Estado, batería, zona actual y si está conectado
 export const getRobot = () => request('/robot/estado')
@@ -106,6 +161,16 @@ export const saveRobotVideo = (url_video) => request('/robot/video', { method: '
 
 export const reactivateMachine = (zonaId) => request(`/zones/${zonaId}/reactivar`, { method: 'PUT' })
 export const stopMachine = (zonaId) => request(`/zones/${zonaId}/detener`, { method: 'PUT' })
+
+// ---------- Notificaciones push (cualquier usuario con sesión) ----------
+
+// Clave pública del servidor: el navegador la necesita para suscribirse
+export const getClavePush = () => request('/push/clave')
+// suscripcion: lo que da el navegador con subscription.toJSON() -> { endpoint, keys: { p256dh, auth } }
+export const suscribirPush = (suscripcion) => request('/push/suscribir', { method: 'POST', body: JSON.stringify(suscripcion) })
+export const desuscribirPush = (endpoint) => request('/push/desuscribir', { method: 'POST', body: JSON.stringify({ endpoint }) })
+// Manda una notificación de prueba a todos los dispositivos del usuario
+export const probarPush = () => request('/push/probar', { method: 'POST' })
 
 // ---------- Fotos (evidencias y rostros) ----------
 

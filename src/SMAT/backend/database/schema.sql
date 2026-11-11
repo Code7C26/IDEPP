@@ -63,6 +63,28 @@ CREATE TABLE IF NOT EXISTS fotos_rostro (
     FOREIGN KEY (cargada_por) REFERENCES usuarios(id) ON DELETE SET NULL
 );
 
+-- Comentarios sobre una alerta (los escriben el encargado o el empleado detectado)
+CREATE TABLE IF NOT EXISTS comentarios (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    incidencia_id INT NOT NULL,
+    usuario_id INT NULL,
+    texto VARCHAR(500) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (incidencia_id) REFERENCES incidencias(id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL
+);
+
+-- Celulares y PCs donde cada usuario activó las notificaciones push (los datos los da el navegador)
+CREATE TABLE IF NOT EXISTS suscripciones_push (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id INT NOT NULL,
+    endpoint VARCHAR(500) NOT NULL UNIQUE,          -- dirección del servicio de push de ese navegador
+    p256dh VARCHAR(255) NOT NULL,                   -- claves para cifrar el mensaje
+    auth VARCHAR(255) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS auditoria (
     id INT PRIMARY KEY AUTO_INCREMENT,
     usuario_id INT NULL,                            -- NULL = lo hizo una máquina (YOLO/ESP32)

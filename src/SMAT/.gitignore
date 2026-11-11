@@ -20,3 +20,16 @@ backend/uploads/
 .pytest_cache/
 tests/e2e/capturas/
 tests/e2e/logs/
+frontend/dist-e2e/
+
+# Servidor de IA: caras reales (datos personales) y modelos que se descargan solos.
+# modelo_cascos.pt SÍ se sube: es el entrenado por Morena y no se puede descargar.
+servidor_ia/fotos_trabajadores/
+servidor_ia/modelos/
+servidor_ia/yolov8n.pt
+
+# Caché de Vite
+.vite/
+
+# Paquete para PythonAnywhere (se arma con backend/tools/armar_paquete.py)
+droid-e3d.tgz

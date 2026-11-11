@@ -1,10 +1,13 @@
 // Todas las alertas de la fábrica: filtros, tabla (PC) o tarjetas (celular), detalle y resolver.
+// En la tabla se pueden marcar varias alertas activas de la página y resolverlas de una vez.
 // Si se entra desde el mapa del panel, viene con la zona ya elegida (?zona_id=2).
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { getIncidents, getUsers, getZones, resolveIncident } from '../../api/client.js'
+import { getIncidents, getUsers, getZones, resolveIncident, resolveIncidents } from '../../api/client.js'
 import AlertCard from '../../components/AlertCard.jsx'
 import Avatar from '../../components/Avatar.jsx'
+import Confirmar from '../../components/Confirmar.jsx'
+import ContadorComentarios from '../../components/ContadorComentarios.jsx'
 import DetalleAlerta from '../../components/DetalleAlerta.jsx'
 import Etiqueta, { tonoDeEstado } from '../../components/Etiqueta.jsx'
 import Filtros from '../../components/Filtros.jsx'
@@ -32,6 +35,9 @@ export default function Incidencias() {
   const [elegida, setElegida] = useState(null)
   const [resolviendo, setResolviendo] = useState(false)
   const [errorAccion, setErrorAccion] = useState('')
+  const [marcadas, setMarcadas] = useState([])             // ids de las alertas marcadas en la tabla
+  const [confirmando, setConfirmando] = useState(false)
+  const [errorVarias, setErrorVarias] = useState('')
 
   const zonas = usePolling(() => getZones(), 0)
   const empleados = usePolling(() => getUsers({ rol: 'empleado' }), 0)
@@ -41,6 +47,11 @@ export default function Incidencias() {
 
   const filas = lista.datos?.incidencias || []
   const total = lista.datos?.total ?? 0
+  const activasDeLaPagina = filas.filter((i) => i.estado === 'activa').map((i) => i.id)
+  const todasMarcadas = activasDeLaPagina.length > 0 && activasDeLaPagina.every((id) => marcadas.includes(id))
+  const nombreCantidad = marcadas.length === 1 ? '1 alerta' : `${marcadas.length} alertas`
+
+  const alternar = (id) => setMarcadas((m) => (m.includes(id) ? m.filter((x) => x !== id) : [...m, id]))
 
   const campos = [
     { nombre: 'q', etiqueta: 'Buscar', tipo: 'texto', placeholder: 'Empleado o zona' },
@@ -67,15 +78,48 @@ export default function Incidencias() {
     }
   }
 
+  const resolverMarcadas = async () => {
+    setErrorVarias('')
+    setResolviendo(true)
+    try {
+      const { resueltas } = await resolveIncidents(marcadas)
+      setMarcadas([]); setConfirmando(false)
+      lista.recargar()
+      avisar(resueltas === 1 ? '1 alerta marcada como resuelta' : `${resueltas} alertas marcadas como resueltas`)
+    } catch (e) {
+      setErrorVarias(e.message)
+    } finally {
+      setResolviendo(false)
+    }
+  }
+
   const columnas = [
-    { clave: 'timestamp', titulo: 'Cuándo', ordenable: true, render: (i) => <span title={formatearFecha(i.timestamp)}>{haceCuanto(i.timestamp)}</span> },
+    { clave: 'marcar', titulo: (
+      <input type="checkbox" className="size-4 accent-tinta align-middle dark:accent-marca" aria-label="Marcar todas las activas de esta página"
+             checked={todasMarcadas} disabled={activasDeLaPagina.length === 0}
+             onChange={() => setMarcadas(todasMarcadas ? [] : activasDeLaPagina)} />
+    ), render: (i) => i.estado === 'activa' && (
+      <input type="checkbox" className="size-4 accent-tinta align-middle dark:accent-marca" aria-label={`Marcar la alerta de ${i.empleado_nombre} en ${i.zona}`}
+             checked={marcadas.includes(i.id)} onChange={() => alternar(i.id)} />
+    ) },
+    { clave: 'timestamp', titulo: 'Cuándo', ordenable: true, render: (i) => (
+      <span className="block whitespace-nowrap">
+        {formatearFecha(i.timestamp)}
+        <span className="block text-xs text-zinc-500 dark:text-zinc-400">{haceCuanto(i.timestamp)}</span>
+      </span>
+    ) },
     { clave: 'zona', titulo: 'Zona', ordenable: true },
     { clave: 'empleado_nombre', titulo: 'Empleado', ordenable: true, render: (i) => (
       <span className="flex items-center gap-2.5"><Avatar nombre={i.empleado_nombre} tamano="sm" />{i.empleado_nombre}</span>
     ) },
     { clave: 'tipo', titulo: 'Qué faltaba', ordenable: true, render: (i) => nombreTipo(i.tipo) },
     { clave: 'confianza', titulo: 'Confianza', ordenable: true, clase: 'tabular-nums', render: (i) => porcentaje(i.confianza) },
-    { clave: 'estado', titulo: 'Estado', ordenable: true, render: (i) => <Etiqueta tono={tonoDeEstado(i.estado)} punto={i.estado === 'activa'}>{i.estado}</Etiqueta> },
+    { clave: 'estado', titulo: 'Estado', ordenable: true, render: (i) => (
+      <span className="inline-flex items-center gap-2">
+        <Etiqueta tono={tonoDeEstado(i.estado)} punto={i.estado === 'activa'}>{i.estado}</Etiqueta>
+        <ContadorComentarios cantidad={i.cantidad_comentarios} />
+      </span>
+    ) },
     { clave: 'acciones', titulo: '', clase: 'text-right', render: (i) => (
       <button type="button" className="rounded-md px-2 py-1 font-medium text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-800" onClick={() => setElegida(i)}>Ver detalle</button>
     ) },
@@ -84,19 +128,36 @@ export default function Incidencias() {
   return (
     <>
       <Titulo titulo="Incidencias" subtitulo={lista.cargando && !lista.datos ? 'Cargando…' : `${total} en total`} />
-      <Filtros campos={campos} valores={filtros} onCambiar={(f) => { setPagina(1); setFiltros(f) }} />
+      {/* Al cambiar de filtro, orden o página se desmarca todo: nunca se resuelve algo que ya no está a la vista */}
+      <Filtros campos={campos} valores={filtros} onCambiar={(f) => { setPagina(1); setMarcadas([]); setFiltros(f) }} />
 
       {(lista.error || errorAccion) && <p role="alert" className={`mt-4 ${mensajeError}`}>{lista.error || errorAccion}</p>}
 
+      {marcadas.length > 0 && (
+        <div className="mt-4 hidden items-center justify-between gap-3 rounded-2xl border border-zinc-200/80 bg-white px-4 py-3 shadow-xs lg:flex dark:border-zinc-800 dark:bg-zinc-900">
+          <p role="status" className="text-sm font-medium">{nombreCantidad} {marcadas.length === 1 ? 'marcada' : 'marcadas'}</p>
+          <div className="flex gap-2">
+            <button type="button" className={botonSecundario} onClick={() => setMarcadas([])}>Desmarcar</button>
+            <button type="button" className={botonPrimario} onClick={() => { setErrorVarias(''); setConfirmando(true) }}>Resolver {nombreCantidad}</button>
+          </div>
+        </div>
+      )}
+
       <div className="mt-4 hidden lg:block">
-        <Tabla columnas={columnas} filas={filas} vacio="No hay alertas con esos filtros" orden={orden} onOrdenar={(o) => { setPagina(1); setOrden(o) }} />
+        <Tabla columnas={columnas} filas={filas} vacio="No hay alertas con esos filtros" orden={orden} onOrdenar={(o) => { setPagina(1); setMarcadas([]); setOrden(o) }} />
       </div>
       <div className="mt-4 space-y-2 lg:hidden">
         {!lista.cargando && filas.length === 0 && <p className="rounded-xl bg-white p-6 text-center text-sm text-zinc-500 dark:bg-zinc-900">No hay alertas con esos filtros.</p>}
         {filas.map((inc) => <AlertCard key={inc.id} incidencia={inc} onResolver={resolver} onVer={setElegida} />)}
       </div>
 
-      <Paginador pagina={pagina} total={total} porPagina={POR_PAGINA} onCambiar={setPagina} />
+      <Paginador pagina={pagina} total={total} porPagina={POR_PAGINA} onCambiar={(p) => { setMarcadas([]); setPagina(p) }} />
+
+      <Confirmar abierto={confirmando} tono="aviso" titulo={`Resolver ${nombreCantidad}`} accion="Sí, resolver" ocupado={resolviendo} error={errorVarias}
+                 onCancelar={() => setConfirmando(false)} onConfirmar={resolverMarcadas}>
+        <p>{marcadas.length === 1 ? 'Queda resuelta' : 'Quedan resueltas'} a tu nombre y se anota en la auditoría.</p>
+        <p>Las máquinas detenidas no se reactivan: eso se hace desde Zonas, después de revisar cada una.</p>
+      </Confirmar>
 
       <Modal abierto={Boolean(elegida)} titulo="Detalle de la alerta" onCerrar={() => setElegida(null)}
              pie={elegida && (

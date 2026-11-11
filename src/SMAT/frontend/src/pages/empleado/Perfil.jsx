@@ -2,6 +2,7 @@
 import { getMe } from '../../api/client.js'
 import FotosRostro from '../../components/FotosRostro.jsx'
 import Icono from '../../components/Icono.jsx'
+import Notificaciones from '../../components/Notificaciones.jsx'
 import Titulo from '../../components/Titulo.jsx'
 import ZonaCard from '../../components/ZonaCard.jsx'
 import { useAuth } from '../../context/AuthContext.jsx'
@@ -15,24 +16,6 @@ function Fila({ etiqueta, valor }) {
     <div className="flex justify-between gap-4 border-b border-zinc-100 py-2.5 last:border-0 dark:border-zinc-800">
       <dt className="text-sm text-zinc-500 dark:text-zinc-400">{etiqueta}</dt>
       <dd className="text-sm font-medium capitalize">{valor || '—'}</dd>
-    </div>
-  )
-}
-
-// Opción que todavía no está disponible: se muestra apagada para que se sepa que viene
-function Proximamente({ icono, titulo, texto, fase }) {
-  return (
-    <div className={`${tarjeta} flex items-start gap-3 opacity-70`}>
-      <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-zinc-100 text-zinc-500 dark:bg-zinc-800">
-        <Icono nombre={icono} />
-      </span>
-      <div>
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold">
-          {titulo}
-          <span className="rounded-full bg-marca/20 px-2 py-0.5 text-[11px] font-medium whitespace-nowrap">Próximamente · {fase}</span>
-        </p>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">{texto}</p>
-      </div>
     </div>
   )
 }
@@ -84,8 +67,7 @@ export default function Perfil() {
             <h2 className="mb-1 font-semibold">Mis fotos de rostro</h2>
             <FotosRostro usuarioId={yo.id} propias />
           </section>
-          <Proximamente icono="alerta" titulo="Notificaciones en el celular" fase="Fase 7"
-                        texto="Un aviso en el celular apenas se detecta una falta, aunque tengas la web cerrada." />
+          <Notificaciones />
 
           <button type="button" onClick={cerrarSesion}
                   className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-alerta/40 py-2.5 font-medium text-alerta hover:bg-alerta/5">

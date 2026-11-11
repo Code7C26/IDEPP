@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { loginUser } from '../api/client.js'
 import Campo from '../components/Campo.jsx'
 import Icono from '../components/Icono.jsx'
@@ -19,6 +19,8 @@ export default function Login() {
   const [contrasena, setContrasena] = useState('')
   const [error, setError] = useState('')
   const [cargando, setCargando] = useState(false)
+  // Al salir de un campo vacío no se marca error (si no, al tocar un enlace aparece el error y el enlace se corre);
+  // los campos vacíos se avisan al intentar ingresar.
   const { error: errorDe, tocar, puedeEnviar } = useValidacion({
     usuario: usuario.trim() ? '' : 'Escribí tu usuario.',
     contrasena: contrasena ? '' : 'Escribí tu contraseña.',
@@ -60,11 +62,11 @@ export default function Login() {
               className="space-y-5 rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <Campo etiqueta="Usuario" error={errorDe('usuario')}>
             <input className={campo} value={usuario} autoComplete="username" autoFocus
-                   onChange={(e) => setUsuario(e.target.value)} onBlur={tocar('usuario')} />
+                   onChange={(e) => setUsuario(e.target.value)} onBlur={usuario ? tocar('usuario') : undefined} />
           </Campo>
           <Campo etiqueta="Contraseña" error={errorDe('contrasena')}>
             <input className={campo} type="password" value={contrasena} autoComplete="current-password"
-                   onChange={(e) => setContrasena(e.target.value)} onBlur={tocar('contrasena')} />
+                   onChange={(e) => setContrasena(e.target.value)} onBlur={contrasena ? tocar('contrasena') : undefined} />
           </Campo>
 
           {error && <p role="alert" className={mensajeError}>{error}</p>}
@@ -73,7 +75,10 @@ export default function Login() {
             {cargando ? 'Ingresando…' : 'Ingresar'}
           </button>
         </form>
-        <p className="mt-6 text-center text-xs text-zinc-500 dark:text-zinc-400">DROID-E3D by SMAT · una división de TOUCH</p>
+        <p className="mt-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
+          <Link to="/" className="font-medium hover:text-zinc-900 hover:underline dark:hover:text-white">← Conocé DROID-E3D</Link>
+          <span className="mx-2">·</span>DROID-E3D by SMAT · una división de TOUCH
+        </p>
       </div>
     </div>
   )

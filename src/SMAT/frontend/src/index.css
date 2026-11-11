@@ -47,3 +47,5 @@
   .animar-panel, .animar-aviso, .recorrido { animation: none; }
   .robot-mapa { transition: none; }
 }
+/* Mientras el navegador activa las notificaciones, todo se queda quieto (ver hooks/useNotificaciones.js) */
+.animaciones-pausadas * { animation-play-state: paused !important; }

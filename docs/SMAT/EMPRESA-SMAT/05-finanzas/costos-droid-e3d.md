@@ -1,6 +1,6 @@
 # Costo de fabricar e instalar un DROID-E3D
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 08/10/2026
 
 **Para qué sirve:** cuánto cuesta construir, instalar y mantener una unidad. Es la base de los precios (`precios.md`) y de la proyección (`proyeccion-3-anios.md`).
 
@@ -69,10 +69,14 @@ Valor hora de referencia: **USD 8** (desarrollador junior).
 
 | Concepto | USD por mes |
 |---|---|
-| Hosting de la plataforma (PythonAnywhere) y dominio, prorrateados | 6 |
 | Soporte remoto (2 horas) | 16 |
 | Visita de mantenimiento cada 3 meses (4 horas + traslado USD 20), prorrateada | 17 |
-| **Total por cliente** | **≈ 39** |
+| **Total por cliente** | **≈ 33** |
+
+> **Cambio del 08/10/2026:** el servidor ya no se prorratea por cliente. PythonAnywhere eliminó el plan de USD 5 y el
+> más barato pasó a costar **USD 10 por mes** (un solo servidor para todos los clientes), así que ahora es un **costo
+> fijo** de SMAT junto con el dominio, los registros legales y las horas de mantenimiento de la plataforma. Detalle con
+> fuentes en `../../documentacion-comercial/01-viabilidad-comercial.md`.
 
 ## Cómo bajar costos más adelante
 

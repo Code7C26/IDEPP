@@ -1,6 +1,7 @@
 // Sesión del usuario disponible en toda la app: quién es, iniciar sesión y cerrarla.
 // Uso en cualquier componente:  const { usuario, cerrarSesion } = useAuth()
 import { createContext, useContext, useEffect, useState } from 'react'
+import { olvidarEsteDispositivo } from '../hooks/useNotificaciones.js'
 
 const AuthContext = createContext(null)
 
@@ -23,6 +24,7 @@ export function AuthProvider({ children }) {
   }
 
   const cerrarSesion = () => {
+    olvidarEsteDispositivo().catch(() => {})   // deja de recibir notificaciones de esta persona
     localStorage.removeItem('user')
     setUsuario(null)
   }

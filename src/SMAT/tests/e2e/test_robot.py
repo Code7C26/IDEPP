@@ -17,8 +17,12 @@ LOG_SIMULADOR = os.path.join(os.path.dirname(__file__), "logs", "simulador.log")
 
 
 class VideoDePrueba(BaseHTTPRequestHandler):
-    """Hace lo mismo que la PC con la IA: manda imágenes JPEG seguidas (MJPEG)."""
+    """Hace lo mismo que la PC con la IA: manda imágenes JPEG seguidas (MJPEG).
+    En /colgada acepta la conexión y nunca contesta, como una cámara apagada o con otra IP."""
     def do_GET(self):
+        if self.path == "/colgada":
+            time.sleep(15)
+            return
         self.send_response(200)
         self.send_header("Content-Type", "multipart/x-mixed-replace; boundary=frame")
         self.end_headers()
@@ -56,12 +60,12 @@ def robot_simulado():
 def test_ordenes_al_robot_y_parada_de_emergencia(robot_simulado, abrir):
     pag = abrir("maria", "/app/robot")
     assert esperar_texto(pag, "Conectado", 6, exacto=False)
-    assert pag.get_by_role("button", name="Pausar").is_disabled()
+    assert pag.get_by_role("button", name="Pausar", exact=True).is_disabled()
 
     pag.get_by_role("button", name="Iniciar").click()
     assert esperar_texto(pag, "Recorriendo")                      # lo confirma el robot simulado
     assert "ORDEN «iniciar»" in robot_simulado()
-    pag.get_by_role("button", name="Pausar").click()
+    pag.get_by_role("button", name="Pausar", exact=True).click()
     assert esperar_texto(pag, "Pausado")
 
     pag.get_by_role("button", name="PARADA DE EMERGENCIA").click()
@@ -71,6 +75,27 @@ def test_ordenes_al_robot_y_parada_de_emergencia(robot_simulado, abrir):
     pag.get_by_role("button", name="Detener", exact=True).click()
     assert esperar_texto(pag, "Detenido")
     assert pag.get_by_role("button", name="Iniciar").is_enabled()
+    assert not pag.errores
+
+
+def test_la_vista_3d_sigue_al_robot_simulado(robot_simulado, abrir):
+    pag = abrir("maria", "/app/robot")
+    # Acá está la parada de emergencia: la simulación 3D no arranca sola, porque comparte el hilo con la página
+    assert pag.locator("figure iframe").count() == 0
+    assert pag.get_by_role("button", name="Ver la simulación").is_visible() or pag.get_by_text("no puede mostrar el modelo 3D").is_visible()
+    assert esperar_texto(pag, "Conectado", 6, exacto=False)
+    pag.get_by_role("button", name="Iniciar").click()
+    linea = pag.locator("figure [role=status]")
+    # El robot simulado cambia de zona cada 1,5 s: el texto tiene que pasar por más de una
+    vistas = set()
+    for _ in range(40):
+        vistas.add(linea.text_content())
+        if len({t for t in vistas if t.startswith("En Zona")}) >= 2:
+            break
+        pag.wait_for_timeout(500)
+    assert len({t for t in vistas if t.startswith("En Zona")}) >= 2, vistas
+    pag.get_by_role("button", name="Detener", exact=True).click()
+    assert esperar_texto(pag, "Detenido")
     assert not pag.errores
 
 
@@ -99,6 +124,13 @@ def test_video_en_vivo(robot_simulado, abrir):
     pag.get_by_label("Dirección del video").fill("http://127.0.0.1:9/video")
     pag.get_by_role("button", name="Guardar", exact=True).click()
     assert esperar_texto(pag, "Sin señal de video", 6)
+    # Cámara que no contesta: primero "Conectando…" (no "EN VIVO") y a los 10 s "Sin señal"
+    pag.get_by_label("Dirección del video").fill(f"http://127.0.0.1:{PUERTO_VIDEO}/colgada")
+    pag.get_by_role("button", name="Guardar", exact=True).click()
+    assert esperar_texto(pag, "Conectando con la cámara…", 3)
+    assert not pag.get_by_text("EN VIVO", exact=True).is_visible()
+    assert esperar_texto(pag, "Sin señal de video", 13)
+    assert esperar_texto(pag, "la dirección termina en /video", 1, exacto=False)
 
 
 def test_la_falta_detiene_la_maquina_y_el_encargado_la_reactiva(robot_simulado, abrir):

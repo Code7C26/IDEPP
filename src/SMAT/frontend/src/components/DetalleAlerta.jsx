@@ -1,6 +1,7 @@
-// Contenido de la ventana con el detalle de una alerta (se muestra dentro de <Modal>).
+// Contenido de la ventana con el detalle de una alerta (se muestra dentro de <Modal>): foto, datos y comentarios.
 import { formatearFecha, nombreTipo, porcentaje } from '../utils/formato.js'
 import Avatar from './Avatar.jsx'
+import Comentarios from './Comentarios.jsx'
 import Etiqueta, { tonoDeEstado } from './Etiqueta.jsx'
 import ImagenProtegida from './ImagenProtegida.jsx'
 
@@ -37,6 +38,8 @@ export default function DetalleAlerta({ incidencia }) {
         {incidencia.resuelta_at && <Dato etiqueta="Resuelta el">{formatearFecha(incidencia.resuelta_at)}</Dato>}
         {incidencia.resuelta_por_nombre && <Dato etiqueta="Resuelta por">{incidencia.resuelta_por_nombre}</Dato>}
       </dl>
+
+      <Comentarios incidenciaId={incidencia.id} />
     </div>
   )
 }

@@ -134,13 +134,16 @@ Consultala al arrancar y cada vez que recibas `iniciar`, por si el encargado la 
 
 **Después de una `emergencia`** el backend rechaza `iniciar` y `pausar` (409) hasta que el encargado envíe `detener`. Así el robot no puede volver a arrancar solo.
 
+**Sin conexión** (más de 10 s sin reportar) el backend rechaza `iniciar` (409). Si el robot se desconecta con un `iniciar` sin tomar, esa orden se descarta cuando vuelve: nunca arranca solo. `pausar`, `detener` y `emergencia` sí se guardan y le llegan al volver. Para el ESP32 no cambia nada.
+
 ### 2b. Lo que hace la web (para que sepas qué te va a llegar)
 Estos endpoints los usa el encargado con sesión (`Authorization: Bearer ...`); el ESP32 no los llama.
 
 | Endpoint | Para qué |
 |---|---|
 | ✅ `GET /robot/estado` | Estado, batería, zona, comando pendiente y `conectado` (reportó hace menos de 10 s) |
-| ✅ `POST /robot/comando` | `{"comando": "iniciar" \| "pausar" \| "detener" \| "emergencia"}` |
+| ✅ `GET /robot/posicion` | Para cualquier sesión, también la del empleado: solo `estado`, `conectado`, `zona_actual_id`, `zona_actual` y `ultima_conexion` |
+| ✅ `POST /robot/comando` | `{"comando": "iniciar" \| "pausar" \| "detener" \| "emergencia"}` · 409 si es `iniciar` y el robot no está conectado |
 | ✅ `PUT /robot/ruta` | `{"ruta": [{"zona_id": 1, "tiempo_espera_seg": 30}, ...]}` (el orden de la lista es el recorrido; espera de 5 a 3600 s) |
 | ✅ `PUT /robot/video` | `{"url_video": "http://<IP-PC-YOLO>:8080/video"}` · texto vacío = sin video |
 
@@ -162,6 +165,56 @@ Consultar cada 1-2 s. **Si no hay conexión con el backend, decidan juntos qué 
 - `false` → cuando YOLO registra una incidencia en la zona (si la zona tiene máquina), o cuando el encargado la detiene a mano desde la web.
 - `true` → solo cuando **el encargado la reactiva** desde la web (`PUT /zones/<id>/reactivar`). La IA nunca reactiva una máquina.
 - Todo queda en la auditoría (la parada automática figura como hecha por el «Sistema»).
+
+---
+
+## 3b. Notificaciones push (solo la web; para el hardware no cambia nada)
+
+Cuando llega una alerta por `POST /incidents`, el backend además manda una notificación push a los
+encargados y al empleado detectado que la hayan activado. La respuesta a la IA es la misma y no espera
+ese envío. Estas rutas las usa la web, con la sesión de la persona (`Authorization: Bearer <token>`):
+
+| Endpoint | Para qué |
+|---|---|
+| ✅ `GET /push/clave` | `{"clave_publica": "..."}` para que el navegador se suscriba · `503` si faltan las claves VAPID en `backend/.env` |
+| ✅ `POST /push/suscribir` | Lo que da el navegador: `{"endpoint": "https://...", "keys": {"p256dh": "...", "auth": "..."}}` → `201` |
+| ✅ `POST /push/desuscribir` | `{"endpoint": "https://..."}`: ese dispositivo deja de recibir (solo si es del usuario) |
+| ✅ `POST /push/probar` | Manda una notificación de prueba a los dispositivos del usuario → `{"enviadas": 1}` · `404` si no activó ninguno |
+
+Las claves se generan una vez con `python backend/tools/generar_claves_push.py`.
+
+## 3c. Reportes, comentarios y auditoría (solo la web)
+
+Solo el encargado, con su sesión. El período es `?desde=AAAA-MM-DD&hasta=AAAA-MM-DD` (por defecto los
+últimos 30 días contando hoy; máximo 366 días). **Cumplimiento** = días sin alertas / días del período
+(la misma cuenta que ve el empleado en su inicio).
+
+| Endpoint | Para qué |
+|---|---|
+| ✅ `GET /reports/diario` | `dias` (cada día, con la cantidad por tipo y el total), `por_tipo`, `por_zona`, `total`, `activas`, `resueltas`, `paradas_maquina` |
+| ✅ `GET /reports/ranking` | `empleados` y `zonas`, de mejor a peor cumplimiento (`alertas`, `dias_con_alerta`, `cumplimiento` en %), y `alertas_sin_identificar` |
+| ✅ `GET /reports/incidencias.csv` | Las alertas del período en CSV para Excel (separado por `;`, UTF-8 con BOM). Queda en la auditoría |
+| ✅ `GET /reports/mensual.pdf?mes=AAAA-MM` | Informe mensual en PDF para la ART (por defecto el mes actual, hasta hoy). Queda en la auditoría |
+
+Comentarios: el encargado en cualquier alerta; el empleado, solo en las suyas (si no, `403`).
+
+| Endpoint | Para qué |
+|---|---|
+| ✅ `GET /incidents/<id>/comentarios` | `{"comentarios": [{id, usuario_nombre, usuario_rol, texto, created_at}]}`, del más viejo al más nuevo |
+| ✅ `POST /incidents/<id>/comentarios` | `{"texto": "..."}` (1 a 500 caracteres) → `201`. Avisa por push a la otra parte y queda en la auditoría |
+
+Cada incidencia trae además `cantidad_comentarios`.
+
+Resolver alertas (solo encargado; no reactiva la máquina y queda en la auditoría):
+
+| Endpoint | Para qué |
+|---|---|
+| ✅ `PUT /incidents/<id>/resolver` | Resuelve una alerta. `409` si ya estaba resuelta |
+| ✅ `POST /incidents/resolver-varias` | `{"ids": [1, 2, 3]}` (hasta 200) → `{"resueltas": 2, "omitidas": 1}`. Las ya resueltas o inexistentes se omiten sin error |
+
+| Endpoint | Para qué |
+|---|---|
+| ✅ `GET /auditoria` | Solo el encargado. Registros del más nuevo al más viejo. Filtros: `accion`, `usuario_id` (un id o `sistema`), `desde`, `hasta`, `q` (busca en el detalle), `page`, `limit` (25; máx. 100). Devuelve también `acciones` y `usuarios` para armar los filtros |
 
 ---
 

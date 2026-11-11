@@ -1,12 +1,14 @@
-// Control del robot: video en vivo, órdenes (iniciar, pausar, detener, EMERGENCIA) y ruta.
+// Control del robot: video en vivo, vista 3D de dónde está, órdenes (iniciar, pausar, detener, EMERGENCIA) y ruta.
 import { useState } from 'react'
-import { getRobot, getRobotRoute, getZones, saveRobotRoute, saveRobotVideo, sendRobotCommand } from '../../api/client.js'
+import { getIncidents, getRobot, getRobotRoute, getZones, saveRobotRoute, saveRobotVideo, sendRobotCommand } from '../../api/client.js'
 import ControlesRobot from '../../components/ControlesRobot.jsx'
 import RutaRobot from '../../components/RutaRobot.jsx'
 import Titulo from '../../components/Titulo.jsx'
 import VideoEnVivo from '../../components/VideoEnVivo.jsx'
+import VistaRobot3D from '../../components/VistaRobot3D.jsx'
 import usePolling from '../../hooks/usePolling.js'
 import { botonPrimario, campo, campoConError, mensajeError, tarjeta } from '../../utils/estilos.js'
+import { contarPorZona } from '../../utils/mapa.js'
 
 // ¿La dirección del video es válida? Devuelve el problema o '' (vacía = sin video, también vale)
 function problemaEnUrl(url) {
@@ -44,7 +46,8 @@ function ConfigVideo({ actual, onGuardar }) {
 export default function Robot() {
   const robot = usePolling(() => getRobot(), 2000)       // se actualiza cada 2 s para ver la respuesta del robot
   const ruta = usePolling(() => getRobotRoute(), 0)
-  const zonas = usePolling(() => getZones(), 0)
+  const zonas = usePolling(() => getZones(), 5000)        // cada tanto: las máquinas se detienen con las alertas
+  const activas = usePolling(() => getIncidents({ estado: 'activa', limit: 200 }), 5000)
   const r = robot.datos
 
   const mandar = async (comando) => { await sendRobotCommand(comando); robot.recargar() }
@@ -58,14 +61,26 @@ export default function Robot() {
       {robot.cargando && <p className="text-sm text-zinc-500">Cargando…</p>}
 
       {r && (
-        <div className="grid gap-6 xl:grid-cols-2">
-          <section className={tarjeta}>
-            <h2 className="mb-3 text-lg font-semibold">Cámara</h2>
-            <VideoEnVivo url={r.url_video} />
-            <ConfigVideo key={r.url_video} actual={r.url_video || ''} onGuardar={guardarVideo} />
-          </section>
-          <div className="space-y-6">
+        // En el celular los controles van primero: la parada de emergencia tiene que verse sin bajar.
+        // En la PC, los controles y la ruta van a la derecha, y la cámara y el mapa a la izquierda.
+        <div className="grid items-start gap-6 xl:grid-cols-2 xl:grid-rows-[auto_1fr]">
+          <div className="xl:col-start-2 xl:row-start-1">
             <ControlesRobot robot={r} onComando={mandar} />
+          </div>
+          <div className="space-y-6 xl:col-start-1 xl:row-span-2 xl:row-start-1">
+            <section className={tarjeta}>
+              <h2 className="mb-3 text-lg font-semibold">Cámara</h2>
+              <VideoEnVivo url={r.url_video} />
+              <ConfigVideo key={r.url_video} actual={r.url_video || ''} onGuardar={guardarVideo} />
+            </section>
+            <section className={tarjeta}>
+              <h2 className="mb-3 text-lg font-semibold">Dónde está el robot</h2>
+              <VistaRobot3D zonas={zonas.datos?.zonas} robot={r} ruta={(ruta.datos?.ruta || []).map((p) => p.zona_id)}
+                            alertasPorZona={activas.datos ? contarPorZona(activas.datos.incidencias) : null}
+                            simulacionAPedido />   {/* acá está la parada de emergencia: el 3D no arranca solo */}
+            </section>
+          </div>
+          <div className="xl:col-start-2 xl:row-start-2">
             {ruta.datos && zonas.datos && (
               <RutaRobot ruta={ruta.datos.ruta.map(({ zona_id, tiempo_espera_seg }) => ({ zona_id, tiempo_espera_seg }))}
                          zonas={zonas.datos.zonas} onGuardar={guardarRuta} />

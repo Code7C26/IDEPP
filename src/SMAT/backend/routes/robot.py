@@ -1,6 +1,6 @@
 """Robot y máquinas. Dos tipos de endpoints:
  - Para los ESP32: exigen el header X-API-KEY (ROBOT_API_KEY).
- - Para la web: exigen sesión de encargado (header Authorization)."""
+ - Para la web: exigen sesión de encargado (header Authorization). La posición la puede ver cualquier sesión."""
 from datetime import datetime
 from urllib.parse import urlsplit
 
@@ -8,10 +8,17 @@ from flask import Blueprint, request
 
 from models import db, Robot, Zona, PuntoRuta, obtener_robot
 from utils.auditoria import registrar
-from utils.decoradores import api_key_requerida, rol_requerido, sesion_o_api_key
+from utils.decoradores import api_key_requerida, rol_requerido, sesion_o_api_key, token_required
 from utils.validacion import es_entero, id_valido, leer_json
 
 robot_bp = Blueprint("robot", __name__)
+
+
+def descartar_inicio_vencido(robot):
+    """Si el robot se desconectó antes de tomar un "iniciar", esa orden ya no vale: al volver (quizás días
+    después) arrancaría solo, sin que nadie lo espere. Las paradas no se descartan: esas sí tienen que llegar."""
+    if robot.comando_pendiente == "iniciar" and not robot.conectado():
+        robot.comando_pendiente = None
 
 
 @robot_bp.route("/robot/comando-pendiente", methods=["GET"])
@@ -20,6 +27,8 @@ def comando_pendiente():
     """El ESP32 del robot pregunta cada 1-2 s qué tiene que hacer.
     comando: iniciar | pausar | detener | emergencia | null (nada nuevo)."""
     robot = obtener_robot()
+    descartar_inicio_vencido(robot)
+    db.session.commit()
     return {"comando": robot.comando_pendiente, "estado": robot.estado}
 
 
@@ -30,6 +39,7 @@ def reporte_del_robot():
     estado, bateria (0-100), zona_actual_id, comando_ejecutado (para confirmar que ya lo hizo)."""
     data = leer_json()
     robot = obtener_robot()
+    descartar_inicio_vencido(robot)   # antes de actualizar ultima_conexion: después ya figuraría conectado
 
     if "estado" in data:
         if data["estado"] not in Robot.ESTADOS:
@@ -65,6 +75,15 @@ def estado_del_robot():
     return obtener_robot().to_dict()
 
 
+@robot_bp.route("/robot/posicion", methods=["GET"])
+@token_required
+def posicion_del_robot():
+    """Dónde está el robot, para cualquier usuario con sesión (el empleado lo ve en su Inicio).
+    Solo estos datos: la dirección del video y las órdenes siguen siendo solo para el encargado."""
+    robot = obtener_robot().to_dict()
+    return {campo: robot[campo] for campo in ("estado", "conectado", "zona_actual_id", "zona_actual", "ultima_conexion")}
+
+
 @robot_bp.route("/robot/comando", methods=["POST"])
 @rol_requerido("encargado")
 def enviar_comando():
@@ -78,6 +97,9 @@ def enviar_comando():
     # Después de una emergencia no se puede arrancar de golpe: primero hay que "detener"
     if robot.estado == "emergencia" and comando in ("iniciar", "pausar"):
         return {"error": "El robot está en emergencia: primero enviá 'detener' para salir de ese estado"}, 409
+    # Sin conexión no se guarda un "iniciar": el robot arrancaría solo cuando vuelva
+    if comando == "iniciar" and not robot.conectado():
+        return {"error": "El robot no está conectado: para iniciarlo tiene que estar encendido y en línea"}, 409
 
     robot.comando_pendiente = comando
     if comando == "emergencia":

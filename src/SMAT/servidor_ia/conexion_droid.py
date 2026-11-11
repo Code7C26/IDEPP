@@ -4,7 +4,7 @@ El motor (motor_ia_robot.py) sigue funcionando igual que antes: detecta, reconoc
 guarda en su base y le avisa al robot. Además, con este archivo cada alerta llega a la web
 con la FOTO del momento, el nombre del trabajador y la confianza. Contrato: src/SMAT/docs/API.md
 
-Configuración (variables de entorno; la clave nunca va en el código):
+Configuración (en servidor_ia/.env o como variables de entorno; la clave nunca va en el código):
     DROID_URL       ej. http://192.168.0.10:5000/api   (por defecto http://127.0.0.1:5000/api)
     YOLO_API_KEY    la misma que está en src/SMAT/backend/.env
     DROID_ZONA_ID   opcional: zona fija. Si no se pone, la web usa la zona donde está el robot.
@@ -15,6 +15,8 @@ import threading
 
 import requests
 
+from config import dato, leer_env
+
 CARPETA = os.path.dirname(os.path.abspath(__file__))
 
 # Lo que dice el motor -> el tipo de falta que entiende la web
@@ -24,21 +26,14 @@ TIPOS = {"Falta de Casco": "sin_casco", "Falta de Guantes": "sin_guantes",
 
 def _leer_env_del_backend():
     """Toma las claves de ../backend/.env si no están en el entorno (misma PC que el backend)."""
-    ruta = os.path.join(CARPETA, "..", "backend", ".env")
-    if not os.path.exists(ruta):
-        return {}
-    valores = {}
-    for linea in open(ruta, encoding="utf-8"):
-        if "=" in linea and not linea.lstrip().startswith("#"):
-            clave, valor = linea.split("=", 1)
-            valores[clave.strip()] = valor.strip().strip('"').strip("'")
-    return valores
+    return leer_env(os.path.join(CARPETA, "..", "backend", ".env"))
 
 
 _ENV = _leer_env_del_backend()
-URL = os.getenv("DROID_URL", "http://127.0.0.1:5000/api").rstrip("/")
-CLAVE = os.getenv("YOLO_API_KEY") or _ENV.get("YOLO_API_KEY", "")
-ZONA_ID = os.getenv("DROID_ZONA_ID", "")
+# dato(): primero las variables de entorno y después servidor_ia/.env (ver config.py)
+URL = dato("DROID_URL", "http://127.0.0.1:5000/api").rstrip("/")
+CLAVE = dato("YOLO_API_KEY") or _ENV.get("YOLO_API_KEY", "")
+ZONA_ID = dato("DROID_ZONA_ID")
 
 
 def _enviar(infraccion, trabajador, confianza, foto_jpg):

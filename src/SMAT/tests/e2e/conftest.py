@@ -78,12 +78,28 @@ def pytest_sessionstart(session):
 
 
 @pytest.fixture(scope="session")
-def navegador():
-    canal = os.getenv("NAVEGADOR", "chromium")
+def playwright_sesion():
+    """Una sola por corrida: Playwright no permite abrir dos a la vez."""
     with sync_playwright() as p:
-        nav = p.chromium.launch(channel=None if canal == "chromium" else canal, headless=True)
-        yield nav
-        nav.close()
+        yield p
+
+
+@pytest.fixture(scope="session")
+def navegador(playwright_sesion):
+    # channel="chromium" usa el navegador completo sin ventana. Sin channel, Playwright usa una versión
+    # recortada ("headless shell") que no tiene notificaciones y hace fallar las pruebas de la Fase 7.
+    nav = playwright_sesion.chromium.launch(channel=os.getenv("NAVEGADOR", "chromium"), headless=True)
+    yield nav
+    nav.close()
+
+
+@pytest.fixture(scope="session")
+def navegador_3d(playwright_sesion):
+    """Con WebGL por software, para probar los renders y el juego. Va aparte porque es más lento."""
+    nav = playwright_sesion.chromium.launch(channel=os.getenv("NAVEGADOR", "chromium"), headless=True,
+                                            args=["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
+    yield nav
+    nav.close()
 
 
 @pytest.fixture
@@ -92,16 +108,16 @@ def base_limpia():
     recrear_base(os.getenv("E2E_DB", "robot_db_e2e"))
 
 
-@pytest.fixture
-def abrir(navegador, request):
-    """abrir(usuario, ruta) -> página ya logueada. Al final de la prueba guarda una captura."""
+def _abridor(navegador, request, capturar=True):
+    """Generador con la función abrir(usuario, ruta): al final de la prueba guarda una captura y cierra todo."""
     contextos = []
 
     def _abrir(usuario, ruta, ancho=1280, alto=900, tema="claro"):
         celular = ancho < 700
         ctx = navegador.new_context(viewport={"width": ancho, "height": alto}, is_mobile=celular, has_touch=celular, locale="es-AR")
-        ctx.add_init_script(f"localStorage.setItem('tema', '{tema}');"
-                            f"localStorage.setItem('user', {json.dumps(json.dumps(sesion(usuario)))});")
+        guardar_sesion = (f"localStorage.setItem('user', {json.dumps(json.dumps(sesion(usuario)))});"
+                          if usuario else "localStorage.removeItem('user');")
+        ctx.add_init_script(f"localStorage.setItem('tema', '{tema}');" + guardar_sesion)
         pagina = ctx.new_page()
         pagina.errores = []
         pagina.on("pageerror", lambda e: pagina.errores.append(str(e)))
@@ -117,6 +133,31 @@ def abrir(navegador, request):
     os.makedirs(CAPTURAS, exist_ok=True)
     for i, (ctx, pagina) in enumerate(contextos):
         try:
-            pagina.screenshot(path=os.path.join(CAPTURAS, f"{request.node.name}-{i}.png"), full_page=True)
+            if capturar:
+                pagina.screenshot(path=os.path.join(CAPTURAS, f"{request.node.name}-{i}.png"), full_page=True)
         finally:
             ctx.close()
+
+
+@pytest.fixture
+def abrir(navegador, request):
+    """abrir(usuario, ruta) -> página ya logueada (usuario=None: sin sesión). Al final de la prueba guarda una captura."""
+    yield from _abridor(navegador, request)
+
+
+@pytest.fixture
+def abrir_3d(navegador_3d, request):
+    """Igual que abrir, en el navegador con WebGL. Sin placa de video el 3D frena toda la página: en estas
+    pruebas conviene una ventana chica, y hay que bajar hasta el render con centrar_render."""
+    yield from _abridor(navegador_3d, request, capturar=False)
+
+
+# GitHub Actions no tiene placa de video: la fábrica y el robot en 3D tardan más que el límite de las pruebas.
+# El juego, que es más liviano en una ventana chica, sí corre ahí.
+solo_con_video = pytest.mark.skipif(os.getenv("CI") == "true", reason="sin placa de video el 3D tarda demasiado")
+
+
+def centrar_render(pagina):
+    """Lleva el render a la pantalla. No usa scroll_into_view_if_needed: espera que la página esté quieta, y
+    con el 3D corriendo por software puede no llegar a estarlo."""
+    pagina.evaluate("document.querySelector('iframe').scrollIntoView({ block: 'center' })")

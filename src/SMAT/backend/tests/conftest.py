@@ -3,6 +3,9 @@
 Usa una base de datos SEPARADA (robot_db_test) que se recrea antes de cada prueba,
 así las pruebas no dependen entre sí y nunca tocan los datos de desarrollo.
 Correr desde src/SMAT:   python -m pytest backend/tests
+
+Con TEST_POSTGRES_URL (una base Postgres vacía) la app usa Postgres, como en Render + Supabase:
+cada prueba arma la base MySQL de siempre y la copia a Postgres (tests/base_datos.copiar_a_postgres).
 """
 import os
 import sys
@@ -17,13 +20,16 @@ os.environ["YOLO_API_KEY"] = "clave-yolo-de-prueba"
 os.environ["ROBOT_API_KEY"] = "clave-robot-de-prueba"
 os.environ["JWT_SECRET"] = "secreto-de-prueba"
 os.environ["UPLOAD_DIR"] = tempfile.mkdtemp(prefix="droid-uploads-")   # las fotos de prueba no ensucian backend/uploads
+POSTGRES = os.getenv("TEST_POSTGRES_URL", "")
+if POSTGRES:
+    os.environ["DATABASE_URL"] = POSTGRES
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import jwt  # noqa: E402
 from app import app as aplicacion  # noqa: E402
 from config import Config  # noqa: E402
 from models import db  # noqa: E402
-from tests.base_datos import recrear_base  # noqa: E402
+from tests.base_datos import copiar_a_postgres, recrear_base  # noqa: E402
 
 YOLO = {"X-API-KEY": "clave-yolo-de-prueba"}
 ROBOT = {"X-API-KEY": "clave-robot-de-prueba"}
@@ -43,6 +49,10 @@ def cabecera_de(usuario_id, rol):
 def cliente():
     """Cliente HTTP de prueba con la base recién creada (40 incidencias, 4 zonas, 7 usuarios)."""
     recrear_base(os.environ["DB_NAME"])
+    if POSTGRES:
+        with aplicacion.app_context():
+            db.session.remove()   # suelta la base antes de vaciarla
+        copiar_a_postgres(os.environ["DB_NAME"], POSTGRES, vaciar=True)
     aplicacion.config["TESTING"] = True
     with aplicacion.app_context():
         db.session.remove()

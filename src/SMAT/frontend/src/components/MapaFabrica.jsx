@@ -4,12 +4,13 @@
 //  - el robot se mueve de zona en zona con una animación; su recorrido se dibuja punteado
 // Props:
 //   zonas            lista de zonas (con grilla_x, grilla_y, ancho, alto)
-//   alertasPorZona   { zona_id: cantidad de alertas activas }
+//   alertasPorZona   { zona_id: cantidad de alertas activas }; null si no se conocen (el empleado solo
+//                    ve las suyas): el mapa no dice "Todo en orden", solo si la máquina está parada
 //   robot            { zona_actual_id, conectado } (opcional)
 //   ruta             lista de zona_id en el orden del recorrido (opcional)
 //   seleccionada     id de la zona resaltada (opcional)
 //   onSeleccionar    función(zona) al tocar una zona (opcional; si no se pasa, el mapa es solo para mirar)
-import { estadoZona, medidasGrilla } from '../utils/mapa.js'
+import { estadoVisible, medidasGrilla, resumenZona } from '../utils/mapa.js'
 import { NOMBRES_EPP } from '../utils/formato.js'
 import Icono from './Icono.jsx'
 import RobotEnMapa from './RobotEnMapa.jsx'
@@ -18,10 +19,14 @@ const CELDA = 100   // cada celda mide 100 unidades dentro del SVG (se escala so
 const MARGEN = 5
 
 const COLORES = {
-  ok: { caja: 'fill-ok/15 stroke-ok', texto: 'fill-ok', resumen: 'Todo en orden' },
-  alerta: { caja: 'fill-alerta/20 stroke-alerta', texto: 'fill-alerta', resumen: null },
-  detenida: { caja: 'fill-naranja/20 stroke-naranja', texto: 'fill-naranja', resumen: 'Máquina detenida' },
+  ok: { caja: 'fill-ok/15 stroke-ok', texto: 'fill-ok' },
+  alerta: { caja: 'fill-alerta/20 stroke-alerta', texto: 'fill-alerta' },
+  detenida: { caja: 'fill-naranja/20 stroke-naranja', texto: 'fill-naranja' },
+  neutro: { caja: 'fill-zinc-200/40 stroke-zinc-400 dark:fill-zinc-700/30 dark:stroke-zinc-600', texto: 'fill-zinc-500 dark:fill-zinc-400' },
 }
+
+// Borde claro detrás de cada letra: el texto se sigue leyendo aunque el recorrido pase por debajo
+const HALO = '[paint-order:stroke] [stroke-linejoin:round] stroke-white/60 stroke-[4px] dark:stroke-zinc-900/60'
 
 // Rectángulo de la zona dentro del SVG (en unidades del dibujo)
 function medidas(zona) {
@@ -32,11 +37,13 @@ function medidas(zona) {
 }
 const centro = (zona) => [(zona.grilla_x + zona.ancho / 2) * CELDA, (zona.grilla_y + zona.alto / 2) * CELDA]
 
-function ZonaEnMapa({ zona, alertas, seleccionada, onSeleccionar }) {
-  const estado = estadoZona(zona, alertas)
+function ZonaEnMapa({ zona, alertasPorZona, seleccionada, onSeleccionar }) {
+  const alertas = alertasPorZona?.[zona.id] || 0
+  const estado = estadoVisible(zona, alertasPorZona)
   const { x, y, ancho, alto } = medidas(zona)
   const interactiva = Boolean(onSeleccionar)
-  const resumen = `${zona.nombre}: ${estado === 'alerta' ? `${alertas} alerta(s) activa(s)` : COLORES[estado].resumen}`
+  const textoEstado = resumenZona(zona, estado, alertas)
+  const resumen = `${zona.nombre}: ${estado === 'alerta' ? `${alertas} alerta(s) activa(s)` : textoEstado}`
   const epp = zona.epp_requerido || []
 
   return (
@@ -46,14 +53,14 @@ function ZonaEnMapa({ zona, alertas, seleccionada, onSeleccionar }) {
        onKeyDown={interactiva ? (e) => (e.key === 'Enter' || e.key === ' ') && onSeleccionar(zona) : undefined}>
       <rect x={x} y={y} width={ancho} height={alto} rx="12"
             className={`${COLORES[estado].caja} transition-[stroke-width] ${seleccionada ? 'stroke-[6]' : 'stroke-[2.5]'}`} />
-      <text x={x + 14} y={y + 38} className="fill-zinc-900 text-[29px] font-bold dark:fill-zinc-100">{zona.nombre}</text>
+      <text x={x + 14} y={y + 38} className={`fill-zinc-900 text-[29px] font-bold dark:fill-zinc-100 ${HALO}`}>{zona.nombre}</text>
 
       {/* Máquina: engranaje verde si anda, naranja si está detenida */}
       {zona.maquina && ancho >= 190 && (
         <g className="fill-zinc-600 dark:fill-zinc-300">
           <svg x={x + 12} y={y + 48} width="24" height="24"
                className={zona.maquina_activa ? 'text-ok' : 'text-naranja'}><Icono nombre="maquina" className="" /></svg>
-          <text x={x + 42} y={y + 67} className="text-[21px]">{zona.maquina}</text>
+          <text x={x + 42} y={y + 67} className={`text-[21px] ${HALO}`}>{zona.maquina}</text>
         </g>
       )}
 
@@ -67,15 +74,15 @@ function ZonaEnMapa({ zona, alertas, seleccionada, onSeleccionar }) {
         </g>
       )}
 
-      <text x={x + 14} y={y + alto - 16} className={`text-[22px] font-semibold ${COLORES[estado].texto}`}>
-        {estado === 'alerta' ? `${alertas} alerta${alertas > 1 ? 's' : ''}` : COLORES[estado].resumen}
+      <text x={x + 14} y={y + alto - 16} className={`text-[22px] font-semibold ${COLORES[estado].texto} ${HALO}`}>
+        {textoEstado}
       </text>
     </g>
   )
 }
 
 // Recorrido del robot: línea punteada que une el centro de cada zona y vuelve a la primera.
-// Se dibuja debajo de las zonas para no tapar los textos.
+// Se dibuja debajo de las zonas, pero se ve a través de ellas: por eso los textos llevan HALO.
 function Recorrido({ zonas, ruta }) {
   const puntos = ruta.map((id) => zonas.find((z) => z.id === id)).filter(Boolean).map(centro)
   if (puntos.length < 2) return null
@@ -118,7 +125,7 @@ export default function MapaFabrica({ zonas, alertasPorZona = {}, robot, ruta = 
       <rect width={ancho} height={alto} fill="url(#celdas)" />
       <Recorrido zonas={zonas} ruta={ruta} />
       {zonas.map((zona) => (
-        <ZonaEnMapa key={zona.id} zona={zona} alertas={alertasPorZona[zona.id] || 0}
+        <ZonaEnMapa key={zona.id} zona={zona} alertasPorZona={alertasPorZona}
                     seleccionada={seleccionada === zona.id} onSeleccionar={onSeleccionar} />
       ))}
       <Paradas zonas={zonas} ruta={ruta} />

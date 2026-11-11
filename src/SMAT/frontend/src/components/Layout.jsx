@@ -3,6 +3,7 @@
 //  - celular: barra arriba y menú abajo
 // <Outlet /> es donde React Router dibuja la página actual.
 import { Outlet } from 'react-router-dom'
+import AlertaSonora from './AlertaSonora.jsx'
 import BarraLateral from './BarraLateral.jsx'
 import BarraMovil from './BarraMovil.jsx'
 import BottomNav from './BottomNav.jsx'
@@ -18,6 +19,7 @@ export default function Layout() {
         </main>
       </div>
       <BottomNav />
+      <AlertaSonora />
     </div>
   )
 }

@@ -10,10 +10,12 @@ import Titulo from '../../components/Titulo.jsx'
 import { useAvisos } from '../../context/AvisosContext.jsx'
 import usePolling from '../../hooks/usePolling.js'
 import { botonPrimario, mensajeError, tarjeta } from '../../utils/estilos.js'
+import { contarPorZona } from '../../utils/mapa.js'
 
 export default function Zonas() {
   const avisar = useAvisos()
   const zonas = usePolling(() => getZones(), 10000)
+  const activas = usePolling(() => getIncidents({ estado: 'activa', limit: 200 }), 10000)
   const [formulario, setFormulario] = useState(null)   // null = cerrado · {} = nueva · zona = editar
   const [aBorrar, setABorrar] = useState(null)
   const [maquina, setMaquina] = useState(null)         // { zona, accion: 'reactivar' | 'detener', alertas }
@@ -48,15 +50,19 @@ export default function Zonas() {
 
   return (
     <>
-      <Titulo titulo="Zonas" subtitulo={zonas.datos ? `${lista.length} zonas en la fábrica` : 'Cargando…'}>
+      <Titulo titulo="Zonas" subtitulo={zonas.cargando && !zonas.datos ? 'Cargando…' : `${lista.length} zonas en la fábrica`}>
         <button type="button" className={botonPrimario} onClick={() => abrirFormulario({})}>+ Nueva zona</button>
       </Titulo>
-      {zonas.error && <p role="alert" className={`mb-4 ${mensajeError}`}>{zonas.error}</p>}
+      {(zonas.error || activas.error) && <p role="alert" className={`mb-4 ${mensajeError}`}>{zonas.error || activas.error}</p>}
 
-      {lista.length > 0 && (
+      {/* El mapa espera a las alertas: sin ellas pintaría todo en verde, como si estuviera en orden */}
+      {lista.length > 0 && activas.datos && (
         <section className={`${tarjeta} mb-6`}>
-          <MapaFabrica zonas={lista} onSeleccionar={abrirFormulario} />
-          <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Tocá una zona del mapa para editarla.</p>
+          {/* Con un ancho máximo, para que en la PC las tarjetas de abajo no queden fuera de la pantalla */}
+          <div className="mx-auto max-w-3xl">
+            <MapaFabrica zonas={lista} alertasPorZona={contarPorZona(activas.datos.incidencias)} onSeleccionar={abrirFormulario} />
+            <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Tocá una zona del mapa para editarla.</p>
+          </div>
         </section>
       )}
 

@@ -23,7 +23,7 @@ Socios: **Toro** (software y web) y **Morena** (hardware e IA).
 | | [Actas de reunión](02-organizacion/actas/README.md) | Quien escribe cada acta | completo (v1) · 1 acta |
 | Marca | [Manual de marca](03-marca/manual-de-marca.md) | Toro | completo (v1) |
 | | [Redes sociales y dominio](03-marca/redes-y-dominio.md) | Toro | completo (v1) |
-| | [Logos (SVG)](03-marca/logo/README.md) | Toro | completo (v1) |
+| | [Logos (SVG)](03-marca/logo/README.md) | Morena | completo (v2) |
 | Negocio | [Business Model Canvas](04-negocio/business-model-canvas.md) | Toro | completo (v1) |
 | | [Cliente ideal](04-negocio/cliente-ideal.md) | Toro | completo (v1) |
 | | [Competencia](04-negocio/competencia.md) | Toro | completo (v1) |

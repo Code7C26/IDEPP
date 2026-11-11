@@ -12,8 +12,8 @@ os.environ["OPENCV_FFMPEG_LOGLEVEL"] = "-8"
 
 import cv2
 
-
-URL_CAMARA_CELULAR = "http://172.100.177.186:8080/video"
+# La IP de la cámara se pone en servidor_ia/.env (ver config.py)
+from config import URL_CAMARA_CELULAR
 
 
 CARPETA_FOTOS = "fotos_trabajadores"

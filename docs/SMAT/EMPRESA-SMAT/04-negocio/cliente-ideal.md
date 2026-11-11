@@ -12,7 +12,7 @@
 | Rubros | Metalúrgica, carpintería industrial, plásticos, autopartes, alimentos |
 | Tamaño | 20 a 200 empleados en planta; 1 a 3 turnos |
 | Planta | Un galpón con zonas de máquinas definidas y pasillos por donde pueda circular un robot de oruga |
-| Ubicación | AMBA y parques industriales cercanos (para poder instalar y dar soporte) |
+| Ubicación | **Alta Gracia, Gran Córdoba y Malagueño** (hasta ≈ 60 km), con sus parques industriales: podemos instalar y hacer las visitas de mantenimiento. Lista de los primeros 10 objetivos: `../../documentacion-comercial/05-los-primeros-10.md` |
 | Situación | Tuvo accidentes o «casi accidentes», recibió observaciones de la ART o de una inspección, o tiene un solo responsable de seguridad para toda la planta |
 
 ## Su problema

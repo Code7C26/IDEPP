@@ -3,8 +3,8 @@
 **Jerarquía:** TOUCH (empresa madre, repo `Code7C26/TOUCH-ID`) → SMAT (división; socios Toro y Morena)
 → DROID-E3D (producto de SMAT = robot + web). Marca: "DROID-E3D by SMAT · una división de TOUCH".
 
-Robot oruga con ESP32 recorre la fábrica, una cámara + IA YOLO detecta si los empleados usan su EPP
-(casco, guantes, lentes, chaleco) e identifica al empleado por reconocimiento facial. Si no lo usan:
+Robot con ruedas y ESP32-S3 (desde el 29/10) recorre la fábrica, una cámara + IA YOLO detecta si los empleados usan su EPP
+(hoy casco; guantes, lentes y chaleco son lo próximo) e identifica al empleado por reconocimiento facial. Si no lo usan:
 alarma y/o parada de la máquina. Esta carpeta (`src/SMAT/`) es la app web; la empresa vive en `docs/SMAT/EMPRESA-SMAT/` (desde acá: `../../docs/SMAT/EMPRESA-SMAT/`).
 **Morena** es socia de SMAT y además responsable de hardware/IA (ESP32, relé, cámara, YOLO, facial). Hasta que tenga el hardware se usan simuladores y `docs/API.md`.
 
@@ -13,7 +13,7 @@ El ESP32 consulta por HTTP al backend qué comando ejecutar y si su máquina deb
 
 ## Stack
 - backend/: Flask + Flask-SQLAlchemy + PyMySQL + JWT. `python app.py` (puerto 5000). MySQL de XAMPP.
-- frontend/: React 18 + Vite + react-router-dom + Tailwind (+ recharts, vite-plugin-pwa). `npm run dev` (5173).
+- frontend/: React 18 + Vite + react-router-dom + Tailwind (+ recharts, vite-plugin-pwa). `npm run dev` (5173). Renders 3D y juego: archivos de Claude en `public/robot3d` (decisión 008).
 - Roles: `empleado` (ve lo suyo) y `encargado` (panel, gestión, robot, reportes, auditoría).
 - Claves en `.env` (nunca en el repo): `YOLO_API_KEY`, `ROBOT_API_KEY`, `VAPID_*`.
 
