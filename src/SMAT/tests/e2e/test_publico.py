@@ -1,4 +1,4 @@
-"""Página pública de SMAT (sin login): secciones, menú del celular, contacto y acceso a la app."""
+"""Página pública de DROID-E3D (sin login): secciones, menú del celular, contacto y acceso a la app."""
 from urllib.parse import unquote
 
 from conftest import centrar_render, solo_con_video
@@ -10,7 +10,7 @@ ESPIAR_ABRIR = "window.__abierto = null; window.open = (url) => { window.__abier
 def test_inicio_y_secciones(base_limpia, abrir):
     pag = abrir(None, "/")
     assert pag.get_by_role("heading", level=1).inner_text().startswith("Seguridad que")
-    assert pag.title().startswith("DROID-E3D by SMAT")
+    assert pag.title().startswith("DROID-E3D by IDEPP")
     assert pag.get_by_role("img", name="Panel del encargado").first.is_visible()      # captura real de la app
     for seccion, titulo in (("Cómo funciona", "Un robot, una IA"), ("Planes", "Menos que unos pocos"),
                             ("Nosotros", "Que cada trabajador"), ("Contacto", "Pedí una demo")):
@@ -102,7 +102,7 @@ def test_los_renders_se_ven_dentro_de_las_paginas(base_limpia, abrir_3d):
             "m => m.contentDocument.documentElement.scrollHeight <= m.clientHeight + 2")
 
 
-def test_se_puede_jugar_a_patrulla_smat(base_limpia, abrir_3d):
+def test_se_puede_jugar_a_patrulla(base_limpia, abrir_3d):
     pag = abrir_3d(None, "/juego", ancho=640, alto=700)
     juego = pag.frame_locator("iframe")
     juego.get_by_role("button", name="JUGAR").click()
@@ -112,9 +112,9 @@ def test_se_puede_jugar_a_patrulla_smat(base_limpia, abrir_3d):
 
 
 def test_la_web_describe_el_robot_actual_y_lo_que_detecta_hoy(abrir):
-    """El robot ya no es oruga, y la IA hoy detecta solo el casco (issue #101)."""
+    """El robot ya no es oruga (issue #101), y con modelo_epp.pt la IA detecta casco, guantes, lentes y chaleco."""
     for ruta in ("/", "/como-funciona", "/nosotros"):
         contenido = abrir(None, ruta).locator("body").inner_text().lower()
         assert "oruga" not in contenido, ruta
-        assert "casco, guantes, lentes y chaleco" not in contenido, ruta
-    assert abrir(None, "/").get_by_text("Hoy detecta casco").is_visible()
+        assert "próximo: guantes" not in contenido, ruta
+    assert abrir(None, "/").get_by_text("Detecta casco, guantes, lentes y chaleco").is_visible()
