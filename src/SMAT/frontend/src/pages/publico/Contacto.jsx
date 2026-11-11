@@ -1,5 +1,5 @@
 // "Contacto": formulario para pedir una demo. No hay servidor de correo: el mensaje se arma
-// y se abre en el mail o en WhatsApp de quien escribe, dirigido a SMAT (ver utils/contacto.js).
+// y se abre en el mail o en WhatsApp de quien escribe, dirigido a IDEPP (ver utils/contacto.js).
 import { useState } from 'react'
 import Campo from '../../components/Campo.jsx'
 import Icono from '../../components/Icono.jsx'

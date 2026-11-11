@@ -53,5 +53,5 @@ Para la demo **no se usan datos reales**: los empleados de la base son ficticios
 - Hasta el 19/10/2026, las fotos con las que la IA reconoce caras (`src/SMAT/servidor_ia/fotos_trabajadores/`) estaban subidas al repo. Eran de 8 personas, entre ellas compañeros de TOUCH-ID.
 - Desde el 19/10 **ya no se suben**: la carpeta está en `.gitignore` y las fotos se pasan por fuera de GitHub (PR #73).
 - **Siguen en el historial de git**, aunque no se vean en la versión actual. El repo es **privado**. **No se reescribe el historial**, porque cambiaría el repo de toda IDEPP (unos 30 colaboradores).
-- Si alguien pide que se borren sus fotos: se borra su carpeta en cada PC que tenga la copia y sus fotos en la web (Mi perfil o Empleados). Si además exige sacarlas del historial, se decide con TOUCH y el profe.
+- Si alguien pide que se borren sus fotos: se borra su carpeta en cada PC que tenga la copia y sus fotos en la web (Mi perfil o Empleados). Si además exige sacarlas del historial, se decide con el equipo de Touch ID y el profe.
 - ✅ **Consentimientos confirmados** (22/10/2026): las 8 personas de las fotos dieron su consentimiento (modelo en la sección 5). Si alguien lo retira, se borra su carpeta y sus fotos en la web, como se indica arriba.

@@ -2,6 +2,12 @@
 
 > Una entrada por semana (más nueva arriba). Se genera con `/bitacora`.
 
+## Semana 6 · desde el 09/11/2026
+
+**Hecho**
+- 10/11: La empresa pasa a ser **IDEPP**, con dos productos: Touch ID y DROID-E3D. Morena actualiza la web, los documentos, el acuerdo de socios y los logos (PR #104). El repositorio pasa a llamarse `Code7C26/IDEPP`.
+- 11/11: Se completa el cambio (decisión 009): el informe PDF mensual firma «by IDEPP», `copiar_renders.py` repite los nombres nuevos al volver a copiar los renders, se saca «oruga» de los documentos y se regeneran el canvas, los PDF y el Word.
+
 ## Semana 5 · desde el 02/11/2026
 
 **Hecho**
@@ -11,7 +17,7 @@
 - 03/11: **Fase M.3**: pulido visual. La revisión automática ahora detecta textos que se salen de su tarjeta (#89).
 - 03/11: **Fase M.4**: se pueden resolver varias alertas a la vez, y el panel muestra la más vieja sin resolver (#90).
 - 03/11: **Fase M.5**: el render 3D del robot está en la web: datos reales por zona para el empleado y el encargado, y un recorrido simulado en las páginas públicas (#93).
-- 03/11: **Fase M.5 (ajuste)**: a pedido de Toro, la web usa sus archivos originales en iframes: los renders «Robot IDEPP 3D» y «IDEPP en la fábrica», y el juego «Patrulla IDEPP». Se descarta la versión reescrita a mano (#98).
+- 03/11: **Fase M.5 (ajuste)**: a pedido de Toro, la web usa sus archivos originales en iframes: los renders «Robot DROID-E3D 3D» y «DROID-E3D en la fábrica», y el juego «Patrulla DROID-E3D». Se descarta la versión reescrita a mano (#98).
 - 03/11: **Fase M.6 (en curso)**: el robot cuenta marcas en el piso e informa su zona. Quedó en el PR borrador #96, solo compilado: falta probarlo en el robot con Morena (#95).
 
 - 04/11: Se borra la versión del render reescrita a mano y se ponen al día el documento final (255 pruebas), el README y la guía de la demo. Se sacan de la base local las 90 alertas ficticias de la demo, con respaldo.

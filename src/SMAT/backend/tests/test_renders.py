@@ -13,6 +13,8 @@ def test_usan_solo_archivos_locales(archivo):
     # Ningún enlace a internet, ni pedidos desde el código. Los juegos y renders no tienen por qué salir de la web
     assert not re.findall(r"https?://", texto)
     assert not re.findall(r"\bfetch\(|XMLHttpRequest|WebSocket", texto)
+    # La empresa ya no se llama SMAT (PR #104). Las claves internas en minúsculas, como smat-opts, no se muestran
+    assert not re.findall(r"\bSMAT\b", texto)
     # Cada archivo que piden tiene que existir, y embebido.js tiene que cargar antes que su código
     pedidos = re.findall(r"""(?:src|href)=["']/robot3d/([^"']+)["']""", texto)
     assert pedidos[:1] == ["fuentes.css"] and pedidos[1] == "embebido.js"

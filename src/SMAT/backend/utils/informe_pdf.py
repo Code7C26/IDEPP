@@ -111,7 +111,7 @@ def generar_informe_mensual(desde, hasta, mes, autor):
     generado = datetime.now()
 
     partes = [
-        Paragraph("DROID-E3D <font color='#b88a00'>by SMAT</font>", TEXTO),
+        Paragraph("DROID-E3D <font color='#b88a00'>by IDEPP</font>", TEXTO),
         Paragraph(f"Informe de cumplimiento de EPP · {escape(mes.capitalize())}", TITULO),
         Paragraph(f"Período: {fecha_corta(desde)} al {fecha_corta(hasta)} ({r['dias']} días) · "
                   f"Generado el {generado:%d/%m/%Y %H:%M} por {escape(autor)}", TEXTO),
@@ -166,12 +166,12 @@ def generar_informe_mensual(desde, hasta, mes, autor):
         lienzo.rect(0, A4[1] - 5 * mm, A4[0], 5 * mm, stroke=0, fill=1)
         lienzo.setFont("Helvetica", 7.5)
         lienzo.setFillColor(GRIS)
-        lienzo.drawString(18 * mm, 10 * mm, f"DROID-E3D by SMAT · Informe de {mes}")
+        lienzo.drawString(18 * mm, 10 * mm, f"DROID-E3D by IDEPP · Informe de {mes}")
         lienzo.drawRightString(A4[0] - 18 * mm, 10 * mm, f"Página {documento.page}")
         lienzo.restoreState()
 
     buffer = io.BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=A4, leftMargin=18 * mm, rightMargin=18 * mm, topMargin=14 * mm, bottomMargin=18 * mm,
-                            title=f"Informe de cumplimiento de EPP - {mes}", author="DROID-E3D by SMAT")
+                            title=f"Informe de cumplimiento de EPP - {mes}", author="DROID-E3D by IDEPP")
     doc.build(partes, onFirstPage=pie, onLaterPages=pie)
     return buffer.getvalue()

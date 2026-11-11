@@ -9,6 +9,6 @@ El profe pidió: $ARGUMENTS
 2. Si es de la web: agregala en docs/PLAN.md, sección "Tareas del profe", como
    `- [ ] P.N descripción (#issue)` y decime en qué fase encaja.
 3. Si afecta a la fábrica cliente: actualizá docs/FABRICA-CLIENTE.md.
-4. Si es de la empresa SMAT: agregala a la Fase E y decime qué socio la hace.
+4. Si es de la empresa (IDEPP): agregala a la Fase E y decime qué socio la hace.
 5. Si es de hardware/IA: asignala a Morena (responsable de hardware/IA) y avisame.
 6. No empieces a hacerla hasta que yo lo diga. Resumen de máximo 4 líneas.

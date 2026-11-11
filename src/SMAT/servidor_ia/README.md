@@ -26,7 +26,7 @@ cámara del celular ──► motor_ia_robot.py ──┬─► base propia (rob
 ## Cómo usarlo (Windows, PowerShell)
 
 ```powershell
-cd C:\Users\tomas\Fat\TOUCH-ID\src\SMAT\servidor_ia
+cd <carpeta donde clonaste el repo>\src\SMAT\servidor_ia     # por ejemplo C:\proyectos\IDEPP\src\SMAT\servidor_ia
 pip install -r requirements.txt          # una sola vez
 # en XAMPP → MySQL, cargar crear_base_datos.sql una vez
 python motor_ia_robot.py                  # Q en la ventana del video para salir

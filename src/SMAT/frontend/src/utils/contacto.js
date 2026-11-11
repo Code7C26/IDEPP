@@ -1,4 +1,4 @@
-// Datos de contacto de SMAT para la página pública. Vienen del .env del frontend
+// Datos de contacto de IDEPP para la página pública. Vienen del .env del frontend
 // (VITE_CONTACTO_EMAIL y VITE_CONTACTO_WHATSAPP) porque no se publican en el repositorio.
 export const EMAIL = import.meta.env.VITE_CONTACTO_EMAIL || ''
 export const WHATSAPP = (import.meta.env.VITE_CONTACTO_WHATSAPP || '').replace(/\D/g, '')   // solo números

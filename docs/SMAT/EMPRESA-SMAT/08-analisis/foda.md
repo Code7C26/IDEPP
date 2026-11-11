@@ -4,7 +4,7 @@
 
 **Para qué sirve:** fortalezas, oportunidades, debilidades y amenazas de la empresa y de DROID-E3D.
 
-> Hay un FODA anterior de TOUCH en `docs/TOUCH-ID/`; este es específico de IDEPP y DROID-E3D.
+> Hay un FODA anterior del equipo de Touch ID en `docs/TOUCH-ID/`; este es específico de IDEPP y DROID-E3D.
 
 ## Matriz
 
