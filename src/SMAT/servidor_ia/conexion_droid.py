@@ -37,7 +37,7 @@ ZONA_ID = dato("DROID_ZONA_ID")
 
 
 def _enviar(infraccion, trabajador, confianza, foto_jpg):
-    datos = {"tipo": TIPOS.get(infraccion, "sin_casco"),
+    datos = {"tipo": TIPOS[infraccion],
              "empleado": "" if trabajador == "Desconocido" else trabajador,
              "confianza": round(min(max(confianza / 100, 0), 1), 2)}   # el motor usa 0-100; la web 0-1
     if ZONA_ID:
@@ -62,6 +62,9 @@ def reportar_a_la_web(infraccion, trabajador, confianza, frame=None):
     """Manda la alerta a la web sin frenar el video (se envía en segundo plano).
     infraccion: "Falta de Casco"... · trabajador: nombre de la carpeta o "Desconocido"
     confianza: 0 a 100 (como la usa el motor) · frame: imagen de OpenCV con los recuadros dibujados"""
+    if infraccion not in TIPOS:
+        print(f"[AVISO WEB] La web no conoce la falta '{infraccion}': no se manda.")
+        return
     if not CLAVE:
         print("[AVISO WEB] Falta YOLO_API_KEY: la alerta no se manda a la web.")
         return

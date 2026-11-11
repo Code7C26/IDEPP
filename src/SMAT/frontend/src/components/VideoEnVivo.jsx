@@ -37,7 +37,7 @@ export default function VideoEnVivo({ url }) {
   let aviso = null
   if (!url) aviso = { titulo: 'Sin video configurado', texto: 'Indicá abajo la dirección del video que sirve la PC con la IA.' }
   else if (bloqueado) aviso = { titulo: 'El navegador bloquea este video', texto: 'La web usa https y el video usa http. Usá la web en la red local o un video https.' }
-  else if (estado === 'falla') aviso = { titulo: 'Sin señal de video', texto: 'No llega imagen de la cámara. Revisá que esté encendida y en la misma red. Si es la app IP Webcam del celular, la dirección termina en /video.' }
+  else if (estado === 'falla') aviso = { titulo: 'Sin señal de video', texto: 'No llega imagen de la cámara. Revisá que esté encendida y en la misma red. Tiene que estar abierta la IA (motor_ia_robot.py) y la dirección termina en /video (la de la PC de la IA, puerto 8080).' }
   else if (estado === 'conectando') aviso = { titulo: 'Conectando con la cámara…', texto: 'Esperando la primera imagen.' }
 
   return (
