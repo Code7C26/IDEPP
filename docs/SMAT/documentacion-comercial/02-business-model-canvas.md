@@ -48,7 +48,7 @@ empleado?») se resuelven con la ayuda escrita, sin gastar horas.
 | 3 | **Canales** | Venta directa con demo en planta; parques industriales; aliados (STI Developments, consultoras); web pública. Hardware instalado por nosotros; software por link. |
 | 4 | **Relación con clientes** | Instalación y capacitación presencial; soporte híbrido (ayuda en la web + remoto humano); visita cada 3 meses; informe mensual de cumplimiento. |
 | 5 | **Fuentes de ingresos** | Pago único USD 2.200 + abono USD 70 por mes; máquina extra USD 120; alquiler USD 260 por mes desde 2028. Modelo: hardware + abono. |
-| 6 | **Recursos clave** | Robot oruga con ESP32 y cámara; PC con placa de video para la IA; Python/Flask, React y MySQL; el saber de IA y hardware (Morena) y de web (Toro). |
+| 6 | **Recursos clave** | Robot con ruedas, ESP32-S3 y cámara; PC con placa de video para la IA; Python/Flask, React y MySQL; el saber de IA y hardware (Morena) y de web (Toro). |
 | 7 | **Actividades clave** | Programar la plataforma y la IA; armar y probar robots; instalar y configurar zonas; soporte y mantenimiento. |
 | 8 | **Socios clave** | Equipo de TOUCH-ID, el otro producto de IDEPP (venta conjunta); STI Developments y consultoras de higiene y seguridad; proveedores de electrónica; parques industriales; la escuela; hosting. |
 | 9 | **Estructura de costos** | Fijos ≈ USD 198 por mes (servidor, dominio, INPI, DNDA, 20 h de mantenimiento); USD 1.343 por instalación; USD 33 por cliente por mes. Punto de equilibrio: 2 clientes por año. |

@@ -16,7 +16,7 @@
 
 | Responsabilidades | Decide solo | Consulta con Toro |
 |---|---|---|
-| Robot oruga, ESP32 del robot y de la máquina, relé | Componentes y armado, siempre dentro del presupuesto | Compras de más de USD 50 |
+| Robot con ruedas, ESP32-S3 del robot, ESP32 de la máquina, relé | Componentes y armado, siempre dentro del presupuesto | Compras de más de USD 50 |
 | Cámara, servidor YOLO y reconocimiento facial | Modelo de IA y su entrenamiento | Qué datos de empleados se usan (ver `../07-legal/datos-personales.md`) |
 | Pruebas de integración con el backend | Cómo y cuándo prueba | Cambios en el contrato de la API |
 

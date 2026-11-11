@@ -125,7 +125,7 @@ while (i < lineas.length) {
 }
 
 const doc = new Document({
-  creator: 'SMAT',
+  creator: 'IDEPP',
   title: 'DROID-E3D · Secciones técnicas del documento final',
   styles: {
     default: { document: { run: { font: FUENTE, size: 24 }, paragraph: { spacing: { line: 480 } } } },

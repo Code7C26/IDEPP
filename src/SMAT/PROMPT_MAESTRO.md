@@ -59,7 +59,7 @@ REGLAS DE CÓDIGO
 
 REGLAS DE GIT Y CARPETAS
 - Solo podés tocar (desde la raíz del repo): src/SMAT/ (esta carpeta), docs/SMAT/ y archivos smat-* de .github/.
-- Nunca toques las carpetas de TOUCH (assets/TOUCH-ID, design/TOUCH-ID, docs/TOUCH-ID, src/TOUCH-ID) ni el README de la raíz.
+- Nunca toques las carpetas de Touch ID (assets/TOUCH-ID, design/TOUCH-ID, docs/TOUCH-ID, src/TOUCH-ID) ni el README de la raíz.
 - Nunca git add . desde la raíz. Nunca hagas push directo a main.
 - Al terminar una FASE, si todas las pruebas pasan (también las de GitHub Actions), abrí el PR y mergealo vos.
   Frená y esperame si algo falla o si el cambio toca la API del hardware (docs/API.md): eso lo revisa Morena.
