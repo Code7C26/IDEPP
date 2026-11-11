@@ -15,6 +15,14 @@ También en Word con formato APA y las capturas como figuras: [`secciones-toro.d
 [`generar-word.js`](generar-word.js)
 (abrirlo, Ctrl+A, Ctrl+C y pegarlo en el documento en línea o en Google Docs).
 
+## Partes ya terminadas para unir
+
+Documentos sueltos que se juntan en el documento final al cerrar. Están en [`partes/`](partes/) y el número indica la sección.
+
+| Archivo | Sección | Agregado |
+|---|---|---|
+| [`03-ideacion-lluvia-de-ideas.pdf`](partes/03-ideacion-lluvia-de-ideas.pdf) | 3 · Ideación | 11/11/2026 |
+
 ## Cómo pasarlo a Google Docs o PDF
 
 1. Abrir el documento con el link de arriba.
