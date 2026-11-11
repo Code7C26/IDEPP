@@ -17,11 +17,11 @@ También en Word con formato APA y las capturas como figuras: [`secciones-toro.d
 
 ## Partes ya terminadas para unir
 
-Documentos sueltos que se juntan en el documento final al cerrar. Están en [`partes/`](partes/) y el número indica la sección.
+Documentos sueltos que se juntan en el documento final al cerrar. Cada fila dice dónde está el archivo y en qué sección va.
 
 | Archivo | Sección | Agregado |
 |---|---|---|
-| [`03-ideacion-lluvia-de-ideas.pdf`](partes/03-ideacion-lluvia-de-ideas.pdf) | 3 · Ideación | 11/11/2026 |
+| [`lluvia-de-ideas.pdf`](../EMPRESA-SMAT/01-identidad/lluvia-de-ideas.pdf) | 3 · Ideación | 11/11/2026 |
 
 ## Cómo pasarlo a Google Docs o PDF
 
