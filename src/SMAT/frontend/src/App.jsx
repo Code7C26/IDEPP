@@ -1,5 +1,5 @@
 // Mapa de rutas de la web (ver docs/PLAN.md, "Mapa del sitio").
-//  /, /como-funciona, /planes, /nosotros, /contacto -> página pública de SMAT (sin login)
+//  /, /como-funciona, /planes, /nosotros, /contacto -> página pública de DROID-E3D (sin login)
 //  /login      -> pública
 //  /app/...    -> con sesión; algunas solo para empleado y otras solo para encargado
 import { lazy, Suspense } from 'react'

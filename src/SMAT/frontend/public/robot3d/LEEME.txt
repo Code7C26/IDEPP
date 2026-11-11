@@ -1,9 +1,10 @@
-Renders y juego de SMAT, hechos en Claude. No se editan acá: se cambian en Claude, se descargan y se copian con
-backend/tools/copiar_renders.py, que solo reemplaza los enlaces a internet por estos archivos locales.
+Renders y juego de DROID-E3D, hechos en Claude. No se editan acá: se cambian en Claude, se descargan y se copian
+con backend/tools/copiar_renders.py, que reemplaza los enlaces a internet por estos archivos locales y, si todavía
+dicen SMAT, pone IDEPP en el chasis y DROID-E3D en los títulos.
 
-robot.html     Robot SMAT 3D
-fabrica.html   SMAT en la fábrica
-patrulla.html  Patrulla SMAT (el juego)
+robot.html     Robot DROID-E3D 3D
+fabrica.html   DROID-E3D en la fábrica
+patrulla.html  Patrulla DROID-E3D (el juego)
 embebido.js    Los acomoda cuando están dentro de la web. Abiertos solos, no hace nada.
 
 Terceros:
