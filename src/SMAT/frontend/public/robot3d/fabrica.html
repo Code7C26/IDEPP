@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>SMAT en la fábrica</title>
+<title>DROID-E3D en la fábrica</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="/robot3d/fuentes.css">
 <style>
@@ -81,7 +81,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
 
 <div class="wrap">
   <header>
-    <h1>SMAT en la <span>fábrica</span></h1>
+    <h1>DROID-E3D en la <span>fábrica</span></h1>
     <p class="sub">Simulación del recorrido por los sectores de la planta: el robot revisa a cada operario y, si alguien no tiene el casco, frena, avisa, para la máquina y guarda la falta.</p>
   </header>
 
@@ -420,7 +420,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#1b1b1b'; ctx.font = '400 96px "Archivo Black", "Arial Black", sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('SMAT', w / 2 - 30, h / 2 + 4);
+    ctx.fillText('IDEPP', w / 2 - 30, h / 2 + 4);
     ctx.fillStyle = '#d7262b'; ctx.beginPath(); ctx.arc(w / 2 + 160, h / 2, 16, 0, Math.PI * 2); ctx.fill();
   });
   const logo = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.085), new THREE.MeshStandardMaterial({ map: logoTex.tex, transparent: true, roughness: 0.6 }));
@@ -925,7 +925,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
   const deskLabel = makeLabel(); deskLabel.position.set(-15, 2.1, -1.5); deskLabel.scale.set(0.16, 0.04, 1); deskLabel.userData.draw('Servidor IA', '#1d211c'); deskLabel.visible = true;
   function drawScreen(lines, alert) {
     const ctx = screen.ctx; ctx.fillStyle = alert ? '#3a0d0f' : '#0f1a14'; ctx.fillRect(0, 0, 512, 300);
-    ctx.fillStyle = alert ? '#ff6b6b' : '#7fe0a0'; ctx.font = '600 30px "IBM Plex Mono", monospace'; ctx.fillText('SMAT · servidor IA', 20, 46);
+    ctx.fillStyle = alert ? '#ff6b6b' : '#7fe0a0'; ctx.font = '600 30px "IBM Plex Mono", monospace'; ctx.fillText('DROID-E3D · servidor IA', 20, 46);
     ctx.fillStyle = '#e8ece8'; ctx.font = '500 24px "IBM Plex Mono", monospace';
     lines.forEach((l, i) => ctx.fillText(l, 20, 100 + i * 40));
     screen.tex.needsUpdate = true;

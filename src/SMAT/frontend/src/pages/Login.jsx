@@ -77,7 +77,7 @@ export default function Login() {
         </form>
         <p className="mt-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
           <Link to="/" className="font-medium hover:text-zinc-900 hover:underline dark:hover:text-white">← Conocé DROID-E3D</Link>
-          <span className="mx-2">·</span>DROID-E3D by SMAT · una división de TOUCH
+          <span className="mx-2">·</span>DROID-E3D by IDEPP
         </p>
       </div>
     </div>

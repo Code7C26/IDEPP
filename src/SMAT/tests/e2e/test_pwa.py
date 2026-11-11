@@ -18,7 +18,7 @@ def contexto(navegador):
 
 def test_el_manifest_permite_instalar_la_app():
     manifest = json.loads(urllib.request.urlopen(f"{PWA}/manifest.webmanifest").read())
-    assert manifest["name"] == "DROID-E3D by SMAT"
+    assert manifest["name"] == "DROID-E3D by IDEPP"
     assert manifest["display"] == "standalone"
     assert manifest["start_url"] == "/app"
     assert {"192x192", "512x512"} <= {i["sizes"] for i in manifest["icons"]}
@@ -57,4 +57,4 @@ def test_el_service_worker_no_reemplaza_los_renders_por_la_app(contexto):
     pag.reload()
     assert pag.evaluate("!!navigator.serviceWorker.controller")
     pag.goto(PWA + "/robot3d/fabrica.html")
-    assert pag.title() == "SMAT en la fábrica"
+    assert pag.title() == "DROID-E3D en la fábrica"

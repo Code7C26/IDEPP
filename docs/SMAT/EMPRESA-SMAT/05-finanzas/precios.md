@@ -8,7 +8,7 @@
 
 ## Modelo
 
-**Venta + abono:** el cliente compra el equipo (pago único) y paga un abono mensual por la plataforma, el soporte y el mantenimiento. Así SMAT recupera el costo del hardware enseguida y tiene un ingreso que se repite todos los meses.
+**Venta + abono:** el cliente compra el equipo (pago único) y paga un abono mensual por la plataforma, el soporte y el mantenimiento. Así IDEPP recupera el costo del hardware enseguida y tiene un ingreso que se repite todos los meses.
 
 ## Planes
 
@@ -24,9 +24,9 @@
 
 | Concepto | USD |
 |---|---|
-| **Todo incluido** (equipo de SMAT, instalación, plataforma, soporte y mantenimiento), mínimo 12 meses | **260 / mes** |
+| **Todo incluido** (equipo de IDEPP, instalación, plataforma, soporte y mantenimiento), mínimo 12 meses | **260 / mes** |
 
-El Plan Servicio exige que SMAT compre el equipo por adelantado: **se ofrece desde 2028**, cuando haya capital.
+El Plan Servicio exige que IDEPP compre el equipo por adelantado: **se ofrece desde 2028**, cuando haya capital.
 
 ### Precio piloto
 

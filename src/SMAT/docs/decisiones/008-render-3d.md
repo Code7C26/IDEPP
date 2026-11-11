@@ -4,8 +4,8 @@
 
 ## Contexto
 Toro pidió que el render 3D del robot se vea en la web, también en la pantalla del empleado, y que idealmente muestre
-en tiempo real por dónde anda. Hizo en Claude tres páginas: «Robot SMAT 3D», «SMAT en la fábrica» y el juego
-«Patrulla SMAT».
+en tiempo real por dónde anda. Hizo en Claude tres páginas: «Robot IDEPP 3D», «IDEPP en la fábrica» y el juego
+«Patrulla IDEPP».
 
 ## Opciones
 1. **Reescribir el render como componentes de React:** se probó primero, y no quedó igual. Cualquier cambio en Claude

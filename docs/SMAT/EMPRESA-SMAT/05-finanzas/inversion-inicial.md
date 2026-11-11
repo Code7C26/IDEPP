@@ -34,7 +34,7 @@
 | Toro | USD 370 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
 | Morena | USD 370 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
 
-Según el acuerdo de socios, si uno pone de más, se registra como préstamo a SMAT.
+Según el acuerdo de socios, si uno pone de más, se registra como préstamo a IDEPP.
 
 ## Qué se puede postergar
 

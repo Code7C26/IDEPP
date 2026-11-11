@@ -11,7 +11,7 @@
 - 03/11: **Fase M.3**: pulido visual. La revisión automática ahora detecta textos que se salen de su tarjeta (#89).
 - 03/11: **Fase M.4**: se pueden resolver varias alertas a la vez, y el panel muestra la más vieja sin resolver (#90).
 - 03/11: **Fase M.5**: el render 3D del robot está en la web: datos reales por zona para el empleado y el encargado, y un recorrido simulado en las páginas públicas (#93).
-- 03/11: **Fase M.5 (ajuste)**: a pedido de Toro, la web usa sus archivos originales en iframes: los renders «Robot SMAT 3D» y «SMAT en la fábrica», y el juego «Patrulla SMAT». Se descarta la versión reescrita a mano (#98).
+- 03/11: **Fase M.5 (ajuste)**: a pedido de Toro, la web usa sus archivos originales en iframes: los renders «Robot IDEPP 3D» y «IDEPP en la fábrica», y el juego «Patrulla IDEPP». Se descarta la versión reescrita a mano (#98).
 - 03/11: **Fase M.6 (en curso)**: el robot cuenta marcas en el piso e informa su zona. Quedó en el PR borrador #96, solo compilado: falta probarlo en el robot con Morena (#95).
 
 - 04/11: Se borra la versión del render reescrita a mano y se ponen al día el documento final (255 pruebas), el README y la guía de la demo. Se sacan de la base local las 90 alertas ficticias de la demo, con respaldo.
@@ -49,7 +49,7 @@
 
 **Problemas**
 - El README del documento final se subió directo a `main`, sin PR. Se le recordó la regla a Morena en el PR #73.
-- Las caras siguen en el historial de git aunque ya no estén en la versión actual. El repo es privado y no se reescribe el historial, porque afectaría a todo TOUCH.
+- Las caras siguen en el historial de git aunque ya no estén en la versión actual. El repo es privado y no se reescribe el historial, porque afectaría a toda IDEPP.
 - Al bajar el cambio de Morena, git borra la carpeta local `fotos_trabajadores/`: hay que copiarla antes.
 
 **Próximos pasos**
@@ -71,13 +71,13 @@
 ## Semana 1 · desde el 05/10/2026
 
 **Hecho**
-- Se definió la jerarquía: TOUCH (empresa madre) → SMAT (división) → DROID-E3D (producto).
-- Se migró la app al repo compartido `Code7C26/TOUCH-ID` (rama `SMAT-web`).
-- Plan completo reescrito (`docs/PLAN.md`): landing pública, empresa SMAT, hardware, push, reportes.
+- Se definió la jerarquía: IDEPP (empresa) → DROID-E3D (producto).
+- Se migró la app al repo compartido `Code7C26/IDEPP` (rama `SMAT-web`).
+- Plan completo reescrito (`docs/PLAN.md`): landing pública, empresa IDEPP, hardware, push, reportes.
 - Entorno verificado: Python, Node, MySQL (XAMPP), `gh`. Backend y frontend arrancan.
 - Etiquetas `smat:*`, plantillas de Issue y PR, `CONTRIBUIR.md`.
 - 06/10: **Fase 2 y 3** de la web: Tailwind, claro/oscuro, menú por rol y las tres pantallas del empleado.
-- 06/10: **Empresa SMAT** completa (versión 1): 29 documentos, acuerdo de socios, finanzas, legal, FODA, pitch y guion del jurado.
+- 06/10: **Empresa IDEPP** completa (versión 1): 29 documentos, acuerdo de socios, finanzas, legal, FODA, pitch y guion del jurado.
 - 06/10: **Fase 4** de la web: mapa de la fábrica, panel, incidencias, empleados y zonas del encargado.
 - 06/10: **Fase 5**: control del robot desde la web (órdenes, parada de emergencia, ruta), video en vivo, parada automática de la máquina y su reactivación, y simulador del ESP32.
 - 07/10: **Fase T**: pruebas automáticas del backend (pytest) y de la web (Playwright), corriendo solas en GitHub Actions en cada PR.
@@ -85,7 +85,7 @@
 - 07/10: **Fase 6**: foto de evidencia en cada alerta, fotos de rostro con consentimiento (Ley 25.326) que maneja el encargado o el propio empleado, `GET /rostros` para la IA, simulador de YOLO y guía de la prueba real.
 - 08/10: Morena reorganiza el repo (la web pasa a `src/SMAT/`, la empresa a `docs/SMAT/`) y sube su servidor de IA (YOLO + reconocimiento facial). Se renombra a `src/SMAT/servidor_ia/` y se conecta con el backend: cada alerta llega a la web con la foto, el nombre del trabajador y la zona del robot, y detiene la máquina.
 - 08/10: **Revisión general**: recorrido automático de las 14 pantallas en 5 tamaños y temas (sin errores), pruebas de robustez (el servidor ya no se cae con datos raros), la baja o el cambio de rol cortan la sesión al instante, validación de la dirección del video y arreglos de la web en celular y tablet. 76 pruebas de la API y 17 de punta a punta.
-- 08/10: **Fase L**: página pública de SMAT en `/` (Inicio, Cómo funciona, Planes, Nosotros, Contacto) con los textos de la empresa, capturas reales de la app con datos ficticios, título y descripción por página, menú para celular y 4 pruebas e2e.
+- 08/10: **Fase L**: página pública de IDEPP en `/` (Inicio, Cómo funciona, Planes, Nosotros, Contacto) con los textos de la empresa, capturas reales de la app con datos ficticios, título y descripción por página, menú para celular y 4 pruebas e2e.
 - 08/10: **Entregas de Classroom** (tomando como modelo KIDO y lo de TOUCH): viabilidad comercial con costos reales y fuentes, Business Model Canvas, punto de equilibrio (2 clientes por año), mercado TAM/SAM/SOM (≈ 495 industrias en la zona), «Los primeros 10» con empresas reales de Alta Gracia y Malagueño, y balance del MVP (75 %). Todo en `docs/SMAT/documentacion-comercial/` con PDF. Tareas pendientes cargadas como Issues en el tablero Kanban con su estimación (#48 a #66). Se suman `assets/SMAT` y `design/SMAT`.
 - 08/10: **Fase 7** (tiempo real): banner y sonido de alertas nuevas cada 3 s, web instalable como app (PWA) y notificaciones push al celular y la PC.
 - 09/10: **Fase 8**: API y página de Reportes (gráficos y ranking de cumplimiento), descargas en CSV y PDF mensual para la ART, comentarios en las alertas y página de Auditoría. 100 pruebas de la API y 34 de punta a punta.

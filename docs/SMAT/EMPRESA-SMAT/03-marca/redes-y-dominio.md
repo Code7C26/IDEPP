@@ -2,7 +2,7 @@
 
 > **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
-**Para qué sirve:** dónde está SMAT en internet y quién administra cada cuenta.
+**Para qué sirve:** dónde está IDEPP en internet y quién administra cada cuenta.
 
 ## Dominio
 
@@ -23,9 +23,9 @@
 
 | Red | Usuario propuesto | Para qué | Frecuencia |
 |---|---|---|---|
-| **LinkedIn** (página de empresa) | SMAT · DROID-E3D | Llegar a dueños y responsables de seguridad e higiene de fábricas | 1 publicación por semana |
+| **LinkedIn** (página de empresa) | IDEPP · DROID-E3D | Llegar a dueños y responsables de seguridad e higiene de fábricas | 1 publicación por semana |
 | **Instagram** | `@droide3d` | Videos cortos del robot, detrás de escena del proyecto | 2 por semana |
-| **YouTube** | DROID-E3D by SMAT | Video demo completo y tutoriales para clientes | 1 por mes |
+| **YouTube** | DROID-E3D by IDEPP | Video demo completo y tutoriales para clientes | 1 por mes |
 
 **Ideas de contenido:** el robot detectando a alguien sin casco (con actores y permiso), cómo se arma el robot, «un dato de seguridad por semana», avances del proyecto final.
 

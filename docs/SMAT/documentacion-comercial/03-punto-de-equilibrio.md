@@ -1,6 +1,6 @@
 # Finanzas de la agencia: el punto de equilibrio · DROID-E3D
 
-> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** SMAT (división de TOUCH)
+> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
 > **Equipo:** Toro · Morena · **Actualizado:** 08/10/2026 · Valores en dólares (USD 1 = $1.550)
 
 **Pregunta:** ¿cuántos clientes necesitamos para sobrevivir?

@@ -2,13 +2,13 @@
 
 > **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
-**Para qué sirve:** dice qué es SMAT y hacia dónde va. Lo usan la web pública (página «Nosotros») y el pitch.
+**Para qué sirve:** dice qué es IDEPP y hacia dónde va. Lo usan la web pública (página «Nosotros») y el pitch.
 
 ## Misión
 
 **Ayudar a las fábricas a que cada trabajador vuelva a su casa sano, controlando de forma automática y respetuosa que use su equipo de protección personal.**
 
-SMAT diseña, fabrica e instala **DROID-E3D**: un robot que recorre la planta, detecta con inteligencia artificial si los empleados usan casco, guantes, lentes y chaleco, avisa al instante y, si hace falta, detiene la máquina de esa zona.
+IDEPP diseña, fabrica e instala **DROID-E3D**: un robot que recorre la planta, detecta con inteligencia artificial si los empleados usan casco, guantes, lentes y chaleco, avisa al instante y, si hace falta, detiene la máquina de esa zona.
 
 ## Visión
 
@@ -30,4 +30,4 @@ En 3 años (2029), ser la opción de referencia para **PyMEs industriales de Arg
 
 ## Frase corta (para la web y redes)
 
-> **DROID-E3D by SMAT · Seguridad que recorre la planta.**
+> **DROID-E3D by IDEPP · Seguridad que recorre la planta.**

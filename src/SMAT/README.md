@@ -1,6 +1,6 @@
-# DROID-E3D · by SMAT
+# DROID-E3D · by IDEPP
 
-> **SMAT** es una división de **TOUCH**. **DROID-E3D** es su producto: un robot de inspección que usa IA (YOLO)
+> **IDEPP** es una empresa con dos productos: TOUCH-ID y **DROID-E3D**. DROID-E3D es un robot de inspección que usa IA (YOLO)
 > para detectar si los empleados de una fábrica usan su equipo de protección personal (EPP), y esta aplicación
 > web donde se ven y gestionan las alertas y se controla el robot.
 
@@ -53,7 +53,7 @@ Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra M
 | Frontend: diseño estilo SaaS (claro/oscuro, celular y PC), pantallas del empleado y del encargado | ✅ Funciona |
 | Frontend: control del robot con video en vivo, mapa con recorrido, detalle de cada zona | ✅ Funciona con el simulador |
 | Renders 3D y juego (`/`, `/como-funciona`, `/juego`): archivos originales en `frontend/public/robot3d`, decisión 008 | ✅ Funciona; son simulaciones, no están conectadas al robot real |
-| Página pública de SMAT (`/`, `/como-funciona`, `/juego`, `/planes`, `/nosotros`, `/contacto`) | ✅ Funciona; mail y WhatsApp de contacto en `frontend/.env` |
+| Página pública de IDEPP (`/`, `/como-funciona`, `/juego`, `/planes`, `/nosotros`, `/contacto`) | ✅ Funciona; mail y WhatsApp de contacto en `frontend/.env` |
 | Tiempo real: cartel y sonido, web instalable (PWA), notificaciones push | ✅ Funciona (push e instalación en el celular solo con https) |
 | Reportes con gráficos y ranking, CSV, PDF mensual, comentarios, auditoría | ✅ Funciona |
 | Servidor de IA de Morena (`servidor_ia/`) conectado con la web | ✅ Conectado; falta la prueba real con la cámara y el robot |

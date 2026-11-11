@@ -1,19 +1,19 @@
-# Acta 06/10/2026 · Arranque de SMAT
+# Acta 06/10/2026 · Arranque del proyecto DROID-E3D
 
 **Asistentes:** Toro (con asistencia de Claude para la redacción). Morena revisa esta acta en el Pull Request.
 **Modalidad:** trabajo remoto
 
 ## Temas
 
-1. Organización de SMAT como división de TOUCH.
+1. Organización del equipo de DROID-E3D dentro de IDEPP.
 2. Repositorio y forma de trabajo.
 3. Plan de DROID-E3D y estado de avance.
 4. Documentos de la empresa.
 
 ## Decisiones
 
-- SMAT es una **división de TOUCH**; su producto es **DROID-E3D** (robot + web). Socios: **Toro** y **Morena**. Morena es además responsable de hardware e IA.
-- Todo el trabajo se sube al repositorio compartido **`Code7C26/TOUCH-ID`**, en las carpetas `DROID-E3D-APP/` y `EMPRESA-SMAT/`, sin tocar las de TOUCH.
+- **DROID-E3D** (robot + web) es un producto de **IDEPP**. Su equipo: **Toro** y **Morena**. Morena es además responsable de hardware e IA.
+- Todo el trabajo se sube al repositorio compartido **`Code7C26/IDEPP`**, en las carpetas `DROID-E3D-APP/` y `EMPRESA-SMAT/`, sin tocar las de TOUCH-ID.
 - Ramas: `SMAT-web`, `SMAT-hardware`, `SMAT-empresa`. Todo entra a `main` por Pull Request.
 - Las tareas del profe se registran como Issues `smat:profe`.
 - Comunicación con el robot por **HTTP** (el ESP32 consulta cada 1-2 s); contrato en `DROID-E3D-APP/docs/API.md`.

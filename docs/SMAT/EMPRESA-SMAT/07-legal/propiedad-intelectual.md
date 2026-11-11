@@ -6,7 +6,7 @@
 
 > ⚠ Orientativo. Verificar requisitos, aranceles y plazos vigentes en el INPI y en la DNDA antes de iniciar cada trámite.
 
-## 1. Marcas: «DROID-E3D» y «SMAT»
+## 1. Marcas: «DROID-E3D» y «IDEPP»
 
 - Se registran en el **INPI** (Instituto Nacional de la Propiedad Industrial), según la **Ley 22.362 de Marcas**. El registro dura 10 años y se renueva.
 - Antes de presentar: **búsqueda de antecedentes** en la base del INPI para confirmar que no haya marcas iguales o parecidas en las mismas clases.
@@ -18,7 +18,7 @@
 | **42** | Servicios de software en la nube y desarrollo tecnológico | 1 |
 | 7 | Robots industriales | 2 (cuando se fabrique en serie) |
 
-- Primero «**DROID-E3D**» en la clase 9 (presupuestado en la inversión inicial); luego la clase 42 y «SMAT».
+- Primero «**DROID-E3D**» en la clase 9 (presupuestado en la inversión inicial); luego la clase 42 y «IDEPP».
 - El titular debe ser una persona con capacidad legal: mientras los socios sean menores, lo tramitan sus representantes o se espera a constituir la SAS.
 
 ## 2. Software
@@ -26,7 +26,7 @@
 - El software está protegido como obra por la **Ley 11.723 de Propiedad Intelectual** (que incluye expresamente los programas de computación desde la Ley 25.036). La protección existe desde que se crea; el **depósito en la DNDA** (Dirección Nacional del Derecho de Autor) sirve como **prueba de fecha y autoría**.
 - Se recomienda depositar la versión de la demo final (noviembre de 2026) con el código del backend, la web y el ESP32.
 - Mientras tanto, el **historial de GitHub** (commits con fecha y autor) es una prueba útil de autoría.
-- Según el acuerdo de socios, el software es de **SMAT**.
+- Según el acuerdo de socios, el software es de **IDEPP**.
 
 ## 3. Licencias de terceros que usamos
 

@@ -1,4 +1,4 @@
-// Marco de la página pública de SMAT (sin login): encabezado, contenido de cada página y pie.
+// Marco de la página pública de DROID-E3D (sin login): encabezado, contenido de cada página y pie.
 import { useEffect } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import Logo from '../Logo.jsx'
@@ -11,7 +11,7 @@ function Pie() {
         <div>
           <Logo className="size-9" />
           <p className="mt-3 max-w-xs text-sm text-zinc-500 dark:text-zinc-400">
-            Seguridad que recorre la planta. Un producto de SMAT, una división de TOUCH.
+            Seguridad que recorre la planta. Un producto de IDEPP.
           </p>
         </div>
         <div>
@@ -29,7 +29,7 @@ function Pie() {
         </div>
       </div>
       <p className="border-t border-zinc-200/70 px-4 py-5 text-center text-xs text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-        © {new Date().getFullYear()} SMAT · DROID-E3D by SMAT · una división de TOUCH
+        © {new Date().getFullYear()} IDEPP · DROID-E3D by IDEPP
       </p>
     </footer>
   )

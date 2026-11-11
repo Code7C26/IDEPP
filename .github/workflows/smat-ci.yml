@@ -1,6 +1,6 @@
-# Pruebas automáticas de DROID-E3D (SMAT). Corre solo cuando cambia src/SMAT/,
-# así no afecta al resto del repositorio de TOUCH.
-name: SMAT · DROID-E3D pruebas
+# Pruebas automáticas de DROID-E3D (carpeta src/SMAT). Corre solo cuando cambia src/SMAT/,
+# así no afecta al resto del repositorio (TOUCH-ID).
+name: DROID-E3D · pruebas
 
 on:
   pull_request:

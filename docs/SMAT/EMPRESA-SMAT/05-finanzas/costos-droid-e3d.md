@@ -75,7 +75,7 @@ Valor hora de referencia: **USD 8** (desarrollador junior).
 
 > **Cambio del 08/10/2026:** el servidor ya no se prorratea por cliente. PythonAnywhere eliminó el plan de USD 5 y el
 > más barato pasó a costar **USD 10 por mes** (un solo servidor para todos los clientes), así que ahora es un **costo
-> fijo** de SMAT junto con el dominio, los registros legales y las horas de mantenimiento de la plataforma. Detalle con
+> fijo** de IDEPP junto con el dominio, los registros legales y las horas de mantenimiento de la plataforma. Detalle con
 > fuentes en `../../documentacion-comercial/01-viabilidad-comercial.md`.
 
 ## Cómo bajar costos más adelante

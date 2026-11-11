@@ -10,7 +10,7 @@
 
 ## CONTRATO DE SERVICIO DROID-E3D
 
-**Entre** [SMAT / razón social], con domicilio en [ ], en adelante **«el Prestador»**, **y** [razón social del cliente], CUIT [ ], con domicilio en [ ], representada por [ ], en adelante **«el Cliente»**, se acuerda:
+**Entre** [IDEPP / razón social], con domicilio en [ ], en adelante **«el Prestador»**, **y** [razón social del cliente], CUIT [ ], con domicilio en [ ], representada por [ ], en adelante **«el Cliente»**, se acuerda:
 
 ### 1. Objeto
 El Prestador brinda al Cliente el servicio de control automático del uso de equipos de protección personal (EPP) mediante el sistema **DROID-E3D** (robot, servidor de IA, cortes de máquina y plataforma web), en la planta ubicada en [ ].

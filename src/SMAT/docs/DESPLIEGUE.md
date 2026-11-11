@@ -54,11 +54,11 @@ la segunda no hace nada. Si ya tenés la dirección en un archivo de variables, 
 
 ## 3. Render: publicar la web (una sola vez)
 
-1. Entrá a https://render.com → **Get Started** → **GitHub**, y dale acceso al repo `Code7C26/TOUCH-ID`.
+1. Entrá a https://render.com → **Get Started** → **GitHub**, y dale acceso al repo `Code7C26/IDEPP`.
    > El repo es privado y es de la organización **Code7C26**. Si Render no lo muestra, un administrador de la
    > organización tiene que aprobar la app de Render (GitHub → *Settings* → *Applications*, o el pedido que
    > aparece al conectar).
-2. **New** → **Web Service** → elegí `Code7C26/TOUCH-ID` y completá:
+2. **New** → **Web Service** → elegí `Code7C26/IDEPP` y completá:
 
    | Campo | Valor |
    |---|---|

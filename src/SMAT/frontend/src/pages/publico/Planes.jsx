@@ -14,8 +14,8 @@ const PLANES = [
   },
   {
     nombre: 'Plan Servicio', recomendado: false, precio: 'USD 260', unidad: 'por mes', abono: 'Mínimo 12 meses · desde 2028',
-    descripcion: 'El equipo es de SMAT: pagás una cuota mensual con todo incluido, sin inversión inicial.',
-    incluye: ['Equipo de SMAT (robot, corte y servidor de IA)', 'Instalación', 'Plataforma, soporte y mantenimiento', 'Sin pago inicial'],
+    descripcion: 'El equipo es de IDEPP: pagás una cuota mensual con todo incluido, sin inversión inicial.',
+    incluye: ['Equipo de IDEPP (robot, corte y servidor de IA)', 'Instalación', 'Plataforma, soporte y mantenimiento', 'Sin pago inicial'],
     boton: 'Quiero que me avisen',
   },
 ]

@@ -101,7 +101,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 ### 6.1 Forma de trabajo
 
 - **Planificación por fases:** el trabajo se dividió en fases y tareas en `src/SMAT/docs/PLAN.md`. Cada tarea se marca cuando está terminada.
-- **GitHub:** repositorio `Code7C26/TOUCH-ID` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 02/11 hubo **31 issues** de SMAT (**27 cerrados**).
+- **GitHub:** repositorio `Code7C26/IDEPP` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 02/11 hubo **31 issues** de IDEPP (**27 cerrados**).
 - **Ramas y Pull Requests:** cada socio trabaja en su rama (`SMAT-web`, `SMAT-hardware`, `SMAT-empresa`) y los cambios entran a `main` solo con un Pull Request. Hasta el 02/11 se integraron **24 Pull Requests** y **54 commits**.
 - **Pruebas automáticas en cada cambio:** GitHub Actions corre todas las pruebas antes de aceptar un Pull Request (ver sección 7). Hasta el 02/11 corrió **39 veces**.
 - **Registro:** una bitácora semanal (`docs/BITACORA.md`) y las decisiones técnicas por escrito (`docs/decisiones/`).
@@ -119,7 +119,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 | T · Pruebas | 07/10 | Pruebas automáticas del backend y de la web, corriendo en GitHub Actions |
 | R · Rediseño | 07/10 | Estilo de aplicación profesional: barra lateral, avisos flotantes, tablas ordenables y mapa con íconos |
 | 6 · IA y reconocimiento facial | 07 y 08/10 | Foto de evidencia, fotos de rostro con consentimiento y conexión con el servidor de IA de Morena |
-| L · Página pública | 08/10 | Página de SMAT con capturas reales y planes |
+| L · Página pública | 08/10 | Página de IDEPP con capturas reales y planes |
 | 7 · Tiempo real | 08/10 | Cartel y sonido de alertas, web instalable y notificaciones push |
 | 8 · Reportes | 09/10 | Gráficos, ranking de cumplimiento, descargas en CSV y PDF mensual para la ART, comentarios y auditoría |
 | 9 · Pulido y publicación | 15 al 22/10 | Revisión de todas las pantallas, guía de la demo local y preparación de la versión de internet en Render + Supabase |
@@ -141,9 +141,9 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 - **Mis alertas:** su historial, con la foto de cada alerta y la posibilidad de comentar.
 - **Mi perfil:** sus datos, el tema de la pantalla, sus fotos de rostro (con consentimiento) y las notificaciones.
 
-**Público** (captura 1 del anexo): página de SMAT que presenta el producto, cómo funciona, los planes y el contacto.
+**Público** (captura 1 del anexo): página de IDEPP que presenta el producto, cómo funciona, los planes y el contacto.
 
-**Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot SMAT 3D» (el modelo del robot), «SMAT en la fábrica» (una simulación del recorrido) y el juego «Patrulla SMAT», donde se maneja el robot por la planta. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
+**Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot DROID-E3D 3D» (el modelo del robot), «DROID-E3D en la fábrica» (una simulación del recorrido) y el juego «Patrulla DROID-E3D», donde se maneja el robot por la planta. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
 
 ### 6.4 Integración con el hardware y la IA
 
@@ -233,7 +233,7 @@ Están en la carpeta `capturas/`, junto a este archivo. Se tomaron con **datos d
 
 | N.º | Archivo | Qué muestra |
 |---|---|---|
-| 1 | `01-pagina-publica.png` | Página pública de SMAT (PC) |
+| 1 | `01-pagina-publica.png` | Página pública de IDEPP (PC) |
 | 2 | `02-panel-encargado.png` | Panel del encargado: indicadores, mapa de la fábrica, robot y últimas alertas |
 | 3 | `03-incidencias.png` | Lista de incidencias con filtros |
 | 4 | `04-control-robot.png` | Control del robot: órdenes, ruta y video |
@@ -249,7 +249,7 @@ Están en la carpeta `capturas/`, junto a este archivo. Se tomaron con **datos d
 | Qué | Dónde |
 |---|---|
 | Tablero Kanban con las tareas | https://github.com/orgs/Code7C26/projects/36 |
-| Pull Requests integrados | https://github.com/Code7C26/TOUCH-ID/pulls?q=is%3Apr+is%3Amerged+head%3ASMAT |
-| Pruebas automáticas en verde | https://github.com/Code7C26/TOUCH-ID/actions/workflows/smat-ci.yml |
-| Issues de SMAT | https://github.com/Code7C26/TOUCH-ID/issues?q=label%3Asmat%3Aweb |
-| Historial de commits | https://github.com/Code7C26/TOUCH-ID/commits/main/src/SMAT |
+| Pull Requests integrados | https://github.com/Code7C26/IDEPP/pulls?q=is%3Apr+is%3Amerged+head%3ASMAT |
+| Pruebas automáticas en verde | https://github.com/Code7C26/IDEPP/actions/workflows/smat-ci.yml |
+| Issues de IDEPP | https://github.com/Code7C26/IDEPP/issues?q=label%3Asmat%3Aweb |
+| Historial de commits | https://github.com/Code7C26/IDEPP/commits/main/src/SMAT |
