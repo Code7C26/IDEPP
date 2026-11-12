@@ -96,7 +96,7 @@ Remove-NetFirewallRule -DisplayName "DROID-E3D (puerto 5000)"
 | IA en la PC de Morena | `DROID_URL=http://IP:5000/api`, `YOLO_API_KEY`, `URL_CAMARA_CELULAR`, `URL_ESP32_ALERTA` | `servidor_ia/.env` (copia de `.env.example`) |
 | IA en la misma notebook | Solo `URL_CAMARA_CELULAR` y `URL_ESP32_ALERTA`: la clave la lee de `backend/.env` | `servidor_ia/.env` |
 | Zona de las alertas | `DROID_ZONA_ID=1` si el robot no informa en qué zona está (ver abajo) | `servidor_ia/.env` |
-| Video en vivo | La URL de la cámara: `http://<IP-del-celular-cámara>:8080/video` | Web → **Robot** → Dirección del video |
+| Video en vivo | La URL de la cámara, que termina en `/video`: la de la ESP32-CAM del robot o, con un celular, la de IP Webcam (`http://<IP-del-celular>:8080/video`) | Web → **Robot** → Dirección del video |
 
 Las claves (`ROBOT_API_KEY`, `YOLO_API_KEY`) están en `backend\.env` y se pasan **por fuera de GitHub**.
 

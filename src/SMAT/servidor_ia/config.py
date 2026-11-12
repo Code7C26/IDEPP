@@ -32,7 +32,7 @@ def dato(nombre, por_defecto=""):
     return os.getenv(nombre) or _ENV.get(nombre) or por_defecto
 
 
-# IP que muestra la app IP Webcam (con /video al final)
+# Video de la cámara del robot: la ESP32-CAM o un celular con la app IP Webcam (con /video al final)
 URL_CAMARA_CELULAR = dato("URL_CAMARA_CELULAR", "http://192.168.0.100:8080/video")
 # IP que muestra la pantalla del robot (con /alerta_seguridad al final)
 URL_ESP32_ALERTA = dato("URL_ESP32_ALERTA", "http://192.168.0.101/alerta_seguridad")

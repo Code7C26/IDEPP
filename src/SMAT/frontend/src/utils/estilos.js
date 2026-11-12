@@ -6,7 +6,6 @@ export const campoConError = '!border-alerta focus:!border-alerta focus:!ring-al
 
 const boton = 'inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium whitespace-nowrap transition disabled:pointer-events-none disabled:opacity-50'
 export const botonPrimario = `${boton} bg-zinc-900 text-white shadow-sm hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white`
-export const botonMarca = `${boton} bg-marca text-tinta shadow-sm hover:bg-marca-oscuro`
 export const botonSecundario = `${boton} border border-zinc-200 bg-white text-zinc-700 shadow-xs hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800`
 export const botonFantasma = `${boton} text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-white`
 // Peligro suave (acciones en listas) y fuerte (confirmar algo que no se puede deshacer fácil)

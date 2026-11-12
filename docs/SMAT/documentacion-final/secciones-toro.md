@@ -164,12 +164,12 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 
 ### 7.1 Pruebas automáticas
 
-El proyecto tiene **255 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
+El proyecto tiene **257 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
 
 | Tipo | Cantidad | Herramienta | Qué prueban |
 |---|---|---|---|
 | **De la API** (backend) | 124 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot y máquinas, reportes, comentarios, auditoría, notificaciones, conexión con la IA y robustez. Corren dos veces: contra MySQL y contra Postgres, el motor de la versión de internet |
-| **De punta a punta** (navegador real) | 131 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
+| **De punta a punta** (navegador real) | 133 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
 
 Las pruebas usan **bases de datos propias** (`robot_db_test` y `robot_db_e2e`): nunca tocan los datos reales.
 

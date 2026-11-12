@@ -12,7 +12,7 @@
 | `smat.com.ar` | 2 | Si está libre, para la empresa |
 
 - Se registra en **NIC Argentina** (`nic.ar`) con la clave fiscal de un adulto responsable mientras los socios sean menores. Antes de comprar, verificar la disponibilidad y el precio vigente.
-- Mientras no haya dominio propio, la demo online usa los dominios gratuitos del hosting (PythonAnywhere para la API y Vercel o Netlify para la web).
+- Mientras no haya dominio propio, la demo online usa el dominio gratuito del hosting (Render sirve la API y la web en una dirección `.onrender.com`).
 
 ## Correo
 

@@ -9,7 +9,7 @@
 | Responsabilidades | Decide solo | Consulta con Morena |
 |---|---|---|
 | Backend, base de datos y web de DROID-E3D | Diseño interno del código, librerías aprobadas en el plan, orden de las tareas de la web | Cambios en `docs/API.md` que afecten al robot o a la IA |
-| Despliegue (PythonAnywhere + Vercel/Netlify) | Configuración técnica del servidor | Gastos de hosting |
+| Despliegue (Render + Supabase) | Configuración técnica del servidor | Gastos de hosting |
 | Registrar las tareas del profe en GitHub y la bitácora semanal | Cómo se documenta | — |
 
 ## Morena · Hardware, IA y compras de componentes
