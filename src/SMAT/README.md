@@ -42,7 +42,7 @@ Más capturas en [`docs/SMAT/documentacion-final/capturas/`](../../docs/SMAT/doc
 
 ## Estado técnico (04/11/2026)
 
-Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra MySQL y contra Postgres, y **131 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 17 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
+Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra MySQL y contra Postgres, y **133 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 17 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
 
 | Área | Estado |
 |---|---|
@@ -163,7 +163,7 @@ backend\venv\Scripts\activate
 pip install -r backend\requirements-dev.txt      # una sola vez
 
 python -m pytest backend\tests        # 124 pruebas de la API (~2 min), usan la base robot_db_test
-python tests\correr_e2e.py            # 131 pruebas con navegador real (~9 min), usan robot_db_e2e
+python tests\correr_e2e.py            # 133 pruebas con navegador real (~9 min), usan robot_db_e2e
 ```
 Las pruebas **nunca tocan la base de desarrollo** (`robot_db`). Las de punta a punta levantan su propio backend (puerto 5001) y su propia web (5174), y prueban también el robot con el ESP32 simulado.
 En GitHub corren solas en cada Pull Request (`.github/workflows/smat-ci.yml`): si algo se rompe, el PR muestra una cruz roja.

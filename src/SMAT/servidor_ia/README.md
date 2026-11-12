@@ -1,6 +1,6 @@
 # Servidor de IA · DROID-E3D
 
-Hecho por **Morena**. Mira la cámara del robot (celular con IP Webcam), detecta con YOLO si alguien
+Hecho por **Morena**. Mira la cámara del robot (la ESP32-CAM, o un celular con IP Webcam), detecta con YOLO si alguien
 no tiene casco, reconoce de quién es la cara y avisa. Desde el 08/10/2026 cada alerta llega también
 a la **web de DROID-E3D**, con la foto del momento.
 

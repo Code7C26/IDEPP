@@ -13,7 +13,7 @@
 | **5. Fuentes de ingresos** | (a) Venta del robot con instalación (pago único). (b) **Abono mensual** de la plataforma web, soporte y actualizaciones. (c) Plan alquiler: todo incluido por mes, sin pago inicial. Ver `../05-finanzas/precios.md`. |
 | **6. Recursos clave** | Diseño del robot y su software; modelo de IA entrenado para EPP; plataforma web; conocimiento de los socios en software, electrónica e IA. |
 | **7. Actividades clave** | Desarrollo y mejora del software y la IA; armado y prueba de robots; instalación y configuración de zonas en cada planta; soporte. |
-| **8. Socios clave** | el equipo de TOUCH-ID, el otro producto de IDEPP (venta conjunta); proveedores de electrónica; consultoras de higiene y seguridad; la escuela (laboratorio y supervisión); hosting (PythonAnywhere, Vercel). |
+| **8. Socios clave** | el equipo de TOUCH-ID, el otro producto de IDEPP (venta conjunta); proveedores de electrónica; consultoras de higiene y seguridad; la escuela (laboratorio y supervisión); hosting (Render y Supabase). |
 | **9. Estructura de costos** | Componentes del robot y del servidor de IA; hosting y dominio; traslados para instalación y mantenimiento; marketing; repuestos y garantías. Ver `../05-finanzas/costos-droid-e3d.md`. |
 
 ## En una línea

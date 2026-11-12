@@ -66,11 +66,11 @@ reactive.
 | Tecnología | Uso |
 |---|---|
 | ESP32 (robot y máquinas) | Movimiento del robot y relé que corta la máquina |
-| Cámara (celular con IP Webcam) | Video de cada zona |
+| Cámara del robot (ESP32-CAM) | Video de cada zona |
 | Python · YOLO · OpenCV | Detección de EPP y reconocimiento facial (`src/SMAT/servidor_ia/`) |
 | Python · Flask · MySQL | Backend y base de datos (`src/SMAT/backend/`) |
 | React · Vite · Tailwind | Plataforma web y página pública (`src/SMAT/frontend/`) |
-| Pytest · Playwright · GitHub Actions | 76 pruebas de la API y 21 en el navegador en cada cambio |
+| Pytest · Playwright · GitHub Actions | 124 pruebas de la API y 133 en el navegador en cada cambio |
 
 ## 📁 Estructura de IDEPP en el repositorio
 
