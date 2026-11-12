@@ -22,6 +22,7 @@ Documentos sueltos que se juntan en el documento final al cerrar. Cada fila dice
 | Archivo | Sección | Agregado |
 |---|---|---|
 | [`lluvia-de-ideas.pdf`](../EMPRESA-SMAT/01-identidad/lluvia-de-ideas.pdf) | 3 · Ideación | 11/11/2026 |
+| [`06-match-tecnologico.pdf`](../documentacion-comercial/pdf/06-match-tecnologico.pdf) | 3 · Ideación (Match con tecnología) | 12/11/2026 |
 
 ## Cómo pasarlo a Google Docs o PDF
 
