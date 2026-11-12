@@ -22,7 +22,7 @@ Las máquinas **no usan usuario/contraseña**: mandan una clave en el header `X-
 | Servidor de IA (YOLO) | `YOLO_API_KEY` | `POST /incidents`, `GET /rostros`, `GET /zones` |
 | ESP32 (robot y máquinas) | `ROBOT_API_KEY` | `/robot/comando-pendiente`, `/robot/reporte`, `/zones/<id>/maquina`, `GET /zones` |
 
-Las claves las genera el backend y **nunca se suben al repo**. Pedísela a Toro por fuera de GitHub.
+Las claves las genera el backend y **nunca se suben al repo**. Pedísela a Tiziano por fuera de GitHub.
 Sin clave → `401`. Clave equivocada → `401`. Servidor sin clave configurada → `503`.
 
 ---

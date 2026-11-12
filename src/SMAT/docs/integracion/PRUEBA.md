@@ -1,9 +1,9 @@
 # Prueba de integración real (Fase 6.5)
 
 Guía para la primera prueba con el hardware de verdad: robot, relé, cámara y YOLO de Morena
-conectados a la web de Toro. Se completa **el día de la prueba** y se sube al repo con los resultados.
+conectados a la web de Tiziano. Se completa **el día de la prueba** y se sube al repo con los resultados.
 
-**Fecha:** ____ · **Participantes:** Toro, Morena · **Lugar:** ____
+**Fecha:** ____ · **Participantes:** Tiziano, Morena · **Lugar:** ____
 
 ## Antes de empezar
 

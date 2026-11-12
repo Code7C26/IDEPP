@@ -47,7 +47,7 @@ con `registrar_trabajador.py`. `modelo_cascos.pt` sí está en el repo.
 ### Conexión con la web
 
 - **Misma PC que el backend:** no hay que configurar nada; toma la clave de `../backend/.env`.
-- **Otra PC:** completá en tu `.env` (la clave te la pasa Toro por fuera de GitHub):
+- **Otra PC:** completá en tu `.env` (la clave te la pasa Tiziano por fuera de GitHub):
   ```
   DROID_URL=http://<IP-de-la-PC-del-backend>:5000/api
   YOLO_API_KEY=<la clave>

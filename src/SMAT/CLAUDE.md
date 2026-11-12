@@ -1,7 +1,7 @@
 # DROID-E3D · app web (src/SMAT)
 
 **Jerarquía:** IDEPP (empresa de 5 socios, repo `Code7C26/IDEPP`) → dos productos: TOUCH-ID (Alexandra, Sol y Lola)
-y DROID-E3D (Toro y Morena = robot + web). En la web de DROID-E3D solo se muestra el equipo Toro y Morena. Marca: "DROID-E3D by IDEPP".
+y DROID-E3D (Tiziano y Morena = robot + web). En la web de DROID-E3D solo se muestra el equipo Tiziano y Morena. Marca: "DROID-E3D by IDEPP".
 
 Robot con ruedas y ESP32-S3 (desde el 29/10) recorre la fábrica, una cámara + IA YOLO detecta si los empleados usan su EPP
 (casco, guantes, lentes y chaleco con `modelo_epp.pt`, en la rama `SMAT-hardware`) e identifica al empleado por reconocimiento facial. Si no lo usan:

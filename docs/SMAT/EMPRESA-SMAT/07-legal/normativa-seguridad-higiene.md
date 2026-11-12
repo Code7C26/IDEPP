@@ -1,6 +1,6 @@
 # Normativa de seguridad e higiene
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** el marco legal que justifica DROID-E3D y que debemos respetar.
 

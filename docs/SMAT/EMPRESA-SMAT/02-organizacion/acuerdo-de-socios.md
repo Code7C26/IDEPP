@@ -12,7 +12,7 @@
 
 | Socio | Equipo | Área |
 |---|---|---|
-| **Tiziano Tomás Donato (Toro)** | DROID-E3D | Software y web |
+| **Tiziano Tomás Donato** | DROID-E3D | Software y web |
 | **Morena Boeris** | DROID-E3D | Hardware e inteligencia artificial |
 | **Alexandra Mía Prado Vidal** | TOUCH-ID | A completar por el equipo de TOUCH-ID |
 | **María Sol Kassar** | TOUCH-ID | A completar por el equipo de TOUCH-ID |

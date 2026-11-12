@@ -18,7 +18,7 @@
 |---|---|
 | **Producto** | DROID-E3D |
 | **Agencia** | IDEPP (5 socios; dos productos: TOUCH-ID y DROID-E3D) |
-| **Equipo** | **Toro** (software y web) · **Morena** (hardware e IA) |
+| **Equipo** | **Tiziano** (software y web) · **Morena** (hardware e IA) |
 | **Tipo de proyecto** | Hardware y software: robot con cámara + servidor de IA + plataforma web |
 | **Estado** | MVP al **75 %** (08/10/2026): la plataforma y la IA ya funcionan juntas; falta la prueba con el robot y el relé reales |
 | **Materias** | FAT y Emprendimiento · profesora Tamara Piccinni |

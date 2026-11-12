@@ -1,6 +1,6 @@
 # Datos personales y consentimiento
 
-> **Estado:** completo (v1.1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 22/10/2026
+> **Estado:** completo (v1.1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 22/10/2026
 
 **Para qué sirve:** DROID-E3D guarda fotos de rostros y de evidencia: hay que tratarlas según la ley.
 

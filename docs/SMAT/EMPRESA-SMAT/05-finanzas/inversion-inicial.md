@@ -1,6 +1,6 @@
 # Inversión inicial
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** cuánto hace falta para tener el prototipo y la demo antes de vender, y quién lo pone.
 
@@ -31,7 +31,7 @@
 
 | Socio | Aporte | Cómo |
 |---|---|---|
-| Toro | USD 370 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
+| Tiziano | USD 370 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
 | Morena | USD 370 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
 
 Según el acuerdo de socios, si uno pone de más, se registra como préstamo a IDEPP.

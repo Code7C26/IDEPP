@@ -1,5 +1,5 @@
 name: "DROID-E3D · Decisión entre socios"
-description: Algo que Toro y Morena tienen que decidir juntos
+description: Algo que Tiziano y Morena tienen que decidir juntos
 title: "[Decisión] "
 labels: ["smat:decision"]
 body:
@@ -21,7 +21,7 @@ body:
     attributes:
       label: Votos
       value: |
-        - Toro:
+        - Tiziano:
         - Morena:
   - type: input
     id: resultado

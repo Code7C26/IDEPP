@@ -11,7 +11,7 @@
 | | **TOUCH-ID** | **DROID-E3D** |
 |---|---|---|
 | Qué es | Asistencia por huella dactilar | Robot que controla el uso de EPP en la fábrica |
-| Equipo | Alexandra, Sol y Lola | Tiziano (Toro) y Morena |
+| Equipo | Alexandra, Sol y Lola | Tiziano y Morena |
 | Carpetas en el repo | `assets/`, `design/`, `docs/`, `src/` → subcarpeta `TOUCH-ID/` | Las mismas → subcarpeta `SMAT/` (`src/SMAT/` web e IA, `docs/SMAT/` empresa) |
 
 > Las carpetas y ramas de DROID-E3D todavía se llaman `SMAT` (el nombre anterior) porque el servidor y las pruebas automáticas dependen de esas rutas. Se renombran después de la defensa.

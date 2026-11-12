@@ -1,6 +1,6 @@
 # Plan de marketing
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** cómo damos a conocer DROID-E3D y conseguimos el primer cliente.
 
@@ -27,10 +27,10 @@
 | Canal | Acción | Responsable |
 |---|---|---|
 | **Demo en vivo** | Llevar el robot a la escuela y a 2 eventos; grabar todo | Morena |
-| **Video demo** | 1 minuto: alguien se saca el casco → alerta en el celular → la máquina se detiene | Toro y Morena |
-| **LinkedIn** | 1 publicación por semana; contacto directo con responsables de seguridad e higiene | Toro |
+| **Video demo** | 1 minuto: alguien se saca el casco → alerta en el celular → la máquina se detiene | Tiziano y Morena |
+| **LinkedIn** | 1 publicación por semana; contacto directo con responsables de seguridad e higiene | Tiziano |
 | **Instagram** | 2 videos cortos por semana del robot y del proceso | Morena |
-| **Web pública** | Página con «Pedir demo» (Fase L de la web) | Toro |
+| **Web pública** | Página con «Pedir demo» (Fase L de la web) | Tiziano |
 | **Consultoras de higiene y seguridad** | Presentar el producto a 3 consultoras para que lo recomienden | Los dos |
 | **Red cercana** | Contactar familiares y conocidos que trabajan en fábricas | Los dos |
 

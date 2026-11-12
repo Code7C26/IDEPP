@@ -1,7 +1,7 @@
 # Dimensión del mercado: ¿cuántos clientes reales tenemos? · DROID-E3D
 
 > **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
-> **Equipo:** Toro · Morena · **Actualizado:** 08/10/2026
+> **Equipo:** Tiziano · Morena · **Actualizado:** 08/10/2026
 
 **Nuestro cliente:** una PyME industrial con producción en planta (metalúrgica, plásticos, muebles, alimentos,
 autopartes) de **20 a 200 empleados**, que necesita controlar el uso de casco, guantes, lentes y chaleco.

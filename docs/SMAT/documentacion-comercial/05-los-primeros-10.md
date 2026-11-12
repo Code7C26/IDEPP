@@ -1,7 +1,7 @@
 # Operación «Los primeros 10» · DROID-E3D
 
 > **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
-> **Equipo:** Toro · Morena · **Actualizado:** 08/10/2026
+> **Equipo:** Tiziano · Morena · **Actualizado:** 08/10/2026
 
 **Estrategia elegida:** **venta directa a empresas.** Nuestro cliente es una fábrica: nadie compra un robot de
 seguridad por un anuncio en Instagram. Hay que pedir una reunión con quien decide, llevar el sistema funcionando y

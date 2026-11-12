@@ -14,7 +14,7 @@ body:
     id: responsable
     attributes:
       label: Socio responsable
-      options: [Toro, Morena]
+      options: [Tiziano, Morena]
     validations:
       required: true
   - type: textarea

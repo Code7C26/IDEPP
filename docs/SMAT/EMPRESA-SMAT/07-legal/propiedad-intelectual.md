@@ -1,6 +1,6 @@
 # Propiedad intelectual
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** cómo se protegen el nombre, el logo y el software, y qué licencias de terceros usamos.
 

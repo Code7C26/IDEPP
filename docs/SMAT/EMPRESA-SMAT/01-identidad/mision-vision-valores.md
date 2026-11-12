@@ -1,6 +1,6 @@
 # Misión, visión y valores
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** dice qué es IDEPP y hacia dónde va. Lo usan la web pública (página «Nosotros») y el pitch.
 

@@ -1,6 +1,6 @@
 # Proyección a 3 años (2027 · 2028 · 2029)
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 08/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 08/10/2026
 
 **Para qué sirve:** estimación de ventas, gastos y resultado. Es una estimación: los supuestos están escritos para poder defenderla.
 

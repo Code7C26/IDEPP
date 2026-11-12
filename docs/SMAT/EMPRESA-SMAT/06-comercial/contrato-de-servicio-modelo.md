@@ -1,6 +1,6 @@
 # Contrato de servicio (modelo)
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** modelo de contrato para el abono mensual y el mantenimiento de DROID-E3D.
 
