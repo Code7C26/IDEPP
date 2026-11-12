@@ -1,6 +1,6 @@
 # Roles y responsabilidades
 
-> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 12/11/2026
 
 **Para qué sirve:** aclara qué hace cada socio y qué decide sin consultar.
 
@@ -16,7 +16,7 @@
 
 | Responsabilidades | Decide solo | Consulta con Tiziano |
 |---|---|---|
-| Robot con ruedas, ESP32-S3 del robot, ESP32 de la máquina, relé | Componentes y armado, siempre dentro del presupuesto | Compras de más de USD 50 |
+| Robot con ruedas, ESP32-S3 del robot, ESP32 de la máquina, relé | Componentes y armado, siempre dentro del presupuesto | Compras de más de $75.000 |
 | Cámara, servidor YOLO y reconocimiento facial | Modelo de IA y su entrenamiento | Qué datos de empleados se usan (ver `../07-legal/datos-personales.md`) |
 | Pruebas de integración con el backend | Cómo y cuándo prueba | Cambios en el contrato de la API |
 

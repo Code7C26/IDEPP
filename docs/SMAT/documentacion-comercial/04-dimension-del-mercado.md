@@ -1,7 +1,7 @@
 # Dimensión del mercado: ¿cuántos clientes reales tenemos? · DROID-E3D
 
 > **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
-> **Equipo:** Tiziano · Morena · **Actualizado:** 08/10/2026
+> **Equipo:** Tiziano · Morena · **Actualizado:** 12/11/2026
 
 **Nuestro cliente:** una PyME industrial con producción en planta (metalúrgica, plásticos, muebles, alimentos,
 autopartes) de **20 a 200 empleados**, que necesita controlar el uso de casco, guantes, lentes y chaleco.
@@ -18,11 +18,11 @@ autopartes) de **20 a 200 empleados**, que necesita controlar el uso de casco, g
 
 ### En dinero
 
-| Nivel | Industrias | Ingreso posible del primer año (× USD 3.040 por cliente) |
+| Nivel | Industrias | Ingreso posible del primer año (× $1.610.000 por cliente) |
 |---|---|---|
-| TAM | 48.140 | ≈ USD 146 millones |
-| SAM | ≈ 495 | ≈ USD 1,5 millones |
-| SOM 2027 | 3 | USD 6.760 (con un cliente a precio piloto) |
+| TAM | 48.140 | ≈ $77.500 millones (≈ USD 49 millones) |
+| SAM | ≈ 495 | ≈ $797 millones (≈ USD 508.000) |
+| SOM 2027 | 3 | $3.365.000 (con un cliente a precio piloto) |
 
 ### Supuestos a validar
 

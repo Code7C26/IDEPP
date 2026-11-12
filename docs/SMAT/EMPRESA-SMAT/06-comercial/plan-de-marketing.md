@@ -1,6 +1,6 @@
 # Plan de marketing
 
-> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 12/11/2026
 
 **Para qué sirve:** cómo damos a conocer DROID-E3D y conseguimos el primer cliente.
 
@@ -46,9 +46,9 @@
 
 ## Presupuesto
 
-| Ítem | USD |
+| Ítem | $ |
 |---|---|
-| Traslados para reuniones y demos | 150 |
-| Impresiones (folletos, carteles para la demo) | 50 |
-| Publicidad paga en LinkedIn (prueba) | 100 |
-| **Total 2027** | **300** (coincide con la proyección) |
+| Traslados para reuniones y demos | 150.000 |
+| Impresiones (folletos, carteles para la demo) | 50.000 |
+| Publicidad paga en LinkedIn (prueba) | 100.000 |
+| **Total 2027** | **300.000** (coincide con la proyección) |

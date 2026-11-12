@@ -142,7 +142,7 @@ notificaciones, porque el celular solo las permite con https.
 ## Alternativa: PythonAnywhere (necesita el plan pago)
 
 Desde 2026, PythonAnywhere ya no da MySQL ni conexiones a bases externas en el plan gratis. Con el plan pago
-(*Hacker*, USD 5 por mes) se puede usar MySQL como en la PC:
+(el más barato, *Developer*, cuesta USD 10 por mes) se puede usar MySQL como en la PC:
 
 1. **Databases:** contraseña de MySQL → **Initialize MySQL**, y crear la base `droid`.
 2. En la PC: `npm run build` en `frontend` y `python backend\tools\armar_paquete.py` (crea `droid-e3d.tgz`).

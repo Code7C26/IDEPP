@@ -12,15 +12,15 @@ def test_inicio_y_secciones(base_limpia, abrir):
     assert pag.get_by_role("heading", level=1).inner_text().startswith("Seguridad que")
     assert pag.title().startswith("DROID-E3D by IDEPP")
     assert pag.get_by_role("img", name="Panel del encargado").first.is_visible()      # captura real de la app
-    for seccion, titulo in (("Cómo funciona", "Un robot, una IA"), ("Planes", "Menos que unos pocos"),
+    for seccion, titulo in (("Cómo funciona", "Un robot, una IA"), ("Planes", "Menos que dos meses"),
                             ("Nosotros", "Que cada trabajador"), ("Contacto", "Pedí una demo")):
         pag.get_by_role("navigation", name="Principal").get_by_role("link", name=seccion).click()
         pag.wait_for_timeout(400)
         assert pag.get_by_role("heading", level=1).inner_text().startswith(titulo)
         assert pag.title().startswith(seccion)
-    assert pag.get_by_text("USD 2.200").count() == 0                # (estamos en Contacto)
+    assert pag.get_by_text("$950.000").count() == 0                # (estamos en Contacto)
     pag.goto(pag.url.replace("/contacto", "/planes"))
-    assert pag.get_by_text("USD 2.200").is_visible() and pag.get_by_text("+ USD 70 por mes").is_visible()
+    assert pag.get_by_text("$950.000").is_visible() and pag.get_by_text("+ $55.000 por mes").is_visible()
     assert not pag.errores
 
 
