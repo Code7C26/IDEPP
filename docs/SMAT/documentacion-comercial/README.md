@@ -10,7 +10,7 @@ acá en GitHub) y en PDF con carátula, listo para subir a Classroom.
 | 3 | Finanzas de la agencia: punto de equilibrio (17/09, entrega 01/10) | [03-punto-de-equilibrio.md](03-punto-de-equilibrio.md) | [PDF](pdf/03-punto-de-equilibrio.pdf) | `https://github.com/Code7C26/IDEPP/blob/main/docs/SMAT/documentacion-comercial/pdf/03-punto-de-equilibrio.pdf` |
 | 4 | Dimensión del mercado: TAM, SAM y SOM (01/10) | [04-dimension-del-mercado.md](04-dimension-del-mercado.md) | [PDF](pdf/04-dimension-del-mercado.pdf) | `https://github.com/Code7C26/IDEPP/blob/main/docs/SMAT/documentacion-comercial/pdf/04-dimension-del-mercado.pdf` |
 | 5 | Estrategias de adquisición: «Operación: Los primeros 10» | [05-los-primeros-10.md](05-los-primeros-10.md) | [PDF](pdf/05-los-primeros-10.pdf) | `https://github.com/Code7C26/IDEPP/blob/main/docs/SMAT/documentacion-comercial/05-los-primeros-10.md` |
-| 6 | Match Tecnológico (con FAT): viabilidad, si ya existe, tecnología y cómo lo resolvemos | Solo en PDF | [PDF](pdf/06-match-tecnologico.pdf) | `https://github.com/Code7C26/IDEPP/blob/main/docs/SMAT/documentacion-comercial/pdf/06-match-tecnologico.pdf` |
+| 6 | Match Tecnológico (con FAT): viabilidad, si ya existe, tecnología y cómo lo resolvemos | [06-match-tecnologico.md](06-match-tecnologico.md) | [PDF](pdf/06-match-tecnologico.pdf) | `https://github.com/Code7C26/IDEPP/blob/main/docs/SMAT/documentacion-comercial/pdf/06-match-tecnologico.pdf` |
 
 **Todas usan los mismos números:** costos en `01` (con fuentes), precio y punto de equilibrio en `03`, mercado en
 `04`. El detalle completo de la empresa está en [`../EMPRESA-SMAT/`](../EMPRESA-SMAT/).
