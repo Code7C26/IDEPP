@@ -40,7 +40,7 @@ Socios: **Toro** (software y web) y **Morena** (hardware e IA).
 | | [Propiedad intelectual](07-legal/propiedad-intelectual.md) | Toro | completo (v1) · orientativo |
 | | [Normativa de seguridad e higiene](07-legal/normativa-seguridad-higiene.md) | Toro | completo (v1) · orientativo |
 | | [Datos personales y consentimiento](07-legal/datos-personales.md) | Toro | completo (v1) · orientativo |
-| Análisis | [FODA](08-analisis/foda.md) | Toro | completo (v1) |
+| Análisis | [FODA del equipo (PDF)](08-analisis/foda.pdf) | Los dos | completo (v2) · con reflexión final |
 | Presentaciones | [Pitch de 1 página](09-presentaciones/pitch.md) | Toro | completo (v1) |
 | | [Guion para el jurado](09-presentaciones/guion-jurado.md) | Toro | completo (v1) |
 
