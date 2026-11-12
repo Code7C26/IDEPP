@@ -41,6 +41,7 @@ Socios: **Tiziano** (software y web) y **Morena** (hardware e IA).
 | | [Normativa de seguridad e higiene](07-legal/normativa-seguridad-higiene.md) | Tiziano | completo (v1) · orientativo |
 | | [Datos personales y consentimiento](07-legal/datos-personales.md) | Tiziano | completo (v1) · orientativo |
 | Análisis | [FODA del equipo (PDF)](08-analisis/foda.pdf) | Los dos | completo (v2) · con reflexión final |
+| | [Avance del proyecto: de KIDO a DROID-E3D (PDF)](08-analisis/avance-del-proyecto.pdf) | Los dos | completo (v1) · estado, aprendizajes de la pasantía e ideas nuevas |
 | Presentaciones | [Pitch de 1 página](09-presentaciones/pitch.md) | Tiziano | completo (v1) |
 | | [Guion para el jurado](09-presentaciones/guion-jurado.md) | Tiziano | completo (v1) |
 | | [Mini pitch: documentación inicial (PDF)](09-presentaciones/mini-pitch.pdf) | Los dos | completo (v1) · cartel |

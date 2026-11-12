@@ -25,6 +25,7 @@ Documentos sueltos que se juntan en el documento final al cerrar. Cada fila dice
 | [`06-match-tecnologico.pdf`](../documentacion-comercial/pdf/06-match-tecnologico.pdf) | 3 · Ideación (Match con tecnología) | 12/11/2026 |
 | [`foda.pdf`](../EMPRESA-SMAT/08-analisis/foda.pdf) | 3 · Ideación (FODA del equipo) | 12/11/2026 |
 | [`mini-pitch.pdf`](../EMPRESA-SMAT/09-presentaciones/mini-pitch.pdf) | 3 · Ideación (documentación inicial / mini pitch) | 12/11/2026 |
+| [`avance-del-proyecto.pdf`](../EMPRESA-SMAT/08-analisis/avance-del-proyecto.pdf) | 10 · Evaluación (balance: de KIDO a DROID-E3D, estado y pasantía) | 12/11/2026 |
 
 ## Cómo pasarlo a Google Docs o PDF
 
