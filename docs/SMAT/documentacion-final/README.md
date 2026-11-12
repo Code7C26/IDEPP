@@ -24,6 +24,7 @@ Documentos sueltos que se juntan en el documento final al cerrar. Cada fila dice
 | [`lluvia-de-ideas.pdf`](../EMPRESA-SMAT/01-identidad/lluvia-de-ideas.pdf) | 3 · Ideación | 11/11/2026 |
 | [`06-match-tecnologico.pdf`](../documentacion-comercial/pdf/06-match-tecnologico.pdf) | 3 · Ideación (Match con tecnología) | 12/11/2026 |
 | [`foda.pdf`](../EMPRESA-SMAT/08-analisis/foda.pdf) | 3 · Ideación (FODA del equipo) | 12/11/2026 |
+| [`mini-pitch.pdf`](../EMPRESA-SMAT/09-presentaciones/mini-pitch.pdf) | 3 · Ideación (documentación inicial / mini pitch) | 12/11/2026 |
 
 ## Cómo pasarlo a Google Docs o PDF
 
