@@ -1,6 +1,6 @@
 # Acuerdo de socios
 
-> **Estado:** completo (v2) · **listo para firmar** · **Responsable:** Morena · **Revisión:** los 5 socios · **Actualizado:** 10/11/2026
+> **Estado:** completo (v2) · **listo para firmar** · **Responsable:** Morena · **Revisión:** los 5 socios · **Actualizado:** 12/11/2026
 
 **Para qué sirve:** reglas claras entre los socios desde el principio, para evitar conflictos después.
 
@@ -42,7 +42,7 @@ Cada equipo pone la inversión de su producto. Si un socio aporta dinero de más
 ## 4. Decisiones
 
 - **Entre los 5, por unanimidad:** cambios a este acuerdo, ingreso o salida de un socio, nombre y logo de IDEPP, gastos comunes, venta conjunta de los dos productos.
-- **Dentro de cada equipo, por unanimidad:** precios, contratos con clientes y gastos de más de USD 200 de su producto.
+- **Dentro de cada equipo, por unanimidad:** precios, contratos con clientes y gastos de más de $300.000 de su producto.
 - **Cada socio en su área:** lo indicado en `roles-y-responsabilidades.md`.
 - **Si no hay acuerdo:** se deja la decisión por escrito en un Issue (en DROID-E3D, con la etiqueta `smat:decision`), se espera 48 horas y se vuelve a votar. Si sigue el empate, se pide la opinión del profe supervisor y se respeta.
 

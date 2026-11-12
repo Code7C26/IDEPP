@@ -52,11 +52,11 @@ Estados: `plantilla` → `borrador` → `completo (v1)` → `aprobado` (cuando l
 
 | | |
 |---|---|
-| Costo por instalación | USD 1.343 |
-| Precio (Plan Compra) | USD 2.200 + USD 70 por mes |
-| Inversión inicial | USD 740 (50 % cada socio) |
+| Costo por instalación | $567.600 (la IA corre en una PC de la fábrica) |
+| Precio (Plan Compra) | $950.000 + $55.000 por mes |
+| Inversión inicial | ≈ $590.000 (50 % cada socio) |
 | Clientes proyectados | 3 (2027) · 10 (2028) · 25 (2029) |
-| Resultado proyectado | USD 1.579 · 7.217 · 15.865 |
+| Resultado proyectado | −$363.800 · $2.480.800 · $6.606.000 |
 
 ## Cómo trabajamos
 

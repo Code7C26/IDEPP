@@ -1,6 +1,6 @@
 # Contrato de servicio (modelo)
 
-> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 12/11/2026
 
 **Para qué sirve:** modelo de contrato para el abono mensual y el mantenimiento de DROID-E3D.
 
@@ -26,7 +26,7 @@ e) Reemplazo de piezas por desgaste normal.
 Roturas por mal uso, golpes o manipulación por terceros; obras eléctricas; traslado del sistema a otra planta; ampliaciones (nuevas zonas o máquinas), que se cotizan aparte.
 
 ### 4. Precio
-Abono mensual de **USD 70** (o lo que indique la propuesta aceptada), facturado en pesos al tipo de cambio vendedor del Banco Nación del día de la factura, pagadero del 1 al 10 de cada mes. Se actualiza cada 6 meses con aviso de 30 días.
+Abono mensual de **$55.000** (o lo que indique la propuesta aceptada), pagadero del 1 al 10 de cada mes. Se actualiza cada 3 meses según el índice de precios al consumidor (IPC) del INDEC, con aviso de 30 días.
 
 ### 5. Duración y rescisión
 Plazo de **12 meses** desde la instalación, renovable automáticamente por períodos iguales. Cualquiera de las partes puede rescindir con **30 días** de aviso por escrito. Con 2 abonos impagos, el Prestador puede suspender el servicio.

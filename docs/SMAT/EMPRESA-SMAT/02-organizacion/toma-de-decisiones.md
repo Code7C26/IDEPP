@@ -1,6 +1,6 @@
 # Toma de decisiones
 
-> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 12/11/2026
 
 **Para qué sirve:** cómo deciden Tiziano y Morena, y cómo se deja constancia.
 
@@ -9,7 +9,7 @@
 | Tipo | Ejemplos | Quién decide |
 |---|---|---|
 | **Del área** | Cómo programar una pantalla, qué sensor usar | El responsable del área (ver `roles-y-responsabilidades.md`) |
-| **Compartida** | Precios, clientes, gastos de más de USD 200, cambios de producto, cambios en la API del robot | Los dos socios, por unanimidad |
+| **Compartida** | Precios, clientes, gastos de más de $300.000, cambios de producto, cambios en la API del robot | Los dos socios, por unanimidad |
 | **Del profe** | Entregas, fechas, requisitos del proyecto final | Se cumple; se registra con `/tarea-profe` |
 
 ## Cómo se decide una cuestión compartida

@@ -1,6 +1,6 @@
 # Pitch de 1 página
 
-> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 12/11/2026
 
 **Para qué sirve:** convencer en 2 minutos a un cliente, al jurado o a un inversor.
 
@@ -19,7 +19,7 @@
 
 **Por qué nosotros.** Un solo robot cubre muchas zonas (más barato que una cámara por zona), **actúa** en lugar de solo avisar, y respeta la privacidad: consentimiento, fotos solo de las alertas y por 90 días.
 
-**El negocio.** Clientes: PyMEs industriales de 20 a 200 empleados. Precio: **USD 2.200** de instalación + **USD 70 por mes**. Margen del 39 % por instalación. Meta: **25 fábricas en 2029**.
+**El negocio.** Clientes: PyMEs industriales de 20 a 200 empleados. Precio: **$950.000** de instalación + **$55.000 por mes**. Margen del 40 % por instalación. Meta: **25 fábricas en 2029**.
 
 **El equipo.** **IDEPP**: **Tiziano** (software y web) y **Morena** (hardware e IA).
 

@@ -1,4 +1,4 @@
-// Planes y precios. Números de docs/SMAT/EMPRESA-SMAT/05-finanzas/precios.md (precios de lanzamiento en USD).
+// Planes y precios. Números de docs/SMAT/EMPRESA-SMAT/05-finanzas/precios.md (precios de lanzamiento en pesos).
 import { Link } from 'react-router-dom'
 import Icono from '../../components/Icono.jsx'
 import { botonClaro, botonOscuro, EncabezadoPagina, LlamadoDemo, Seccion } from '../../components/publico/Bloques.jsx'
@@ -6,14 +6,14 @@ import useTituloPagina from '../../hooks/useTituloPagina.js'
 
 const PLANES = [
   {
-    nombre: 'Plan Compra', recomendado: true, precio: 'USD 2.200', unidad: 'pago único', abono: '+ USD 70 por mes',
+    nombre: 'Plan Compra', recomendado: true, precio: '$950.000', unidad: 'pago único', abono: '+ $55.000 por mes',
     descripcion: 'Comprás el equipo y pagás un abono por la plataforma, el soporte y el mantenimiento.',
-    incluye: ['Robot DROID-E3D', 'Corte en 2 máquinas', 'Servidor de IA', 'Instalación y capacitación',
+    incluye: ['Robot DROID-E3D', 'Corte en 2 máquinas', 'IA instalada en una PC de la planta', 'Instalación y capacitación',
       'Plataforma web y app para toda la planta', 'Soporte remoto y actualizaciones', 'Mantenimiento cada 3 meses'],
     boton: 'Pedir una demo',
   },
   {
-    nombre: 'Plan Servicio', recomendado: false, precio: 'USD 260', unidad: 'por mes', abono: 'Mínimo 12 meses · desde 2028',
+    nombre: 'Plan Servicio', recomendado: false, precio: '$120.000', unidad: 'por mes', abono: 'Mínimo 12 meses · desde 2028',
     descripcion: 'El equipo es de IDEPP: pagás una cuota mensual con todo incluido, sin inversión inicial.',
     incluye: ['Equipo de IDEPP (robot, corte y servidor de IA)', 'Instalación', 'Plataforma, soporte y mantenimiento', 'Sin pago inicial'],
     boton: 'Quiero que me avisen',
@@ -21,8 +21,9 @@ const PLANES = [
 ]
 
 const EXTRAS = [
-  { titulo: 'Máquina adicional', precio: 'USD 120 c/u', texto: 'Corte por zona, instalado.' },
-  { titulo: 'Precio piloto', precio: 'USD 1.100', texto: 'El primer cliente paga el 50 % del pago único a cambio de medir el antes y el después y dar su testimonio.' },
+  { titulo: 'Máquina adicional', precio: '$120.000 c/u', texto: 'Corte por zona, instalado.' },
+  { titulo: 'PC para la IA', precio: '$350.000', texto: 'Mini PC usada, solo si la planta no tiene una computadora que sirva.' },
+  { titulo: 'Precio piloto', precio: '$475.000', texto: 'El primer cliente paga el 50 % del pago único a cambio de medir el antes y el después y dar su testimonio.' },
 ]
 
 function TarjetaPlan({ plan }) {
@@ -48,18 +49,18 @@ function TarjetaPlan({ plan }) {
 }
 
 export default function Planes() {
-  useTituloPagina('Planes', 'Plan Compra: USD 2.200 de pago único + USD 70 por mes con plataforma, soporte y mantenimiento. Precios de lanzamiento.')
+  useTituloPagina('Planes', 'Plan Compra: $950.000 de pago único + $55.000 por mes con plataforma, soporte y mantenimiento. Precios de lanzamiento.')
 
   return (
     <>
-      <EncabezadoPagina antetitulo="Planes" titulo="Menos que unos pocos meses de un supervisor">
-        El primer año del Plan Compra (USD 3.040) cuesta menos que unos meses de sueldo de una persona dedicada a controlar
+      <EncabezadoPagina antetitulo="Planes" titulo="Menos que dos meses de un supervisor">
+        El primer año del Plan Compra ($1.610.000) cuesta menos que dos meses de sueldo de una persona dedicada a controlar
         el equipo de protección, y DROID-E3D trabaja en todos los turnos y deja registro.
       </EncabezadoPagina>
 
       <Seccion>
         <div className="grid gap-8 lg:grid-cols-2">{PLANES.map((p) => <TarjetaPlan key={p.nombre} plan={p} />)}</div>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
           {EXTRAS.map((e) => (
             <div key={e.titulo} className="flex items-start justify-between gap-4 rounded-2xl border border-zinc-200/80 p-5 dark:border-zinc-800">
               <div><p className="font-semibold">{e.titulo}</p><p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{e.texto}</p></div>
@@ -68,7 +69,7 @@ export default function Planes() {
           ))}
         </div>
         <p className="mt-6 text-xs text-zinc-500 dark:text-zinc-400">
-          Precios de lanzamiento en dólares; se facturan en pesos al tipo de cambio vendedor del Banco Nación del día. Se revisan cada 6 meses.
+          Precios de lanzamiento en pesos de noviembre de 2026 (el pago único equivale a unos USD 605 y el abono, a USD 35). Se actualizan cada 3 meses.
         </p>
       </Seccion>
 
