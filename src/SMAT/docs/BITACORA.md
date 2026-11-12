@@ -17,14 +17,14 @@
 - 03/11: **Fase M.3**: pulido visual. La revisión automática ahora detecta textos que se salen de su tarjeta (#89).
 - 03/11: **Fase M.4**: se pueden resolver varias alertas a la vez, y el panel muestra la más vieja sin resolver (#90).
 - 03/11: **Fase M.5**: el render 3D del robot está en la web: datos reales por zona para el empleado y el encargado, y un recorrido simulado en las páginas públicas (#93).
-- 03/11: **Fase M.5 (ajuste)**: a pedido de Toro, la web usa sus archivos originales en iframes: los renders «Robot DROID-E3D 3D» y «DROID-E3D en la fábrica», y el juego «Patrulla DROID-E3D». Se descarta la versión reescrita a mano (#98).
+- 03/11: **Fase M.5 (ajuste)**: a pedido de Tiziano, la web usa sus archivos originales en iframes: los renders «Robot DROID-E3D 3D» y «DROID-E3D en la fábrica», y el juego «Patrulla DROID-E3D». Se descarta la versión reescrita a mano (#98).
 - 03/11: **Fase M.6 (en curso)**: el robot cuenta marcas en el piso e informa su zona. Quedó en el PR borrador #96, solo compilado: falta probarlo en el robot con Morena (#95).
 
 - 04/11: Se borra la versión del render reescrita a mano y se ponen al día el documento final (255 pruebas), el README y la guía de la demo. Se sacan de la base local las 90 alertas ficticias de la demo, con respaldo.
 - 05/11: Morena avisa que el robot cambió el 29/10 (ruedas y ESP32-S3) y arma el #101 con lo que falta antes de exponer. Entra el logo nuevo (#72). **Fase M.7**: la web deja de decir «oruga» y aclara que hoy la IA detecta el casco.
 
 **Problemas**
-- Reescribir el render a mano no quedaba igual al original: se perdió tiempo hasta usar los archivos de Toro directamente (decisión 008).
+- Reescribir el render a mano no quedaba igual al original: se perdió tiempo hasta usar los archivos de Tiziano directamente (decisión 008).
 - Sin placa de video, el 3D frena toda la página. Se vio en GitHub Actions, y por eso en `/app/robot` se carga a pedido.
 - Al revisar el sketch del robot para la demo: todavía no habla con la web, así que la web lo muestra «Sin conexión» y sus botones no le llegan. Además, si el robot no informa su zona y no hay `DROID_ZONA_ID`, la web rechaza las alertas de la cámara (error 400). Se documenta en `DEMO-LOCAL.md` y queda la tarea 6.8.
 - El proyecto de Supabase se pausó por falta de uso: hay que reactivarlo desde su panel antes de publicar.
@@ -49,7 +49,7 @@
 - 21/10: PR #73 (`SMAT-hardware` → `main`): el CI también revisa `servidor_ia/` y `cargar_trabajadores_ia.py` explica cómo conseguir las fotos. Se ponen al día esta bitácora y el plan.
 - 21/10: **Fase 9.1**: prueba automática que recorre las 17 pantallas en celular y PC, en claro y oscuro, y con el servidor caído (78 casos). Arreglos: Empleados y Zonas quedaban en «Cargando…» sin servidor, y el botón para elegir la foto de rostro cortaba su texto en el celular. 105 pruebas de la API y 112 de punta a punta.
 - 21/10: **Fase 9.2**: `docs/DEMO-LOCAL.md`, guía para la demo sin internet (IP, firewall, dónde va la IP en cada pieza, simuladores y problemas comunes). La IA ahora lee también `DROID_URL` y `YOLO_API_KEY` de `servidor_ia/.env`. El README cargaba el esquema con `<`, que en PowerShell no anda: ahora usa `cmd /c`.
-- 22/10: Secciones técnicas de Toro del documento final, en Markdown y en Word con formato APA (`docs/SMAT/documentacion-final/`). Consentimientos de las fotos confirmados. Morena sube por PR el sketch del robot con sensores de línea y de distancia (#77).
+- 22/10: Secciones técnicas de Tiziano del documento final, en Markdown y en Word con formato APA (`docs/SMAT/documentacion-final/`). Consentimientos de las fotos confirmados. Morena sube por PR el sketch del robot con sensores de línea y de distancia (#77).
 - 22/10: Datos de ejemplo cargados en Supabase con `tools/cargar_supabase.py`; login comprobado. Falta publicar en Render.
 - 22/10: **Fase 9.3**: PythonAnywhere gratis ya no tiene MySQL, así que la versión online pasa a **Render + Supabase** (decisión 007). El backend funciona con MySQL y con Postgres; las 105 pruebas de la API corren también contra Postgres en GitHub Actions; las fotos van a Supabase Storage; `tools/cargar_supabase.py` carga los datos de ejemplo.
 
@@ -60,7 +60,7 @@
 
 **Próximos pasos**
 - Fase 9: 9.3 publicar en PythonAnywhere (falta crear la cuenta); 9.4 README final.
-- Documento final: Toro completa diseño, desarrollo, pruebas y capturas de GitHub; Morena, robot, IA y hardware.
+- Documento final: Tiziano completa diseño, desarrollo, pruebas y capturas de GitHub; Morena, robot, IA y hardware.
 - Morena: logo nuevo (#72) y prueba real con el hardware (6.5, #48).
 
 ## Semana 2 · desde el 12/10/2026

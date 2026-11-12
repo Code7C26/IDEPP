@@ -1,6 +1,6 @@
 # Forma jurídica
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** cómo está y cómo debería constituirse legalmente IDEPP.
 

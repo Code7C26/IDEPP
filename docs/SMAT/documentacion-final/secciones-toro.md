@@ -1,6 +1,6 @@
-# Documento final · Secciones de Toro (borrador para pegar)
+# Documento final · Secciones de Tiziano (borrador para pegar)
 
-> Borrador de las partes técnicas del documento final que le tocan a Toro: **5 · Diseño**,
+> Borrador de las partes técnicas del documento final que le tocan a Tiziano: **5 · Diseño**,
 > **6 · Desarrollo (software)**, **7 · Pruebas** y **11 · Anexos (capturas)**. Para pasarlo al
 > documento en línea (link en [`README.md`](README.md)): copiar cada sección debajo de su título y
 > después aplicar el formato APA en Google Docs. Lo que falta está marcado **[COMPLETAR]**.
@@ -18,8 +18,8 @@ DROID-E3D tiene cuatro partes que se comunican por la red WiFi de la planta:
 |---|---|---|---|
 | **Robot** (con ruedas) | Recorre las zonas de la fábrica con una cámara | ESP32-S3 y ESP32-CAM | Morena |
 | **Servidor de IA** | Detecta si falta el casco, los guantes, los lentes o el chaleco, y reconoce la cara del trabajador | Python, YOLO, OpenCV | Morena |
-| **Backend** | Recibe las alertas, las guarda y da las órdenes al robot y a las máquinas | Python, Flask, MySQL | Toro |
-| **Aplicación web** | Muestra las alertas, el mapa, el robot y los reportes al encargado y a cada empleado | React | Toro |
+| **Backend** | Recibe las alertas, las guarda y da las órdenes al robot y a las máquinas | Python, Flask, MySQL | Tiziano |
+| **Aplicación web** | Muestra las alertas, el mapa, el robot y los reportes al encargado y a cada empleado | React | Tiziano |
 
 Así funciona el recorrido de una alerta:
 

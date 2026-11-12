@@ -1,6 +1,6 @@
 # Business Model Canvas
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** resumen del negocio en una página, con los 9 bloques del modelo Canvas.
 

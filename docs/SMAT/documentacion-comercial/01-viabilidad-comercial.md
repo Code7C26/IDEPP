@@ -1,7 +1,7 @@
 # Modelo de negocio y viabilidad comercial · DROID-E3D
 
 > **Materia:** Emprendimiento (en conjunto con FAT) · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
-> **Equipo:** Toro (software y web) · Morena (hardware e IA) · **Actualizado:** 08/10/2026
+> **Equipo:** Tiziano (software y web) · Morena (hardware e IA) · **Actualizado:** 08/10/2026
 
 **Valores:** relevados en octubre de 2026, con la fuente de cada uno. Para pasar de dólares a pesos se usa
 **USD 1 = $1.550** (dólar de referencia del 06/10/2026, el mismo que usa el equipo de TOUCH-ID en su informe). Los precios de
@@ -27,7 +27,7 @@ Antes de sumar una función, la pasamos por este filtro. Analizamos las cuatro m
 | Ítem | Detalle |
 |---|---|
 | **Optimización técnica** | Una cámara en el robot detecta con YOLO a quien trabaja sin casco, guantes, lentes o chaleco; la web registra la alerta y un ESP32 con relé corta **solo** la máquina de esa zona hasta que el encargado la reactive. |
-| **Plazo de desarrollo** | ≈ 90 horas: plataforma y API para la IA y las máquinas (≈ 45 h, Toro), servidor de IA (≈ 35 h, Morena), corte de máquina con ESP32 (≈ 10 h). |
+| **Plazo de desarrollo** | ≈ 90 horas: plataforma y API para la IA y las máquinas (≈ 45 h, Tiziano), servidor de IA (≈ 35 h, Morena), corte de máquina con ESP32 (≈ 10 h). |
 | **Insumos adicionales** | PC con placa de video para la IA (USD 650, o una del cliente); por máquina: ESP32 + relé + contactor + gabinete (USD 70); celular usado como cámara (USD 60). Los modelos de IA son gratuitos (ver licencia en la sección 5). |
 | **Repercusión en la propuesta de valor** | **[X] Elevada** · [ ] Moderada · [ ] Reducida |
 | **Por qué** | Es el núcleo del producto: es lo que el cliente paga. Sin detección automática y sin parada de máquina, DROID-E3D sería una cámara más. Justifica el precio de USD 2.200. |

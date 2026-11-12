@@ -3,7 +3,7 @@
 > Hoja de ruta que sigue Claude Code. Cada tarea se marca `[x]` al terminarla.
 > Orden de ejecución: ver sección 4 (no es siempre el número de fase).
 
-**Jerarquía:** IDEPP (5 socios; productos TOUCH-ID y DROID-E3D) → DROID-E3D (Toro y Morena; producto = robot + web).
+**Jerarquía:** IDEPP (5 socios; productos TOUCH-ID y DROID-E3D) → DROID-E3D (Tiziano y Morena; producto = robot + web).
 **Repo:** `Code7C26/IDEPP` · rama de trabajo `SMAT-web` · PR a `main` al final de cada fase.
 **Hardware/IA:** **Morena** (ESP32, relé, cámara, YOLO, reconocimiento facial), rama `SMAT-hardware`.
 Mientras no esté el hardware, el backend se prueba con los simuladores y el contrato de `docs/API.md`.
@@ -92,7 +92,7 @@ frontend/src/
 (Actualizado 07/10/2026: se suman T (pruebas en el repo) y R (rediseño SaaS) antes de la Fase 6; L pasa después de 6).
 La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes del profe van primero.
 
-| Semana | Web (Toro + Claude) | Empresa (Toro + Morena) | Hardware/IA (Morena) |
+| Semana | Web (Tiziano + Claude) | Empresa (Tiziano + Morena) | Hardware/IA (Morena) |
 |---|---|---|---|
 | 1 · 05/10 | Fase 0, Fase 1 (API.md + stubs) | E.0, E.1, E.2 | Revisa API.md, arma ESP32 con ejemplos |
 | 2 · 12/10 | Fases 2, 3, 4 | E.3, E.4 marca | Robot + relé contra stubs |
@@ -209,9 +209,9 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] M.11 La empresa pasa a ser IDEPP: web, documentos y logos (Morena, PR #104); informe PDF, copia de los renders, «oruga» y Word (decisión 009)
 
 ### Fase E · Empresa IDEPP desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
-Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y deja `TODO (socio)` donde falte una decisión.
+Cada socio (Tiziano, Morena) escribe su parte; Claude ayuda solo en las de Tiziano y deja `TODO (socio)` donde falte una decisión.
 - [x] E.0 Estructura con plantillas y `EMPRESA-SMAT/README.md` índice
-- [x] E.1 Issues `smat:empresa` (#29 a #37, uno por carpeta), asignados a Toro con revisión de Morena
+- [x] E.1 Issues `smat:empresa` (#29 a #37, uno por carpeta), asignados a Tiziano con revisión de Morena
 - [x] E.2 Identidad (misión, visión, valores, IDEPP y sus dos productos)
 - [x] E.3 Organización (organigrama IDEPP → TOUCH-ID y DROID-E3D, roles, acuerdo de socios, decisiones, actas)
 - [x] E.4 Marca (nombre, logo, manual de marca, redes y dominio)
@@ -225,7 +225,7 @@ Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y d
 
 ### Fase D · Documento final del FAT (`docs/SMAT/documentacion-final/`)
 Se edita en línea entre los dos (link en el README de esa carpeta); lo que falta está marcado `[COMPLETAR]`.
-- [ ] D.1 (Toro) Diseño (5), desarrollo de la web (6), pruebas (7) y capturas de GitHub (11) · borrador listo en `docs/SMAT/documentacion-final/secciones-toro.md` (falta pegarlo y las capturas de GitHub)
+- [ ] D.1 (Tiziano) Diseño (5), desarrollo de la web (6), pruebas (7) y capturas de GitHub (11) · borrador listo en `docs/SMAT/documentacion-final/secciones-toro.md` (falta pegarlo y las capturas de GitHub)
 - [ ] D.2 (Morena) Armado del robot, modelo de IA, sensor que falta y fotos (6)
 - [ ] D.3 (Los dos) Portada, ideación, organización, marketing, presentación y anexos (1 a 4 y 8 a 11)
 - [ ] D.4 (Cada uno) Reflexión individual, balance y conclusión (10)

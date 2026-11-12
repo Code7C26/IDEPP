@@ -1,6 +1,6 @@
 # Costo de fabricar e instalar un DROID-E3D
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 08/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 08/10/2026
 
 **Para qué sirve:** cuánto cuesta construir, instalar y mantener una unidad. Es la base de los precios (`precios.md`) y de la proyección (`proyeccion-3-anios.md`).
 

@@ -1,6 +1,6 @@
 # Manual de marca
 
-> **Estado:** completo (v2) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 05/11/2026
+> **Estado:** completo (v2) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 05/11/2026
 
 **Para qué sirve:** reglas visuales y de tono. La web de DROID-E3D ya usa estos colores (definidos en `src/SMAT/frontend/src/index.css`).
 

@@ -1,6 +1,6 @@
 # Acta 06/10/2026 · Arranque del proyecto DROID-E3D
 
-**Asistentes:** Toro (con asistencia de Claude para la redacción). Morena revisa esta acta en el Pull Request.
+**Asistentes:** Tiziano (con asistencia de Claude para la redacción). Morena revisa esta acta en el Pull Request.
 **Modalidad:** trabajo remoto
 
 ## Temas
@@ -12,7 +12,7 @@
 
 ## Decisiones
 
-- **DROID-E3D** (robot + web) es un producto de **IDEPP**. Su equipo: **Toro** y **Morena**. Morena es además responsable de hardware e IA.
+- **DROID-E3D** (robot + web) es un producto de **IDEPP**. Su equipo: **Tiziano** y **Morena**. Morena es además responsable de hardware e IA.
 - Todo el trabajo se sube al repositorio compartido **`Code7C26/IDEPP`**, en las carpetas `DROID-E3D-APP/` y `EMPRESA-SMAT/`, sin tocar las de TOUCH-ID.
 - Ramas: `SMAT-web`, `SMAT-hardware`, `SMAT-empresa`. Todo entra a `main` por Pull Request.
 - Las tareas del profe se registran como Issues `smat:profe`.
@@ -31,5 +31,5 @@
 |---|---|---|
 | Revisar y aprobar los documentos de `EMPRESA-SMAT/` (en especial el acuerdo de socios) | Morena | 13/10/2026 |
 | Revisar el contrato de la API del robot (`docs/API.md`) | Morena | 13/10/2026 |
-| Panel del encargado (Fase 4 de la web) | Toro | 12/10/2026 |
+| Panel del encargado (Fase 4 de la web) | Tiziano | 12/10/2026 |
 | Robot y relé funcionando contra el backend | Morena | 19/10/2026 |

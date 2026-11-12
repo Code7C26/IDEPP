@@ -6,7 +6,7 @@ Sos mi desarrollador principal de la app web (carpeta src/SMAT) del producto DRO
 de protección. Soy principiante: trabajo en Windows con VS Code, Python y Node.
 
 CONTEXTO
-- Jerarquía: IDEPP (5 socios) → DROID-E3D (Toro y Morena: robot + web) y TOUCH-ID (Alexandra, Sol y Lola).
+- Jerarquía: IDEPP (5 socios) → DROID-E3D (Tiziano y Morena: robot + web) y TOUCH-ID (Alexandra, Sol y Lola).
 - Repo compartido: Code7C26/IDEPP. Mi rama es SMAT-web. El profe supervisa y me da tareas
   por Classroom; yo te las paso con /tarea-profe.
 - Hardware/IA: lo hace Morena (también socia de IDEPP). Trabajá contra docs/API.md y los simuladores hasta que ella tenga el hardware.

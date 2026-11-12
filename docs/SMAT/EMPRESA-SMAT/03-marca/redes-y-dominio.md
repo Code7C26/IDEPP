@@ -1,6 +1,6 @@
 # Redes sociales y dominio
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** dónde está IDEPP en internet y quién administra cada cuenta.
 
@@ -35,9 +35,9 @@
 
 | Cuenta | Administra | Respaldo |
 |---|---|---|
-| Dominio y hosting | Toro | Morena |
-| LinkedIn e Instagram | Morena | Toro |
-| YouTube | Toro | Morena |
+| Dominio y hosting | Tiziano | Morena |
+| LinkedIn e Instagram | Morena | Tiziano |
+| YouTube | Tiziano | Morena |
 | GitHub (repositorio) | Dueño de la organización `Code7C26` | Los dos socios con permiso de escritura |
 
 Las claves **no se escriben en el repositorio**: se guardan en un gestor de contraseñas compartido (por ejemplo, Bitwarden en su plan gratuito) y se activa la verificación en dos pasos en todas las cuentas.

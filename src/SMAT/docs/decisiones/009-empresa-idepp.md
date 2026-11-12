@@ -3,12 +3,12 @@
 **Fecha:** 2026-11-10 · **Estado:** aceptada (PR #104, de Morena; completada el 11/11)
 
 ## Contexto
-Hasta el 10/11 la jerarquía era TOUCH (empresa madre) → SMAT (división de Toro y Morena) → DROID-E3D (producto).
+Hasta el 10/11 la jerarquía era TOUCH (empresa madre) → SMAT (división de Tiziano y Morena) → DROID-E3D (producto).
 Los dos equipos decidieron ser **una sola empresa, IDEPP**, con dos productos: Touch ID (Alexandra, Sol y Lola) y
-DROID-E3D (Toro y Morena). Cada uno sigue con las mismas funciones y el mismo reparto de tareas.
+DROID-E3D (Tiziano y Morena). Cada uno sigue con las mismas funciones y el mismo reparto de tareas.
 
 ## Decisión
-- **IDEPP es de los 5 socios.** Cada producto reparte sus ganancias dentro de su equipo: DROID-E3D, 50/50 entre Toro
+- **IDEPP es de los 5 socios.** Cada producto reparte sus ganancias dentro de su equipo: DROID-E3D, 50/50 entre Tiziano
   y Morena. Lo que es de toda la empresa (la marca IDEPP, los gastos comunes) se decide entre los 5. El detalle está
   en `docs/SMAT/EMPRESA-SMAT/02-organizacion/acuerdo-de-socios.md`.
 - Los nombres **TOUCH y SMAT dejan de usarse** de cara a los clientes. La firma es «DROID-E3D by IDEPP».

@@ -1,8 +1,8 @@
 # Toma de decisiones
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
-**Para qué sirve:** cómo deciden Toro y Morena, y cómo se deja constancia.
+**Para qué sirve:** cómo deciden Tiziano y Morena, y cómo se deja constancia.
 
 ## Tipos de decisión
 

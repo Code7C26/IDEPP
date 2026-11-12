@@ -6,7 +6,7 @@
 
 ## Cómo nació
 
-IDEPP nace en 2026 en el proyecto final del secundario de informática. Cinco compañeros —**Alexandra, Sol, Lola, Tiziano (Toro) y Morena**— se proponen resolver problemas reales de las fábricas y PyMEs industriales con tecnología.
+IDEPP nace en 2026 en el proyecto final del secundario de informática. Cinco compañeros —**Alexandra, Sol, Lola, Tiziano y Morena**— se proponen resolver problemas reales de las fábricas y PyMEs industriales con tecnología.
 
 Al principio trabajaron como dos grupos con nombres propios: **TOUCH**, que desarrollaba un sistema de asistencia por huella, y **SMAT**, que desarrollaba un robot de seguridad. Los dos grupos compartían el repositorio, el profe y el tipo de cliente.
 

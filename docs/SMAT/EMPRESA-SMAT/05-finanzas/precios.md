@@ -1,6 +1,6 @@
 # Precios
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** cuánto cobramos y por qué. La página «Planes» de la web toma los números de acá.
 

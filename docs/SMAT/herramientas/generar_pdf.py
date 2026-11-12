@@ -74,7 +74,7 @@ def armar_html(ruta):
         <dt>Escuela</dt><dd>Técnico en Informática · Proyecto final integrador (FAT y Emprendimiento)</dd>
         <dt>Profesora</dt><dd>Tamara Piccinni</dd>
         <dt>Agencia</dt><dd>IDEPP</dd>
-        <dt>Equipo</dt><dd>Toro (software y web) · Morena (hardware e IA)</dd>
+        <dt>Equipo</dt><dd>Tiziano (software y web) · Morena (hardware e IA)</dd>
         <dt>Fecha</dt><dd>{date.today():%d/%m/%Y}</dd>
         <dt>Repositorio</dt><dd>github.com/Code7C26/IDEPP · docs/SMAT/</dd>
       </dl>

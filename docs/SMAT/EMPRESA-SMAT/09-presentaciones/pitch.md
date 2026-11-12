@@ -1,6 +1,6 @@
 # Pitch de 1 página
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** convencer en 2 minutos a un cliente, al jurado o a un inversor.
 
@@ -21,7 +21,7 @@
 
 **El negocio.** Clientes: PyMEs industriales de 20 a 200 empleados. Precio: **USD 2.200** de instalación + **USD 70 por mes**. Margen del 39 % por instalación. Meta: **25 fábricas en 2029**.
 
-**El equipo.** **IDEPP**: **Toro** (software y web) y **Morena** (hardware e IA).
+**El equipo.** **IDEPP**: **Tiziano** (software y web) y **Morena** (hardware e IA).
 
 **Lo que pedimos.** Una fábrica que quiera ser nuestro **piloto** a mitad de precio, y contactos con responsables de seguridad e higiene.
 

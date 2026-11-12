@@ -28,7 +28,7 @@
 
 | Área | Responsable | Qué incluye |
 |---|---|---|
-| Software y web | **Tiziano (Toro)** | Backend Flask, base de datos, web React, despliegue, documentación técnica |
+| Software y web | **Tiziano** | Backend Flask, base de datos, web React, despliegue, documentación técnica |
 | Hardware e IA | **Morena** | Robot con ruedas, ESP32-S3 del robot y ESP32 de la máquina, cámara, servidor YOLO, reconocimiento facial |
 | Negocio | **Tiziano y Morena** | Marca del producto, finanzas, legal, comercial, presentaciones |
 

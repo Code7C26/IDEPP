@@ -1,10 +1,10 @@
 # Roles y responsabilidades
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** aclara qué hace cada socio y qué decide sin consultar.
 
-## Toro · Software, web y relación con el profe
+## Tiziano · Software, web y relación con el profe
 
 | Responsabilidades | Decide solo | Consulta con Morena |
 |---|---|---|
@@ -14,7 +14,7 @@
 
 ## Morena · Hardware, IA y compras de componentes
 
-| Responsabilidades | Decide solo | Consulta con Toro |
+| Responsabilidades | Decide solo | Consulta con Tiziano |
 |---|---|---|
 | Robot con ruedas, ESP32-S3 del robot, ESP32 de la máquina, relé | Componentes y armado, siempre dentro del presupuesto | Compras de más de USD 50 |
 | Cámara, servidor YOLO y reconocimiento facial | Modelo de IA y su entrenamiento | Qué datos de empleados se usan (ver `../07-legal/datos-personales.md`) |
@@ -31,6 +31,6 @@
 
 ## Suplencias
 
-- Si Toro no está: Morena puede levantar la web local con el README y hacer la demo con los usuarios de prueba.
-- Si Morena no está: Toro hace la demo con los simuladores (`simular_yolo.py`, `simular_esp32.py`) en lugar del robot real.
+- Si Tiziano no está: Morena puede levantar la web local con el README y hacer la demo con los usuarios de prueba.
+- Si Morena no está: Tiziano hace la demo con los simuladores (`simular_yolo.py`, `simular_esp32.py`) en lugar del robot real.
 - Para que esto funcione, cada uno deja su parte documentada y subida a GitHub antes de cada entrega.
