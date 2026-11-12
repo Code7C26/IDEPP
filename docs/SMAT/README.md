@@ -98,6 +98,7 @@ TOUCH-ID/
 | Punto de equilibrio | [documentacion-comercial/03-punto-de-equilibrio.md](documentacion-comercial/03-punto-de-equilibrio.md) |
 | Dimensión del mercado (TAM, SAM, SOM) | [documentacion-comercial/04-dimension-del-mercado.md](documentacion-comercial/04-dimension-del-mercado.md) |
 | Los primeros 10 | [documentacion-comercial/05-los-primeros-10.md](documentacion-comercial/05-los-primeros-10.md) |
+| Match Tecnológico (con FAT) | [documentacion-comercial/pdf/06-match-tecnologico.pdf](documentacion-comercial/pdf/06-match-tecnologico.pdf) |
 
 Todas con PDF y enlace para Classroom en [documentacion-comercial/README.md](documentacion-comercial/README.md).
 
