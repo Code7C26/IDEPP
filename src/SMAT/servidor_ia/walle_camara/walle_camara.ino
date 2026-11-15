@@ -16,9 +16,15 @@
 
 // ---------- Configuración ----------
 
-// Tamaño de la imagen: FRAMESIZE_VGA (640x480) o FRAMESIZE_SVGA (800x600).
-// Más grande ayuda a reconocer caras, pero el video va más lento.
+// Tamaño de la imagen: FRAMESIZE_QVGA (320x240), FRAMESIZE_VGA (640x480) o FRAMESIZE_SVGA (800x600).
+// Más grande ayuda a reconocer caras, pero el video va más lento y la cámara calienta más.
+// 2026-11-15: con QVGA la IA ve muy poco (40 % y no reconoce el chaleco de cuerpo entero):
+// se vuelve a VGA, pero con el límite de fotos por segundo de abajo para que caliente menos.
 const framesize_t TAMANO_IMAGEN = FRAMESIZE_VGA;
+
+// Fotos por segundo como máximo. Más no sirve: la IA de la compu analiza unas 2 o 3 por segundo,
+// y mandar menos hace que la cámara caliente menos.
+const int FOTOS_POR_SEGUNDO_MAX = 5;
 
 // Calidad de la imagen: de 10 (mejor) a 63 (peor)
 const int CALIDAD_JPEG = 12;
@@ -88,6 +94,8 @@ esp_err_t mandarVideo(httpd_req_t* pedido) {
 
     // Si falla, es porque cerraron la conexión: dejamos de mandar
     if (resultado != ESP_OK) return resultado;
+
+    delay(1000 / FOTOS_POR_SEGUNDO_MAX);  // una pausa para no recalentar la cámara
   }
 }
 

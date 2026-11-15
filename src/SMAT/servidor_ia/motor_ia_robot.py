@@ -33,7 +33,7 @@ DB_CONFIG = {
 FRAMES_SEGUIDOS_PARA_ALERTA = 3    # fotogramas seguidos detectando antes de alertar (sin placa de video hay ~1-2 por segundo)
 TIEMPO_COOLDOWN = 20               # segundos de espera entre alertas (más que los 10 s que dura la alarma del robot)
 CONFIANZA_MINIMA = 0.40            # 40 %: con la ESP32-CAM el modelo de EPP da entre 40 y 60 %
-TAMANO_IMAGEN_IA = 416             # tamaño con el que mira YOLO: mas chico = mas rapido (640 tarda el doble)
+TAMANO_IMAGEN_IA = 416             # tamaño con el que mira YOLO: mas chico = mas rapido pero ve peor (416: 2,3 fotos/s; 320: 3,8 en la PC de Morena)
 SIMILITUD_ROSTRO = 0.40            # que tan parecido tiene que ser el rostro (0 a 1)
 
 # Modelos que reconocen el equipo de proteccion (EPP). Se usa el primero que este en la carpeta:
@@ -257,7 +257,7 @@ def iniciar_patrullaje():
         os.path.join(CARPETA_MODELOS, MODELO_RECONOCEDOR), "")
     conocidos = cargar_trabajadores(detector, reconocedor)
 
-    ultimo_aviso = 0
+    ultimo_registro = {}            # por cada falta: cuando se registro por ultima vez (cada una tiene su espera)
     frames_seguidos = {}            # por cada falta: cuantos fotogramas seguidos se vio
     ultimo_nombre = "Desconocido"   # ultimo trabajador reconocido durante la deteccion
 
@@ -328,20 +328,24 @@ def iniciar_patrullaje():
         if not infraccion_detectada:
             ultimo_nombre = "Desconocido"
 
-        # Alerta: la falta que lleva mas fotogramas seguidos, si llego al minimo
+        # Alerta: se registra CADA falta que llego al minimo de fotogramas seguidos
+        # (si a alguien le faltan casco y chaleco, quedan las dos). Cada falta tiene su
+        # propia espera de TIEMPO_COOLDOWN, asi la misma no se repite todo el tiempo.
         ahora = time.time()
-        if frames_seguidos and ahora - ultimo_aviso > TIEMPO_COOLDOWN:
-            falta = max(frames_seguidos, key=frames_seguidos.get)
-            if frames_seguidos[falta] >= FRAMES_SEGUIDOS_PARA_ALERTA:
-                confianza = faltas_en_frame[falta]
-                print(f"\n[ALERTA] {falta}: {ultimo_nombre}")
-                # En segundo plano: si MySQL o el robot no responden, el video no se congela
-                threading.Thread(target=registrar_incidencia_bd,
-                                 args=(falta, ultimo_nombre, confianza), daemon=True).start()
-                threading.Thread(target=enviar_alerta_esp32, args=(ultimo_nombre,), daemon=True).start()
-                reportar_a_la_web(falta, ultimo_nombre, confianza, frame)
-                ultimo_aviso = ahora
-                frames_seguidos = {}
+        nuevas = [falta for falta, seguidos in frames_seguidos.items()
+                  if seguidos >= FRAMES_SEGUIDOS_PARA_ALERTA
+                  and ahora - ultimo_registro.get(falta, 0) > TIEMPO_COOLDOWN]
+        for falta in nuevas:
+            confianza = faltas_en_frame[falta]
+            print(f"\n[ALERTA] {falta}: {ultimo_nombre} ({confianza:.0f}%)")
+            # En segundo plano: si MySQL o la web no responden, el video no se congela
+            threading.Thread(target=registrar_incidencia_bd,
+                             args=(falta, ultimo_nombre, confianza), daemon=True).start()
+            reportar_a_la_web(falta, ultimo_nombre, confianza, frame)
+            ultimo_registro[falta] = ahora
+            del frames_seguidos[falta]
+        if nuevas:   # un solo aviso al robot aunque sean varias faltas juntas
+            threading.Thread(target=enviar_alerta_esp32, args=(ultimo_nombre,), daemon=True).start()
 
         seguidos = max(frames_seguidos.values(), default=0)
         cv2.putText(frame, f"Frames seguidos: {seguidos}", (10, 25),
