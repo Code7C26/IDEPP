@@ -50,6 +50,7 @@
 
 **Hecho**
 - 27/10: Morena corrige la alarma que no cortaba, ajusta el umbral del sensor de línea a lo medido (blanco 0-450, cinta negra 1900-2700), suma el buzzer configurable y lleva a 20 s la espera entre alertas (PR #83).
+- 29/10: **Cambian todos los componentes del robot**: el cuerpo pasa a ser un WALL-E impreso en 3D, con una placa ESP32-S3, ruedas con motores y su driver, servos para la cabeza y los brazos, una pantalla, un parlante y una cámara nueva. Lo que se había armado antes queda como base para el robot nuevo.
 
 **Problemas**
 - Según Morena: el sensor de línea del GPIO 34 no reacciona (se compraron TCRT5000) y el VL53L0X todavía no se probó conectado.
@@ -122,8 +123,9 @@
 - Fase 7: tiempo real (alerta sonora, PWA y notificaciones push). Fase 6.5: prueba real con el hardware de Morena (`docs/integracion/PRUEBA.md`).
 - Morena: revisar `docs/API.md` y el acuerdo de socios; probar el robot y el relé contra el backend.
 
-## Antes del repositorio · agosto de 2026
+## Antes del repositorio · agosto y septiembre de 2026
 
 **Hecho**
 - 10/08: Reunión de los 5 socios en el colegio: se decide unir las dos empresas en una, con dos productos (Touch ID y DROID-E3D). Las ganancias de DROID-E3D, mitad y mitad entre Tiziano y Morena; el nombre queda para más adelante.
 - 26/08: Reunión de Tiziano y Morena en el colegio: se define el diseño del robot, que use IA para detectar el equipo de protección, que se pruebe primero con la cámara del celular y qué hace cada uno (Tiziano, software y web; Morena, hardware e IA).
+- Agosto y septiembre: el equipo aprende cómo funciona cada componente del robot y los va conectando de a uno para probar su función.
