@@ -9,7 +9,6 @@
 ## Situación actual
 
 - IDEPP es la empresa del proyecto final del secundario: 5 socios y dos productos (TOUCH-ID y DROID-E3D). **No tiene personería jurídica** ni CUIT propio: hoy es un emprendimiento escolar.
-- Los socios son **menores de edad**: no pueden firmar contratos comerciales por sí solos. Cualquier compra, contrato o trámite formal lo hacen o autorizan sus **representantes legales** hasta que cumplan 18 años.
 
 ## Opciones a futuro
 
