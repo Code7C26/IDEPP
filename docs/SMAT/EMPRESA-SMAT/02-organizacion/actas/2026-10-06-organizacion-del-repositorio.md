@@ -1,4 +1,4 @@
-# Acta 06/10/2026 · Arranque del proyecto DROID-E3D
+# Acta 06/10/2026 · Organización del repositorio
 
 **Asistentes:** Tiziano (con asistencia de Claude para la redacción). Morena revisa esta acta en el Pull Request.
 **Modalidad:** trabajo remoto
