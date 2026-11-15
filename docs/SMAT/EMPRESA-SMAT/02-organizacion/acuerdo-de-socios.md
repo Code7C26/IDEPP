@@ -1,6 +1,6 @@
 # Acuerdo de socios
 
-> **Estado:** completo (v2) · **listo para firmar** · **Responsable:** Morena · **Revisión:** los 5 socios · **Actualizado:** 12/11/2026
+> **Estado:** completo (v2) · **listo para firmar** · **Responsable:** Morena · **Revisión:** los 5 socios · **Actualizado:** 15/11/2026
 
 **Para qué sirve:** reglas claras entre los socios desde el principio, para evitar conflictos después.
 
@@ -35,8 +35,8 @@ Cada equipo pone la inversión de su producto. Si un socio aporta dinero de más
 - **Cada producto reparte sus ganancias dentro de su equipo:**
   - Lo que deja **DROID-E3D** se reparte **50 / 50** entre Tiziano y Morena.
   - Lo que deja **TOUCH-ID** se reparte entre Alexandra, Sol y Lola, como ellas acuerden.
-- Antes de repartir, cada producto: (1) devuelve los préstamos de sus socios y (2) guarda un **20 % como fondo de reserva** para repuestos y garantías.
-- Los **gastos comunes** de IDEPP (dominio de la empresa, registros legales, contador) se pagan por partes iguales entre los dos productos.
+- Antes de repartir, cada producto: (1) devuelve los préstamos de sus socios, (2) guarda un **20 % como fondo de reserva** para repuestos y garantías y (3) aporta un **10 % al fondo común de IDEPP** (decidido por los 5 el 05/11/2026).
+- Los **gastos comunes** de IDEPP (dominio de la empresa, registros legales, contador) se pagan con el **fondo común**. Si no alcanza, el resto se paga por partes iguales entre los dos productos.
 - Durante el primer año no se reparten ganancias: todo se reinvierte en el producto.
 
 ## 4. Decisiones
