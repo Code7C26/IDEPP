@@ -117,6 +117,12 @@ esp_err_t olvidarWifi(httpd_req_t* pedido) {
   return ESP_OK;
 }
 
+// /quien-sos: contesta "droid-camara". Sirve para que la IA la encuentre en la red si la compu
+// no la encuentra por su nombre (droid-camara.local): en esta placa el nombre no siempre contesta.
+esp_err_t quienSos(httpd_req_t* pedido) {
+  return httpd_resp_send(pedido, "droid-camara", HTTPD_RESP_USE_STRLEN);
+}
+
 // Arranca el servidor web y publica la dirección /video
 void iniciarServidor() {
   httpd_config_t config = HTTPD_DEFAULT_CONFIG();
@@ -138,6 +144,12 @@ void iniciarServidor() {
   rutaOlvidar.method = HTTP_GET;
   rutaOlvidar.handler = olvidarWifi;
   httpd_register_uri_handler(servidor, &rutaOlvidar);
+
+  httpd_uri_t rutaQuien = {};
+  rutaQuien.uri = "/quien-sos";
+  rutaQuien.method = HTTP_GET;
+  rutaQuien.handler = quienSos;
+  httpd_register_uri_handler(servidor, &rutaQuien);
 }
 
 void setup() {

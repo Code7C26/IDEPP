@@ -206,6 +206,7 @@ void conectar(const char* equipo, const char* nombreEnRed, AvisoEspera aviso) {
   }
   WiFi.setSleep(false);   // así responde rápido (y el video de la cámara no se traba)
   if (MDNS.begin(nombreEnRed)) MDNS.addService("http", "tcp", 80);
+  else Serial.println("No pude activar el nombre " + String(nombreEnRed) + ".local: usar la IP");
   Serial.println("Conectado a " + red + " · IP " + WiFi.localIP().toString() +
                  " · también: http://" + String(nombreEnRed) + ".local");
 }

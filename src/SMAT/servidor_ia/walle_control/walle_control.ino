@@ -516,6 +516,7 @@ void iniciarServidor() {
   agregarDireccion(servidor, "/peligro", HTTP_GET, probarPeligro);
   agregarDireccion(servidor, "/prueba", HTTP_GET, probarMotor);
   agregarDireccion(servidor, "/olvidar-wifi", HTTP_GET, olvidarWifi);
+  agregarDireccion(servidor, "/quien-sos", HTTP_GET, quienSos);
 }
 
 // ============================================================
@@ -581,6 +582,12 @@ esp_err_t olvidarWifi(httpd_req_t* pedido) {
   ConfigWifi::olvidar();
   ESP.restart();
   return ESP_OK;
+}
+
+// http://<IP>/quien-sos : contesta "droid-robot". Sirve para que la IA lo encuentre en la red
+// si la compu no lo encuentra por su nombre (droid-robot.local).
+esp_err_t quienSos(httpd_req_t* pedido) {
+  return contestar(pedido, "200 OK", "droid-robot");
 }
 
 // ============================================================
