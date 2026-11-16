@@ -1,7 +1,5 @@
-// Copiá este archivo como secretos.h y poné tus datos del WiFi.
-// secretos.h no se sube a GitHub. El WiFi tiene que ser de 2.4 GHz.
-const char* WIFI_NOMBRE = "NOMBRE_DE_TU_WIFI";
-const char* WIFI_CLAVE  = "CLAVE_DE_TU_WIFI";
+// Copiá este archivo como secretos.h y poné tus datos. secretos.h no se sube a GitHub.
+// El WiFi YA NO va acá: se elige desde el celular (ver config_wifi.h). Tiene que ser de 2.4 GHz.
 
 // Conexion con la web. Sin estas 3 lineas, el robot anda igual pero sin la web.
 // IP de la PC con el backend (la misma de la demo, con /api al final):

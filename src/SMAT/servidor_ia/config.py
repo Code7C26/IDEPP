@@ -34,6 +34,6 @@ def dato(nombre, por_defecto=""):
 
 # Cámara del robot (ESP32-CAM): la IP que muestra en el Monitor Serie, con /video al final.
 # URL_CAMARA_CELULAR es el nombre viejo (cuando la cámara era el celular): se sigue aceptando.
-URL_CAMARA = dato("URL_CAMARA") or dato("URL_CAMARA_CELULAR", "http://192.168.0.100/video")
+URL_CAMARA = dato("URL_CAMARA") or dato("URL_CAMARA_CELULAR", "http://droid-camara.local/video")
 # IP que muestra la pantalla del robot (con /alerta_seguridad al final)
-URL_ESP32_ALERTA = dato("URL_ESP32_ALERTA", "http://192.168.0.101/alerta_seguridad")
+URL_ESP32_ALERTA = dato("URL_ESP32_ALERTA", "http://droid-robot.local/alerta_seguridad")

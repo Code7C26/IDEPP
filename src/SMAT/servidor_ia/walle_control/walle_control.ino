@@ -33,6 +33,7 @@
 // El nombre y la clave del WiFi van en secretos.h (no se sube a GitHub).
 // Para crearlo: copiar secretos.example.h como secretos.h y poner tus datos.
 #include "secretos.h"
+#include "config_wifi.h"   // el WiFi se configura desde el celular, ya no va en secretos.h
 
 // Si secretos.h no tiene los datos de la web, el robot anda igual, sin la web.
 #ifndef URL_BACKEND
@@ -199,6 +200,7 @@ const uint16_t NEGRO    = 0x0000;
 const uint16_t AMARILLO = 0xFE40;   // el amarillo del signo de peligro
 const uint16_t NARANJA  = 0xF540;   // el borde de afuera del signo
 const uint16_t FONDO    = NEGRO;    // color de la pantalla cuando no hay alerta
+const uint16_t AZUL     = 0x033F;   // pantalla mientras espera que le configuren el WiFi
 
 void pantallaOrden(uint8_t orden) { digitalWrite(PANT_DC, LOW);  SPI.transfer(orden); }
 void pantallaDato(uint8_t dato)   { digitalWrite(PANT_DC, HIGH); SPI.transfer(dato); }
@@ -513,6 +515,7 @@ void iniciarServidor() {
   agregarDireccion(servidor, "/alerta_seguridad", HTTP_GET, recibirAlerta);
   agregarDireccion(servidor, "/peligro", HTTP_GET, probarPeligro);
   agregarDireccion(servidor, "/prueba", HTTP_GET, probarMotor);
+  agregarDireccion(servidor, "/olvidar-wifi", HTTP_GET, olvidarWifi);
 }
 
 // ============================================================
@@ -566,6 +569,20 @@ void tareaWeb(void*) {
   }
 }
 
+// Mientras espera que le elijan el WiFi desde el celular, la pantalla queda azul
+void avisoConfigurarWifi(bool esperando) {
+  pintarTodo(esperando ? AZUL : FONDO);
+}
+
+// http://droid-robot.local/olvidar-wifi : borra el WiFi guardado y reinicia (vuelve a crear su red)
+esp_err_t olvidarWifi(httpd_req_t* pedido) {
+  contestar(pedido, "200 OK", "Listo: el robot se reinicia y crea la red DROID-E3D-Robot para elegir otro WiFi");
+  delay(500);
+  ConfigWifi::olvidar();
+  ESP.restart();
+  return ESP_OK;
+}
+
 // ============================================================
 void setup() {
   Serial.begin(115200);
@@ -593,28 +610,10 @@ void setup() {
   iniciarServos();
   iniciarSonido();
 
-  Serial.print("Conectando al WiFi " + String(WIFI_NOMBRE));
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(WIFI_NOMBRE, WIFI_CLAVE);
-  int intentos = 0;
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    intentos++;
-    Serial.print(".");
-    if (intentos % 20 == 0) {   // cada 10 segundos dice por que no conecta y reintenta
-      int estado = WiFi.status();
-      String motivo = "error " + String(estado);
-      if (estado == WL_NO_SSID_AVAIL) motivo = "no veo la red (nombre mal o red de 5 GHz)";
-      if (estado == WL_CONNECT_FAILED) motivo = "clave incorrecta";
-      Serial.println("\nNo conecta: " + motivo);
-      WiFi.disconnect();
-      WiFi.begin(WIFI_NOMBRE, WIFI_CLAVE);
-    }
-  }
-  WiFi.setSleep(false);   // asi el joystick responde sin demora
-  String ip = WiFi.localIP().toString();
-  Serial.println("\nConectado! Joystick en el celular: http://" + ip);
-  Serial.println("Esta IP va en servidor_ia/.env: URL_ESP32_ALERTA=http://" + ip + "/alerta_seguridad");
+  // WiFi: el de la fábrica se elige desde el celular (ver config_wifi.h).
+  // Si no tiene uno guardado, el robot crea la red "DROID-E3D-Robot" y pinta la pantalla de azul.
+  ConfigWifi::conectar("Robot", "droid-robot", avisoConfigurarWifi);
+  Serial.println("Joystick en el celular: http://droid-robot.local (o http://" + WiFi.localIP().toString() + ")");
 
   iniciarServidor();
 

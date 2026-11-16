@@ -2,17 +2,18 @@
 // walle_camara.ino
 // Hace que la ESP32-CAM transmita video por WiFi, igual que la app
 // IP Webcam del celular. La IA de la compu lo lee desde:
-//   http://IP_DE_LA_CAMARA/video
+//   http://droid-camara.local/video   (o http://IP_DE_LA_CAMARA/video)
 //
 // Placa: AI Thinker ESP32-CAM   ·   Cámara: OV3660
-// El nombre y la clave del WiFi van en secretos.h (no se sube a GitHub).
-// Para crearlo: copiar secretos.example.h como secretos.h y poner tus datos.
+// El WiFi se elige desde el celular (ver config_wifi.h): si la cámara no tiene uno
+// guardado, crea la red "DROID-E3D-Camara" (clave droid-e3d) y prende su lucecita roja.
+// Para elegir otro WiFi: http://droid-camara.local/olvidar-wifi
 // =============================================================
 
 #include <WiFi.h>
 #include "esp_camera.h"
 #include "esp_http_server.h"
-#include "secretos.h"
+#include "config_wifi.h"
 
 // ---------- Configuración ----------
 
@@ -32,6 +33,7 @@ const int CALIDAD_JPEG = 12;
 // ---------- Pines de la cámara en la ESP32-CAM (no hace falta tocarlos) ----------
 
 const int PIN_LED_FLASH = 4;
+const int PIN_LED_ROJO = 33;   // la lucecita roja de atrás: se prende con LOW
 
 // ---------- Datos que manda el video (no hace falta tocarlos) ----------
 
@@ -99,6 +101,22 @@ esp_err_t mandarVideo(httpd_req_t* pedido) {
   }
 }
 
+// Mientras espera que le elijan el WiFi desde el celular, prende la lucecita roja
+void avisoConfigurarWifi(bool esperando) {
+  pinMode(PIN_LED_ROJO, OUTPUT);
+  digitalWrite(PIN_LED_ROJO, esperando ? LOW : HIGH);
+}
+
+// /olvidar-wifi: borra el WiFi guardado y reinicia (vuelve a crear su red)
+esp_err_t olvidarWifi(httpd_req_t* pedido) {
+  const char* texto = "Listo: la camara se reinicia y crea la red DROID-E3D-Camara para elegir otro WiFi";
+  httpd_resp_send(pedido, texto, HTTPD_RESP_USE_STRLEN);
+  delay(500);
+  ConfigWifi::olvidar();
+  ESP.restart();
+  return ESP_OK;
+}
+
 // Arranca el servidor web y publica la dirección /video
 void iniciarServidor() {
   httpd_config_t config = HTTPD_DEFAULT_CONFIG();
@@ -114,6 +132,12 @@ void iniciarServidor() {
   rutaVideo.method = HTTP_GET;
   rutaVideo.handler = mandarVideo;
   httpd_register_uri_handler(servidor, &rutaVideo);
+
+  httpd_uri_t rutaOlvidar = {};
+  rutaOlvidar.uri = "/olvidar-wifi";
+  rutaOlvidar.method = HTTP_GET;
+  rutaOlvidar.handler = olvidarWifi;
+  httpd_register_uri_handler(servidor, &rutaOlvidar);
 }
 
 void setup() {
@@ -131,20 +155,11 @@ void setup() {
   }
   Serial.println("Camara OK.");
 
-  WiFi.begin(WIFI_NOMBRE, WIFI_CLAVE);
-  WiFi.setSleep(false);  // sin esto, el video se traba
-  Serial.print("Conectando al WiFi");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println();
+  ConfigWifi::conectar("Camara", "droid-camara", avisoConfigurarWifi);
 
   iniciarServidor();
 
-  Serial.print("Listo. Video en: http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("/video");
+  Serial.println("Listo. Video en: http://droid-camara.local/video (o http://" + WiFi.localIP().toString() + "/video)");
 }
 
 void loop() {
