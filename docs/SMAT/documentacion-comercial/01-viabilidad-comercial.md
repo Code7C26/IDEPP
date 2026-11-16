@@ -87,7 +87,7 @@ Antes de sumar una función, la pasamos por este filtro. Analizamos las cuatro m
 
 | Concepto | $ | Cuándo | Detalle |
 |---|---|---|---|
-| Robot (ESP32-S3, ESP32-CAM, motores con ruedas, batería, 7 servos, pantalla, amplificador y parlante, seguidores de línea, sensor de distancia) | 214.000 | Por instalación | Pieza por pieza en `../EMPRESA-SMAT/05-finanzas/costos-droid-e3d.md` (HobbyTronica, TodoMicro, PatagoniaTec, Unibot y Mercado Libre, 11/2026) |
+| Robot (ESP32-S3, ESP32-CAM, motores con orugas, batería, 7 servos, pantalla, amplificador y parlante, seguidores de línea, sensor de distancia) | 214.000 | Por instalación | Pieza por pieza en `../EMPRESA-SMAT/05-finanzas/costos-droid-e3d.md` (HobbyTronica, TodoMicro, PatagoniaTec, Unibot y Mercado Libre, 11/2026) |
 | Servidor de IA | 0 | Por instalación | Corre en una PC de la fábrica; si no tiene, una mini PC usada ($320.000) que se cobra aparte ($350.000) |
 | Armado, instalación y capacitación (22 h × $8.000) | 176.000 | Por instalación | |
 | Imprevistos y garantía (10 %) | 39.000 | Por instalación | |
@@ -149,7 +149,7 @@ precios: venden por cotización a multinacionales; nuestro precio apunta a la Py
 |---|---|---|---|---|
 | **Marca** «DROID-E3D» (y después «IDEPP») | **INPI** | 1) Búsqueda de antecedentes (gratis). 2) Solicitud online con clave fiscal: marca mixta (nombre + logo), **clase 9** (aparatos y software) y luego **clase 42** (servicios de software). 3) Pago del arancel. 4) Publicación: si nadie se opone en 30 días, queda concedida. Dura 10 años y se renueva. | $40.569 por clase | Antes del primer cliente |
 | **Software** (plataforma web) | **DNDA** (por TAD) | El software **no se patenta**: se registra como obra bajo derecho de autor. Mientras no se venda: «depósito de obra inédita» ($1.400). Al venderse: registro de obra publicada ($3.800 + 0,2 % del precio) y entrega de una copia del código. | $1.400 hoy · $10.620 al vender | Inédita: ya · Publicada: con el primer cliente |
-| **Hardware** (robot) | INPI | Patente o modelo de utilidad solo si el robot tuviera una invención nueva. Hoy usa piezas comunes (ruedas, ESP32-S3, cámara): **no conviene patentar**. La forma de la carcasa podría registrarse más adelante como **diseño industrial**. | — | Cuando haya diseño propio |
+| **Hardware** (robot) | INPI | Patente o modelo de utilidad solo si el robot tuviera una invención nueva. Hoy usa piezas comunes (motores, ESP32-S3, cámara): **no conviene patentar**. La forma de la carcasa podría registrarse más adelante como **diseño industrial**. | — | Cuando haya diseño propio |
 | **Datos personales** (fotos de rostro) | **AAIP** | La base de datos es de cada fábrica: IDEPP le entrega la descripción para que la inscriba en el Registro Nacional de Bases de Datos, y la web pide el consentimiento de cada empleado (Ley 25.326). | Sin costo | En cada instalación |
 | **Licencia de YOLO** (IA) | Ultralytics | YOLO tiene licencia **AGPL-3.0**: si lo ofrecemos como servicio, hay que publicar el código del servidor de IA o comprar la licencia empresarial. **Decisión pendiente de Morena** antes de vender (ver `../EMPRESA-SMAT/07-legal/propiedad-intelectual.md`). | A cotizar | Antes del primer cliente |
 

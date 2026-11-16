@@ -78,7 +78,7 @@ lugar se puede manejar **a control remoto** desde el celular (http://droid-robot
 |---|---|
 | Publicar la web en internet | Tiziano |
 | Un instalador de la IA (que se abra con doble clic y arranque sola al prender la PC) | Morena |
-| La batería, las ruedas y montar todo en el cuerpo del robot | Morena (con el profesor) |
+| La batería, los motores de las orugas y montar todo en el cuerpo del robot | Morena (con el profesor) |
 | Un sensor de distancia que mida bien (el actual no mide) | Morena |
 | Reentrenar el modelo para que detecte bien el barbijo y los lentes | Morena |
 | El manual de usuario | Los dos |
