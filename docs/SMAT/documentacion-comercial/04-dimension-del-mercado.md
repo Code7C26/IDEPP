@@ -51,8 +51,8 @@ Los vamos a ajustar con datos de la Unión Industrial de Córdoba y con la encue
 
 ## Respuesta: ¿el mercado objetivo alcanza para que el proyecto sobreviva?
 
-**Sí.** El SOM del primer año (3 clientes) alcanza el punto de equilibrio (3 con el piloto), aunque justo: el
-primer año cierra prácticamente en cero. El mercado de la zona (≈ 495 industrias) es casi **165 veces más
+**Sí.** El SOM del primer año (3 clientes) supera el punto de equilibrio (2 a precio completo, 3 con el piloto) y el
+primer año cierra apenas arriba de cero. El mercado de la zona (≈ 495 industrias) es casi **165 veces más
 grande** que lo que necesitamos vender, así que el límite no es la cantidad de clientes posibles sino **nuestra
 capacidad de vender e instalar** siendo dos personas. Desde 2028, con 10 clientes activos, superamos los 6 que
 hacen falta para que el abono mensual sostenga solo los costos fijos. Por eso la prioridad comercial es

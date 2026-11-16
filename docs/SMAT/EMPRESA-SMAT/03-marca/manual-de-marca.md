@@ -13,7 +13,7 @@
 | **DROID-E3D by IDEPP** | Firma del producto | En la web, documentos para clientes y presentaciones |
 | **IDEPP** | Firma institucional | En pie de página, contratos y la página «Nosotros» |
 
-**Qué significa «E3D»:** *Equipo de protección · Detección · Decisión · Detención*: el robot ve el equipo de protección, lo detecta con IA, decide si hay una falta y detiene la máquina si hace falta.
+**Qué significa «E3D»:** *Equipo de protección · Detección · Decisión · Detención*: el robot ve el equipo de protección, lo detecta con IA, decide si hay una falta y se detiene a dar la alarma.
 
 ## 2. Logo
 
@@ -58,5 +58,5 @@
 
 - **Claro y directo:** «Tenés 2 alertas activas. Revisá tu equipo de protección.»
 - **Cercano, sin retar:** el sistema avisa, no castiga. Nunca «¡Incumpliste!».
-- **Técnico solo cuando hace falta:** con encargados y clientes se puede hablar de «confianza de la IA» o «parada de máquina»; con empleados, de «alerta» y «equipo».
+- **Técnico solo cuando hace falta:** con encargados y clientes se puede hablar de «confianza de la IA» o «alerta en la zona»; con empleados, de «alerta» y «equipo».
 - **Voseo** en la web y redes (público argentino); **usted** en contratos y propuestas formales.

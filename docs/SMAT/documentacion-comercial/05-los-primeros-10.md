@@ -42,8 +42,8 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 
 ## Paso 2 · El gancho comercial
 
-> **«Probá DROID-E3D gratis 30 días en una zona de tu planta.** Llevamos el robot, instalamos el corte en una
-> máquina, lo configuramos y capacitamos a tu encargado, sin costo y sin compromiso. Al final te entregamos el
+> **«Probá DROID-E3D gratis 30 días en una zona de tu planta.** Llevamos el robot, lo configuramos y
+> capacitamos a tu encargado, sin costo y sin compromiso. Al final te entregamos el
 > **informe de cumplimiento** de esa zona: cuántas veces se trabajó sin casco, guantes, lentes o chaleco, en qué
 > horario y en qué puesto. Si decidís seguir, la primera empresa que contrate paga **la mitad de la instalación**
 > ($475.000 en lugar de $950.000)».
@@ -68,7 +68,7 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 |---|---|
 | **Qué hacemos** | Llamamos a cada empresa del Paso 1, pedimos 20 minutos con quien decide y vamos con la notebook (web funcionando con datos de ejemplo), el robot, un casco y un chaleco para mostrar la detección en vivo. |
 | **Medio** | Teléfono o mail para pedir la reunión; visita presencial. |
-| **Mensaje principal** | «¿Cómo controlan hoy que todos usen el casco y los lentes, en todos los turnos? En 20 minutos te mostramos un robot que lo hace solo y que, si hace falta, frena la máquina de esa zona. Y lo podés probar gratis 30 días.» |
+| **Mensaje principal** | «¿Cómo controlan hoy que todos usen el casco y los lentes, en todos los turnos? En 20 minutos te mostramos un robot que lo hace solo y da la alarma en el lugar. Y lo podés probar gratis 30 días.» |
 | **Cuándo** | Desde la semana próxima: primero las 6 de Alta Gracia, después las 4 de Malagueño. |
 
 ### Acción 2 · Presentación en los parques industriales
@@ -77,7 +77,7 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 |---|---|
 | **Qué hacemos** | Pedimos 15 minutos en la reunión del consorcio del **Parque Industrial Pyme de Alta Gracia** y de los parques de **Malagueño**. Dejamos un folleto de una hoja con un código QR a la página «Pedí una demo» de nuestra web. |
 | **Medio** | Mail y llamada a la administración de cada parque; folleto impreso con QR. |
-| **Mensaje principal** | «Una tecnología hecha en Alta Gracia para que cada trabajador vuelva a su casa sano: control automático del equipo de protección y parada de máquina solo en la zona con riesgo.» |
+| **Mensaje principal** | «Una tecnología hecha en Alta Gracia para que cada trabajador vuelva a su casa sano: control automático del equipo de protección y alarma en la zona con riesgo.» |
 | **Costo** | 100 folletos ≈ $25.000. |
 
 ### Acción 3 · Alianzas con quienes ya entran a las fábricas

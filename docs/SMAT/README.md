@@ -6,7 +6,7 @@
 
 <p align="center">
   Robot con inteligencia artificial que controla que los trabajadores de una fábrica usen su equipo de protección
-  y detiene la máquina de la zona si no lo hacen.<br>
+  y da la alarma en la zona si no lo hacen.<br>
   <b>DROID-E3D by IDEPP</b>
 </p>
 
@@ -20,7 +20,7 @@
 | **Agencia** | IDEPP (5 socios; dos productos: TOUCH-ID y DROID-E3D) |
 | **Equipo** | **Tiziano** (software y web) · **Morena** (hardware e IA) |
 | **Tipo de proyecto** | Hardware y software: robot con cámara + servidor de IA + plataforma web |
-| **Estado** | MVP al **75 %** (08/10/2026): la plataforma y la IA ya funcionan juntas; falta la prueba con el robot y el relé reales |
+| **Estado** | MVP al **75 %** (08/10/2026): la plataforma y la IA ya funcionan juntas; el 15/11 el robot real ya recibe las alertas de la IA, frena y suena |
 | **Materias** | FAT y Emprendimiento · profesora Tamara Piccinni |
 
 ---
@@ -39,14 +39,14 @@ lentes y el chaleco:
 
 Un **robot con ruedas** recorre las zonas de la planta con una cámara. Un **servidor de IA** (YOLO) detecta a quien
 trabaja sin su equipo y reconoce de quién es la cara (solo con su consentimiento). La **plataforma web** muestra la
-alerta con foto al instante y un ESP32 con relé **detiene solo la máquina de esa zona** hasta que el encargado la
-reactive.
+alerta con foto al instante, y el robot **se detiene en esa zona**, muestra el signo de peligro y hace sonar la
+alarma.
 
 | Función | Descripción |
 |---|---|
 | 🦺 **Detección de EPP** | Casco, guantes, lentes y chaleco, según lo que exige cada zona |
 | 🚨 **Alerta con foto** | Llega en segundos al panel del encargado, con la zona, el empleado y la confianza de la IA |
-| ⛔ **Parada por zona** | Se corta solo la máquina donde está el riesgo; el resto de la planta sigue |
+| 🚨 **Alarma en el lugar** | El robot se detiene en la zona, muestra el peligro y suena; la producción sigue |
 | 🤖 **Control del robot** | Iniciar, pausar, parada de emergencia, ruta por zonas y video en vivo desde la web |
 | 🗺️ **Mapa de la fábrica** | Estado de cada zona y del robot en tiempo real |
 | 📋 **Registro y auditoría** | Historial para la ART y las inspecciones; quién resolvió cada alerta |
@@ -58,14 +58,14 @@ reactive.
 |---|---|
 | 🏭 **Dueño de la PyME** | Menos accidentes y menos riesgo legal: «un accidente evitado paga el sistema» |
 | 🦺 **Responsable de higiene y seguridad** | Control en todos los turnos y registro listo para la inspección |
-| 👷 **Encargado de planta** | Ve todo desde el celular; solo frena la máquina donde hace falta |
+| 👷 **Encargado de planta** | Ve todo desde el celular y resuelve cada alerta con un toque |
 | 👤 **Empleado** | Recibe el aviso primero y ve su propio cumplimiento |
 
 ## 🛠️ Tecnologías
 
 | Tecnología | Uso |
 |---|---|
-| ESP32 (robot y máquinas) | Movimiento del robot y relé que corta la máquina |
+| ESP32-S3 (robot) | Movimiento, pantalla, alarma y sensores del robot |
 | Cámara del robot (ESP32-CAM) | Video de cada zona |
 | Python · YOLO · OpenCV | Detección de EPP y reconocimiento facial (`src/SMAT/servidor_ia/`) |
 | Python · Flask · MySQL | Backend y base de datos (`src/SMAT/backend/`) |
