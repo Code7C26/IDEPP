@@ -17,12 +17,12 @@ export default function Pasos({ detalle = false }) {
   return (
     <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       {PASOS.map((p, i) => (
-        <li key={p.titulo} className="relative rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs dark:border-zinc-800 dark:bg-zinc-900">
+        <li key={p.titulo} className="relative rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs transition hover:-translate-y-1 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center justify-between">
-            <span className="grid size-11 place-items-center rounded-xl bg-tinta text-marca dark:bg-zinc-800"><Icono nombre={p.icono} /></span>
-            <span className="text-3xl font-black text-zinc-200 tabular-nums dark:text-zinc-800" aria-hidden="true">{i + 1}</span>
+            <span className="grid size-11 place-items-center rounded-xl bg-tinta text-marca shadow-[3px_3px_0_var(--color-marca)] dark:bg-zinc-800"><Icono nombre={p.icono} /></span>
+            <span className="font-titulo text-4xl font-black text-marca italic tabular-nums" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
           </div>
-          <h3 className="mt-4 font-semibold"><span className="sr-only">Paso {i + 1}: </span>{p.titulo}</h3>
+          <h3 className="mt-4 font-bold"><span className="sr-only">Paso {i + 1}: </span>{p.titulo}</h3>
           <p className="mt-1.5 text-sm text-zinc-600 dark:text-zinc-400">{detalle ? p.detalle : p.texto}</p>
         </li>
       ))}

@@ -11,7 +11,7 @@ import Icono from './Icono.jsx'
 import Logo from './Logo.jsx'
 
 const leerColapsado = () => { try { return localStorage.getItem('menu-colapsado') === '1' } catch { return false } }
-const iconoChico = 'grid size-8 shrink-0 place-items-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white'
+const iconoChico = 'grid size-8 shrink-0 place-items-center rounded-lg text-zinc-400 hover:bg-white/10 hover:text-white'
 
 export default function BarraLateral() {
   const { usuario, cerrarSesion } = useAuth()
@@ -25,8 +25,8 @@ export default function BarraLateral() {
   }
 
   return (
-    <aside className={`sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-zinc-200/80 bg-white transition-[width] duration-200 md:flex dark:border-zinc-800 dark:bg-zinc-900 ${colapsado ? 'w-[72px]' : 'w-64'}`}>
-      <div className="h-1 shrink-0 bg-[repeating-linear-gradient(45deg,#f5b800_0_10px,#1f2328_10px_20px)]" />
+    <aside className={`sticky top-0 hidden h-dvh shrink-0 flex-col border-r-4 border-marca bg-tinta text-zinc-100 transition-[width] duration-200 md:flex dark:bg-zinc-900 ${colapsado ? 'w-[72px]' : 'w-64'}`}>
+      <div className="h-1 shrink-0 franja-marca" />
       <div className={`flex h-16 items-center ${colapsado ? 'justify-center' : 'justify-between px-4'}`}>
         <Link to={inicioSegunRol(usuario)} aria-label="Ir al inicio"><Logo conTexto={!colapsado} className="size-8" /></Link>
         {!colapsado && <button type="button" onClick={alternar} className={iconoChico} aria-label="Achicar el menú" title="Achicar el menú"><span aria-hidden="true">«</span></button>}
@@ -36,18 +36,18 @@ export default function BarraLateral() {
       <nav className="mt-2 flex-1 space-y-5 overflow-y-auto px-3" aria-label="Menú principal">
         {menuAgrupado(usuario).map(([grupo, items]) => (
           <div key={grupo}>
-            {!colapsado && <p className="mb-1.5 px-3 text-[11px] font-semibold tracking-wider text-zinc-400 uppercase">{grupo}</p>}
+            {!colapsado && <p className="mb-1.5 flex items-center gap-2 px-3 font-titulo text-[11px] font-extrabold tracking-wider text-zinc-500 uppercase"><span className="rayas-marca scale-75" aria-hidden="true" />{grupo}</p>}
             <ul className="space-y-0.5">
               {items.map((item) => (
                 <li key={item.ruta}>
                   <NavLink to={item.ruta} end={item.fin} title={colapsado ? item.texto : undefined} aria-label={colapsado ? item.texto : undefined}
                            className={({ isActive }) => `relative flex items-center gap-3 rounded-lg py-2 text-sm transition ${colapsado ? 'justify-center' : 'px-3'} ${
-                             isActive ? 'bg-zinc-100 font-medium text-zinc-900 dark:bg-zinc-800 dark:text-white'
-                                      : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800/60 dark:hover:text-white'}`}>
+                             isActive ? 'bg-white/10 font-semibold text-white'
+                                      : 'text-zinc-400 hover:bg-white/5 hover:text-white'}`}>
                     {({ isActive }) => (
                       <>
                         {isActive && <span className="absolute top-1.5 bottom-1.5 left-0 w-[3px] rounded-full bg-marca" />}
-                        <Icono nombre={item.icono} className="size-[18px]" />
+                        <Icono nombre={item.icono} className={`size-[18px] ${isActive ? 'text-marca' : ''}`} />
                         {!colapsado && item.texto}
                       </>
                     )}
@@ -59,13 +59,13 @@ export default function BarraLateral() {
         ))}
       </nav>
 
-      <div className="border-t border-zinc-200/80 p-3 dark:border-zinc-800">
+      <div className="border-t border-white/10 p-3">
         <div className={`flex items-center gap-2 ${colapsado ? 'flex-col' : ''}`}>
           <Avatar nombre={usuario?.nombre} />
           {!colapsado && (
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium">{usuario?.nombre}</p>
-              <p className="truncate text-xs text-zinc-500 capitalize dark:text-zinc-400">{usuario?.rol}{usuario?.zona ? ` · ${usuario.zona}` : ''}</p>
+              <p className="truncate text-xs text-zinc-400 capitalize">{usuario?.rol}{usuario?.zona ? ` · ${usuario.zona}` : ''}</p>
             </div>
           )}
         </div>

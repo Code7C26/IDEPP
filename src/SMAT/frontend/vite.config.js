@@ -17,8 +17,8 @@ const pwa = VitePWA({
     start_url: '/app',                   // al abrir la app instalada va directo al sistema (pide login si hace falta)
     scope: '/',
     display: 'standalone',               // sin barra del navegador, como una app
-    background_color: '#1f2328',
-    theme_color: '#f5b800',
+    background_color: '#2b2b2b',
+    theme_color: '#f7931e',
     icons: [
       { src: '/iconos/icono-192.png', sizes: '192x192', type: 'image/png' },
       { src: '/iconos/icono-512.png', sizes: '512x512', type: 'image/png' },
