@@ -19,7 +19,7 @@ fábrica y una PC.
 | **Capacitación**: 2 horas para el encargado y 15 minutos para los empleados | Que sepan usarlo desde el primer día |
 | **Manual de usuario** | Para resolver las dudas de todos los días |
 
-Precio: **$950.000** de pago único y **$55.000 por mes** (plataforma, soporte, actualizaciones y una visita
+Precio: **$1.400.000** de pago único y **$75.000 por mes** (plataforma, soporte, actualizaciones y una visita
 cada 3 meses). Detalle en [`../05-finanzas/precios.md`](../05-finanzas/precios.md).
 
 ## 2. Qué tiene que tener la fábrica
