@@ -155,7 +155,7 @@ void iniciarServidor() {
 void setup() {
   Serial.begin(115200);
   delay(500);
-  Serial.println("WALL-E: iniciando la camara...");
+  Serial.println("DROID-E3D: iniciando la camara...");
 
   // Dejamos apagado el flash de la placa
   pinMode(PIN_LED_FLASH, OUTPUT);
