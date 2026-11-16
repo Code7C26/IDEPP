@@ -4,7 +4,7 @@
 
 **Para qué sirve:** reglas claras entre los socios desde el principio, para evitar conflictos después.
 
-> ⚠ Este acuerdo vale cuando **lo aprueban los 5 socios** (Pull Request aprobado o firma al pie). Como los socios son menores de edad, para que tenga valor legal fuera del proyecto escolar debe firmarse también por sus representantes legales o rehacerse al cumplir 18 años.
+> ⚠ Este acuerdo vale cuando **lo aprueban los 5 socios** (Pull Request aprobado o firma al pie).
 
 ## 1. Partes
 

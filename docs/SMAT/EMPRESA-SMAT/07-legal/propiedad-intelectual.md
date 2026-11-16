@@ -19,7 +19,7 @@
 | 7 | Robots industriales | 2 (cuando se fabrique en serie) |
 
 - Primero «**DROID-E3D**» en la clase 9 (presupuestado en la inversión inicial); luego la clase 42 y «IDEPP».
-- El titular debe ser una persona con capacidad legal: mientras los socios sean menores, lo tramitan sus representantes o se espera a constituir la SAS.
+- El titular puede ser uno de los socios o, más adelante, la SAS cuando se constituya.
 
 ## 2. Software
 
