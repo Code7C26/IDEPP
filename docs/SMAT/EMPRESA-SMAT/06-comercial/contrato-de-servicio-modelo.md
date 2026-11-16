@@ -26,7 +26,7 @@ e) Reemplazo de piezas por desgaste normal.
 Roturas por mal uso, golpes o manipulación por terceros; obras eléctricas; traslado del sistema a otra planta; ampliaciones (nuevas zonas o más robots), que se cotizan aparte.
 
 ### 4. Precio
-Abono mensual de **$55.000** (o lo que indique la propuesta aceptada), pagadero del 1 al 10 de cada mes. Se actualiza cada 3 meses según el índice de precios al consumidor (IPC) del INDEC, con aviso de 30 días.
+Abono mensual de **$75.000** (o lo que indique la propuesta aceptada), pagadero del 1 al 10 de cada mes. Se actualiza cada 3 meses según el índice de precios al consumidor (IPC) del INDEC, con aviso de 30 días.
 
 ### 5. Duración y rescisión
 Plazo de **12 meses** desde la instalación, renovable automáticamente por períodos iguales. Cualquiera de las partes puede rescindir con **30 días** de aviso por escrito. Con 2 abonos impagos, el Prestador puede suspender el servicio.

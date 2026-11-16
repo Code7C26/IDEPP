@@ -40,9 +40,9 @@ IDEPP diseña, fabrica e instala **DROID-E3D**, un robot que recorre la planta y
 
 | Concepto | $ |
 |---|---|
-| Pago único (equipo + instalación + capacitación) | 950.000 |
+| Pago único (equipo + instalación + capacitación) | 1.400.000 |
 | Mini PC para la IA (solo si la planta no tiene una PC que sirva) | [ ] 350.000 |
-| **Abono mensual** (plataforma, soporte, mantenimiento) | **55.000** |
+| **Abono mensual** (plataforma, soporte, mantenimiento) | **75.000** |
 
 Precios en pesos de [mes y año]; se actualizan cada 3 meses. **Forma de pago:** 50 % al aceptar la propuesta y 50 % al terminar la instalación; abono por mes adelantado.
 

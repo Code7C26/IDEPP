@@ -14,7 +14,7 @@ cada 3 meses, porque en pesos cambian seguido.
 | Pregunta | Respuesta para DROID-E3D |
 |---|---|
 | **FAT** · ¿Se puede desarrollar? | Sí. La plataforma web (Flask + React) ya funciona con 124 pruebas automáticas de la API y 133 en el navegador; la IA de Morena (YOLO + reconocimiento facial) ya manda alertas con foto a la web, y el 15/11 el robot real ya las recibe: frena, muestra el peligro y suena la alarma. |
-| **Emprendimiento** · ¿Conviene? | Sí. Cada instalación deja $521.000 de margen y cada cliente $23.000 por mes; con **2 clientes por año** se cubren los costos fijos (ver `03-punto-de-equilibrio.md`), y en la zona hay alrededor de 495 industrias que podrían comprarlo (ver `04-dimension-del-mercado.md`). |
+| **Emprendimiento** · ¿Conviene? | Sí. Cada instalación deja $971.000 de margen y cada cliente $43.000 por mes; con **1 cliente por año** se cubren los costos fijos (ver `03-punto-de-equilibrio.md`), y en la zona hay alrededor de 495 industrias que podrían comprarlo (ver `04-dimension-del-mercado.md`). |
 
 ---
 
@@ -30,7 +30,7 @@ Antes de sumar una función, la pasamos por este filtro. Analizamos las cuatro m
 | **Plazo de desarrollo** | ≈ 80 horas: plataforma y API para la IA y el robot (≈ 45 h, Tiziano), servidor de IA (≈ 35 h, Morena). |
 | **Insumos adicionales** | Una PC de la fábrica para la IA (si no tiene, una mini PC usada: $320.000); la cámara del robot es una ESP32-CAM ($30.000). Los modelos de IA son gratuitos (ver licencia en la sección 5). |
 | **Repercusión en la propuesta de valor** | **[X] Elevada** · [ ] Moderada · [ ] Reducida |
-| **Por qué** | Es el núcleo del producto: es lo que el cliente paga. Sin detección automática y sin alarma en el lugar, DROID-E3D sería una cámara más. Justifica el precio de $950.000. |
+| **Por qué** | Es el núcleo del producto: es lo que el cliente paga. Sin detección automática y sin alarma en el lugar, DROID-E3D sería una cámara más. Justifica el precio de $1.400.000. |
 | **Resolución estratégica** | **Se valida.** Está en el MVP y ya funciona de punta a punta (IA → web → alarma del robot). |
 
 ### Mejora B · Reconocimiento facial y foto de evidencia en cada alerta
@@ -111,7 +111,7 @@ de **$1.538.500** (Teclab, 2026), unos **$8.700 la hora** (176 h por mes). Como 
 
 | Plan | Precio | Qué incluye |
 |---|---|---|
-| **Plan Compra** (el que se ofrece hoy) | **$950.000** pago único **+ $55.000 por mes** | Robot, instalación y capacitación (la IA corre en una PC de la fábrica; si no tiene, la mini PC suma $350.000); el abono cubre plataforma, soporte, actualizaciones y una visita cada 3 meses |
+| **Plan Compra** (el que se ofrece hoy) | **$1.400.000** pago único **+ $75.000 por mes** | Robot, instalación y capacitación (la IA corre en una PC de la fábrica; si no tiene, la mini PC suma $350.000); el abono cubre plataforma, soporte, actualizaciones y una visita cada 3 meses |
 | Plan Servicio (alquiler, desde 2028) | $120.000 por mes, mínimo 12 meses | Todo incluido, el equipo es de IDEPP |
 
 **Por qué este modelo y no otro:**
@@ -123,10 +123,10 @@ de **$1.538.500** (Teclab, 2026), unos **$8.700 la hora** (176 h por mes). Como 
 - **Frente a freemium o cobro por uso:** cobrar por cada alerta haría que al cliente le «convenga» tener menos
   alertas registradas, lo contrario de lo que buscamos; y una versión gratis no tiene sentido con hardware.
 
-**Cómo se fijó el precio:** el primer año del Plan Compra ($950.000 + 12 × 55.000 = **$1.610.000**) equivale a
-**un mes y medio de sueldo** de un técnico (≈ $1.070.000 por mes en 2026 según lifeindexed.com, sin
+**Cómo se fijó el precio:** el primer año del Plan Compra ($1.400.000 + 12 × 75.000 = **$2.300.000**) equivale a
+**unos dos meses de sueldo** de un técnico (≈ $1.070.000 por mes en 2026 según lifeindexed.com, sin
 contar cargas sociales). Una persona controla un turno; el robot controla todos, y desde el segundo año cuesta
-solo el abono ($660.000 por año). Las plataformas grandes de detección de EPP (Intenseye, Protex AI) no publican
+solo el abono ($900.000 por año). Las plataformas grandes de detección de EPP (Intenseye, Protex AI) no publican
 precios: venden por cotización a multinacionales; nuestro precio apunta a la PyME que ellas no atienden.
 
 ---
@@ -135,9 +135,9 @@ precios: venden por cotización a multinacionales; nuestro precio apunta a la Py
 
 | Indicador | Valor | Dónde está el cálculo |
 |---|---|---|
-| Margen por instalación | $950.000 − 429.000 = **$521.000** (55 %) | 3.2 |
-| Margen mensual por cliente | $55.000 − 32.000 = **$23.000** (42 %) | 3.2 |
-| Punto de equilibrio | **2 clientes por año** a precio completo, 3 si el primero es el piloto (Plan Compra) · **6 clientes activos** para que los abonos solos paguen los fijos | `03-punto-de-equilibrio.md` |
+| Margen por instalación | $1.400.000 − 429.000 = **$971.000** (69 %) | 3.2 |
+| Margen mensual por cliente | $75.000 − 32.000 = **$43.000** (57 %) | 3.2 |
+| Punto de equilibrio | **1 cliente por año** a precio completo, 2 si el primero es el piloto (Plan Compra) · **3 clientes activos** para que los abonos solos paguen los fijos | `03-punto-de-equilibrio.md` |
 | Mercado de la zona (SAM) | ≈ **495 industrias** | `04-dimension-del-mercado.md` |
 | Meta del primer año (SOM 2027) | **3 clientes** (0,6 % de la zona) | `04-dimension-del-mercado.md` |
 

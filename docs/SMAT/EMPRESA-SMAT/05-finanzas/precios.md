@@ -17,8 +17,8 @@
 
 | Concepto | $ |
 |---|---|
-| **Pago único:** robot DROID-E3D, instalación y capacitación. La IA corre en una PC de la fábrica | **950.000** (≈ USD 605) |
-| **Abono mensual:** plataforma web y app, alertas, reportes, soporte remoto, actualizaciones y mantenimiento cada 3 meses | **55.000 / mes** (≈ USD 35) |
+| **Pago único:** robot DROID-E3D, instalación y capacitación. La IA corre en una PC de la fábrica | **1.400.000** (≈ USD 892) |
+| **Abono mensual:** plataforma web y app, alertas, reportes, soporte remoto, actualizaciones y mantenimiento cada 3 meses | **75.000 / mes** (≈ USD 48) |
 | Mini PC para la IA, si la fábrica no tiene una PC que sirva | 350.000 (≈ USD 223) |
 
 ### Plan Servicio (alquiler)
@@ -31,25 +31,28 @@ El Plan Servicio exige que IDEPP compre el equipo por adelantado: **se ofrece de
 
 ### Precio piloto
 
-El **primer cliente** paga el **50 % del pago único** ($475.000) a cambio de: permitir medir el cumplimiento antes y después, un testimonio y usar el caso (sin datos personales) en presentaciones.
+El **primer cliente** paga el **50 % del pago único** ($700.000) a cambio de: permitir medir el cumplimiento antes y después, un testimonio y usar el caso (sin datos personales) en presentaciones.
 
 ## Cómo se justifica
 
 | | Plan Compra |
 |---|---|
 | Costo por instalación (`costos-droid-e3d.md`) | $429.000 |
-| Precio | $950.000 |
-| **Margen de la instalación** | **$521.000 (55 %)** |
+| Precio | $1.400.000 |
+| **Margen de la instalación** | **$971.000 (69 %)** |
 | Costo mensual por cliente | $32.000 |
-| Abono | $55.000 |
-| **Margen mensual** | **$23.000 (42 %)** |
+| Abono | $75.000 |
+| **Margen mensual** | **$43.000 (57 %)** |
 
-**Comparación con un supervisor:** el primer año del Plan Compra (950.000 + 12 × 55.000 = **$1.610.000**) cuesta lo mismo que un mes y medio de sueldo de una persona dedicada a controlar el EPP (≈ $1.070.000 por mes), y DROID-E3D trabaja en todos los turnos y deja registro.
+**Comparación con un supervisor:** el primer año del Plan Compra (1.400.000 + 12 × 75.000 = **$2.300.000**) cuesta lo mismo que unos dos meses de sueldo de una persona dedicada a controlar el EPP (≈ $1.070.000 por mes), y DROID-E3D trabaja en todos los turnos y deja registro.
 
 ## Qué incluye cada cosa
 
 - **Incluido en el abono:** acceso a la web para todos los usuarios de la planta, alertas, historial, reportes, actualizaciones, soporte remoto en horario laboral, una visita de mantenimiento cada 3 meses, cambio de piezas por desgaste normal.
 - **No incluido:** roturas por mal uso, traslado de la instalación a otra planta, obras eléctricas (las hace el electricista del cliente).
 
+> **Cambio del 15/11/2026:** Tiziano y Morena suben el Plan Compra de $950.000 + $55.000 por mes a $1.400.000 +
+> $75.000 por mes: el abono anterior dejaba solo $23.000 por cliente, poco para soporte y arreglos.
+>
 > **Cambio del 12/11/2026:** antes el Plan Compra costaba USD 2.200 + USD 70 por mes. Bajó porque la IA ya no
 > necesita una PC con placa de video en cada instalación y porque el robot nuevo usa piezas más baratas.

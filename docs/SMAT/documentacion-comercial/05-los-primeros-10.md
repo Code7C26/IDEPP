@@ -46,7 +46,7 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 > capacitamos a tu encargado, sin costo y sin compromiso. Al final te entregamos el
 > **informe de cumplimiento** de esa zona: cuántas veces se trabajó sin casco, guantes, lentes o chaleco, en qué
 > horario y en qué puesto. Si decidís seguir, la primera empresa que contrate paga **la mitad de la instalación**
-> ($475.000 en lugar de $950.000)».
+> ($700.000 en lugar de $1.400.000)».
 
 - **Por qué funciona:** el informe de cumplimiento es valioso aunque no compren (les sirve frente a la ART), y
   nadie más en la zona lo ofrece gratis.
@@ -99,6 +99,6 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 | Empresas contactadas | 10 |
 | Reuniones con demostración | 6 |
 | Pruebas gratis de 30 días | 3 |
-| **Clientes que contratan** | **1 a 3** (el punto de equilibrio pide 2 por año: `03-punto-de-equilibrio.md`) |
+| **Clientes que contratan** | **1 a 3** (el punto de equilibrio pide 1 por año: `03-punto-de-equilibrio.md`) |
 
 Cada contacto se anota en una planilla compartida (fecha, empresa, persona, resultado, próximo paso).

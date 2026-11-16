@@ -19,7 +19,7 @@
 
 **Por qué nosotros.** Un solo robot cubre muchas zonas (más barato que una cámara por zona), **actúa** en lugar de solo avisar, y respeta la privacidad: consentimiento, fotos solo de las alertas y por 90 días.
 
-**El negocio.** Clientes: PyMEs industriales de 20 a 200 empleados. Precio: **$950.000** de instalación + **$55.000 por mes**. Margen del 40 % por instalación. Meta: **25 fábricas en 2029**.
+**El negocio.** Clientes: PyMEs industriales de 20 a 200 empleados. Precio: **$1.400.000** de instalación + **$75.000 por mes**. Margen del 69 % por instalación. Meta: **25 fábricas en 2029**.
 
 **El equipo.** **IDEPP**: **Tiziano** (software y web) y **Morena** (hardware e IA).
 
