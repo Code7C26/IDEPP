@@ -8,7 +8,7 @@
 
 | Fuente | Monto posible | Ventajas | Condiciones / desventajas |
 |---|---|---|---|
-| **Aportes de los socios** | ≈ $590.000 (inversión inicial) | Rápido, sin deudas, sin ceder parte de la empresa | Depende de lo que cada uno pueda poner |
+| **Aportes de los socios** | ≈ $605.000 (inversión inicial) | Rápido, sin deudas, sin ceder parte de la empresa | Depende de lo que cada uno pueda poner |
 | **Anticipo del cliente piloto** | 50 % del precio piloto ($237.500) | Financia el robot de ese cliente | Hay que conseguir el cliente primero |
 | **Concursos y premios para emprendedores jóvenes** | Variable | No se devuelve; da visibilidad | Requiere presentar el proyecto y competir; fechas fijas |
 | **Programas públicos para emprendedores** (nacionales, provinciales o municipales) | Variable | Condiciones blandas | Suelen pedir mayoría de edad o persona jurídica; buscar convocatorias vigentes |
@@ -26,7 +26,7 @@
 
 | Cuándo | Qué | Cuánto ($) | Para qué |
 |---|---|---|---|
-| Oct.-Nov. 2026 | Aporte de los socios | 590.000 | Prototipo, demo y marca |
+| Oct.-Nov. 2026 | Aporte de los socios | 605.000 | Prototipo, demo y marca |
 | Mar. 2027 | Anticipo del cliente piloto | 237.500 | Robot del piloto |
 | 2027 | Presentación a 2 concursos o programas | A definir | Stock de 3 robots |
 | 2028 | Evaluar inversor o crédito | A definir | Plan Servicio y soporte técnico |
