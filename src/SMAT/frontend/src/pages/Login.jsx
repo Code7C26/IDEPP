@@ -43,7 +43,23 @@ export default function Login() {
   }
 
   return (
-    <div className="relative grid min-h-dvh place-items-center bg-[radial-gradient(circle_at_top,rgba(245,184,0,0.10),transparent_45%)] p-4">
+    <div className="grid min-h-dvh lg:grid-cols-[1fr_1.1fr]">
+      {/* Panel de la marca (solo en pantallas grandes): oscuro, con el robot, como la caja */}
+      <div aria-hidden="true" className="relative hidden overflow-hidden border-r-4 border-marca bg-tinta text-white lg:flex lg:flex-col lg:justify-between lg:p-12">
+        <div className="absolute inset-x-0 top-0 h-1.5 franja-marca" />
+        <div>
+          <p className="font-titulo text-4xl font-black tracking-tight italic">DROID-<span className="text-marca">E3D</span></p>
+          <p className="mt-2 font-titulo text-xs font-bold tracking-[0.3em] text-zinc-400 uppercase">by IDEPP · Todo para el trabajador</p>
+          <span className="rayas-marca-grande mt-6" />
+        </div>
+        <div className="relative mx-auto w-full max-w-sm">
+          <div className="absolute inset-x-6 bottom-0 aspect-square rounded-full bg-marca" />
+          <img src="/robot-droid.webp" alt="" className="relative mx-auto w-4/5 drop-shadow-[0_18px_24px_rgb(0_0_0/0.35)]" />
+        </div>
+        <p className="font-titulo text-lg font-extrabold">Seguridad que <span className="text-marca">recorre la planta</span></p>
+      </div>
+
+      <div className="textura-rayas relative grid place-items-center p-4">
       <button type="button" onClick={cambiarTema} aria-label="Cambiar tema"
               className="absolute top-4 right-4 grid size-10 place-items-center rounded-lg text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-800">
         <Icono nombre={oscuro ? 'sol' : 'luna'} />
@@ -53,7 +69,8 @@ export default function Login() {
         <div className="mb-6 flex flex-col items-center gap-3 text-center">
           <Logo conTexto={false} className="size-12" />
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight">Ingresá a DROID-E3D</h1>
+            <h1 className="text-2xl font-extrabold tracking-tight">Ingresá a DROID-E3D</h1>
+            <div className="trazo-marca mx-auto mt-2" aria-hidden="true" />
             <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Control de elementos de protección personal</p>
           </div>
         </div>
@@ -71,7 +88,7 @@ export default function Login() {
 
           {error && <p role="alert" className={mensajeError}>{error}</p>}
 
-          <button type="submit" disabled={cargando} className={`${botonPrimario} w-full py-2.5`}>
+          <button type="submit" disabled={cargando} className={`${botonPrimario} sombra-marca w-full py-2.5`}>
             {cargando ? 'Ingresando…' : 'Ingresar'}
           </button>
         </form>
@@ -79,6 +96,7 @@ export default function Login() {
           <Link to="/" className="font-medium hover:text-zinc-900 hover:underline dark:hover:text-white">← Conocé DROID-E3D</Link>
           <span className="mx-2">·</span>DROID-E3D by IDEPP
         </p>
+      </div>
       </div>
     </div>
   )

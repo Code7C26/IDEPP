@@ -16,6 +16,7 @@
   --color-ok: #16a34a;           /* verde: todo en orden */
   --color-tinta: #2b2b2b;        /* texto oscuro sobre naranja (el gris oscuro de la caja) */
   --color-crema: #f4f1eb;        /* fondo de la página, como el de la caja */
+  --color-crema-oscuro: #ebe5da; /* secciones alternadas */
 
   /* Letra de los títulos: Montserrat, como la caja y el manual (se carga en index.html). El texto sigue con la letra del sistema. */
   --font-titulo: "Montserrat", "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -69,6 +70,20 @@
                 linear-gradient(var(--color-marca), var(--color-marca)) 6.15rem 4px / 2.85rem 2px no-repeat,
                 linear-gradient(33deg, transparent 42%, var(--color-marca) 42% 64%, transparent 64%) 5.45rem 0 / 0.85rem 6px no-repeat;
   }
+  /* Las tres rayas inclinadas /// de la caja, en naranja */
+  .rayas-marca {
+    display: inline-block; width: 26px; height: 11px; flex: none;
+    background: repeating-linear-gradient(115deg, transparent 0 3px, var(--color-marca) 3px 7px, transparent 7px 9.5px);
+  }
+  .rayas-marca-grande {
+    display: inline-block; width: 120px; height: 46px;
+    background: repeating-linear-gradient(115deg, transparent 0 12px, var(--color-marca) 12px 28px, transparent 28px 38px);
+  }
+  /* Sombra naranja corrida, como los números de los pasos del manual */
+  .sombra-marca { box-shadow: 4px 4px 0 var(--color-marca); }
+  .sombra-marca:hover { box-shadow: 6px 6px 0 var(--color-marca); }
+  /* Textura muy suave de rayas diagonales, para fondos */
+  .textura-rayas { background-image: repeating-linear-gradient(135deg, rgb(43 43 43 / 0.035) 0 2px, transparent 2px 16px); }
   .animar-panel { animation: entrar-derecha 0.22s ease-out; }
   /* Mapa: el robot se desliza de una zona a otra y el recorrido punteado avanza */
   .robot-mapa { transition: transform 1.2s ease-in-out; }
