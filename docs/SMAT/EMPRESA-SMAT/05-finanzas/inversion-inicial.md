@@ -10,7 +10,7 @@
 
 | Ítem | Para qué | $ |
 |---|---|---|
-| Prototipo del robot (ver `costos-droid-e3d.md`, sección 1) | Demo y pruebas | 200.000 |
+| Prototipo del robot (ver `costos-droid-e3d.md`, sección 1) | Demo y pruebas | 201.000 |
 | Un corte de máquina | Demostrar la parada de máquina | 70.000 |
 | Servidor de IA | Se usa una notebook propia para la demo | 0 |
 | Herramientas: soldador, multímetro, pinzas | Armado | 60.000 (estimado) |
@@ -19,8 +19,8 @@
 | Dominio `.com.ar` (1 año) | Web pública | 8.500 |
 | Registro de la marca en el INPI (1 clase) | Proteger «DROID-E3D» (ver `../07-legal/propiedad-intelectual.md`) | 40.600 |
 | Material de demo: casco, guantes, lentes y chalecos; impresiones | Mostrar la detección | 40.000 (estimado) |
-| **Subtotal** | | **535.100** |
-| Imprevistos (10 %) | | 53.500 |
+| **Subtotal** | | **536.100** |
+| Imprevistos (10 %) | | 53.600 |
 | **Total** | | **≈ 590.000** (≈ USD 375) |
 
 Fuentes: piezas en `costos-droid-e3d.md`; dominio, marca y hosting en
