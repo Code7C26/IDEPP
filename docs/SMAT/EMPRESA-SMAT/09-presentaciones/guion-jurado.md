@@ -45,7 +45,7 @@
 | ¿Qué pasa si se corta internet? | La demo y la planta funcionan en red local; la versión online es para acceder desde afuera. |
 | ¿Cómo se comunica el robot con el sistema? | Por HTTP: el ESP32 consulta al servidor cada 1-2 segundos qué hacer y le informa su estado, con una clave propia. |
 | ¿Cómo protegen el sistema? | Contraseñas con hash, roles validados en el servidor, claves distintas para cada máquina y registro de auditoría. |
-| ¿Cuánto cuesta y cuánto ganan? | $950.000 de instalación (nos cuesta $568.700) y $55.000 por mes. Detalle en la proyección a 3 años. |
+| ¿Cuánto cuesta y cuánto ganan? | $950.000 de instalación (nos cuesta $583.000) y $55.000 por mes. Detalle en la proyección a 3 años. |
 | ¿Es legal frenar una máquina? | Sí: la parada la conecta un electricista del cliente y es una medida de seguridad adicional; no reemplaza las protecciones de la máquina. |
 | ¿Qué norma cumple? | Ayuda a cumplir la Ley 19.587 y el Decreto 351/79 (control del uso de EPP) y complementa la constancia de entrega de la Res. SRT 299/2011. |
 | ¿Qué harían con más tiempo? | Piloto en una fábrica real, detectar otros riesgos (derrames, pasillos obstruidos) e integrar la asistencia de Touch ID. |

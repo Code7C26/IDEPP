@@ -13,7 +13,7 @@
 | Pago único | $950.000 (el primer cliente, piloto: $475.000) | `precios.md` |
 | Abono | $55.000 por mes | `precios.md` |
 | Un cliente nuevo paga abono la mitad de su primer año | Promedio de altas a lo largo del año | — |
-| Costo por instalación | $568.700 (la IA corre en una PC de la fábrica) | `costos-droid-e3d.md` |
+| Costo por instalación | $583.000 (la IA corre en una PC de la fábrica) | `costos-droid-e3d.md` |
 | Costo mensual por cliente | $32.000 (soporte y visitas) | `costos-droid-e3d.md` |
 | Trabajo de los socios | A $8.000 por hora: en cada instalación y **10 horas por mes de mantenimiento de la plataforma** ($960.000 por año) | `costos-droid-e3d.md` y `../../documentacion-comercial/01-viabilidad-comercial.md` |
 | Todos los valores | Pesos de noviembre de 2026, sin inflación ni impuestos | Simplificación: precios y costos se actualizan juntos cada 3 meses |
@@ -34,13 +34,13 @@ Cálculo de abonos: 2027 = 3 × 55.000 × 6 · 2028 = 3 × 55.000 × 12 + 7 × 5
 
 | $ | 2027 | 2028 | 2029 |
 |---|---|---|---|
-| Instalaciones (clientes nuevos × 568.700) | 1.706.100 | 3.980.900 | 8.530.500 |
+| Instalaciones (clientes nuevos × 583.000) | 1.749.000 | 4.081.000 | 8.745.000 |
 | Servicio mensual (meses-cliente × 32.000) | 576.000 | 2.496.000 | 6.720.000 |
 | Fijos (servidor, dominio, registros INPI y DNDA) | 190.000 | 230.000 | 300.000 |
 | Mantenimiento de la plataforma (10 h por mes × $8.000) | 960.000 | 960.000 | 960.000 |
 | Marketing (demos, traslados, ferias) | 300.000 | 800.000 | 1.500.000 |
 | Contador | — | — | 1.200.000 |
-| **Total gastos** | **3.732.100** | **8.466.900** | **19.210.500** |
+| **Total gastos** | **3.775.000** | **8.567.000** | **19.425.000** |
 
 Meses-cliente: 2027 = 18 · 2028 = 36 + 42 = 78 · 2029 = 120 + 90 = 210.
 
@@ -49,20 +49,20 @@ Meses-cliente: 2027 = 18 · 2028 = 36 + 42 = 78 · 2029 = 120 + 90 = 210.
 | $ | 2027 | 2028 | 2029 |
 |---|---|---|---|
 | Ingresos | 3.365.000 | 10.940.000 | 25.800.000 |
-| Gastos | 3.732.100 | 8.466.900 | 19.210.500 |
-| **Resultado** | **−367.100** | **2.473.100** | **6.589.500** |
-| Fondo de reserva (20 % si hay ganancia) | — | 494.620 | 1.317.900 |
-| Resultado acumulado | −367.100 | 2.106.000 | 8.695.500 |
+| Gastos | 3.775.000 | 8.567.000 | 19.425.000 |
+| **Resultado** | **−410.000** | **2.373.000** | **6.375.000** |
+| Fondo de reserva (20 % si hay ganancia) | — | 474.600 | 1.275.000 |
+| Resultado acumulado | −410.000 | 1.963.000 | 8.338.000 |
 
 ## Punto de equilibrio
 
 Cálculo completo en `../../documentacion-comercial/03-punto-de-equilibrio.md`. En resumen:
 
 - Costos fijos ≈ **$1.450.000 por año**, contando 10 horas por mes de nuestro trabajo en la plataforma.
-- Cada cliente deja en su primer año **$657.300** (1.610.000 − 952.700): hacen falta **3 clientes por año**, también
+- Cada cliente deja en su primer año **$643.000** (1.610.000 − 967.000): hacen falta **3 clientes por año**, también
   si el primero es el piloto. Con **6 clientes activos**, los abonos solos pagan la estructura.
-- **2027 cierra en −$367.100:** no es dinero que sale, sino el valor de nuestras horas que no cobramos. La inversión
-  inicial (≈ $590.000, `inversion-inicial.md`) se recupera en **2028**.
+- **2027 cierra en −$410.000:** no es dinero que sale, sino el valor de nuestras horas que no cobramos. La inversión
+  inicial (≈ $605.000, `inversion-inicial.md`) se recupera en **2028**.
 - El riesgo real es **no conseguir clientes**, no el margen.
 
 ## Qué podría salir mal

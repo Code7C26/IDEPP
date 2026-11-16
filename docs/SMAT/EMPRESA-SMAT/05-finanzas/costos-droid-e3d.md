@@ -23,9 +23,11 @@ Son las piezas que usamos en el robot nuevo (desde el 29/10/2026), confirmadas p
 | 2 motores con reductora y ruedas | 1 | 23.000 | TodoMicro |
 | Batería: 2 celdas 18650, portapilas, protección (BMS) y cargador | 1 | 25.000 | Estimado (el cargador sale $7.950) |
 | Reguladores de tensión (LM2596 y mini step-down) | 2 | 7.000 | TodoMicro |
+| Seguidores de línea (para recorrer la ruta y contar las zonas) | 2 | 5.000 | TodoMicro |
+| Sensor de distancia VL53L0X (para frenar ante un obstáculo en la ruta) | 1 | 8.000 | Estimado |
 | Cables, mini protoboard y borneras | 1 | 10.000 | Estimado |
 | Cuerpo del WALL-E impreso en 3D (PLA) | 1 | 10.000 | PrintaLot |
-| **Subtotal robot** | | **201.000** (≈ USD 128) | |
+| **Subtotal robot** | | **214.000** (≈ USD 136) | |
 
 ## 2. Corte de máquina (una por zona)
 
@@ -67,15 +69,15 @@ Valor hora de referencia: **$8.000** (justificado en `../../documentacion-comerc
 
 | Concepto | $ |
 |---|---|
-| Robot | 201.000 |
+| Robot | 214.000 |
 | Corte de 2 máquinas | 140.000 |
 | Servidor de IA (PC de la fábrica) | 0 |
 | Mano de obra | 176.000 |
-| **Subtotal** | **517.000** |
-| Imprevistos y garantía (10 %) | 51.700 |
-| **Costo total por instalación** | **568.700** (≈ USD 362) |
+| **Subtotal** | **530.000** |
+| Imprevistos y garantía (10 %) | 53.000 |
+| **Costo total por instalación** | **583.000** (≈ USD 371) |
 
-Si la fábrica necesita la mini PC, el costo sube a $888.700.
+Si la fábrica necesita la mini PC, el costo sube a $903.000.
 
 ## 6. Costo mensual por cliente (lo cubre el abono)
 
@@ -94,6 +96,7 @@ el marketing no dependen de la cantidad de clientes: suman **≈ $121.000 por me
 > **Cambio del 12/11/2026:** se pasa a pesos y se rehace con las piezas del robot nuevo. Antes el costo era de
 > USD 1.343 por instalación: incluía una PC con placa de video de USD 650 y el robot de oruga.
 >
-> **Cambio del 15/11/2026:** la lista pasa a las piezas que realmente usamos. Salen los sensores de línea (el robot
-> ahora se maneja a control remoto) y el buzzer (lo reemplaza el parlante); el audio es un amplificador MAX98357A en
-> vez de un DFPlayer; los servos son 7 en vez de 4. El robot pasa de $200.000 a $201.000.
+> **Cambio del 15/11/2026:** la lista pasa a las piezas que realmente usamos. Sale el buzzer (lo reemplaza el parlante);
+> el audio es un amplificador MAX98357A en vez de un DFPlayer; los servos son 7 en vez de 4. Los seguidores de línea
+> se quedan y se suma el sensor de distancia: en la fábrica el robot recorre solo la ruta cargada en la web y tiene
+> que frenar ante un obstáculo (el control remoto es para la demo). El robot pasa de $200.000 a $214.000.

@@ -10,7 +10,7 @@
 
 | Ítem | Para qué | $ |
 |---|---|---|
-| Prototipo del robot (ver `costos-droid-e3d.md`, sección 1) | Demo y pruebas | 201.000 |
+| Prototipo del robot (ver `costos-droid-e3d.md`, sección 1) | Demo y pruebas | 214.000 |
 | Un corte de máquina | Demostrar la parada de máquina | 70.000 |
 | Servidor de IA | Se usa una notebook propia para la demo | 0 |
 | Herramientas: soldador, multímetro, pinzas | Armado | 60.000 (estimado) |
@@ -19,9 +19,9 @@
 | Dominio `.com.ar` (1 año) | Web pública | 8.500 |
 | Registro de la marca en el INPI (1 clase) | Proteger «DROID-E3D» (ver `../07-legal/propiedad-intelectual.md`) | 40.600 |
 | Material de demo: casco, guantes, lentes y chalecos; impresiones | Mostrar la detección | 40.000 (estimado) |
-| **Subtotal** | | **536.100** |
-| Imprevistos (10 %) | | 53.600 |
-| **Total** | | **≈ 590.000** (≈ USD 375) |
+| **Subtotal** | | **549.100** |
+| Imprevistos (10 %) | | 54.900 |
+| **Total** | | **≈ 605.000** (≈ USD 385) |
 
 Fuentes: piezas en `costos-droid-e3d.md`; dominio, marca y hosting en
 `../../documentacion-comercial/01-viabilidad-comercial.md`, sección 3.1.
@@ -30,8 +30,8 @@ Fuentes: piezas en `costos-droid-e3d.md`; dominio, marca y hosting en
 
 | Socio | Aporte | Cómo |
 |---|---|---|
-| Tiziano | $295.000 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
-| Morena | $295.000 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
+| Tiziano | $302.500 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
+| Morena | $302.500 (50 %) | En dos cuotas: octubre y noviembre de 2026 |
 
 Según el acuerdo de socios, si uno pone de más, se registra como préstamo a IDEPP.
 

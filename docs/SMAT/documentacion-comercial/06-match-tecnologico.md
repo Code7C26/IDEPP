@@ -62,7 +62,7 @@ la página del empleado y a la del encargado.
 
 - ☑ API REST: para que la computadora y el robot le manden las alertas a la página.
 - ☑ Páginas web: una para el encargado y otra para el empleado.
-- ☑ Sensores / IoT: el robot se conecta por WiFi y tiene cámara, pantalla, parlante y servos.
+- ☑ Sensores / IoT: el robot se conecta por WiFi y tiene cámara, pantalla, parlante, servos, seguidores de línea para recorrer la ruta y un sensor de distancia para no chocarse.
 - ☐ Energía solar o eólica
 - ☐ App para celular: preferimos una página web porque es más rápida de hacer y también se abre en el celular.
 - ☑ Base de datos: para guardar cada falta con fecha, hora, zona, trabajador y foto.
