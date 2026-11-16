@@ -27,7 +27,8 @@ cada 3 meses). Detalle en [`../05-finanzas/precios.md`](../05-finanzas/precios.m
 - [ ] **WiFi de 2,4 GHz** en las zonas que recorre el robot (el de 5 GHz no sirve).
 - [ ] **Una PC** con procesador i5 o similar y 8 GB de RAM, prendida en el horario de trabajo y conectada al
       mismo WiFi. Si no tiene, se ofrece la mini PC.
-- [ ] **Piso donde pegar la cinta** y pasillos por donde pueda pasar el robot.
+- [ ] **Piso donde pegar la cinta** (o líneas ya pintadas, ver el paso 2 de la sección 4) y pasillos por donde
+      pueda pasar el robot.
 - [ ] **Un enchufe** cerca de la base del robot, para cargarlo.
 - [ ] **El consentimiento firmado** de los empleados para el uso de su imagen (ver
       [`../07-legal/datos-personales.md`](../07-legal/datos-personales.md)).
@@ -47,6 +48,8 @@ Son unas **8 horas** de instalación más **2 de capacitación** (las que figura
 1. **Recorrer la planta con el encargado.** Definimos las zonas, qué equipo de protección se exige en cada una
    y por dónde va a pasar el robot.
 2. **Pegar la ruta.** La cinta negra marca el recorrido, y una cinta que la cruza marca la entrada de cada zona.
+   Si la planta **ya tiene líneas pintadas** en el piso (por ejemplo, las de los pasillos) y se distinguen bien
+   del piso, el robot puede seguir esas: solo calibramos sus sensores en el lugar (http://droid-robot.local/sensores).
 3. **Conectar el robot y la cámara al WiFi desde el celular.** Al prenderlos por primera vez, el robot crea la
    red «DROID-E3D-Robot» (con la pantalla azul) y la cámara la red «DROID-E3D-Camara» (con una luz roja). Nos
    conectamos con el celular, elegimos el WiFi de la fábrica y escribimos su clave. No hace falta reprogramar
