@@ -1,8 +1,11 @@
 # Manual de marca
 
-> **Estado:** completo (v2) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 05/11/2026
+> **Estado:** completo (v3) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 16/11/2026
 
 **Para qué sirve:** reglas visuales y de tono. La web de DROID-E3D ya usa estos colores (definidos en `src/SMAT/frontend/src/index.css`).
+
+**Desde el 16/11/2026 (v3)** la web, la caja y el manual de usuario siguen la **misma estética**: naranja, fondo crema, gris
+oscuro y títulos en Montserrat. Antes la marca era amarilla.
 
 ## 1. Nombres
 
@@ -17,7 +20,7 @@
 
 ## 2. Logo
 
-**Isotipo DROID-E3D:** una letra **D** amarilla con el lente de una cámara adentro (el robot que mira), sobre un cuadrado color tinta con las puntas redondeadas. Reemplaza al escudo de la v1 (06/10/2026).
+**Isotipo DROID-E3D:** una letra **D** naranja con el lente de una cámara adentro (el robot que mira), sobre un cuadrado color tinta con las puntas redondeadas. Reemplaza al escudo de la v1 (06/10/2026).
 
 | Archivo | Uso |
 |---|---|
@@ -27,31 +30,39 @@
 
 - **Tamaño mínimo:** 24 px de alto en pantalla, 8 mm impreso.
 - **Espacio libre alrededor:** el radio del lente, como mínimo, en los cuatro lados.
-- **Sobre fondo oscuro:** la D se mantiene amarilla y el cuadrado no cambia, aunque se funda con el fondo; el texto pasa a blanco.
+- **Sobre fondo oscuro:** la D se mantiene naranja y el cuadrado no cambia, aunque se funda con el fondo; el texto pasa a blanco.
 - **No hacer:** deformar o rotar el logo, cambiarle los colores, ponerle sombras, ubicarlo sobre fotos que no dejen leerlo.
 
 ## 3. Colores
 
 | Nombre | HEX | Uso |
 |---|---|---|
-| **Amarillo seguridad** (principal) | `#F5B800` | Logo, acentos, elemento activo del menú y foco del teclado |
-| Amarillo oscuro | `#C99400` | Botón al pasar el mouse, texto amarillo sobre blanco |
-| **Tinta** | `#1F2328` | Botones principales de la web, texto sobre amarillo, fondo y lente del logo, franja de seguridad |
+| **Naranja** (principal) | `#F7931E` | Logo, acentos, elemento activo del menú, foco del teclado, rayas `///` |
+| Naranja oscuro | `#C2650A` | Texto naranja sobre fondo claro (se lee mejor) |
+| **Tinta** | `#2B2B2B` | Botones principales de la web, texto sobre naranja, fondo y lente del logo, franja de la marca |
+| **Crema** | `#F4F1EB` | Fondo de la web, de la caja y del manual de usuario |
+| Amarillo | `#F5B800` | Brillo del lente del logo |
 | **Rojo alerta** | `#DC2626` | Alertas activas, parada de emergencia, errores |
 | **Verde OK** | `#16A34A` | Todo en orden, alertas resueltas |
-| Naranja | `#F97316` | Advertencias, brillo del lente del logo |
-| Grises | `#F4F4F5` a `#09090B` | Fondos y textos (escala *zinc*) |
+| Ámbar | `#D97706` | Advertencias (distinto del naranja de la marca) |
+| Grises cálidos | `#FAFAF9` a `#1B1A19` | Fondos y textos (tono piedra, combinan con el crema) |
 
-**Franja de seguridad:** rayas diagonales amarillo/tinta de 12 px, como la cinta de peligro. Se usa arriba de la barra de la web y del login.
+**Franja de la marca:** rayas diagonales naranja/tinta, como las `///` de la caja. Se usa arriba de la barra de la web y del login.
 
-**Contraste:** sobre el amarillo el texto va siempre en tinta, nunca en blanco (no se lee).
+**Línea con quiebre:** una línea naranja fina que baja en diagonal, como la de la caja. En la web va debajo del título de
+cada página; en el manual, arriba de cada hoja.
 
-**Estilo de la web (desde el 07/10/2026):** moderno tipo SaaS. El amarillo se usa como **acento** (no para todos los botones), con fondos claros, sombras suaves y bordes redondeados.
+**Contraste:** sobre el naranja el texto va siempre en tinta, nunca en blanco.
+
+**Estilo de la web:** moderno tipo SaaS (desde el 07/10/2026), con la estética de la caja (desde el 16/11/2026). El naranja
+se usa como **acento** (no para todos los botones), con fondo crema, tarjetas blancas, sombras suaves y bordes redondeados.
 
 ## 4. Tipografía
 
-- **En pantalla (web):** la fuente del sistema (*Segoe UI* en Windows, *Roboto* en Android, *San Francisco* en iPhone). Carga rápido y se ve nativa.
-- **En documentos y presentaciones:** **Arial** o **Helvetica**. Títulos en negrita, texto en regular.
+- **Títulos (web, caja, manual):** **Montserrat**, gruesa. El nombre **DROID-E3D** va en Montserrat negra e inclinada, con
+  «E3D» en naranja, como en la caja.
+- **Texto en pantalla (web):** la fuente del sistema (*Segoe UI* en Windows, *Roboto* en Android, *San Francisco* en iPhone). Carga rápido y se ve nativa.
+- **Texto en documentos impresos:** Inter (manual de usuario), o **Arial** / **Helvetica**.
 - Números de las tarjetas: cifras de ancho fijo (*tabular*) para que no «salten» al actualizarse.
 
 ## 5. Tono de voz

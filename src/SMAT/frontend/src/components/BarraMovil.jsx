@@ -16,7 +16,7 @@ export default function BarraMovil() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/90 backdrop-blur md:hidden dark:border-zinc-800 dark:bg-zinc-900/90">
-      <div className="h-1 bg-[repeating-linear-gradient(45deg,#f5b800_0_10px,#1f2328_10px_20px)]" />
+      <div className="h-1 franja-marca" />
       <div className="flex h-14 items-center justify-between px-4">
         <Link to={inicioSegunRol(usuario)} aria-label="Ir al inicio"><Logo className="size-8" /></Link>
         <div className="flex items-center gap-1">

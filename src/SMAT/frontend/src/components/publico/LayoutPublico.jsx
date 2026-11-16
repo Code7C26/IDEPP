@@ -6,7 +6,7 @@ import EncabezadoPublico, { SECCIONES } from './EncabezadoPublico.jsx'
 
 function Pie() {
   return (
-    <footer className="border-t border-zinc-200/70 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+    <footer className="border-t border-zinc-200/70 bg-crema dark:border-zinc-800 dark:bg-zinc-950">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-[2fr_1fr_1fr] md:px-8">
         <div>
           <Logo className="size-9" />
@@ -40,7 +40,7 @@ export default function LayoutPublico() {
   useEffect(() => { window.scrollTo(0, 0) }, [pathname])   // cada página nueva arranca desde arriba
 
   return (
-    <div className="flex min-h-dvh flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div className="flex min-h-dvh flex-col bg-crema text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
       <a href="#contenido" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-2 focus:rounded-lg focus:bg-marca focus:px-3 focus:py-2 focus:text-tinta">
         Saltar al contenido
       </a>

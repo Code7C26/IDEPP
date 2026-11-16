@@ -52,7 +52,7 @@ export function LlamadoDemo() {
   return (
     <section className="px-4 pb-16 md:px-8">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-tinta px-6 py-12 text-white md:px-12">
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-[repeating-linear-gradient(45deg,#f5b800_0_12px,#1f2328_12px_24px)]" />
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 franja-marca" />
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
             <h2 className="text-2xl font-bold tracking-tight md:text-3xl">¿Querés verlo funcionando en tu planta?</h2>

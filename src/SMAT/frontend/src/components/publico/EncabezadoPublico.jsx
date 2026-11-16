@@ -31,8 +31,8 @@ export default function EncabezadoPublico() {
     : <Link to="/login" className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200">Ingresar</Link>
 
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-white/85 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/85">
-      <div className="h-1 bg-[repeating-linear-gradient(45deg,#f5b800_0_10px,#1f2328_10px_20px)]" />
+    <header className="sticky top-0 z-40 border-b border-zinc-200/70 bg-crema/85 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/85">
+      <div className="h-1 franja-marca" />
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 md:px-8" aria-label="Principal">
         <Link to="/" aria-label="DROID-E3D, página de inicio"><Logo className="size-9" /></Link>
 

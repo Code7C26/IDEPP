@@ -26,7 +26,7 @@ export default function BarraLateral() {
 
   return (
     <aside className={`sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-zinc-200/80 bg-white transition-[width] duration-200 md:flex dark:border-zinc-800 dark:bg-zinc-900 ${colapsado ? 'w-[72px]' : 'w-64'}`}>
-      <div className="h-1 shrink-0 bg-[repeating-linear-gradient(45deg,#f5b800_0_10px,#1f2328_10px_20px)]" />
+      <div className="h-1 shrink-0 franja-marca" />
       <div className={`flex h-16 items-center ${colapsado ? 'justify-center' : 'justify-between px-4'}`}>
         <Link to={inicioSegunRol(usuario)} aria-label="Ir al inicio"><Logo conTexto={!colapsado} className="size-8" /></Link>
         {!colapsado && <button type="button" onClick={alternar} className={iconoChico} aria-label="Achicar el menú" title="Achicar el menú"><span aria-hidden="true">«</span></button>}

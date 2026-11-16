@@ -67,7 +67,7 @@ export default function FormZona({ inicial, zonas, error, guardando, onGuardar, 
           {Object.entries(NOMBRES_EPP).map(([clave, nombre]) => (
             <label key={clave} className={`cursor-pointer rounded-lg border px-3 py-2 text-sm font-medium transition ${
               f.epp_requerido.includes(clave) ? 'border-marca bg-marca/15' : 'border-zinc-200 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800'}`}>
-              <input type="checkbox" className="mr-2 accent-[#f5b800]" checked={f.epp_requerido.includes(clave)} onChange={() => alternarEpp(clave)} />
+              <input type="checkbox" className="mr-2 accent-marca" checked={f.epp_requerido.includes(clave)} onChange={() => alternarEpp(clave)} />
               {nombre}
             </label>
           ))}
