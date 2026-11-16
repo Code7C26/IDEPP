@@ -20,7 +20,7 @@ Son las piezas que usamos en el robot nuevo (desde el 29/10/2026), confirmadas p
 | Pantalla TFT ST7789 240x240 | 1 | 14.000 | TodoMicro |
 | Controlador de servos PCA9685 + 7 servos (cabeza y brazos) | 1 + 7 | 38.000 | Estimado (antes: PCA9685 + 4 servos a $27.000, PatagoniaTec y Mercado Libre) |
 | Audio: amplificador MAX98357A + parlante | 1 | 10.000 | Estimado |
-| 2 motores con reductora y ruedas | 1 | 23.000 | TodoMicro |
+| 2 motores con reductora para las orugas | 1 | 23.000 | TodoMicro |
 | Batería: 2 celdas 18650, portapilas, protección (BMS) y cargador | 1 | 25.000 | Estimado (el cargador sale $7.950) |
 | Reguladores de tensión (LM2596 y mini step-down) | 2 | 7.000 | TodoMicro |
 | Seguidores de línea (para recorrer la ruta y contar las zonas) | 2 | 5.000 | TodoMicro |

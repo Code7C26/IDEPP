@@ -37,7 +37,7 @@ lentes y el chaleco:
 
 ## 💡 ¿Cómo lo resuelve?
 
-Un **robot con ruedas** recorre las zonas de la planta con una cámara. Un **servidor de IA** (YOLO) detecta a quien
+Un **robot con orugas** recorre las zonas de la planta con una cámara. Un **servidor de IA** (YOLO) detecta a quien
 trabaja sin su equipo y reconoce de quién es la cara (solo con su consentimiento). La **plataforma web** muestra la
 alerta con foto al instante, y el robot **se detiene en esa zona**, muestra el signo de peligro y hace sonar la
 alarma.

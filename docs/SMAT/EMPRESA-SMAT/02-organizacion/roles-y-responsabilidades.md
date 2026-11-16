@@ -16,7 +16,7 @@
 
 | Responsabilidades | Decide solo | Consulta con Tiziano |
 |---|---|---|
-| Robot con ruedas, ESP32-S3 del robot, cámara y sensores | Componentes y armado, siempre dentro del presupuesto | Compras de más de $75.000 |
+| Robot con orugas, ESP32-S3 del robot, cámara y sensores | Componentes y armado, siempre dentro del presupuesto | Compras de más de $75.000 |
 | Cámara, servidor YOLO y reconocimiento facial | Modelo de IA y su entrenamiento | Qué datos de empleados se usan (ver `../07-legal/datos-personales.md`) |
 | Pruebas de integración con el backend | Cómo y cuándo prueba | Cambios en el contrato de la API |
 
