@@ -27,7 +27,7 @@
 - **Producto, plan y presupuesto:** cada equipo decide sobre su producto sin consultar al otro.
 - **Ramas y revisiones:** el equipo de DROID-E3D trabaja en `SMAT-web`, `SMAT-hardware` y `SMAT-empresa`, y sus Pull Requests los revisan Tiziano y Morena.
 - **Etiquetas y plantillas:** lo de DROID-E3D lleva el prefijo `smat` para no mezclarse con TOUCH-ID.
-- **Ganancias:** cada equipo se reparte lo que deja su producto (ver el [acuerdo de socios](../02-organizacion/acuerdo-de-socios.md)).
+- **Ganancias:** cada equipo se reparte lo que deja su producto, y cada producto aporta un **10 % a un fondo común** de IDEPP (ver el [acuerdo de socios](../02-organizacion/acuerdo-de-socios.md)).
 
 ## Qué se decide entre los 5
 

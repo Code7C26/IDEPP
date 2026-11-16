@@ -7,6 +7,20 @@
 **Hecho**
 - 10/11: La empresa pasa a ser **IDEPP**, con dos productos: Touch ID y DROID-E3D. Morena actualiza la web, los documentos, el acuerdo de socios y los logos (PR #104). El repositorio pasa a llamarse `Code7C26/IDEPP`.
 - 11/11: Se completa el cambio (decisión 009): el informe PDF mensual firma «by IDEPP», `copiar_renders.py` repite los nombres nuevos al volver a copiar los renders, se saca «oruga» de los documentos y se regeneran el canvas, los PDF y el Word.
+- 12/11: Tiziano suma el Match Tecnológico, pasa los precios y costos a pesos (noviembre de 2026), cambia «Toro» por «Tiziano» en la documentación y revisa el repo. Morena suma el FODA del equipo con la reflexión final, el mini pitch, la versión estable del MVP y el avance del proyecto (de KIDO a DROID-E3D).
+- 14/11: Morena retoma el hardware y arma el plan de conexiones. Se decide manejar el robot **a control remoto** en vez de seguir una línea: el joystick de PlayStation 3 no es compatible con el Bluetooth del ESP32-S3, así que se hace un joystick en una página para el celular.
+- 15/11: **Primera prueba con todo junto**: pantalla, alarma, joystick en el celular, cámara e IA. Cuando la IA ve a alguien sin casco, el robot frena, muestra el signo de peligro y suena 10 segundos. Se arregla que la alerta tardaba hasta 4 s (ahora 0,1 s), que la cámara se recalentaba (máximo 5 fotos por segundo) y que la IA guardaba una sola falta (ahora cada una). Se suma un programa para sacar fotos y reentrenar el modelo.
+- 15/11: Documentación: actas de las reuniones del 10/08, 26/08, 21/10 y 05/11 (#146); el acuerdo de socios suma el fondo común del 10 %; se saca de cuatro documentos que los socios son menores de edad (#145). En el documento final: portada con IDEPP y su logo, la parte de hardware e IA (sección 6) y la prueba con el hardware (sección 7).
+
+**Problemas**
+- La computadora no reconocía la placa del robot: un cable de tierra estaba en el pin 19, que usa el USB.
+- La pantalla se prendía sin dibujar (dos cables cruzados) y el parlante no sonaba: el pin de 5V de esta placa no da energía, así que el amplificador pasó a 3,3V. Por lo mismo, los servos esperan la batería.
+- La cámara ESP32-CAM se recalienta, y el modelo de IA solo detecta bien el casco (40 a 60 % de confianza).
+- La notebook de Morena tiene 4 GB de RAM: con Chrome abierto, la IA se tilda.
+
+**Próximos pasos**
+- 17/11: sacar las fotos para reentrenar el modelo (barbijo y lentes, sí o sí). Con el profesor: la batería y las ruedas.
+- Con Tiziano: publicar la web, la clave para que la IA guarde las faltas en la web y sumar «sin barbijo».
 
 ## Semana 5 · desde el 02/11/2026
 
@@ -36,6 +50,7 @@
 
 **Hecho**
 - 27/10: Morena corrige la alarma que no cortaba, ajusta el umbral del sensor de línea a lo medido (blanco 0-450, cinta negra 1900-2700), suma el buzzer configurable y lleva a 20 s la espera entre alertas (PR #83).
+- 29/10: **Cambian todos los componentes del robot**: el cuerpo pasa a ser un WALL-E impreso en 3D, con una placa ESP32-S3, ruedas con motores y su driver, servos para la cabeza y los brazos, una pantalla, un parlante y una cámara nueva. Lo que se había armado antes queda como base para el robot nuevo.
 
 **Problemas**
 - Según Morena: el sensor de línea del GPIO 34 no reacciona (se compraron TCRT5000) y el VL53L0X todavía no se probó conectado.
@@ -107,3 +122,10 @@
 **Próximos pasos**
 - Fase 7: tiempo real (alerta sonora, PWA y notificaciones push). Fase 6.5: prueba real con el hardware de Morena (`docs/integracion/PRUEBA.md`).
 - Morena: revisar `docs/API.md` y el acuerdo de socios; probar el robot y el relé contra el backend.
+
+## Antes del repositorio · agosto y septiembre de 2026
+
+**Hecho**
+- 10/08: Reunión de los 5 socios en el colegio: se decide unir las dos empresas en una, con dos productos (Touch ID y DROID-E3D). Las ganancias de DROID-E3D, mitad y mitad entre Tiziano y Morena; el nombre queda para más adelante.
+- 26/08: Reunión de Tiziano y Morena en el colegio: se define el diseño del robot, que use IA para detectar el equipo de protección, que se pruebe primero con la cámara del celular y qué hace cada uno (Tiziano, software y web; Morena, hardware e IA).
+- Agosto y septiembre: el equipo aprende cómo funciona cada componente del robot y los va conectando de a uno para probar su función.
