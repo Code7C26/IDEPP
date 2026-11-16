@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Manual de usuario DROID-E3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --b: 0mm;               /* sangrado: 3 mm en la versión para imprenta */
+    --crema: #EEEAE3;
+    --papel: #F7F4EF;
+    --tinta: #262626;
+    --oscuro: #2B2B2B;
+    --naranja: #F7931E;
+    --naranja-suave: #FDE9D2;
+    --gris: #6B6B6B;
+    --linea: #D9D3C9;
+    --rojo: #D7261E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #999; }
+  body { font-family: Inter, "Segoe UI", sans-serif; color: var(--tinta); font-size: 9.2pt; line-height: 1.42;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @media print { html, body { background: none; } }
+
+  .pagina { width: calc(148mm + 2 * var(--b)); height: calc(210mm + 2 * var(--b)); position: relative; overflow: hidden;
+            background: var(--papel); page-break-after: always; break-after: page; }
+  .pagina:last-child { page-break-after: auto; break-after: auto; }
+  @media screen { .pagina { margin: 10mm auto; box-shadow: 0 2px 12px rgba(0,0,0,.3); } }
+
+  /* zona segura: 12 mm de margen + sangrado */
+  .contenido { position: absolute; left: calc(12mm + var(--b)); right: calc(12mm + var(--b));
+               top: calc(15mm + var(--b)); bottom: calc(17mm + var(--b)); display: flex; flex-direction: column; }
+
+  /* cabecera y pie de las páginas de adentro */
+  .cabecera { position: absolute; left: 0; right: 0; top: 0; height: calc(13mm + var(--b)); }
+  .cabecera svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 6mm; }
+  .cabecera .marca { position: absolute; left: calc(12mm + var(--b)); top: calc(3.2mm + var(--b));
+                     font: 700 6.5pt Montserrat, sans-serif; letter-spacing: .14em; color: var(--gris); text-transform: uppercase; }
+  .cabecera .marca b { color: var(--tinta); font-style: italic; font-weight: 900; }
+  .cabecera .marca b span { color: var(--naranja); }
+  .pie { position: absolute; left: 0; right: 0; bottom: 0; height: calc(9mm + var(--b)); background: var(--oscuro); }
+  .pie .num { position: absolute; bottom: calc(3mm + var(--b)); font: 800 8pt Montserrat, sans-serif; color: #fff; }
+  .pie .rayas { position: absolute; bottom: calc(2.6mm + var(--b)); height: 3.8mm; }
+  .par .pie .num { left: calc(12mm + var(--b)); }  .par .pie .rayas { right: calc(12mm + var(--b)); }
+  .impar .pie .num { right: calc(12mm + var(--b)); } .impar .pie .rayas { left: calc(12mm + var(--b)); }
+  .pie::before { content: ""; position: absolute; left: 0; right: 0; top: -1.2mm; height: 1.2mm; background: var(--naranja); }
+
+  /* títulos */
+  .titulo { display: flex; align-items: baseline; gap: 3mm; margin-bottom: 4mm; }
+  .titulo .n { font: italic 900 22pt/1 Montserrat, sans-serif; color: var(--naranja); }
+  .titulo h2 { font: 800 15pt/1.1 Montserrat, sans-serif; letter-spacing: -.01em; }
+  h3 { font: 800 10.5pt/1.2 Montserrat, sans-serif; margin: 4mm 0 2mm; display: flex; align-items: center; gap: 2mm; }
+  h3::before { content: ""; width: 3mm; height: 3mm; background: var(--naranja); transform: skewX(-20deg); flex: none; }
+  p { margin: 0 0 2mm; }
+  .bajada { font-size: 10pt; color: #444; margin-bottom: 4mm; }
+  b, strong { font-weight: 700; }
+
+  /* iconos */
+  .ic { width: 7mm; height: 7mm; flex: none; fill: none; stroke: var(--tinta); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .ic.chico { width: 5mm; height: 5mm; }
+  .ic.naranja { stroke: var(--naranja); }
+  .ic.blanco { stroke: #fff; }
+
+  /* tarjetas y listas */
+  .tarjetas { display: grid; gap: 2.5mm; }
+  .tarjeta { display: flex; gap: 3mm; align-items: flex-start; background: #fff; border: 0.3mm solid var(--linea);
+             border-radius: 2mm; padding: 3mm 3.5mm; }
+  .tarjeta h4 { font: 800 9.5pt Montserrat, sans-serif; margin-bottom: .6mm; }
+  .tarjeta p { margin: 0; color: #3a3a3a; }
+  .lista-ic { display: grid; gap: 0; }
+  .lista-ic > div { display: flex; gap: 3mm; align-items: center; padding: 2.4mm 0; border-bottom: 0.3mm solid var(--linea); }
+  .lista-ic > div:last-child { border-bottom: 0; }
+
+  .pasos { counter-reset: paso; display: grid; gap: 3mm; }
+  .paso { display: grid; grid-template-columns: 9mm 1fr; gap: 3mm; align-items: start; }
+  .paso::before { counter-increment: paso; content: counter(paso); width: 9mm; height: 9mm; display: grid; place-items: center;
+                  background: var(--oscuro); color: #fff; font: italic 900 12pt Montserrat, sans-serif; border-radius: 1.5mm;
+                  box-shadow: 0.8mm 0.8mm 0 var(--naranja); }
+  .paso h4 { font: 800 9.8pt Montserrat, sans-serif; margin: .6mm 0 .6mm; }
+  .paso p { margin: 0; color: #3a3a3a; }
+
+  ul.puntos { list-style: none; display: grid; gap: 1.6mm; margin: 0 0 2mm; }
+  ul.puntos li { padding-left: 4.5mm; position: relative; }
+  ul.puntos li::before { content: ""; position: absolute; left: 0; top: 1.5mm; width: 2.2mm; height: 2.2mm; background: var(--naranja); transform: skewX(-20deg); }
+
+  .aviso { background: var(--naranja-suave); border-left: 1.4mm solid var(--naranja); border-radius: 0 2mm 2mm 0;
+           padding: 2.6mm 3.5mm; display: flex; gap: 3mm; align-items: center; margin-top: 3mm; }
+  .aviso p { margin: 0; }
+  .oscura { background: var(--oscuro); color: #fff; border-radius: 2mm; padding: 4mm; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  th { text-align: left; font: 800 8pt Montserrat, sans-serif; background: var(--oscuro); color: #fff; padding: 2mm 2.5mm; }
+  td { padding: 2.1mm 2.5mm; border-bottom: 0.3mm solid var(--linea); vertical-align: top; background: #fff; }
+  td:first-child { font-weight: 700; width: 38%; }
+  tr:nth-child(even) td { background: #FBF9F6; }
+
+  .boton { display: inline-block; font: 800 7.6pt Montserrat, sans-serif; padding: .5mm 2mm; border-radius: 1mm;
+           background: var(--oscuro); color: #fff; white-space: nowrap; }
+  .boton.rojo { background: var(--rojo); }
+  .boton.naranja { background: var(--naranja); color: var(--tinta); }
+  .url { font: 700 8.6pt Consolas, monospace; background: #fff; border: 0.3mm solid var(--linea); padding: .3mm 1.5mm; border-radius: 1mm; }
+
+  /* ---------- tapa ---------- */
+  .tapa { background: var(--crema); }
+  .tapa .lomo { position: absolute; left: 0; top: 0; bottom: 0; width: calc(9mm + var(--b)); background: var(--oscuro); }
+  .tapa .logo { position: absolute; left: calc(24mm + var(--b)); right: calc(16mm + var(--b)); top: calc(16mm + var(--b)); text-align: center; }
+  .tapa .logo img { width: 62mm; }
+  .tapa .lema { font: 600 7pt Montserrat, sans-serif; letter-spacing: .32em; margin-top: 1mm; }
+  .tapa .trazo { position: absolute; left: 0; right: 0; }
+  .tapa .nombre { position: absolute; left: calc(18mm + var(--b)); right: calc(10mm + var(--b)); top: calc(63mm + var(--b));
+                  display: flex; align-items: center; gap: 4mm; }
+  .tapa .nombre h1 { font: italic 900 30pt/1 Montserrat, sans-serif; letter-spacing: -.02em; }
+  .tapa .nombre h1 span { color: var(--naranja); }
+  .tapa .tipo { position: absolute; left: calc(18mm + var(--b)); top: calc(78mm + var(--b));
+                font: 800 10pt Montserrat, sans-serif; letter-spacing: .3em; text-transform: uppercase; }
+  .tapa .robot { position: absolute; left: calc(40mm + var(--b)); width: 78mm; top: calc(90mm + var(--b)); height: 92mm;
+                 background: url(robot.png) center/contain no-repeat;
+                 -webkit-mask-image: linear-gradient(#000 88%, transparent 100%); mask-image: linear-gradient(#000 88%, transparent 100%); }
+  .tapa .base { position: absolute; left: 0; right: 0; bottom: 0; height: calc(22mm + var(--b)); background: var(--oscuro); }
+  .tapa .base::before { content: ""; position: absolute; left: 0; right: 0; top: -1.6mm; height: 1.6mm; background: var(--naranja); }
+  .tapa .base .rayas { position: absolute; right: calc(14mm + var(--b)); top: 6mm; height: 7mm; }
+  .tapa .base .by { position: absolute; left: calc(18mm + var(--b)); top: 6.5mm; color: #fff; font: 600 7.5pt Montserrat, sans-serif; letter-spacing: .12em; }
+  .tapa .base .by b { color: var(--naranja); }
+
+  /* ---------- contratapa ---------- */
+  .contratapa { background: var(--oscuro); color: #fff; }
+  .contratapa .contenido { align-items: center; justify-content: center; text-align: center; }
+  .contratapa .logo-caja { background: var(--crema); border-radius: 3mm; padding: 6mm 9mm 5mm; margin-bottom: 9mm; }
+  .contratapa .logo-caja img { width: 52mm; display: block; }
+  .contratapa .logo-caja div { font: 600 6pt Montserrat, sans-serif; letter-spacing: .3em; color: var(--tinta); margin-top: 1mm; }
+  .contratapa h2 { font: 800 13pt Montserrat, sans-serif; margin-bottom: 4mm; }
+  .contratapa .dato { display: flex; gap: 3mm; align-items: center; justify-content: center; margin: 1.6mm 0; font-size: 9.5pt; }
+  .contratapa .marca-final { position: absolute; bottom: calc(14mm + var(--b)); left: 0; right: 0; text-align: center;
+                             font: italic 900 14pt Montserrat, sans-serif; }
+  .contratapa .marca-final span { color: var(--naranja); }
+  .contratapa .marca-final small { display: block; font: 500 7pt Inter, sans-serif; color: #aaa; margin-top: 1.5mm; letter-spacing: .05em; }
+
+  /* ---------- partes del robot ---------- */
+  .foto-partes { position: relative; width: 82mm; height: 97mm; margin: 0 auto 3mm; background: url(robot.png) center/contain no-repeat;
+                 -webkit-mask-image: linear-gradient(#000 88%, transparent 100%); mask-image: linear-gradient(#000 88%, transparent 100%); }
+  .marcador { position: absolute; width: 5.6mm; height: 5.6mm; margin: -2.8mm 0 0 -2.8mm; border-radius: 50%;
+              background: var(--naranja); color: var(--tinta); font: 900 8pt/5.6mm Montserrat, sans-serif; text-align: center;
+              border: 0.5mm solid #fff; box-shadow: 0 0.5mm 1.5mm rgba(0,0,0,.35); }
+  .partes { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 4mm; font-size: 8.8pt; }
+  .partes div { display: grid; grid-template-columns: 5.6mm 1fr; gap: 2mm; align-items: start; }
+  .partes i { font-style: normal; width: 5.6mm; height: 5.6mm; border-radius: 50%; background: var(--naranja);
+              font: 900 8pt/5.6mm Montserrat, sans-serif; text-align: center; }
+  .partes b { display: block; }
+
+  /* índice */
+  .indice { display: grid; gap: 0; margin-top: 2mm; }
+  .indice div { display: grid; grid-template-columns: 9mm 1fr auto; gap: 2mm; padding: 1.9mm 0; border-bottom: 0.3mm dotted #bbb; align-items: baseline; }
+  .indice span:first-child { font: italic 900 10pt Montserrat, sans-serif; color: var(--naranja); }
+  .indice span:last-child { font: 700 9pt Montserrat, sans-serif; }
+
+  /* flujo de alerta */
+  .flujo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; margin-top: 2mm; }
+  .flujo div { background: var(--oscuro); color: #fff; border-radius: 2mm; padding: 3mm 2mm; text-align: center; font-size: 7.8pt; line-height: 1.3; }
+  .flujo .ic { margin: 0 auto 1.5mm; display: block; }
+  .flujo b { display: block; font: 800 8pt Montserrat, sans-serif; color: var(--naranja); margin-bottom: .5mm; }
+
+  /* control remoto: dibujo del celular */
+  .celu-fila { display: grid; grid-template-columns: 1fr 34mm; gap: 5mm; align-items: center; }
+  .celu { width: 34mm; height: 62mm; border-radius: 5mm; background: var(--oscuro); padding: 3mm 2.2mm; }
+  .celu .pantalla { background: #1a1a1a; border-radius: 2.5mm; height: 100%; display: flex; flex-direction: column; align-items: center;
+                    justify-content: space-between; padding: 3mm 2mm; color: #fff; }
+  .celu .modos { display: flex; gap: 1mm; font: 700 4.6pt Montserrat, sans-serif; }
+  .celu .modos span { padding: .8mm 1.2mm; border-radius: .8mm; background: #444; }
+  .celu .modos span.on { background: var(--naranja); color: var(--tinta); }
+  .celu .joy { width: 20mm; height: 20mm; border-radius: 50%; border: .6mm solid #555; display: grid; place-items: center; }
+  .celu .joy div { width: 8mm; height: 8mm; border-radius: 50%; background: var(--naranja); }
+  .celu .t { font: 700 5pt Montserrat, sans-serif; color: #bbb; letter-spacing: .1em; }
+
+  /* capturas de la web con números encima */
+  .captura { position: relative; border-radius: 2mm; overflow: hidden; border: 0.3mm solid var(--linea);
+             box-shadow: 0 1mm 3mm rgba(0,0,0,.12); background: #fff; }
+  .captura img { display: block; width: 100%; }
+  .leyenda { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4mm 4mm; font-size: 8.6pt; margin: 2.5mm 0 1mm; }
+  .leyenda div { display: grid; grid-template-columns: 5.6mm 1fr; gap: 2mm; align-items: start; }
+  .leyenda i { font-style: normal; width: 5.6mm; height: 5.6mm; border-radius: 50%; background: var(--naranja);
+               font: 900 8pt/5.6mm Montserrat, sans-serif; text-align: center; }
+  .estados { display: flex; flex-wrap: wrap; gap: 1.5mm 3.5mm; font-size: 8.6pt; margin-top: 1mm; }
+  .estados span { display: inline-flex; align-items: center; gap: 1.5mm; }
+  .estados b { width: 3.2mm; height: 3.2mm; border-radius: .8mm; display: inline-block; }
+  .glosario { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 4mm; font-size: 8.6pt; }
+  .glosario div { background: #fff; border: .3mm solid var(--linea); border-radius: 2mm; padding: 2mm 2.6mm; }
+  .glosario b { display: block; font: 800 8.8pt Montserrat, sans-serif; }
+  .version { font: 600 7pt Inter, sans-serif; color: #999; margin-top: 1.5mm; letter-spacing: .04em; }
+  .dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+  .estado { display: flex; gap: 2.5mm; align-items: center; background: #fff; border: .3mm solid var(--linea); border-radius: 2mm; padding: 2.5mm 3mm; }
+  .punto { width: 6mm; height: 6mm; border-radius: 1.2mm; flex: none; }
+</style>
+</head>
+<body>
+
+<!-- Iconos (líneas, como los de la caja) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-casco" viewBox="0 0 24 24"><path d="M4.5 15.5a7.5 7.5 0 0 1 15 0"/><path d="M10 8.3V5h4v3.3"/><path d="M2.5 15.5h19v3h-19z"/></symbol>
+    <symbol id="i-robot" viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="9" rx="1.5"/><circle cx="9" cy="5" r="2.2"/><circle cx="15" cy="5" r="2.2"/><path d="M12 6v3M3 20h18M9 13h6"/></symbol>
+    <symbol id="i-pc" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/><path d="M8 11l2-2 2 2 3-3"/></symbol>
+    <symbol id="i-celu" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+    <symbol id="i-alerta" viewBox="0 0 24 24"><path d="M12 3L2 20h20L12 3z"/><path d="M12 10v4M12 17v.5"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><path d="M8 3h8l5 5v8l-5 5H8l-5-5V8z"/><path d="M9 12h6"/></symbol>
+    <symbol id="i-sonido" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
+    <symbol id="i-foto" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></symbol>
+    <symbol id="i-caja" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></symbol>
+    <symbol id="i-cinta" viewBox="0 0 24 24"><circle cx="9" cy="10" r="6"/><circle cx="9" cy="10" r="2"/><path d="M9 16h12"/></symbol>
+    <symbol id="i-bateria" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="1.5"/><path d="M21.5 10.5v3M6 10v4M9.5 10v4"/></symbol>
+    <symbol id="i-usuario" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-libro" viewBox="0 0 24 24"><path d="M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4zM20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z"/></symbol>
+    <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></symbol>
+    <symbol id="i-luna" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/></symbol>
+    <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></symbol>
+    <symbol id="i-lista" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="18" rx="1.5"/><path d="M9 3.5V2h6v1.5M8.5 10l1.5 1.5 2.5-2.5M8.5 16l1.5 1.5 2.5-2.5M14.5 10.5h2M14.5 16.5h2"/></symbol>
+    <symbol id="i-mapa" viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></symbol>
+    <symbol id="i-grupo" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+    <symbol id="i-grafico" viewBox="0 0 24 24"><path d="M3 21h18"/><rect x="5" y="13" width="3" height="6"/><rect x="10.5" y="9" width="3" height="10"/><rect x="16" y="5" width="3" height="14"/></symbol>
+    <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0"/><path d="M12 19v.5"/></symbol>
+    <symbol id="i-gota" viewBox="0 0 24 24"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></symbol>
+    <symbol id="i-ojo" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-mano" viewBox="0 0 24 24"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V11M10 10V4a1.5 1.5 0 0 1 3 0v6M13 10V5a1.5 1.5 0 0 1 3 0v7M16 9.5a1.5 1.5 0 0 1 3 0V15a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L3.5 16a1.6 1.6 0 0 1 2.6-1.9L7 15.5"/></symbol>
+    <symbol id="i-enchufe" viewBox="0 0 24 24"><path d="M9 2v5M15 2v5M6 7h12v4a6 6 0 0 1-12 0zM12 17v5"/></symbol>
+    <symbol id="i-calor" viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z"/><path d="M12 9v7"/></symbol>
+    <symbol id="i-sensor" viewBox="0 0 24 24"><rect x="3" y="9" width="7" height="6" rx="1"/><path d="M13 9.5a4 4 0 0 1 0 5M16 7a7.5 7.5 0 0 1 0 10M19 4.5a11 11 0 0 1 0 15"/></symbol>
+    <symbol id="i-llave" viewBox="0 0 24 24"><path d="M14.5 6.5a4.5 4.5 0 0 0 5.8 5.8L13 19.6a2.1 2.1 0 0 1-3-3l7.3-7.3"/><path d="M14.5 6.5L17 4l3 3-2.5 2.5"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-candado" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <!-- Rayas naranjas /// como las de la caja -->
+    <symbol id="rayas" viewBox="0 0 40 14"><path d="M4 14L10 0h6L10 14zM16 14L22 0h6l-6 14zM28 14L34 0h6l-6 14z" fill="#F7931E" stroke="none"/></symbol>
+    <!-- Trazo naranja de la cabecera (línea con quiebre en diagonal) -->
+    <symbol id="trazo" viewBox="0 0 148 6" preserveAspectRatio="none"><path d="M0 1.2H96L100.5 4.8H148" fill="none" stroke="#F7931E" stroke-width="0.9"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ 1 · TAPA ============ -->
+<section class="pagina tapa">
+  <div class="lomo"></div>
+  <svg class="trazo" style="top:calc(52mm + var(--b)); height:6mm; width:100%" viewBox="0 0 148 6" preserveAspectRatio="none">
+    <path d="M9 1H70L75 5H148" fill="none" stroke="#F7931E" stroke-width="1.1"/></svg>
+  <div class="logo">
+    <img src="idepp.png" alt="IDEPP">
+    <div class="lema">TODO PARA EL TRABAJADOR</div>
+  </div>
+  <div class="nombre">
+    <h1>DROID-<span>E3D</span></h1>
+    <svg style="width:12mm;height:5mm"><use href="#rayas"/></svg>
+  </div>
+  <div class="tipo">Manual de usuario</div>
+  <svg class="trazo" style="top:calc(86mm + var(--b)); height:5mm; width:100%" viewBox="0 0 148 5" preserveAspectRatio="none">
+    <path d="M9 4H40L44 1H148" fill="none" stroke="#2B2B2B" stroke-width="0.5" opacity=".35"/></svg>
+  <div class="robot"></div>
+  <div class="base">
+    <div class="by">DROID-E3D <b>by IDEPP</b></div>
+    <svg class="rayas" viewBox="0 0 40 14" style="width:20mm"><use href="#rayas"/></svg>
+  </div>
+</section>
+
+<!-- ============ 2 · BIENVENIDA E ÍNDICE ============ -->
+<section class="pagina par">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><h2>¡Bienvenidos!</h2></div>
+    <p class="bajada">Gracias por elegir DROID-E3D. Desde hoy, un robot recorre su planta y les avisa en el momento
+      si alguien trabaja sin su equipo de protección.</p>
+    <p>En este manual está todo lo que hace falta para usarlo <b>todos los días</b>: prenderlo, seguir las alertas en la
+      web, manejarlo desde el celular, cuidarlo y resolver los problemas más comunes.</p>
+    <div class="aviso"><svg class="ic naranja"><use href="#i-llave"/></svg>
+      <p>La <b>instalación la hacemos nosotros</b>, en un día: pegamos la ruta, conectamos todo al WiFi, instalamos la IA y
+        capacitamos al equipo.</p></div>
+    <h3>Contenido</h3>
+    <div class="indice">
+      <div><span>01</span><span>Qué es DROID-E3D</span><span>3</span></div>
+      <div><span>02</span><span>Qué viene en la caja</span><span>4</span></div>
+      <div><span>03</span><span>Las partes del robot</span><span>5</span></div>
+      <div><span>04</span><span>Al empezar el turno</span><span>6</span></div>
+      <div><span>05</span><span>Durante y al terminar el turno</span><span>7</span></div>
+      <div><span>06</span><span>Los botones del robot y la emergencia</span><span>8</span></div>
+      <div><span>07</span><span>La web del encargado</span><span>9</span></div>
+      <div><span>08</span><span>La web de los empleados</span><span>11</span></div>
+      <div><span>09</span><span>Manejarlo con el celular</span><span>12</span></div>
+      <div><span>10</span><span>Cambiar el WiFi</span><span>13</span></div>
+      <div><span>11</span><span>Cuidados</span><span>14</span></div>
+      <div><span>12</span><span>Si algo no anda</span><span>15</span></div>
+    </div>
+  </div>
+  <div class="pie"><span class="num">2</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 3 · QUÉ ES ============ -->
+<section class="pagina impar">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">01</span><h2>Qué es DROID-E3D</h2></div>
+    <p class="bajada">Un robot que <b>recorre la planta y controla que cada persona tenga puesto su equipo de
+      protección</b>: casco, chaleco, barbijo o lentes, según lo que pida cada zona.</p>
+    <p>Funciona en tres partes que trabajan juntas:</p>
+    <div class="tarjetas">
+      <div class="tarjeta"><svg class="ic"><use href="#i-robot"/></svg><div><h4>El robot</h4>
+        <p>Recorre solo la ruta marcada en el piso. Con la cámara de sus «ojos» mira a las personas que se cruza.</p></div></div>
+      <div class="tarjeta"><svg class="ic"><use href="#i-pc"/></svg><div><h4>La IA, en una PC de la fábrica</h4>
+        <p>Mira el video de la cámara y detecta a quien trabaja sin su equipo.</p></div></div>
+      <div class="tarjeta"><svg class="ic"><use href="#i-celu"/></svg><div><h4>La web, en la PC o en el celular</h4>
+        <p>Muestra las alertas con foto, el historial y los reportes, y deja manejar el robot.</p></div></div>
+    </div>
+    <h3>Cuando ve a alguien sin su equipo</h3>
+    <div class="flujo">
+      <div><svg class="ic naranja"><use href="#i-stop"/></svg><b>Se detiene</b>el robot frena donde está</div>
+      <div><svg class="ic naranja"><use href="#i-alerta"/></svg><b>Avisa</b>muestra el signo de peligro</div>
+      <div><svg class="ic naranja"><use href="#i-sonido"/></svg><b>Suena</b>la alarma, durante 10 segundos</div>
+      <div><svg class="ic naranja"><use href="#i-foto"/></svg><b>Registra</b>la alerta llega con foto a la web</div>
+    </div>
+    <p style="margin-top:3mm">Después de los 10 segundos, el robot <b>sigue solo con su recorrido</b>.</p>
+  </div>
+  <div class="pie"><span class="num">3</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 4 · LA CAJA ============ -->
+<section class="pagina par">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">02</span><h2>Qué viene en la caja</h2></div>
+    <p class="bajada">Todo lo que recibe la fábrica con DROID-E3D:</p>
+    <div class="lista-ic">
+      <div><svg class="ic"><use href="#i-robot"/></svg><span><b>El robot DROID-E3D</b>, con su cámara ya colocada.</span></div>
+      <div><svg class="ic"><use href="#i-bateria"/></svg><span><b>La batería</b> (2 pilas 18650) <b>y su cargador.</b></span></div>
+      <div><svg class="ic"><use href="#i-cinta"/></svg><span><b>La cinta de la ruta</b> y las marcas de cada zona, que pegamos el día de la instalación.</span></div>
+      <div><svg class="ic"><use href="#i-pc"/></svg><span><b>La IA instalada</b> en la PC de la fábrica (o en la mini PC, si la compraron aparte).</span></div>
+      <div><svg class="ic"><use href="#i-usuario"/></svg><span><b>Los usuarios de la web</b>: uno para el encargado y uno para cada empleado.</span></div>
+      <div><svg class="ic"><use href="#i-libro"/></svg><span><b>Este manual.</b></span></div>
+    </div>
+    <h3>Lo que necesita la fábrica</h3>
+    <ul class="puntos">
+      <li><b>WiFi de 2,4 GHz</b> en las zonas que recorre el robot (el de 5 GHz no sirve).</li>
+      <li><b>Una PC</b> prendida en el horario de trabajo, conectada al mismo WiFi.</li>
+      <li><b>Un enchufe</b> cerca de la base del robot, para cargarlo.</li>
+      <li><b>El consentimiento firmado</b> de los empleados para el uso de su imagen.</li>
+    </ul>
+    <h3>Palabras que usamos en este manual</h3>
+    <div class="glosario">
+      <div><b>IA (inteligencia artificial)</b>El programa de la PC que mira el video y reconoce si falta el equipo.</div>
+      <div><b>Equipo de protección</b>Casco, chaleco, barbijo, lentes o guantes. A veces se lo llama EPP.</div>
+      <div><b>WiFi de 2,4 GHz</b>El tipo de WiFi más común. El robot no se conecta al de 5 GHz.</div>
+      <div><b>Ruta</b>La cinta pegada en el piso que el robot sigue para recorrer la planta.</div>
+    </div>
+  </div>
+  <div class="pie"><span class="num">4</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 5 · PARTES DEL ROBOT ============ -->
+<section class="pagina impar">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">03</span><h2>Las partes del robot</h2></div>
+    <div class="foto-partes">
+      <span class="marcador" style="left:31%;top:17%">1</span>
+      <span class="marcador" style="left:46%;top:35%">2</span>
+      <span class="marcador" style="left:67%;top:50%">3</span>
+      <span class="marcador" style="left:46%;top:52%">4</span>
+      <span class="marcador" style="left:20%;top:57%">5</span>
+      <span class="marcador" style="left:9%;top:82%">6</span>
+      <span class="marcador" style="left:50%;top:90%">7</span>
+    </div>
+    <div class="partes">
+      <div><i>1</i><span><b>Cámara</b>En los «ojos». Manda el video a la IA.</span></div>
+      <div><i>2</i><span><b>Cabeza y cuello</b>Se mueven con motores chicos (servos).</span></div>
+      <div><i>3</i><span><b>Pantalla</b>Muestra el signo de peligro en cada alerta.</span></div>
+      <div><i>4</i><span><b>Parlante</b>Hace sonar la alarma.</span></div>
+      <div><i>5</i><span><b>Brazos</b>También se mueven con servos.</span></div>
+      <div><i>6</i><span><b>Orugas</b>Lo mueven por la planta.</span></div>
+      <div><i>7</i><span><b>Sensores de abajo</b>Siguen la cinta del piso y lo frenan si hay algo a menos de 20 cm.</span></div>
+    </div>
+  </div>
+  <div class="pie"><span class="num">5</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 6 · EMPEZAR EL TURNO ============ -->
+<section class="pagina par">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">04</span><h2>Al empezar el turno</h2></div>
+    <p class="bajada">Cuatro pasos, y el robot sale a recorrer la planta.</p>
+    <div class="pasos">
+      <div class="paso"><div><h4>Prender la PC de la IA</h4>
+        <p>La IA arranca sola y busca al robot y a la cámara en el WiFi. No hay que escribir nada.</p></div></div>
+      <div class="paso"><div><h4>Prender el robot</h4>
+        <p>Con su interruptor. Dejarlo apoyado sobre la cinta del piso, al inicio de la ruta.</p></div></div>
+      <div class="paso"><div><h4>Entrar a la web</h4>
+        <p>Desde la PC o el celular, con el usuario y la contraseña del encargado.</p></div></div>
+      <div class="paso"><div><h4>Tocar <span class="boton">Iniciar</span></h4>
+        <p>En la sección <b>Robot</b>. El robot empieza a recorrer la ruta y el estado cambia a <b>Recorriendo</b>.</p></div></div>
+    </div>
+    <div class="aviso"><svg class="ic naranja"><use href="#i-wifi"/></svg>
+      <p>Si al prenderlo la <b>pantalla del robot se pone azul</b>, no encontró el WiFi. Ver la página 13.</p></div>
+  </div>
+  <div class="pie"><span class="num">6</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 7 · DURANTE Y AL TERMINAR ============ -->
+<section class="pagina impar">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">05</span><h2>Durante y al terminar el turno</h2></div>
+    <h3>Durante el turno</h3>
+    <div class="lista-ic">
+      <div><svg class="ic"><use href="#i-robot"/></svg><span>El robot recorre la ruta solo. <b>No hace falta tocarlo.</b></span></div>
+      <div><svg class="ic"><use href="#i-alerta"/></svg><span>Si detecta a alguien sin su equipo, <b>frena 10 segundos</b>, muestra el signo de peligro y suena la alarma. Después sigue.</span></div>
+      <div><svg class="ic"><use href="#i-sensor"/></svg><span>Si hay algo delante (una caja, una persona), <b>frena y espera</b> a que se despeje el paso.</span></div>
+      <div><svg class="ic"><use href="#i-celu"/></svg><span>Las alertas aparecen <b>en el momento</b> en la web, con la foto, la zona y el equipo que faltaba.</span></div>
+    </div>
+    <h3>Al terminar el turno</h3>
+    <div class="pasos">
+      <div class="paso"><div><h4>Tocar <span class="boton">Detener</span></h4><p>En la sección <b>Robot</b> de la web.</p></div></div>
+      <div class="paso"><div><h4>Apagar el robot y ponerlo a cargar</h4><p>Con su cargador, en el enchufe de su base.</p></div></div>
+      <div class="paso"><div><h4>La PC</h4><p>Se puede apagar, o dejar prendida si hay otro turno.</p></div></div>
+    </div>
+  </div>
+  <div class="pie"><span class="num">7</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 8 · BOTONES Y EMERGENCIA ============ -->
+<section class="pagina par">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">06</span><h2>Los botones del robot</h2></div>
+    <p class="bajada">Están en la web, en la sección <b>Robot</b>, junto al video en vivo de la cámara.</p>
+    <div class="captura" style="width:96mm;margin:0 auto">
+      <img src="web-botones.png" alt="Los botones del robot en la web">
+      <span class="marcador" style="left:9%;top:48%">1</span>
+      <span class="marcador" style="left:40%;top:48%">2</span>
+      <span class="marcador" style="left:71%;top:48%">3</span>
+      <span class="marcador" style="left:9%;top:77%">4</span>
+    </div>
+    <table style="margin-top:3.5mm">
+      <tr><th>Botón</th><th>Qué hace</th></tr>
+      <tr><td><span class="marcador" style="position:static;display:inline-block;margin:0 1.5mm 0 0">1</span>Iniciar</td><td>El robot empieza (o retoma) el recorrido de la ruta.</td></tr>
+      <tr><td><span class="marcador" style="position:static;display:inline-block;margin:0 1.5mm 0 0">2</span>Pausar</td><td>Frena un momento. Con <b>Iniciar</b> sigue desde donde quedó.</td></tr>
+      <tr><td><span class="marcador" style="position:static;display:inline-block;margin:0 1.5mm 0 0">3</span>Detener</td><td>Termina el recorrido. Se usa al final del turno.</td></tr>
+      <tr><td><span class="marcador" style="position:static;display:inline-block;margin:0 1.5mm 0 0">4</span>Parada de emergencia</td><td>Frena el robot en el acto y lo deja bloqueado.</td></tr>
+    </table>
+    <h3>El estado del robot</h3>
+    <p style="margin:0">Aparece arriba a la derecha de la tarjeta:</p>
+    <div class="estados">
+      <span><b style="background:#2E9E5B"></b><strong>Recorriendo</strong></span>
+      <span><b style="background:var(--naranja)"></b><strong>Pausado</strong></span>
+      <span><b style="background:#8a8a8a"></b><strong>Detenido</strong></span>
+      <span><b style="background:var(--rojo)"></b><strong>EMERGENCIA</strong> (bloqueado)</span>
+    </div>
+    <div class="oscura" style="margin-top:4mm; display:flex; gap:3mm; align-items:center">
+      <svg class="ic naranja" style="width:9mm;height:9mm"><use href="#i-stop"/></svg>
+      <p style="margin:0">Para salir de una emergencia: primero tocar <span class="boton naranja">Detener</span> y después
+        <span class="boton naranja">Iniciar</span>. Mientras está en emergencia, no se puede iniciar ni pausar.</p>
+    </div>
+  </div>
+  <div class="pie"><span class="num">8</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 9 · WEB ENCARGADO (1) ============ -->
+<section class="pagina impar">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">07</span><h2>La web del encargado</h2></div>
+    <p class="bajada" style="margin-bottom:3mm">Se entra desde la PC o el celular, con el usuario del encargado. Al entrar se ve el <b>Panel</b>:</p>
+    <div class="captura">
+      <img src="web-panel.png" alt="El panel del encargado">
+      <span class="marcador" style="left:15%;top:48%">1</span>
+      <span class="marcador" style="left:22%;top:14%">2</span>
+      <span class="marcador" style="left:42%;top:44%">3</span>
+      <span class="marcador" style="left:69%;top:44%">4</span>
+    </div>
+    <div class="leyenda">
+      <div><i>1</i><span><b>El menú</b> con las siete secciones (abajo y en la página siguiente).</span></div>
+      <div><i>2</i><span><b>Los números del día:</b> alertas activas, de hoy y de la semana.</span></div>
+      <div><i>3</i><span><b>El mapa:</b> verde = en orden, rojo = con alerta. El círculo naranja es el robot.</span></div>
+      <div><i>4</i><span><b>El robot:</b> si está conectado, su batería y en qué zona está.</span></div>
+    </div>
+    <div class="tarjetas" style="margin-top:2mm">
+      <div class="tarjeta"><svg class="ic"><use href="#i-panel"/></svg><div><h4>Panel</h4>
+        <p>Todo de un vistazo. Se actualiza solo cada pocos segundos; tocando una zona del mapa se ve su detalle.</p></div></div>
+      <div class="tarjeta"><svg class="ic"><use href="#i-alerta"/></svg><div><h4>Incidencias</h4>
+        <p>Todas las alertas, con filtros. En <b>Ver detalle</b> está la foto, quién era, la zona y qué le faltaba.
+          Cuando ya se habló con la persona, se marca como <b>resuelta</b>.</p></div></div>
+    </div>
+  </div>
+  <div class="pie"><span class="num">9</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 10 · WEB ENCARGADO (2) ============ -->
+<section class="pagina par">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">07</span><h2>La web del encargado <span style="color:var(--gris);font-weight:600">(sigue)</span></h2></div>
+    <div class="tarjetas">
+      <div class="tarjeta"><svg class="ic"><use href="#i-robot"/></svg><div><h4>Robot</h4>
+        <p>El video en vivo de la cámara, dónde está el robot en el mapa, los botones para manejarlo (página 8) y la ruta.</p></div></div>
+      <div class="tarjeta"><svg class="ic"><use href="#i-mapa"/></svg><div><h4>Zonas</h4>
+        <p>Las zonas de la planta, el equipo de protección obligatorio en cada una y su lugar en el mapa.</p></div></div>
+      <div class="tarjeta"><svg class="ic"><use href="#i-grupo"/></svg><div><h4>Empleados</h4>
+        <p>Dar de alta, editar o dar de baja a cada empleado y cargar sus fotos de rostro, siempre con su consentimiento
+          firmado. Si se da de baja a alguien, ya no entra a la web y sus fotos se borran, pero su historial se conserva.</p></div></div>
+      <div class="tarjeta"><svg class="ic"><use href="#i-grafico"/></svg><div><h4>Reportes</h4>
+        <p>Gráficos de alertas por día, por zona y por tipo de equipo, el cumplimiento promedio y el ranking de
+          cumplimiento por empleado y por zona.</p></div></div>
+      <div class="tarjeta"><svg class="ic"><use href="#i-lupa"/></svg><div><h4>Auditoría</h4>
+        <p>El registro de todo lo que se hizo en la web y de quién lo hizo.</p></div></div>
+    </div>
+    <div class="aviso"><svg class="ic naranja"><use href="#i-celu"/></svg>
+      <p><b>Consejo:</b> en el celular, la web se puede agregar a la pantalla de inicio como una app, para tener las
+        alertas siempre a mano.</p></div>
+  </div>
+  <div class="pie"><span class="num">10</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 11 · WEB EMPLEADOS ============ -->
+<section class="pagina impar">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">08</span><h2>La web de los empleados</h2></div>
+    <p class="bajada">Cada empleado entra con su propio usuario, desde su celular.</p>
+    <div class="celu-fila">
+      <div class="tarjetas">
+        <div class="tarjeta"><svg class="ic"><use href="#i-casco"/></svg><div><h4>Inicio</h4>
+          <p>Su cumplimiento, su racha de días sin alertas, el equipo obligatorio de su zona y dónde está el robot.</p></div></div>
+        <div class="tarjeta"><svg class="ic"><use href="#i-lista"/></svg><div><h4>Mis alertas</h4>
+          <p>Todas sus alertas, con la foto y el detalle de cada una.</p></div></div>
+        <div class="tarjeta"><svg class="ic"><use href="#i-usuario"/></svg><div><h4>Mi perfil</h4>
+          <p>Sus datos, sus fotos de rostro y el tema de la pantalla, claro u oscuro.</p></div></div>
+      </div>
+      <div class="celu"><img src="web-empleado.webp" alt="Inicio del empleado en el celular" style="display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:2.5mm"></div>
+    </div>
+    <div class="oscura" style="margin-top:5mm; display:flex; gap:3mm; align-items:center">
+      <svg class="ic naranja" style="width:9mm;height:9mm"><use href="#i-candado"/></svg>
+      <p style="margin:0">Cada empleado ve <b>solo sus propias alertas</b>, nunca las de sus compañeros.</p>
+    </div>
+  </div>
+  <div class="pie"><span class="num">11</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 12 · CONTROL REMOTO ============ -->
+<section class="pagina par">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">09</span><h2>Manejarlo con el celular</h2></div>
+    <p class="bajada">Además de recorrer la ruta solo, el robot se puede manejar a mano: por ejemplo, para llevarlo a otro
+      lugar o para mostrarlo.</p>
+    <div class="celu-fila">
+      <div class="pasos">
+        <div class="paso"><div><h4>Mismo WiFi</h4><p>Conectar el celular al mismo WiFi que el robot.</p></div></div>
+        <div class="paso"><div><h4>Abrir la página del robot</h4><p>En el navegador: <span class="url">droid-robot.local</span></p></div></div>
+        <div class="paso"><div><h4>Control remoto</h4><p>Tocar <span class="boton">Control remoto</span> y arrastrar el círculo naranja. Al soltarlo, frena.</p></div></div>
+        <div class="paso"><div><h4>Volver a la ruta</h4><p>Ponerlo sobre la cinta y tocar <span class="boton">Recorrer la ruta</span></p></div></div>
+      </div>
+      <div class="celu"><img src="joystick.png" alt="Página del robot en el celular" style="display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:2.5mm"></div>
+    </div>
+    <div class="aviso"><svg class="ic naranja"><use href="#i-ojo"/></svg>
+      <p>Aunque se maneje a mano, <b>la cámara y las alertas siguen funcionando</b>.</p></div>
+  </div>
+  <div class="pie"><span class="num">12</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 13 · CAMBIAR EL WIFI ============ -->
+<section class="pagina impar">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">10</span><h2>Cambiar el WiFi</h2></div>
+    <p class="bajada">Si la fábrica cambia el WiFi o su clave, o el robot se lleva a otra planta, el robot y la cámara no
+      encuentran la red. Entonces, al prenderse, avisan así:</p>
+    <div class="dos-col">
+      <div class="estado"><span class="punto" style="background:#2F6FD6"></span><span><b>Robot: pantalla azul</b><br>crea la red <span style="white-space:nowrap">«DROID-E3D-Robot»</span></span></div>
+      <div class="estado"><span class="punto" style="background:var(--rojo)"></span><span><b>Cámara: luz roja</b><br>crea la red <span style="white-space:nowrap">«DROID-E3D-Camara»</span></span></div>
+    </div>
+    <h3>Cómo configurarlos</h3>
+    <div class="pasos">
+      <div class="paso"><div><h4>Conectarse a esa red</h4><p>Desde el celular. La clave es <span class="url">droid-e3d</span></p></div></div>
+      <div class="paso"><div><h4>Se abre una página sola</h4><p>Si no se abre, entrar a <span class="url">192.168.4.1</span></p></div></div>
+      <div class="paso"><div><h4>Elegir el WiFi de la fábrica</h4><p>Escribir su clave y tocar <span class="boton">Guardar</span>.</p></div></div>
+      <div class="paso"><div><h4>Listo</h4><p>Se reinicia y se conecta solo. Repetir con el otro (robot o cámara).</p></div></div>
+    </div>
+    <div class="aviso"><svg class="ic naranja"><use href="#i-wifi"/></svg>
+      <p>El WiFi tiene que ser de <b>2,4 GHz</b>. El de 5 GHz no sirve.</p></div>
+  </div>
+  <div class="pie"><span class="num">13</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 14 · CUIDADOS ============ -->
+<section class="pagina par">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">11</span><h2>Cuidados</h2></div>
+    <p class="bajada">Con estos cuidados, DROID-E3D funciona bien por mucho tiempo.</p>
+    <div class="lista-ic">
+      <div><svg class="ic"><use href="#i-gota"/></svg><span><b>No mojarlo</b> ni usarlo sobre charcos o pisos con aceite.</span></div>
+      <div><svg class="ic"><use href="#i-foto"/></svg><span><b>Limpiar la cámara</b> de los ojos una vez por semana, con un paño seco. Si está sucia, la IA ve peor.</span></div>
+      <div><svg class="ic"><use href="#i-cinta"/></svg><span><b>Cuidar la cinta del piso.</b> Si se despega o se rompe, el robot pierde la ruta: avísennos para cambiarla.</span></div>
+      <div><svg class="ic"><use href="#i-mano"/></svg><span><b>Levantarlo del cuerpo</b>, nunca de los brazos ni de la cabeza.</span></div>
+      <div><svg class="ic"><use href="#i-enchufe"/></svg><span><b>Cargarlo solo con su cargador.</b></span></div>
+      <div><svg class="ic"><use href="#i-calor"/></svg><span><b>No dejarlo cerca del calor</b> (hornos, estufas, sol directo).</span></div>
+      <div><svg class="ic"><use href="#i-sensor"/></svg><span><b>No tapar los sensores</b> de adelante y de abajo.</span></div>
+    </div>
+  </div>
+  <div class="pie"><span class="num">14</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 15 · SI ALGO NO ANDA ============ -->
+<section class="pagina impar">
+  <div class="cabecera"><span class="marca"><b>DROID-<span>E3D</span></b> · Manual de usuario</span><svg><use href="#trazo"/></svg></div>
+  <div class="contenido">
+    <div class="titulo"><span class="n">12</span><h2>Si algo no anda</h2></div>
+    <table>
+      <tr><th>Qué pasa</th><th>Qué hacer</th></tr>
+      <tr><td>No arranca al tocar Iniciar</td><td>Revisar que esté prendido, cargado y sobre la cinta. Si su pantalla está azul, ver la página 13.</td></tr>
+      <tr><td>La pantalla del robot está azul</td><td>No encuentra el WiFi. Configurarlo desde el celular (página 13).</td></tr>
+      <tr><td>La cámara tiene una luz roja</td><td>No encuentra el WiFi. Configurarla desde el celular (página 13).</td></tr>
+      <tr><td>En la web no se ve el video</td><td>Revisar que la cámara y la PC de la IA estén prendidas y en el mismo WiFi.</td></tr>
+      <tr><td>No llegan alertas</td><td>Revisar que la PC de la IA esté prendida. Si se reinició, esperar un minuto a que encuentre al robot y a la cámara.</td></tr>
+      <tr><td>Se sale de la ruta</td><td>Revisar que la cinta esté bien pegada y limpia. Si sigue, llámennos para calibrarlo.</td></tr>
+      <tr><td>Frena y no avanza</td><td>Puede haber algo delante. Despejar el paso.</td></tr>
+      <tr><td>Suena, pero nadie estaba sin su equipo</td><td>Puede ser un error de la IA (por ejemplo, por poca luz). Marcar la alerta como resuelta y avisarnos.</td></tr>
+    </table>
+  </div>
+  <div class="pie"><span class="num">15</span><svg class="rayas" viewBox="0 0 40 14" style="width:11mm"><use href="#rayas"/></svg></div>
+</section>
+
+<!-- ============ 16 · CONTRATAPA ============ -->
+<section class="pagina contratapa">
+  <div class="contenido">
+    <div class="logo-caja"><img src="idepp.png" alt="IDEPP"><div>TODO PARA EL TRABAJADOR</div></div>
+    <h2>¿Necesitan ayuda?</h2>
+    <div class="dato"><svg class="ic chico naranja"><use href="#i-reloj"/></svg><span><b>Soporte remoto</b> de lunes a viernes, de 9 a 17 h</span></div>
+    <div class="dato"><svg class="ic chico naranja"><use href="#i-calendario"/></svg><span><b>Una visita cada 3 meses</b> para revisar todo</span></div>
+    <div class="dato"><svg class="ic chico naranja"><use href="#i-mail"/></svg><span><b>idepp.3d@gmail.com</b></span></div>
+    <p style="font-size:7.8pt;color:#bbb;margin-top:4mm">El soporte y las visitas están incluidos en el abono mensual.</p>
+  </div>
+  <div class="marca-final">DROID-<span>E3D</span> <span style="font-size:9pt;font-style:normal;font-weight:600;color:#fff">by IDEPP</span>
+    <small>© 2026 IDEPP</small>
+    <div class="version">Manual de usuario · Versión 1 · noviembre de 2026</div></div>
+</section>
+
+</body>
+</html>
