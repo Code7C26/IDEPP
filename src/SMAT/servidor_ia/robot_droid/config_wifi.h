@@ -16,7 +16,7 @@
 //  Además, ya conectado, el equipo se puede encontrar por un nombre fijo en vez de
 //  por su IP (que cambia en cada WiFi): http://<nombre>.local
 //
-//  Este mismo archivo está copiado en walle_control (robot) y walle_camara (cámara):
+//  Este mismo archivo está copiado en robot_droid (robot) y walle_camara (cámara):
 //  si se cambia uno, copiar el otro.
 // ============================================================
 #pragma once
