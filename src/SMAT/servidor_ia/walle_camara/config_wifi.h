@@ -114,11 +114,11 @@ String datoDelFormulario(const String& cuerpo, const String& nombre) {
 String pagina(const String& contenido) {
   return "<!doctype html><html lang='es'><head><meta charset='utf-8'>"
          "<meta name='viewport' content='width=device-width,initial-scale=1'><title>DROID-E3D</title>"
-         "<style>body{font-family:system-ui,sans-serif;background:#1b1f24;color:#f2f2f2;margin:0;padding:24px}"
-         "h1{font-size:1.4rem;margin:0 0 4px}p{color:#b8c0c8}label{display:block;margin:16px 0 6px}"
-         "select,input{width:100%;box-sizing:border-box;padding:12px;font-size:1rem;border-radius:8px;border:1px solid #3c4550;background:#2d343c;color:#f2f2f2}"
-         "button{margin-top:20px;width:100%;padding:14px;font-size:1.1rem;font-weight:bold;border:0;border-radius:8px;background:#f5c518;color:#111}"
-         "</style></head><body><h1>DROID-E3D · " + nombreEquipo + "</h1>" + contenido + "</body></html>";
+         "<style>body{font-family:system-ui,sans-serif;background:#2b2b2b;color:#f4f1eb;margin:0;padding:24px;border-top:6px solid #f7931e}"
+         "h1{font-size:1.4rem;margin:0 0 4px;font-style:italic;font-weight:900}h1 span{color:#f7931e}p{color:#a8a29e}label{display:block;margin:16px 0 6px}"
+         "select,input{width:100%;box-sizing:border-box;padding:12px;font-size:1rem;border-radius:8px;border:1px solid #4a4744;background:#383533;color:#f4f1eb}"
+         "button{margin-top:20px;width:100%;padding:14px;font-size:1.1rem;font-weight:bold;border:0;border-radius:8px;background:#f7931e;color:#2b2b2b;box-shadow:3px 3px 0 #f4f1eb}"
+         "</style></head><body><h1>DROID-<span>E3D</span> · " + nombreEquipo + "</h1>" + contenido + "</body></html>";
 }
 
 esp_err_t mostrarFormulario(httpd_req_t* pedido) {

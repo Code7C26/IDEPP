@@ -1,5 +1,5 @@
 // ============================================================
-//  DROID-E3D · Programa del robot WALL-E (ESP32-S3)
+//  DROID-E3D · Programa del robot (ESP32-S3)
 //
 //  Un solo programa con DOS MODOS (se elige desde el celular, en http://droid-robot.local):
 //  - RECORRER LA RUTA (el de la venta): sigue una línea negra en el piso con 2 seguidores
@@ -411,33 +411,38 @@ void aplicarComando(const char* comando) {
 const char PAGINA_JOYSTICK[] PROGMEM = R"rawliteral(<!doctype html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>WALL-E</title>
+<title>DROID-E3D</title>
 <style>
   body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;
-       justify-content:center;gap:22px;background:#1b1f24;color:#f2f2f2;
-       font-family:system-ui,sans-serif;user-select:none;-webkit-user-select:none;touch-action:none}
-  h1{margin:0;font-size:1.6rem;letter-spacing:.05em}
+       justify-content:center;gap:22px;background:#2b2b2b;color:#f4f1eb;
+       font-family:system-ui,sans-serif;user-select:none;-webkit-user-select:none;touch-action:none;
+       border-top:6px solid #f7931e}
+  h1{margin:0;font-size:1.8rem;font-style:italic;font-weight:900;letter-spacing:-.02em}
+  h1 span{color:#f7931e}
+  h1 i{display:inline-block;width:26px;height:12px;margin-left:8px;
+       background:repeating-linear-gradient(115deg,transparent 0 3px,#f7931e 3px 7px,transparent 7px 9.5px)}
   #modos{display:flex;gap:10px}
-  #modos button{padding:12px 16px;font-size:1rem;border-radius:10px;border:2px solid #3c4550;
-                background:#2d343c;color:#f2f2f2}
-  #modos button.activo{background:#f5c518;color:#111;border-color:#f5c518;font-weight:bold}
-  #estado{font-size:1.05rem;padding:8px 16px;border-radius:20px;background:#2d343c;text-align:center}
-  #estado.alerta{background:#f5a623;color:#111;font-weight:bold}
-  #base{width:260px;height:260px;border-radius:50%;background:#2d343c;position:relative;
-        box-shadow:inset 0 0 0 4px #3c4550}
+  #modos button{padding:12px 16px;font-size:1rem;border-radius:10px;border:2px solid #4a4744;
+                background:#383533;color:#f4f1eb}
+  #modos button.activo{background:#f7931e;color:#2b2b2b;border-color:#f7931e;font-weight:bold;
+                       box-shadow:3px 3px 0 #f4f1eb}
+  #estado{font-size:1.05rem;padding:8px 16px;border-radius:20px;background:#383533;text-align:center}
+  #estado.alerta{background:#dc2626;color:#fff;font-weight:bold}
+  #base{width:260px;height:260px;border-radius:50%;background:#383533;position:relative;
+        box-shadow:inset 0 0 0 4px #4a4744}
   #base.apagado{opacity:.35}
-  #palanca{width:100px;height:100px;border-radius:50%;background:#f5c518;position:absolute;
+  #palanca{width:100px;height:100px;border-radius:50%;background:#f7931e;position:absolute;
            left:80px;top:80px;box-shadow:0 4px 12px #0008}
-  p{margin:0;color:#9aa4ae;font-size:.9rem;text-align:center;padding:0 16px}
+  p{margin:0;color:#a8a29e;font-size:.9rem;text-align:center;padding:0 16px}
 </style></head><body>
-<h1>WALL-E</h1>
+<h1>DROID-<span>E3D</span><i></i></h1>
 <div id="modos">
   <button id="remoto" onclick="elegir('remoto')">Control remoto</button>
   <button id="ruta" onclick="elegir('ruta')">Recorrer la ruta</button>
 </div>
 <div id="estado">Conectando...</div>
 <div id="base"><div id="palanca"></div></div>
-<p id="ayuda">Arrastrá el círculo amarillo para manejar. Al soltarlo, el robot frena.</p>
+<p id="ayuda">Arrastrá el círculo naranja para manejar. Al soltarlo, el robot frena.</p>
 <script>
 const base = document.getElementById('base'), palanca = document.getElementById('palanca');
 const cartel = document.getElementById('estado');
@@ -451,7 +456,7 @@ function mostrarModo(m) {
   base.className = m === 'ruta' ? 'apagado' : '';
   document.getElementById('ayuda').textContent = m === 'ruta'
     ? 'El robot recorre la ruta solo. Tocá Control remoto para manejarlo.'
-    : 'Arrastrá el círculo amarillo para manejar. Al soltarlo, el robot frena.';
+    : 'Arrastrá el círculo naranja para manejar. Al soltarlo, el robot frena.';
 }
 async function elegir(m) {
   try { await fetch('/modo?m=' + m, {cache: 'no-store'}); } catch (e) {}
@@ -753,7 +758,7 @@ void setup() {
   Serial.begin(115200);
   Serial.setTxTimeoutMs(0);   // si nadie lee el Monitor Serie, no esperar (trababa la placa hasta 4 s)
   delay(1000);
-  Serial.println("\n=== WALL-E DROID-E3D arrancando ===");
+  Serial.println("\n=== DROID-E3D arrancando ===");
 
   // Motores: primero frenados y recién ahí se prende el driver
   pinMode(AIN1, OUTPUT); pinMode(AIN2, OUTPUT);
