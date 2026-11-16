@@ -51,7 +51,7 @@ empleado?») se resuelven con la ayuda escrita, sin gastar horas.
 | 6 | **Recursos clave** | Robot con ruedas, ESP32-S3 y cámara; una PC de la fábrica (o una mini PC) para la IA; Python/Flask, React y MySQL; el saber de IA y hardware (Morena) y de web (Tiziano). |
 | 7 | **Actividades clave** | Programar la plataforma y la IA; armar y probar robots; instalar y configurar zonas; soporte y mantenimiento. |
 | 8 | **Socios clave** | Equipo de TOUCH-ID, el otro producto de IDEPP (venta conjunta); STI Developments y consultoras de higiene y seguridad; proveedores de electrónica; parques industriales; la escuela; hosting. |
-| 9 | **Estructura de costos** | Fijos ≈ $121.000 por mes (servidor, dominio, INPI, DNDA, 10 h de mantenimiento, marketing); $567.600 por instalación; $32.000 por cliente por mes. Punto de equilibrio: 3 clientes por año. |
+| 9 | **Estructura de costos** | Fijos ≈ $121.000 por mes (servidor, dominio, INPI, DNDA, 10 h de mantenimiento, marketing); $568.700 por instalación; $32.000 por cliente por mes. Punto de equilibrio: 3 clientes por año. |
 
 Los números salen de `01-viabilidad-comercial.md` y `03-punto-de-equilibrio.md`; el mercado, de
 `04-dimension-del-mercado.md`.

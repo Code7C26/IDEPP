@@ -38,9 +38,9 @@ El **primer cliente** paga el **50 % del pago único** ($475.000) a cambio de: p
 
 | | Plan Compra |
 |---|---|
-| Costo por instalación (`costos-droid-e3d.md`) | $567.600 |
+| Costo por instalación (`costos-droid-e3d.md`) | $568.700 |
 | Precio | $950.000 |
-| **Margen de la instalación** | **$382.400 (40 %)** |
+| **Margen de la instalación** | **$381.300 (40 %)** |
 | Costo mensual por cliente | $32.000 |
 | Abono | $55.000 |
 | **Margen mensual** | **$23.000 (42 %)** |

@@ -52,11 +52,11 @@ Estados: `plantilla` → `borrador` → `completo (v1)` → `aprobado` (cuando l
 
 | | |
 |---|---|
-| Costo por instalación | $567.600 (la IA corre en una PC de la fábrica) |
+| Costo por instalación | $568.700 (la IA corre en una PC de la fábrica) |
 | Precio (Plan Compra) | $950.000 + $55.000 por mes |
 | Inversión inicial | ≈ $590.000 (50 % cada socio) |
 | Clientes proyectados | 3 (2027) · 10 (2028) · 25 (2029) |
-| Resultado proyectado | −$363.800 · $2.480.800 · $6.606.000 |
+| Resultado proyectado | −$367.100 · $2.473.100 · $6.589.500 |
 
 ## Cómo trabajamos
 

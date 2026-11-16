@@ -14,7 +14,7 @@ cada 3 meses, porque en pesos cambian seguido.
 | Pregunta | Respuesta para DROID-E3D |
 |---|---|
 | **FAT** · ¿Se puede desarrollar? | Sí. La plataforma web (Flask + React) ya funciona con 124 pruebas automáticas de la API y 133 en el navegador; la IA de Morena (YOLO + reconocimiento facial) ya manda alertas con foto a la web; el robot y el corte de máquina se prueban con un simulador hasta tener el hardware final. |
-| **Emprendimiento** · ¿Conviene? | Sí. Cada instalación deja $382.400 de margen y cada cliente $23.000 por mes; con **3 clientes por año** se cubren los costos fijos (ver `03-punto-de-equilibrio.md`), y en la zona hay alrededor de 495 industrias que podrían comprarlo (ver `04-dimension-del-mercado.md`). |
+| **Emprendimiento** · ¿Conviene? | Sí. Cada instalación deja $381.300 de margen y cada cliente $23.000 por mes; con **3 clientes por año** se cubren los costos fijos (ver `03-punto-de-equilibrio.md`), y en la zona hay alrededor de 495 industrias que podrían comprarlo (ver `04-dimension-del-mercado.md`). |
 
 ---
 
@@ -87,12 +87,12 @@ Antes de sumar una función, la pasamos por este filtro. Analizamos las cuatro m
 
 | Concepto | $ | Cuándo | Detalle |
 |---|---|---|---|
-| Robot (ESP32-S3, ESP32-CAM, chasis con ruedas, batería, servos, pantalla) | 200.000 | Por instalación | Pieza por pieza en `../EMPRESA-SMAT/05-finanzas/costos-droid-e3d.md` (HobbyTronica, TodoMicro, PatagoniaTec, Unibot y Mercado Libre, 11/2026) |
+| Robot (ESP32-S3, ESP32-CAM, motores con ruedas, batería, 7 servos, pantalla, amplificador y parlante) | 201.000 | Por instalación | Pieza por pieza en `../EMPRESA-SMAT/05-finanzas/costos-droid-e3d.md` (HobbyTronica, TodoMicro, PatagoniaTec, Unibot y Mercado Libre, 11/2026) |
 | Corte de 2 máquinas (ESP32 + relé + contactor + gabinete) | 140.000 | Por instalación | $70.000 por máquina; cada máquina extra se cobra $120.000 |
 | Servidor de IA | 0 | Por instalación | Corre en una PC de la fábrica; si no tiene, una mini PC usada ($320.000) que se cobra aparte ($350.000) |
 | Armado, instalación y capacitación (22 h × $8.000) | 176.000 | Por instalación | |
-| Imprevistos y garantía (10 %) | 51.600 | Por instalación | |
-| **Costo por instalación** | **567.600** | | Detalle en `../EMPRESA-SMAT/05-finanzas/costos-droid-e3d.md` |
+| Imprevistos y garantía (10 %) | 51.700 | Por instalación | |
+| **Costo por instalación** | **568.700** | | Detalle en `../EMPRESA-SMAT/05-finanzas/costos-droid-e3d.md` |
 | Soporte remoto (2 h por mes) | 16.000 | Por cliente y por mes | |
 | Visita de mantenimiento cada 3 meses (4 h + traslado), prorrateada | 15.700 | Por cliente y por mes | |
 | **Costo mensual por cliente** | **≈ 32.000** | | |
@@ -136,7 +136,7 @@ precios: venden por cotización a multinacionales; nuestro precio apunta a la Py
 
 | Indicador | Valor | Dónde está el cálculo |
 |---|---|---|
-| Margen por instalación | $950.000 − 567.600 = **$382.400** (40 %) | 3.2 |
+| Margen por instalación | $950.000 − 568.700 = **$381.300** (40 %) | 3.2 |
 | Margen mensual por cliente | $55.000 − 32.000 = **$23.000** (42 %) | 3.2 |
 | Punto de equilibrio | **3 clientes por año** (Plan Compra) · **6 clientes activos** para que los abonos solos paguen los fijos | `03-punto-de-equilibrio.md` |
 | Mercado de la zona (SAM) | ≈ **495 industrias** | `04-dimension-del-mercado.md` |

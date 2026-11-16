@@ -18,8 +18,8 @@ es TOUCH-ID, que controla la asistencia con huella.
 
 ## 1. Viabilidad
 
-Creemos que el proyecto es muy viable. Las piezas del robot se consiguen fácil: pensamos usar una placa ESP32,
-motores chicos, un buzzer para la alarma y un celular como cámara. Para la inteligencia artificial vamos a usar YOLO,
+Creemos que el proyecto es muy viable. Las piezas del robot se consiguen fácil: usamos una placa ESP32-S3,
+motores con reductora, un parlante para la alarma, una pantalla, servos y una cámara ESP32-CAM. Para la inteligencia artificial vamos a usar YOLO,
 que es gratis y ya sirve para detectar objetos en un video.
 
 También nos parece viable como negocio. Queremos que sea algo que una PyME pueda pagar, más barato que poner cámaras
@@ -46,7 +46,7 @@ el turno, avise en el momento con la alarma y deje guardada cada falta con foto,
 ## 3. Tecnología utilizada
 
 El robot va a tener una placa ESP32 que lo mueve por la ruta y hace sonar la alarma cuando hay una falta. Como cámara
-usamos un celular con la app IP Webcam, que manda el video por WiFi a la computadora.
+usamos una ESP32-CAM, que manda el video por WiFi a la computadora (al principio probamos con un celular y la app IP Webcam).
 
 En la computadora corre un programa en Python con YOLO, que detecta el equipo de protección, y OpenCV, que reconoce
 las caras. Las faltas se guardan en una base de datos MySQL, y la parte del servidor la hacemos con Flask. La página
@@ -62,7 +62,7 @@ la página del empleado y a la del encargado.
 
 - ☑ API REST: para que la computadora y el robot le manden las alertas a la página.
 - ☑ Páginas web: una para el encargado y otra para el empleado.
-- ☑ Sensores / IoT: el robot se conecta por WiFi y tiene cámara, buzzer y sensores para no chocarse.
+- ☑ Sensores / IoT: el robot se conecta por WiFi y tiene cámara, pantalla, parlante y servos.
 - ☐ Energía solar o eólica
 - ☐ App para celular: preferimos una página web porque es más rápida de hacer y también se abre en el celular.
 - ☑ Base de datos: para guardar cada falta con fecha, hora, zona, trabajador y foto.
@@ -73,9 +73,9 @@ la página del empleado y a la del encargado.
 
 **¿Qué necesitamos aprender para hacerlo?**
 
-Para el robot tenemos que aprender a programar la placa ESP32 con Arduino, a manejar los motores, el buzzer y la
+Para el robot tenemos que aprender a programar la placa ESP32 con Arduino, a manejar los motores, el parlante, la pantalla, los servos y la
 conexión WiFi, y a armar y cablear todo. También tenemos que aprender a usar YOLO en Python para que reconozca el
-equipo de protección, y OpenCV para reconocer caras, y a pasar el video del celular a la computadora.
+equipo de protección, y OpenCV para reconocer caras, y a pasar el video de la cámara del robot a la computadora.
 
 Para la página tenemos que aprender a hacer una API con Flask, a conectarla con una base de datos MySQL y a armar la
 página con React. Además, como vamos a usar fotos de los trabajadores, tenemos que informarnos sobre la ley de datos
