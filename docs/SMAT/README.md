@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="../../assets/SMAT/droid-e3d.png" alt="Logo DROID-E3D by SMAT" width="380">
+  <img src="../../assets/SMAT/droid-e3d.png" alt="Logo DROID-E3D by IDEPP" width="380">
 </p>
 
 <h3 align="center">Seguridad que recorre la planta</h3>
 
 <p align="center">
   Robot con inteligencia artificial que controla que los trabajadores de una fábrica usen su equipo de protección
-  y detiene la máquina de la zona si no lo hacen.<br>
-  <b>DROID-E3D by SMAT</b> · una división de TOUCH
+  y da la alarma en la zona si no lo hacen.<br>
+  <b>DROID-E3D by IDEPP</b>
 </p>
 
 ---
@@ -17,10 +17,10 @@
 | Dato | Descripción |
 |---|---|
 | **Producto** | DROID-E3D |
-| **Agencia** | SMAT, división de TOUCH (empresa madre, creadora de Touch ID) |
-| **Equipo** | **Toro** (software y web) · **Morena** (hardware e IA) |
+| **Agencia** | IDEPP (5 socios; dos productos: TOUCH-ID y DROID-E3D) |
+| **Equipo** | **Tiziano** (software y web) · **Morena** (hardware e IA) |
 | **Tipo de proyecto** | Hardware y software: robot con cámara + servidor de IA + plataforma web |
-| **Estado** | MVP al **75 %** (08/10/2026): la plataforma y la IA ya funcionan juntas; falta la prueba con el robot y el relé reales |
+| **Estado** | MVP al **75 %** (08/10/2026): la plataforma y la IA ya funcionan juntas; el 15/11 el robot real ya recibe las alertas de la IA, frena y suena |
 | **Materias** | FAT y Emprendimiento · profesora Tamara Piccinni |
 
 ---
@@ -37,16 +37,16 @@ lentes y el chaleco:
 
 ## 💡 ¿Cómo lo resuelve?
 
-Un **robot de oruga** recorre las zonas de la planta con una cámara. Un **servidor de IA** (YOLO) detecta a quien
+Un **robot con ruedas** recorre las zonas de la planta con una cámara. Un **servidor de IA** (YOLO) detecta a quien
 trabaja sin su equipo y reconoce de quién es la cara (solo con su consentimiento). La **plataforma web** muestra la
-alerta con foto al instante y un ESP32 con relé **detiene solo la máquina de esa zona** hasta que el encargado la
-reactive.
+alerta con foto al instante, y el robot **se detiene en esa zona**, muestra el signo de peligro y hace sonar la
+alarma.
 
 | Función | Descripción |
 |---|---|
 | 🦺 **Detección de EPP** | Casco, guantes, lentes y chaleco, según lo que exige cada zona |
 | 🚨 **Alerta con foto** | Llega en segundos al panel del encargado, con la zona, el empleado y la confianza de la IA |
-| ⛔ **Parada por zona** | Se corta solo la máquina donde está el riesgo; el resto de la planta sigue |
+| 🚨 **Alarma en el lugar** | El robot se detiene en la zona, muestra el peligro y suena; la producción sigue |
 | 🤖 **Control del robot** | Iniciar, pausar, parada de emergencia, ruta por zonas y video en vivo desde la web |
 | 🗺️ **Mapa de la fábrica** | Estado de cada zona y del robot en tiempo real |
 | 📋 **Registro y auditoría** | Historial para la ART y las inspecciones; quién resolvió cada alerta |
@@ -58,21 +58,21 @@ reactive.
 |---|---|
 | 🏭 **Dueño de la PyME** | Menos accidentes y menos riesgo legal: «un accidente evitado paga el sistema» |
 | 🦺 **Responsable de higiene y seguridad** | Control en todos los turnos y registro listo para la inspección |
-| 👷 **Encargado de planta** | Ve todo desde el celular; solo frena la máquina donde hace falta |
+| 👷 **Encargado de planta** | Ve todo desde el celular y resuelve cada alerta con un toque |
 | 👤 **Empleado** | Recibe el aviso primero y ve su propio cumplimiento |
 
 ## 🛠️ Tecnologías
 
 | Tecnología | Uso |
 |---|---|
-| ESP32 (robot y máquinas) | Movimiento del robot y relé que corta la máquina |
-| Cámara (celular con IP Webcam) | Video de cada zona |
+| ESP32-S3 (robot) | Movimiento, pantalla, alarma y sensores del robot |
+| Cámara del robot (ESP32-CAM) | Video de cada zona |
 | Python · YOLO · OpenCV | Detección de EPP y reconocimiento facial (`src/SMAT/servidor_ia/`) |
 | Python · Flask · MySQL | Backend y base de datos (`src/SMAT/backend/`) |
 | React · Vite · Tailwind | Plataforma web y página pública (`src/SMAT/frontend/`) |
-| Pytest · Playwright · GitHub Actions | 76 pruebas de la API y 21 en el navegador en cada cambio |
+| Pytest · Playwright · GitHub Actions | 124 pruebas de la API y 133 en el navegador en cada cambio |
 
-## 📁 Estructura de SMAT en el repositorio
+## 📁 Estructura de IDEPP en el repositorio
 
 ```text
 TOUCH-ID/
@@ -98,6 +98,7 @@ TOUCH-ID/
 | Punto de equilibrio | [documentacion-comercial/03-punto-de-equilibrio.md](documentacion-comercial/03-punto-de-equilibrio.md) |
 | Dimensión del mercado (TAM, SAM, SOM) | [documentacion-comercial/04-dimension-del-mercado.md](documentacion-comercial/04-dimension-del-mercado.md) |
 | Los primeros 10 | [documentacion-comercial/05-los-primeros-10.md](documentacion-comercial/05-los-primeros-10.md) |
+| Match Tecnológico (con FAT) | [documentacion-comercial/06-match-tecnologico.md](documentacion-comercial/06-match-tecnologico.md) |
 
 Todas con PDF y enlace para Classroom en [documentacion-comercial/README.md](documentacion-comercial/README.md).
 
@@ -105,7 +106,7 @@ Todas con PDF y enlace para Classroom en [documentacion-comercial/README.md](doc
 
 | Consigna | Dónde |
 |---|---|
-| Daily 5: Issues y tablero Kanban | [Issues con etiqueta `smat:web`](https://github.com/Code7C26/TOUCH-ID/issues?q=label%3Asmat%3Aweb) y el tablero «Kanban TOUCH-ID» en GitHub Projects |
+| Daily 5: Issues y tablero Kanban | [Issues con etiqueta `smat:web`](https://github.com/Code7C26/IDEPP/issues?q=label%3Asmat%3Aweb) y el tablero «Kanban TOUCH-ID» en GitHub Projects |
 | Balance real del MVP | [Reporte del 08/10/2026 (75 %)](Reporte-Avance-DROID-E3D-2026-10-08.pdf) · [anterior, 05/10 (38 %)](Reporte-Avance-DROID-E3D-2026-10-05.pdf) |
 | Trabajo remoto autónomo (refactor, feat, docs) | Commits con esos prefijos en la rama `SMAT-web` y el [README técnico](../../src/SMAT/README.md) |
 | Bitácora técnica | [src/SMAT/docs/BITACORA.md](../../src/SMAT/docs/BITACORA.md) |

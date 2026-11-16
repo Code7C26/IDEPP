@@ -1,85 +1,95 @@
 # Costo de fabricar e instalar un DROID-E3D
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 08/10/2026
+> **Estado:** completo (v2) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 15/11/2026
 
 **Para qué sirve:** cuánto cuesta construir, instalar y mantener una unidad. Es la base de los precios (`precios.md`) y de la proyección (`proyeccion-3-anios.md`).
 
-> **Supuestos:** valores en **dólares (USD)** de referencia a octubre de 2026, porque los precios en pesos cambian muy rápido. Se convierten a pesos con el tipo de cambio del día de compra. Antes de comprar, **cotizar en al menos dos proveedores** y actualizar esta tabla.
+> **Supuestos:** valores en **pesos**, relevados en tiendas argentinas el 12/11/2026 (precio de lista, sin envío).
+> Referencia: **USD 1 = $1.570** (dólar oficial del Banco Nación, venta, 06/11/2026). Antes de comprar, cotizar en al
+> menos dos tiendas: en Mercado Libre suele haber precios más bajos. Lo marcado «estimado» no tiene una cotización relevada.
 
 ## 1. Robot (una unidad)
 
-| Componente | Cantidad | USD |
-|---|---|---|
-| ESP32 DevKit (control del robot) | 1 | 10 |
-| Chasis de oruga con 2 motores DC con reductora | 1 | 80 |
-| Driver de motores (TB6612 o L298N) | 1 | 6 |
-| Batería de litio 12 V 5 Ah + protección (BMS) + cargador | 1 | 45 |
-| Sensores ultrasónicos HC-SR04 (para no chocar) | 3 | 6 |
-| Botón de parada de emergencia, buzzer y LED | 1 | 8 |
-| Soporte de cámara y carcasa | 1 | 25 |
-| Cables, borneras y fusible | 1 | 15 |
-| Cámara (celular Android usado o cámara wifi) | 1 | 60 |
-| **Subtotal robot** | | **255** |
+Son las piezas que usamos en el robot nuevo (desde el 29/10/2026), confirmadas por Morena el 15/11/2026. Lo marcado «estimado» se calculó a partir de los precios relevados el 12/11.
 
-## 2. Corte de máquina (una por zona)
+| Componente | Cantidad | $ | Fuente |
+|---|---|---|---|
+| Placa ESP32-S3 N16R8 (control del robot) | 1 | 24.000 | HobbyTronica |
+| ESP32-CAM con cámara y placa programadora | 1 | 30.000 | Mercado Libre |
+| Driver de motores TB6612FNG | 1 | 10.000 | Unibot, Arsumo |
+| Pantalla TFT ST7789 240x240 | 1 | 14.000 | TodoMicro |
+| Controlador de servos PCA9685 + 7 servos (cabeza y brazos) | 1 + 7 | 38.000 | Estimado (antes: PCA9685 + 4 servos a $27.000, PatagoniaTec y Mercado Libre) |
+| Audio: amplificador MAX98357A + parlante | 1 | 10.000 | Estimado |
+| 2 motores con reductora y ruedas | 1 | 23.000 | TodoMicro |
+| Batería: 2 celdas 18650, portapilas, protección (BMS) y cargador | 1 | 25.000 | Estimado (el cargador sale $7.950) |
+| Reguladores de tensión (LM2596 y mini step-down) | 2 | 7.000 | TodoMicro |
+| Seguidores de línea (para recorrer la ruta y contar las zonas) | 2 | 5.000 | TodoMicro |
+| Sensor de distancia VL53L0X (para frenar ante un obstáculo en la ruta) | 1 | 8.000 | Estimado |
+| Cables, mini protoboard y borneras | 1 | 10.000 | Estimado |
+| Cuerpo del WALL-E impreso en 3D (PLA) | 1 | 10.000 | PrintaLot |
+| **Subtotal robot** | | **214.000** (≈ USD 136) | |
 
-| Componente | USD |
-|---|---|
-| ESP32 DevKit | 10 |
-| Módulo relé de control | 5 |
-| Contactor para la máquina (lo conecta un electricista matriculado) | 30 |
-| Gabinete y fuente de 5 V | 25 |
-| **Subtotal por máquina** | **70** |
+## 2. Corte de máquina
 
-Instalación típica: **2 máquinas** → USD 140.
+Ya no forma parte del producto (15/11/2026): DROID-E3D no detiene las máquinas de la fábrica. Cuando hay una falta,
+el robot se detiene en la zona, muestra el signo de peligro, suena la alarma y la alerta llega con foto a la web.
 
 ## 3. Servidor de IA
 
-| Opción | USD |
+| Opción | $ |
 |---|---|
-| PC usada con placa de video de entrada (corre YOLO en tiempo real) | 650 |
-| Usar una PC del cliente que cumpla los requisitos | 0 |
+| Usar una PC de la fábrica (procesador i5 o similar, 8 GB de RAM) | 0 |
+| Mini PC usada (i5, 8 GB), si la fábrica no tiene una | 320.000 (en Mercado Libre, de $228.000 a $420.000) |
 
-Se presupuesta con PC propia (USD 650) para no depender del cliente.
+El precio base usa una PC de la fábrica. La IA usa el modelo chico de YOLO, que corre sin placa de video: procesa unas
+pocas imágenes por segundo, y alcanza porque el robot se mueve despacio. **A confirmar por Morena** con la PC de la
+demo. Si hace falta la mini PC, se cobra aparte ($350.000, `precios.md`).
 
 ## 4. Mano de obra por instalación
 
-Valor hora de referencia: **USD 8** (desarrollador junior).
+Valor hora de referencia: **$8.000** (justificado en `../../documentacion-comercial/01-viabilidad-comercial.md`, sección 3.3).
 
-| Tarea | Horas | USD |
+| Tarea | Horas | $ |
 |---|---|---|
-| Armado y prueba del robot | 12 | 96 |
-| Instalación, configuración de zonas y ruta | 8 | 64 |
-| Capacitación al encargado y a los empleados | 2 | 16 |
-| **Subtotal** | **22** | **176** |
+| Armado y prueba del robot | 12 | 96.000 |
+| Instalación, configuración de zonas y ruta | 8 | 64.000 |
+| Capacitación al encargado y a los empleados | 2 | 16.000 |
+| **Subtotal** | **22** | **176.000** (≈ USD 112) |
 
 ## 5. Total por instalación
 
-| Concepto | USD |
+| Concepto | $ |
 |---|---|
-| Robot | 255 |
-| Corte de 2 máquinas | 140 |
-| Servidor de IA | 650 |
-| Mano de obra | 176 |
-| **Subtotal** | **1.221** |
-| Imprevistos y garantía (10 %) | 122 |
-| **Costo total por instalación** | **≈ 1.343** |
+| Robot | 214.000 |
+| Servidor de IA (PC de la fábrica) | 0 |
+| Mano de obra | 176.000 |
+| **Subtotal** | **390.000** |
+| Imprevistos y garantía (10 %) | 39.000 |
+| **Costo total por instalación** | **429.000** (≈ USD 273) |
+
+Si la fábrica necesita la mini PC, el costo sube a $749.000.
 
 ## 6. Costo mensual por cliente (lo cubre el abono)
 
-| Concepto | USD por mes |
+| Concepto | $ por mes |
 |---|---|
-| Soporte remoto (2 horas) | 16 |
-| Visita de mantenimiento cada 3 meses (4 horas + traslado USD 20), prorrateada | 17 |
-| **Total por cliente** | **≈ 33** |
+| Soporte remoto (2 horas) | 16.000 |
+| Visita de mantenimiento cada 3 meses (4 horas + traslado $15.000), prorrateada | 15.700 |
+| **Total por cliente** | **≈ 32.000** (≈ USD 20) |
 
-> **Cambio del 08/10/2026:** el servidor ya no se prorratea por cliente. PythonAnywhere eliminó el plan de USD 5 y el
-> más barato pasó a costar **USD 10 por mes** (un solo servidor para todos los clientes), así que ahora es un **costo
-> fijo** de SMAT junto con el dominio, los registros legales y las horas de mantenimiento de la plataforma. Detalle con
-> fuentes en `../../documentacion-comercial/01-viabilidad-comercial.md`.
+## 7. Costos fijos
 
-## Cómo bajar costos más adelante
+El servidor de la plataforma (Render), el dominio, los registros legales, las horas de mantenimiento de la plataforma y
+el marketing no dependen de la cantidad de clientes: suman **≈ $121.000 por mes**. Detalle con fuentes en
+`../../documentacion-comercial/01-viabilidad-comercial.md`, sección 3.1.
 
-- Comprar componentes por cantidad (desde 5 robots).
-- Placa de circuito propia en lugar de módulos sueltos.
-- Correr la IA en una placa más chica cuando los modelos lo permitan.
+> **Cambio del 12/11/2026:** se pasa a pesos y se rehace con las piezas del robot nuevo. Antes el costo era de
+> USD 1.343 por instalación: incluía una PC con placa de video de USD 650 y el robot de oruga.
+>
+> **Cambio del 15/11/2026:** la lista pasa a las piezas que realmente usamos. Sale el buzzer (lo reemplaza el parlante);
+> el audio es un amplificador MAX98357A en vez de un DFPlayer; los servos son 7 en vez de 4. Los seguidores de línea
+> se quedan y se suma el sensor de distancia: en la fábrica el robot recorre solo la ruta cargada en la web y tiene
+> que frenar ante un obstáculo (el control remoto es para la demo). El robot pasa de $200.000 a $214.000.
+>
+> **Cambio del 15/11/2026 (2):** se saca el corte de máquina ($70.000 por máquina, 2 por instalación): el producto
+> no detiene máquinas. El costo por instalación baja de $583.000 a $429.000.

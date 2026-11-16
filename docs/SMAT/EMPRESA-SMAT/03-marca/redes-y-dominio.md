@@ -1,8 +1,8 @@
 # Redes sociales y dominio
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
-**Para qué sirve:** dónde está SMAT en internet y quién administra cada cuenta.
+**Para qué sirve:** dónde está IDEPP en internet y quién administra cada cuenta.
 
 ## Dominio
 
@@ -11,8 +11,8 @@
 | `droide3d.com.ar` | 1 | Web pública del producto y la app (`app.droide3d.com.ar`) |
 | `smat.com.ar` | 2 | Si está libre, para la empresa |
 
-- Se registra en **NIC Argentina** (`nic.ar`) con la clave fiscal de un adulto responsable mientras los socios sean menores. Antes de comprar, verificar la disponibilidad y el precio vigente.
-- Mientras no haya dominio propio, la demo online usa los dominios gratuitos del hosting (PythonAnywhere para la API y Vercel o Netlify para la web).
+- Se registra en **NIC Argentina** (`nic.ar`) con la clave fiscal de uno de los socios. Antes de comprar, verificar la disponibilidad y el precio vigente.
+- Mientras no haya dominio propio, la demo online usa el dominio gratuito del hosting (Render sirve la API y la web en una dirección `.onrender.com`).
 
 ## Correo
 
@@ -23,9 +23,9 @@
 
 | Red | Usuario propuesto | Para qué | Frecuencia |
 |---|---|---|---|
-| **LinkedIn** (página de empresa) | SMAT · DROID-E3D | Llegar a dueños y responsables de seguridad e higiene de fábricas | 1 publicación por semana |
+| **LinkedIn** (página de empresa) | IDEPP · DROID-E3D | Llegar a dueños y responsables de seguridad e higiene de fábricas | 1 publicación por semana |
 | **Instagram** | `@droide3d` | Videos cortos del robot, detrás de escena del proyecto | 2 por semana |
-| **YouTube** | DROID-E3D by SMAT | Video demo completo y tutoriales para clientes | 1 por mes |
+| **YouTube** | DROID-E3D by IDEPP | Video demo completo y tutoriales para clientes | 1 por mes |
 
 **Ideas de contenido:** el robot detectando a alguien sin casco (con actores y permiso), cómo se arma el robot, «un dato de seguridad por semana», avances del proyecto final.
 
@@ -35,9 +35,9 @@
 
 | Cuenta | Administra | Respaldo |
 |---|---|---|
-| Dominio y hosting | Toro | Morena |
-| LinkedIn e Instagram | Morena | Toro |
-| YouTube | Toro | Morena |
+| Dominio y hosting | Tiziano | Morena |
+| LinkedIn e Instagram | Morena | Tiziano |
+| YouTube | Tiziano | Morena |
 | GitHub (repositorio) | Dueño de la organización `Code7C26` | Los dos socios con permiso de escritura |
 
 Las claves **no se escriben en el repositorio**: se guardan en un gestor de contraseñas compartido (por ejemplo, Bitwarden en su plan gratuito) y se activa la verificación en dos pasos en todas las cuentas.

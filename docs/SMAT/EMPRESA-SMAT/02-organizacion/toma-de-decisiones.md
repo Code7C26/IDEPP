@@ -1,20 +1,20 @@
 # Toma de decisiones
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 12/11/2026
 
-**Para qué sirve:** cómo deciden Toro y Morena, y cómo se deja constancia.
+**Para qué sirve:** cómo deciden Tiziano y Morena, y cómo se deja constancia.
 
 ## Tipos de decisión
 
 | Tipo | Ejemplos | Quién decide |
 |---|---|---|
 | **Del área** | Cómo programar una pantalla, qué sensor usar | El responsable del área (ver `roles-y-responsabilidades.md`) |
-| **Compartida** | Precios, clientes, gastos de más de USD 200, cambios de producto, cambios en la API del robot | Los dos socios, por unanimidad |
+| **Compartida** | Precios, clientes, gastos de más de $300.000, cambios de producto, cambios en la API del robot | Los dos socios, por unanimidad |
 | **Del profe** | Entregas, fechas, requisitos del proyecto final | Se cumple; se registra con `/tarea-profe` |
 
 ## Cómo se decide una cuestión compartida
 
-1. Quien la propone abre un **Issue con la plantilla «SMAT · Decisión entre socios»** (etiqueta `smat:decision`): contexto, opciones con ventajas y desventajas.
+1. Quien la propone abre un **Issue con la plantilla «IDEPP · Decisión entre socios»** (etiqueta `smat:decision`): contexto, opciones con ventajas y desventajas.
 2. Cada socio **vota en el Issue** (comentario) en un máximo de **48 horas**.
 3. Si están de acuerdo, se anota el **resultado** y se cierra el Issue.
 4. Si no hay acuerdo: se vuelve a discutir en la reunión semanal. Si sigue el empate, se pide la opinión del profe supervisor y se respeta.

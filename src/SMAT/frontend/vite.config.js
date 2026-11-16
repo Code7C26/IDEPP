@@ -10,7 +10,7 @@ const pwa = VitePWA({
   registerType: 'autoUpdate',            // si hay una versión nueva, se actualiza sola
   includeAssets: ['favicon.svg', 'iconos/apple-touch-icon.png'],
   manifest: {
-    name: 'DROID-E3D by SMAT',
+    name: 'DROID-E3D by IDEPP',
     short_name: 'DROID-E3D',
     description: 'Control del equipo de protección en la fábrica: alertas, robot y máquinas.',
     lang: 'es-AR',

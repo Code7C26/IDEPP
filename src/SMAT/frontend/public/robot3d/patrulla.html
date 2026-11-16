@@ -1,9 +1,9 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Patrulla SMAT</title>
+<title>Patrulla DROID-E3D</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="/robot3d/fuentes.css">
 <style>
-/* Layout: pantalla de juego grande con HUD encima; abajo cómo jugar y qué es SMAT */
+/* Layout: pantalla de juego grande con HUD encima; abajo cómo jugar y qué es DROID-E3D */
 :root {
   --bg: #eef0ea;
   --panel: #ffffff;
@@ -123,7 +123,7 @@ body {
     </div>
     <div class="overlay" id="menu">
       <div class="dialog">
-        <h1>Patrulla SMAT</h1>
+        <h1>Patrulla DROID-E3D</h1>
         <p>Sos el robot de seguridad. Andá por la calle amarilla y, cuando alguien se saque el casco (aparece un <b>⚠</b>), acercate y apretá <span class="kbd">R</span> para escanearlo.</p>
         <div class="opts">
           <h3>Modo de juego</h3>
@@ -174,7 +174,7 @@ body {
       <p>Recorré la calle amarilla de los 6 sectores. Si te salís, suena una alerta hasta que vuelvas. Cuando alguien se saca el casco, acercate y apretá R: el robot lo escanea, suena la alarma, se frena la máquina y la persona se lo vuelve a poner. Si escaneás a alguien que sí tenía casco, es una falsa alarma y perdés puntos.</p>
     </div>
     <div class="card">
-      <h3>¿Qué es SMAT?</h3>
+      <h3>¿Qué es DROID-E3D?</h3>
       <p>Un robot que recorre la planta, mira con la cámara de sus ojos si cada trabajador tiene el casco puesto y, si no lo tiene, frena la máquina y avisa. Menos accidentes, sin tener a alguien vigilando todo el día.</p>
     </div>
   </div>
@@ -479,7 +479,7 @@ body {
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = '#1b1b1b'; ctx.font = '400 96px "Archivo Black", "Arial Black", sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('SMAT', w / 2 - 30, h / 2 + 4);
+    ctx.fillText('IDEPP', w / 2 - 30, h / 2 + 4);
     ctx.fillStyle = '#d7262b'; ctx.beginPath(); ctx.arc(w / 2 + 160, h / 2, 16, 0, Math.PI * 2); ctx.fill();
   });
   const logo = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.085), new THREE.MeshStandardMaterial({ map: logoTex.tex, transparent: true, roughness: 0.6 }));
@@ -984,7 +984,7 @@ body {
   const deskLabel = makeLabel(); deskLabel.position.set(-15, 2.1, -1.5); deskLabel.scale.set(0.16, 0.04, 1); deskLabel.userData.draw('Servidor IA', '#1d211c'); deskLabel.visible = true;
   function drawScreen(lines, alert) {
     const ctx = screen.ctx; ctx.fillStyle = alert ? '#3a0d0f' : '#0f1a14'; ctx.fillRect(0, 0, 512, 300);
-    ctx.fillStyle = alert ? '#ff6b6b' : '#7fe0a0'; ctx.font = '600 30px "IBM Plex Mono", monospace'; ctx.fillText('SMAT · servidor IA', 20, 46);
+    ctx.fillStyle = alert ? '#ff6b6b' : '#7fe0a0'; ctx.font = '600 30px "IBM Plex Mono", monospace'; ctx.fillText('DROID-E3D · servidor IA', 20, 46);
     ctx.fillStyle = '#e8ece8'; ctx.font = '500 24px "IBM Plex Mono", monospace';
     lines.forEach((l, i) => ctx.fillText(l, 20, 100 + i * 40));
     screen.tex.needsUpdate = true;

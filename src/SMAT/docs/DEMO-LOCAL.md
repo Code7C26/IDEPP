@@ -1,6 +1,6 @@
 # Demo en la red local (sin internet)
 
-Guía para mostrar DROID-E3D en la feria, en el aula o frente al jurado. La notebook de Toro hace de
+Guía para mostrar DROID-E3D en la feria, en el aula o frente al jurado. La notebook de Tiziano hace de
 **servidor**: tiene MySQL y Flask, y Flask sirve la API y la web compilada en la **misma dirección**.
 Los celulares, el robot, la máquina y la PC con la IA se conectan a esa notebook por WiFi.
 

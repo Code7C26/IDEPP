@@ -1,4 +1,4 @@
-name: "SMAT · Error en DROID-E3D"
+name: "DROID-E3D · Error en DROID-E3D"
 description: Algo de la web, el backend o la integración no funciona
 title: "[Bug] "
 labels: ["smat:bug"]

@@ -1,7 +1,7 @@
 # Operación «Los primeros 10» · DROID-E3D
 
-> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** SMAT (división de TOUCH)
-> **Equipo:** Toro · Morena · **Actualizado:** 08/10/2026
+> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
+> **Equipo:** Tiziano · Morena · **Actualizado:** 12/11/2026
 
 **Estrategia elegida:** **venta directa a empresas.** Nuestro cliente es una fábrica: nadie compra un robot de
 seguridad por un anuncio en Instagram. Hay que pedir una reunión con quien decide, llevar el sistema funcionando y
@@ -35,28 +35,28 @@ mantenimiento industrial 4.0 que ya trabaja con sensores dentro de fábricas
 ([InfoNegocios](https://infonegocios.info/alta-gracia/sti-developments-una-pyme-de-alta-gracia-que-exporta-servicios-de-mantenimiento-4-0-a-multinacionales)).
 Puede recomendarnos a sus clientes (acción 3).
 
-**Sinergia con TOUCH:** Oreste Berta S.A. también está en la lista de TOUCH para Touch ID. Proponemos una visita
+**Sinergia con TOUCH-ID:** Oreste Berta S.A. también está en la lista del equipo de TOUCH-ID. Proponemos una visita
 conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) en la misma reunión.
 
 ---
 
 ## Paso 2 · El gancho comercial
 
-> **«Probá DROID-E3D gratis 30 días en una zona de tu planta.** Llevamos el robot, instalamos el corte en una
-> máquina, lo configuramos y capacitamos a tu encargado, sin costo y sin compromiso. Al final te entregamos el
+> **«Probá DROID-E3D gratis 30 días en una zona de tu planta.** Llevamos el robot, lo configuramos y
+> capacitamos a tu encargado, sin costo y sin compromiso. Al final te entregamos el
 > **informe de cumplimiento** de esa zona: cuántas veces se trabajó sin casco, guantes, lentes o chaleco, en qué
 > horario y en qué puesto. Si decidís seguir, la primera empresa que contrate paga **la mitad de la instalación**
-> (USD 1.100 en lugar de 2.200)».
+> ($700.000 en lugar de $1.400.000)».
 
 - **Por qué funciona:** el informe de cumplimiento es valioso aunque no compren (les sirve frente a la ART), y
   nadie más en la zona lo ofrece gratis.
 - **Precio piloto:** es el que ya está en `../EMPRESA-SMAT/05-finanzas/precios.md`, a cambio de medir el antes y
   el después y de un testimonio.
-- **Cuánto nos cuesta cada prueba:** ≈ 12 horas (instalar, revisar y armar el informe) × USD 8 + traslados ≈
-  **USD 120**. El equipo es el prototipo que ya compramos (`inversion-inicial.md`).
+- **Cuánto nos cuesta cada prueba:** ≈ 12 horas (instalar, revisar y armar el informe) × $8.000 + traslados ≈
+  **$110.000**. El equipo es el prototipo que ya compramos (`inversion-inicial.md`).
 - **Límite:** con un solo robot de demo, las pruebas se hacen **por turnos** (una por mes).
 - **Propuesta para decidir entre los socios:** que las 3 primeras empresas que contraten después de la prueba
-  reciban también **3 meses de abono sin cargo** (USD 210 cada una).
+  reciban también **3 meses de abono sin cargo** ($165.000 cada una).
 
 ---
 
@@ -68,7 +68,7 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 |---|---|
 | **Qué hacemos** | Llamamos a cada empresa del Paso 1, pedimos 20 minutos con quien decide y vamos con la notebook (web funcionando con datos de ejemplo), el robot, un casco y un chaleco para mostrar la detección en vivo. |
 | **Medio** | Teléfono o mail para pedir la reunión; visita presencial. |
-| **Mensaje principal** | «¿Cómo controlan hoy que todos usen el casco y los lentes, en todos los turnos? En 20 minutos te mostramos un robot que lo hace solo y que, si hace falta, frena la máquina de esa zona. Y lo podés probar gratis 30 días.» |
+| **Mensaje principal** | «¿Cómo controlan hoy que todos usen el casco y los lentes, en todos los turnos? En 20 minutos te mostramos un robot que lo hace solo y da la alarma en el lugar. Y lo podés probar gratis 30 días.» |
 | **Cuándo** | Desde la semana próxima: primero las 6 de Alta Gracia, después las 4 de Malagueño. |
 
 ### Acción 2 · Presentación en los parques industriales
@@ -77,14 +77,14 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 |---|---|
 | **Qué hacemos** | Pedimos 15 minutos en la reunión del consorcio del **Parque Industrial Pyme de Alta Gracia** y de los parques de **Malagueño**. Dejamos un folleto de una hoja con un código QR a la página «Pedí una demo» de nuestra web. |
 | **Medio** | Mail y llamada a la administración de cada parque; folleto impreso con QR. |
-| **Mensaje principal** | «Una tecnología hecha en Alta Gracia para que cada trabajador vuelva a su casa sano: control automático del equipo de protección y parada de máquina solo en la zona con riesgo.» |
-| **Costo** | 100 folletos ≈ USD 15. |
+| **Mensaje principal** | «Una tecnología hecha en Alta Gracia para que cada trabajador vuelva a su casa sano: control automático del equipo de protección y alarma en la zona con riesgo.» |
+| **Costo** | 100 folletos ≈ $25.000. |
 
 ### Acción 3 · Alianzas con quienes ya entran a las fábricas
 
 | | |
 |---|---|
-| **Qué hacemos** | Nos reunimos con **STI Developments** y con consultoras de higiene y seguridad de la zona: atienden muchas fábricas y pueden recomendarnos. A cambio, una comisión por cada cliente que traigan (a definir entre los socios; propuesta: 10 % del pago único, USD 220). |
+| **Qué hacemos** | Nos reunimos con **STI Developments** y con consultoras de higiene y seguridad de la zona: atienden muchas fábricas y pueden recomendarnos. A cambio, una comisión por cada cliente que traigan (a definir entre los socios; propuesta: 10 % del pago único, $95.000). |
 | **Medio** | Reunión presencial y mensaje por LinkedIn, con un video de 1 minuto del sistema funcionando. |
 | **Mensaje principal** | «Sumá el control automático de EPP a lo que ya les ofrecés a tus clientes. Nosotros instalamos y damos el soporte; vos ganás por cada fábrica que se sume.» |
 
@@ -99,6 +99,6 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 | Empresas contactadas | 10 |
 | Reuniones con demostración | 6 |
 | Pruebas gratis de 30 días | 3 |
-| **Clientes que contratan** | **1 a 3** (el punto de equilibrio pide 2 por año: `03-punto-de-equilibrio.md`) |
+| **Clientes que contratan** | **1 a 3** (el punto de equilibrio pide 1 por año: `03-punto-de-equilibrio.md`) |
 
 Cada contacto se anota en una planilla compartida (fecha, empresa, persona, resultado, próximo paso).

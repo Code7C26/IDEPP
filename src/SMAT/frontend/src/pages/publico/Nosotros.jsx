@@ -1,4 +1,4 @@
-// "Nosotros": misión, visión, valores y el equipo. Textos de docs/SMAT/EMPRESA-SMAT (01-identidad y 02-organizacion).
+// "Nosotros": misión, visión, valores y el equipo. Textos de docs/SMAT/EMPRESA-SMAT (01-identidad y 02-organizacion). Empresa: IDEPP.
 import Avatar from '../../components/Avatar.jsx'
 import { Antetitulo, EncabezadoPagina, LlamadoDemo, Seccion } from '../../components/publico/Bloques.jsx'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
@@ -11,18 +11,19 @@ const VALORES = [
   { titulo: 'Trabajo en equipo', texto: 'Las decisiones importantes se toman entre los socios y quedan registradas.' },
 ]
 
+// El equipo de DROID-E3D dentro de IDEPP: Tiziano y Morena. Las otras socias hacen Touch ID y no salen en esta web.
 const EQUIPO = [
-  { nombre: 'Toro', rol: 'Socio · Software y web', texto: 'Plataforma web, base de datos, servidor y despliegue.' },
-  { nombre: 'Morena', rol: 'Socia · Hardware e IA', texto: 'Robot con ruedas y ESP32-S3, corte de máquinas, cámara, YOLO y reconocimiento facial.' },
+  { nombre: 'Tiziano Tomás Donato', rol: 'Socio · Software y web', texto: 'Plataforma web, base de datos, servidor y despliegue.' },
+  { nombre: 'Morena Boeris', rol: 'Socia · Hardware e IA', texto: 'Robot con ruedas y ESP32-S3, corte de máquinas, cámara, YOLO y reconocimiento facial.' },
 ]
 
 export default function Nosotros() {
-  useTituloPagina('Nosotros', 'SMAT es una división de TOUCH que diseña, fabrica e instala DROID-E3D para que cada trabajador vuelva a su casa sano.')
+  useTituloPagina('Nosotros', 'IDEPP diseña, fabrica e instala DROID-E3D para que cada trabajador vuelva a su casa sano.')
 
   return (
     <>
       <EncabezadoPagina antetitulo="Nosotros" titulo="Que cada trabajador vuelva a su casa sano">
-        SMAT diseña, fabrica e instala DROID-E3D para controlar de forma automática y respetuosa que cada persona use su equipo de protección.
+        IDEPP diseña, fabrica e instala DROID-E3D para controlar de forma automática y respetuosa que cada persona use su equipo de protección.
       </EncabezadoPagina>
 
       <Seccion>
@@ -56,8 +57,8 @@ export default function Nosotros() {
         </dl>
       </Seccion>
 
-      <Seccion antetitulo="El equipo" titulo="SMAT, una división de TOUCH"
-               descripcion="TOUCH es la empresa madre (Alexandra, Sol y Lola), creadora de Touch ID. SMAT es su división de seguridad industrial, y DROID-E3D es su producto.">
+      <Seccion antetitulo="El equipo" titulo="Quiénes hacemos DROID-E3D"
+               descripcion="DROID-E3D es un producto de IDEPP. Lo diseñamos y construimos entre los dos.">
         <div className="grid gap-4 md:grid-cols-2">
           {EQUIPO.map((p) => (
             <article key={p.nombre} className="flex gap-4 rounded-2xl border border-zinc-200/80 p-6 dark:border-zinc-800">

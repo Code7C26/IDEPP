@@ -3,8 +3,8 @@
 > Hoja de ruta que sigue Claude Code. Cada tarea se marca `[x]` al terminarla.
 > Orden de ejecución: ver sección 4 (no es siempre el número de fase).
 
-**Jerarquía:** TOUCH (empresa madre) → SMAT (división: Toro y Morena) → DROID-E3D (producto = robot + web).
-**Repo:** `Code7C26/TOUCH-ID` · rama de trabajo `SMAT-web` · PR a `main` al final de cada fase.
+**Jerarquía:** IDEPP (5 socios; productos TOUCH-ID y DROID-E3D) → DROID-E3D (Tiziano y Morena; producto = robot + web).
+**Repo:** `Code7C26/IDEPP` · rama de trabajo `SMAT-web` · PR a `main` al final de cada fase.
 **Hardware/IA:** **Morena** (ESP32, relé, cámara, YOLO, reconocimiento facial), rama `SMAT-hardware`.
 Mientras no esté el hardware, el backend se prueba con los simuladores y el contrato de `docs/API.md`.
 
@@ -15,18 +15,18 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 ### Pública (sin login)
 | Ruta | Página | Qué muestra |
 |---|---|---|
-| `/` | Inicio | Qué es DROID-E3D, el problema, render «SMAT en la fábrica», botón "Pedir demo" |
-| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → parada de máquina, render «Robot SMAT 3D» |
-| `/juego` | Juego | «Patrulla SMAT» |
+| `/` | Inicio | Qué es DROID-E3D, el problema, render «DROID-E3D en la fábrica», botón "Pedir demo" |
+| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → parada de máquina, render «Robot DROID-E3D 3D» |
+| `/juego` | Juego | «Patrulla DROID-E3D» |
 | `/planes` | Planes | Robot + abono de la web + mantenimiento |
-| `/nosotros` | Nosotros | SMAT, división de TOUCH; equipo |
+| `/nosotros` | Nosotros | IDEPP; equipo |
 | `/contacto` | Contacto | mailto + WhatsApp |
 | `/login` | Login | Usuario y contraseña |
 
 ### Empleado (celular) · bajo `/app`
 | Ruta | Página | Qué muestra |
 |---|---|---|
-| `/app` | Inicio | Estado de su zona, EPP que debe usar, % cumplimiento, zona real del robot en el mapa, simulación «SMAT en la fábrica», últimas alertas |
+| `/app` | Inicio | Estado de su zona, EPP que debe usar, % cumplimiento, zona real del robot en el mapa, simulación «DROID-E3D en la fábrica», últimas alertas |
 | `/app/mis-alertas` | Mis alertas | Alertas donde él fue detectado, con foto, filtro por fecha, comentar |
 | `/app/perfil` | Perfil | Datos, zona, EPP, fotos de rostro, activar notificaciones |
 
@@ -37,7 +37,7 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 | `/app/incidencias` | Incidencias | Tabla con filtros, detalle con foto, comentarios, resolver |
 | `/app/empleados` | Empleados | CRUD, asignación de zona, fotos de rostro con consentimiento |
 | `/app/zonas` | Zonas | CRUD, máquina, EPP, posición en la grilla, reactivar máquina |
-| `/app/robot` | Robot | Video en vivo, zona real en el mapa, simulación «SMAT en la fábrica», estado, batería, ruta, iniciar/pausar, EMERGENCIA |
+| `/app/robot` | Robot | Video en vivo, zona real en el mapa, simulación «DROID-E3D en la fábrica», estado, batería, ruta, iniciar/pausar, EMERGENCIA |
 | `/app/reportes` | Reportes | Gráficos, ranking de cumplimiento, CSV y PDF |
 | `/app/auditoria` | Auditoría | Quién hizo qué y cuándo |
 
@@ -92,7 +92,7 @@ frontend/src/
 (Actualizado 07/10/2026: se suman T (pruebas en el repo) y R (rediseño SaaS) antes de la Fase 6; L pasa después de 6).
 La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes del profe van primero.
 
-| Semana | Web (Toro + Claude) | Empresa (Toro + Morena) | Hardware/IA (Morena) |
+| Semana | Web (Tiziano + Claude) | Empresa (Tiziano + Morena) | Hardware/IA (Morena) |
 |---|---|---|---|
 | 1 · 05/10 | Fase 0, Fase 1 (API.md + stubs) | E.0, E.1, E.2 | Revisa API.md, arma ESP32 con ejemplos |
 | 2 · 12/10 | Fases 2, 3, 4 | E.3, E.4 marca | Robot + relé contra stubs |
@@ -206,13 +206,14 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [ ] M.8 Función bilingüe español-inglés (#101)
 - [ ] M.9 Versión interactiva: chatbot simple de preguntas frecuentes (#101)
 - [ ] M.10 Actualizar los renders en Claude con el robot nuevo y volver a copiarlos (`tools/copiar_renders.py`)
+- [x] M.11 La empresa pasa a ser IDEPP: web, documentos y logos (Morena, PR #104); informe PDF, copia de los renders, «oruga» y Word (decisión 009)
 
-### Fase E · Empresa SMAT desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
-Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y deja `TODO (socio)` donde falte una decisión.
+### Fase E · Empresa IDEPP desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
+Cada socio (Tiziano, Morena) escribe su parte; Claude ayuda solo en las de Tiziano y deja `TODO (socio)` donde falte una decisión.
 - [x] E.0 Estructura con plantillas y `EMPRESA-SMAT/README.md` índice
-- [x] E.1 Issues `smat:empresa` (#29 a #37, uno por carpeta), asignados a Toro con revisión de Morena
-- [x] E.2 Identidad (misión, visión, valores, relación con TOUCH)
-- [x] E.3 Organización (organigrama TOUCH → SMAT, roles, acuerdo de socios, decisiones, actas)
+- [x] E.1 Issues `smat:empresa` (#29 a #37, uno por carpeta), asignados a Tiziano con revisión de Morena
+- [x] E.2 Identidad (misión, visión, valores, IDEPP y sus dos productos)
+- [x] E.3 Organización (organigrama IDEPP → TOUCH-ID y DROID-E3D, roles, acuerdo de socios, decisiones, actas)
 - [x] E.4 Marca (nombre, logo, manual de marca, redes y dominio)
 - [x] E.5 Negocio (canvas, cliente ideal, competencia, propuesta de valor)
 - [x] E.6 Finanzas (inversión, costos de DROID-E3D, precios, proyección 3 años, financiamiento)
@@ -224,7 +225,7 @@ Cada socio (Toro, Morena) escribe su parte; Claude ayuda solo en las de Toro y d
 
 ### Fase D · Documento final del FAT (`docs/SMAT/documentacion-final/`)
 Se edita en línea entre los dos (link en el README de esa carpeta); lo que falta está marcado `[COMPLETAR]`.
-- [ ] D.1 (Toro) Diseño (5), desarrollo de la web (6), pruebas (7) y capturas de GitHub (11) · borrador listo en `docs/SMAT/documentacion-final/secciones-toro.md` (falta pegarlo y las capturas de GitHub)
+- [ ] D.1 (Tiziano) Diseño (5), desarrollo de la web (6), pruebas (7) y capturas de GitHub (11) · borrador listo en `docs/SMAT/documentacion-final/secciones-toro.md` (falta pegarlo y las capturas de GitHub)
 - [ ] D.2 (Morena) Armado del robot, modelo de IA, sensor que falta y fotos (6)
 - [ ] D.3 (Los dos) Portada, ideación, organización, marketing, presentación y anexos (1 a 4 y 8 a 11)
 - [ ] D.4 (Cada uno) Reflexión individual, balance y conclusión (10)

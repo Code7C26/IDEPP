@@ -1,6 +1,6 @@
 # Normativa de seguridad e higiene
 
-> **Estado:** completo (v1) · **Responsable:** Toro · **Revisión:** Morena · **Actualizado:** 06/10/2026
+> **Estado:** completo (v1) · **Responsable:** Tiziano · **Revisión:** Morena · **Actualizado:** 06/10/2026
 
 **Para qué sirve:** el marco legal que justifica DROID-E3D y que debemos respetar.
 
@@ -29,7 +29,7 @@
 | Obligación | Qué aporta el sistema |
 |---|---|
 | Controlar el uso | Control automático y continuo en cada zona del recorrido |
-| Actuar ante un incumplimiento | Alerta inmediata y parada de la máquina de la zona |
+| Actuar ante un incumplimiento | Alerta inmediata al celular y alarma del robot en la zona |
 | Demostrar el control | Historial con fecha, zona, tipo de falta, foto y quién lo resolvió |
 | Mejorar la prevención | Reportes de cumplimiento por zona y por empleado |
 
@@ -38,4 +38,4 @@
 - **No reemplaza** la evaluación de riesgos ni al responsable de higiene y seguridad.
 - **No certifica** el EPP ni la constancia de entrega.
 - **No sanciona:** las medidas disciplinarias las decide el empleador según la ley y el convenio.
-- La parada de máquina **no reemplaza** las protecciones propias de cada máquina (guardas, paradas de emergencia).
+- La alarma del robot **no reemplaza** las protecciones propias de cada máquina (guardas, paradas de emergencia).

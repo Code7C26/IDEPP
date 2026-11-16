@@ -1,6 +1,6 @@
-# Documento final · Secciones de Toro (borrador para pegar)
+# Documento final · Secciones de Tiziano (borrador para pegar)
 
-> Borrador de las partes técnicas del documento final que le tocan a Toro: **5 · Diseño**,
+> Borrador de las partes técnicas del documento final que le tocan a Tiziano: **5 · Diseño**,
 > **6 · Desarrollo (software)**, **7 · Pruebas** y **11 · Anexos (capturas)**. Para pasarlo al
 > documento en línea (link en [`README.md`](README.md)): copiar cada sección debajo de su título y
 > después aplicar el formato APA en Google Docs. Lo que falta está marcado **[COMPLETAR]**.
@@ -18,8 +18,8 @@ DROID-E3D tiene cuatro partes que se comunican por la red WiFi de la planta:
 |---|---|---|---|
 | **Robot** (con ruedas) | Recorre las zonas de la fábrica con una cámara | ESP32-S3 y ESP32-CAM | Morena |
 | **Servidor de IA** | Detecta si falta el casco, los guantes, los lentes o el chaleco, y reconoce la cara del trabajador | Python, YOLO, OpenCV | Morena |
-| **Backend** | Recibe las alertas, las guarda y da las órdenes al robot y a las máquinas | Python, Flask, MySQL | Toro |
-| **Aplicación web** | Muestra las alertas, el mapa, el robot y los reportes al encargado y a cada empleado | React | Toro |
+| **Backend** | Recibe las alertas, las guarda y da las órdenes al robot y a las máquinas | Python, Flask, MySQL | Tiziano |
+| **Aplicación web** | Muestra las alertas, el mapa, el robot y los reportes al encargado y a cada empleado | React | Tiziano |
 
 Así funciona el recorrido de una alerta:
 
@@ -101,7 +101,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 ### 6.1 Forma de trabajo
 
 - **Planificación por fases:** el trabajo se dividió en fases y tareas en `src/SMAT/docs/PLAN.md`. Cada tarea se marca cuando está terminada.
-- **GitHub:** repositorio `Code7C26/TOUCH-ID` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 02/11 hubo **31 issues** de SMAT (**27 cerrados**).
+- **GitHub:** repositorio `Code7C26/IDEPP` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 02/11 hubo **31 issues** de IDEPP (**27 cerrados**).
 - **Ramas y Pull Requests:** cada socio trabaja en su rama (`SMAT-web`, `SMAT-hardware`, `SMAT-empresa`) y los cambios entran a `main` solo con un Pull Request. Hasta el 02/11 se integraron **24 Pull Requests** y **54 commits**.
 - **Pruebas automáticas en cada cambio:** GitHub Actions corre todas las pruebas antes de aceptar un Pull Request (ver sección 7). Hasta el 02/11 corrió **39 veces**.
 - **Registro:** una bitácora semanal (`docs/BITACORA.md`) y las decisiones técnicas por escrito (`docs/decisiones/`).
@@ -119,7 +119,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 | T · Pruebas | 07/10 | Pruebas automáticas del backend y de la web, corriendo en GitHub Actions |
 | R · Rediseño | 07/10 | Estilo de aplicación profesional: barra lateral, avisos flotantes, tablas ordenables y mapa con íconos |
 | 6 · IA y reconocimiento facial | 07 y 08/10 | Foto de evidencia, fotos de rostro con consentimiento y conexión con el servidor de IA de Morena |
-| L · Página pública | 08/10 | Página de SMAT con capturas reales y planes |
+| L · Página pública | 08/10 | Página de IDEPP con capturas reales y planes |
 | 7 · Tiempo real | 08/10 | Cartel y sonido de alertas, web instalable y notificaciones push |
 | 8 · Reportes | 09/10 | Gráficos, ranking de cumplimiento, descargas en CSV y PDF mensual para la ART, comentarios y auditoría |
 | 9 · Pulido y publicación | 15 al 22/10 | Revisión de todas las pantallas, guía de la demo local y preparación de la versión de internet en Render + Supabase |
@@ -141,9 +141,9 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 - **Mis alertas:** su historial, con la foto de cada alerta y la posibilidad de comentar.
 - **Mi perfil:** sus datos, el tema de la pantalla, sus fotos de rostro (con consentimiento) y las notificaciones.
 
-**Público** (captura 1 del anexo): página de SMAT que presenta el producto, cómo funciona, los planes y el contacto.
+**Público** (captura 1 del anexo): página de IDEPP que presenta el producto, cómo funciona, los planes y el contacto.
 
-**Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot SMAT 3D» (el modelo del robot), «SMAT en la fábrica» (una simulación del recorrido) y el juego «Patrulla SMAT», donde se maneja el robot por la planta. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
+**Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot DROID-E3D 3D» (el modelo del robot), «DROID-E3D en la fábrica» (una simulación del recorrido) y el juego «Patrulla DROID-E3D», donde se maneja el robot por la planta. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
 
 ### 6.4 Integración con el hardware y la IA
 
@@ -164,12 +164,12 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 
 ### 7.1 Pruebas automáticas
 
-El proyecto tiene **255 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
+El proyecto tiene **257 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
 
 | Tipo | Cantidad | Herramienta | Qué prueban |
 |---|---|---|---|
 | **De la API** (backend) | 124 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot y máquinas, reportes, comentarios, auditoría, notificaciones, conexión con la IA y robustez. Corren dos veces: contra MySQL y contra Postgres, el motor de la versión de internet |
-| **De punta a punta** (navegador real) | 131 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
+| **De punta a punta** (navegador real) | 133 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
 
 Las pruebas usan **bases de datos propias** (`robot_db_test` y `robot_db_e2e`): nunca tocan los datos reales.
 
@@ -233,7 +233,7 @@ Están en la carpeta `capturas/`, junto a este archivo. Se tomaron con **datos d
 
 | N.º | Archivo | Qué muestra |
 |---|---|---|
-| 1 | `01-pagina-publica.png` | Página pública de SMAT (PC) |
+| 1 | `01-pagina-publica.png` | Página pública de IDEPP (PC) |
 | 2 | `02-panel-encargado.png` | Panel del encargado: indicadores, mapa de la fábrica, robot y últimas alertas |
 | 3 | `03-incidencias.png` | Lista de incidencias con filtros |
 | 4 | `04-control-robot.png` | Control del robot: órdenes, ruta y video |
@@ -249,7 +249,7 @@ Están en la carpeta `capturas/`, junto a este archivo. Se tomaron con **datos d
 | Qué | Dónde |
 |---|---|
 | Tablero Kanban con las tareas | https://github.com/orgs/Code7C26/projects/36 |
-| Pull Requests integrados | https://github.com/Code7C26/TOUCH-ID/pulls?q=is%3Apr+is%3Amerged+head%3ASMAT |
-| Pruebas automáticas en verde | https://github.com/Code7C26/TOUCH-ID/actions/workflows/smat-ci.yml |
-| Issues de SMAT | https://github.com/Code7C26/TOUCH-ID/issues?q=label%3Asmat%3Aweb |
-| Historial de commits | https://github.com/Code7C26/TOUCH-ID/commits/main/src/SMAT |
+| Pull Requests integrados | https://github.com/Code7C26/IDEPP/pulls?q=is%3Apr+is%3Amerged+head%3ASMAT |
+| Pruebas automáticas en verde | https://github.com/Code7C26/IDEPP/actions/workflows/smat-ci.yml |
+| Issues de IDEPP | https://github.com/Code7C26/IDEPP/issues?q=label%3Asmat%3Aweb |
+| Historial de commits | https://github.com/Code7C26/IDEPP/commits/main/src/SMAT |

@@ -1,6 +1,6 @@
 # Servidor de IA · DROID-E3D
 
-Hecho por **Morena**. Mira la cámara del robot (ESP32-CAM, `walle_camara/`), detecta con YOLO si alguien
+Hecho por **Morena**. Mira la cámara del robot (ESP32-CAM, `walle_camara/`, o un celular con IP Webcam), detecta con YOLO si alguien
 no tiene casco, reconoce de quién es la cara y avisa. Desde el 08/10/2026 cada alerta llega también
 a la **web de DROID-E3D**, con la foto del momento.
 
@@ -30,7 +30,7 @@ ESP32-CAM ──► motor_ia_robot.py ──┬─► base propia (robotica_indu
 ## Cómo usarlo (Windows, PowerShell)
 
 ```powershell
-cd C:\Users\tomas\Fat\TOUCH-ID\src\SMAT\servidor_ia
+cd <carpeta donde clonaste el repo>\src\SMAT\servidor_ia     # por ejemplo C:\proyectos\IDEPP\src\SMAT\servidor_ia
 pip install -r requirements.txt          # una sola vez
 # en XAMPP → MySQL, cargar crear_base_datos.sql una vez
 python motor_ia_robot.py                  # Q en la ventana del video para salir
@@ -59,7 +59,7 @@ con `registrar_trabajador.py`. `modelo_cascos.pt` y `modelo_epp.pt` sí están e
   `http://<IP-del-robot>/sensores` se ven las marcas contadas y la zona que informa. Si se saltea una marca, la zona
   queda corrida hasta el próximo Iniciar. El ajuste es `MARCA_MS`, en `robot_droid.ino`.
 - **Misma PC que el backend:** no hay que configurar nada; toma la clave de `../backend/.env`.
-- **Otra PC:** completá en tu `.env` (la clave te la pasa Toro por fuera de GitHub):
+- **Otra PC:** completá en tu `.env` (la clave te la pasa Tiziano por fuera de GitHub):
   ```
   DROID_URL=http://<IP-de-la-PC-del-backend>:5000/api
   YOLO_API_KEY=<la clave>

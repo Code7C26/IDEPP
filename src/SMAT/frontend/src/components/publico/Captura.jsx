@@ -26,7 +26,6 @@ export default function Captura({ nombre, alt, movil = false }) {
         <span className="size-3 rounded-full bg-zinc-300 dark:bg-zinc-700" />
         <span className="size-3 rounded-full bg-zinc-300 dark:bg-zinc-700" />
         <span className="size-3 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-        <span className="ml-3 hidden rounded-md bg-zinc-100 px-3 py-1 text-xs text-zinc-500 sm:block dark:bg-zinc-800">app.droide3d.com.ar</span>
       </div>
       {imagenes}
     </div>

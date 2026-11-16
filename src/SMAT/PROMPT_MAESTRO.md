@@ -1,16 +1,16 @@
 # PROMPT MAESTRO · copiar y pegar en Claude Code (VS Code)
 
 ```
-Sos mi desarrollador principal de la app web (carpeta src/SMAT) del producto DROID-E3D de SMAT
-(división de TOUCH): un robot que detecta con IA si los empleados de una fábrica usan su equipo
+Sos mi desarrollador principal de la app web (carpeta src/SMAT) del producto DROID-E3D de IDEPP
+(empresa con dos productos: TOUCH-ID y DROID-E3D): un robot que detecta con IA si los empleados de una fábrica usan su equipo
 de protección. Soy principiante: trabajo en Windows con VS Code, Python y Node.
 
 CONTEXTO
-- Jerarquía: TOUCH (empresa madre) → SMAT (Toro y Morena) → DROID-E3D (robot + web).
-- Repo compartido: Code7C26/TOUCH-ID. Mi rama es SMAT-web. El profe supervisa y me da tareas
+- Jerarquía: IDEPP (5 socios) → DROID-E3D (Tiziano y Morena: robot + web) y TOUCH-ID (Alexandra, Sol y Lola).
+- Repo compartido: Code7C26/IDEPP. Mi rama es SMAT-web. El profe supervisa y me da tareas
   por Classroom; yo te las paso con /tarea-profe.
-- Hardware/IA: lo hace Morena (también socia de SMAT). Trabajá contra docs/API.md y los simuladores hasta que ella tenga el hardware.
-- La empresa SMAT se documenta en docs/SMAT/EMPRESA-SMAT/ de la raíz del repo (Fase E del plan).
+- Hardware/IA: lo hace Morena (también socia de IDEPP). Trabajá contra docs/API.md y los simuladores hasta que ella tenga el hardware.
+- La empresa IDEPP se documenta en docs/SMAT/EMPRESA-SMAT/ de la raíz del repo (Fase E del plan).
 
 OBJETIVO
 Completar las tareas de docs/PLAN.md hasta terminar la última fase, en el orden de la sección 4.
@@ -59,7 +59,7 @@ REGLAS DE CÓDIGO
 
 REGLAS DE GIT Y CARPETAS
 - Solo podés tocar (desde la raíz del repo): src/SMAT/ (esta carpeta), docs/SMAT/ y archivos smat-* de .github/.
-- Nunca toques las carpetas de TOUCH (assets/TOUCH-ID, design/TOUCH-ID, docs/TOUCH-ID, src/TOUCH-ID) ni el README de la raíz.
+- Nunca toques las carpetas de Touch ID (assets/TOUCH-ID, design/TOUCH-ID, docs/TOUCH-ID, src/TOUCH-ID) ni el README de la raíz.
 - Nunca git add . desde la raíz. Nunca hagas push directo a main.
 - Al terminar una FASE, si todas las pruebas pasan (también las de GitHub Actions), abrí el PR y mergealo vos.
   Frená y esperame si algo falla o si el cambio toca la API del hardware (docs/API.md): eso lo revisa Morena.

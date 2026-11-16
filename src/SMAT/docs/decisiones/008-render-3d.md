@@ -3,9 +3,9 @@
 **Fecha:** 2026-11-03 · **Estado:** aceptada
 
 ## Contexto
-Toro pidió que el render 3D del robot se vea en la web, también en la pantalla del empleado, y que idealmente muestre
-en tiempo real por dónde anda. Hizo en Claude tres páginas: «Robot SMAT 3D», «SMAT en la fábrica» y el juego
-«Patrulla SMAT».
+Tiziano pidió que el render 3D del robot se vea en la web, también en la pantalla del empleado, y que idealmente muestre
+en tiempo real por dónde anda. Hizo en Claude tres páginas: «Robot DROID-E3D 3D», «DROID-E3D en la fábrica» y el juego
+«Patrulla DROID-E3D».
 
 ## Opciones
 1. **Reescribir el render como componentes de React:** se probó primero, y no quedó igual. Cualquier cambio en Claude

@@ -1,4 +1,4 @@
-// Dónde está el robot, para el empleado y el encargado: el estado real, la simulación "SMAT en la fábrica"
+// Dónde está el robot, para el empleado y el encargado: el estado real, la simulación "DROID-E3D en la fábrica"
 // y el mapa con la zona real. La simulación se aclara como tal: sus operarios y sus faltas son de ejemplo.
 // Props:
 //   robot            lo que devuelve la API (GET /robot/posicion o /robot/estado)
@@ -26,7 +26,7 @@ export default function VistaRobot3D({ robot, zonas = [], ruta = [], alertasPorZ
           Así trabaja el robot en la fábrica
           <span className="rounded-full bg-tinta px-2.5 py-0.5 text-xs font-semibold text-white dark:bg-zinc-100 dark:text-zinc-900">Simulación</span>
         </p>
-        <RenderEmbebido archivo="fabrica" titulo="Simulación del robot SMAT en la fábrica" soloEscena aPedido={simulacionAPedido} />
+        <RenderEmbebido archivo="fabrica" titulo="Simulación del robot DROID-E3D en la fábrica" soloEscena aPedido={simulacionAPedido} />
         <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">Con operarios de ejemplo: no muestra tu fábrica ni al robot real.</p>
       </div>
     </figure>

@@ -1,5 +1,5 @@
 // Logo de DROID-E3D: una letra D amarilla con el lente de una cámara (ver el manual de marca).
-// conTexto = muestra también "DROID-E3D by SMAT" al lado.
+// conTexto = muestra también "DROID-E3D by IDEPP" al lado.
 export default function Logo({ conTexto = true, className = 'size-9' }) {
   return (
     <span className="inline-flex items-center gap-2">
@@ -17,7 +17,7 @@ export default function Logo({ conTexto = true, className = 'size-9' }) {
       {conTexto && (
         <span className="leading-none">
           <span className="block text-base font-extrabold tracking-tight">DROID-E3D</span>
-          <span className="block text-[11px] font-medium text-zinc-500 dark:text-zinc-400">by SMAT</span>
+          <span className="block text-[11px] font-medium text-zinc-500 dark:text-zinc-400">by IDEPP</span>
         </span>
       )}
     </span>

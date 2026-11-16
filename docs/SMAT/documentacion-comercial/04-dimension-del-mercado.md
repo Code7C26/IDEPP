@@ -1,7 +1,7 @@
 # Dimensión del mercado: ¿cuántos clientes reales tenemos? · DROID-E3D
 
-> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** SMAT (división de TOUCH)
-> **Equipo:** Toro · Morena · **Actualizado:** 08/10/2026
+> **Materia:** Emprendimiento · **Profesora:** Tamara Piccinni · **Agencia:** IDEPP
+> **Equipo:** Tiziano · Morena · **Actualizado:** 12/11/2026
 
 **Nuestro cliente:** una PyME industrial con producción en planta (metalúrgica, plásticos, muebles, alimentos,
 autopartes) de **20 a 200 empleados**, que necesita controlar el uso de casco, guantes, lentes y chaleco.
@@ -18,11 +18,11 @@ autopartes) de **20 a 200 empleados**, que necesita controlar el uso de casco, g
 
 ### En dinero
 
-| Nivel | Industrias | Ingreso posible del primer año (× USD 3.040 por cliente) |
+| Nivel | Industrias | Ingreso posible del primer año (× $2.300.000 por cliente) |
 |---|---|---|
-| TAM | 48.140 | ≈ USD 146 millones |
-| SAM | ≈ 495 | ≈ USD 1,5 millones |
-| SOM 2027 | 3 | USD 6.760 (con un cliente a precio piloto) |
+| TAM | 48.140 | ≈ $110.700 millones (≈ USD 71 millones) |
+| SAM | ≈ 495 | ≈ $1.139 millones (≈ USD 725.000) |
+| SOM 2027 | 3 | $4.850.000 (con un cliente a precio piloto) |
 
 ### Supuestos a validar
 
@@ -42,8 +42,8 @@ Los vamos a ajustar con datos de la Unión Industrial de Córdoba y con la encue
 
 | | Clientes |
 |---|---|
-| Punto de equilibrio (de `03-punto-de-equilibrio.md`) | **2 por año** a precio completo · **3** si el primero es el piloto |
-| Para que los abonos solos paguen la estructura | **6 clientes activos** |
+| Punto de equilibrio (de `03-punto-de-equilibrio.md`) | **1 por año** a precio completo · **2** si el primero es el piloto |
+| Para que los abonos solos paguen la estructura | **3 clientes activos** |
 | SOM del primer año (2027) | **3** |
 | Clientes activos en 2028 según la proyección | **10** |
 
@@ -51,10 +51,10 @@ Los vamos a ajustar con datos de la Unión Industrial de Córdoba y con la encue
 
 ## Respuesta: ¿el mercado objetivo alcanza para que el proyecto sobreviva?
 
-**Sí.** El SOM del primer año (3 clientes) alcanza el punto de equilibrio (3 con el piloto), aunque justo: el
-primer año cierra prácticamente en cero. El mercado de la zona (≈ 495 industrias) es casi **165 veces más
+**Sí.** El SOM del primer año (3 clientes) supera el punto de equilibrio (1 a precio completo, 2 con el piloto) y el
+primer año ya deja ganancia. El mercado de la zona (≈ 495 industrias) es casi **250 veces más
 grande** que lo que necesitamos vender, así que el límite no es la cantidad de clientes posibles sino **nuestra
-capacidad de vender e instalar** siendo dos personas. Desde 2028, con 10 clientes activos, superamos los 6 que
+capacidad de vender e instalar** siendo dos personas. Desde 2028, con 10 clientes activos, superamos los 3 que
 hacen falta para que el abono mensual sostenga solo los costos fijos. Por eso la prioridad comercial es
 conseguir rápido el primer piloto (plan «Los primeros 10», `05-los-primeros-10.md`) para tener un caso real que
 mostrar al resto.
