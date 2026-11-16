@@ -17,9 +17,8 @@
 
 | Concepto | $ |
 |---|---|
-| **Pago único:** robot DROID-E3D, corte de 2 máquinas, instalación y capacitación. La IA corre en una PC de la fábrica | **950.000** (≈ USD 605) |
+| **Pago único:** robot DROID-E3D, instalación y capacitación. La IA corre en una PC de la fábrica | **950.000** (≈ USD 605) |
 | **Abono mensual:** plataforma web y app, alertas, reportes, soporte remoto, actualizaciones y mantenimiento cada 3 meses | **55.000 / mes** (≈ USD 35) |
-| Máquina adicional (corte por zona, instalado) | 120.000 c/u (≈ USD 76) |
 | Mini PC para la IA, si la fábrica no tiene una PC que sirva | 350.000 (≈ USD 223) |
 
 ### Plan Servicio (alquiler)
@@ -38,9 +37,9 @@ El **primer cliente** paga el **50 % del pago único** ($475.000) a cambio de: p
 
 | | Plan Compra |
 |---|---|
-| Costo por instalación (`costos-droid-e3d.md`) | $583.000 |
+| Costo por instalación (`costos-droid-e3d.md`) | $429.000 |
 | Precio | $950.000 |
-| **Margen de la instalación** | **$367.000 (39 %)** |
+| **Margen de la instalación** | **$521.000 (55 %)** |
 | Costo mensual por cliente | $32.000 |
 | Abono | $55.000 |
 | **Margen mensual** | **$23.000 (42 %)** |

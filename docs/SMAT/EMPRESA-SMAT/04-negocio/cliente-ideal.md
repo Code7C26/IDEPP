@@ -27,7 +27,7 @@
 | Persona | Qué le importa | Qué le mostramos |
 |---|---|---|
 | **Dueño o gerente general** | Costo, riesgo legal, imagen | Precio y retorno (un accidente evitado paga el sistema) |
-| **Gerente o jefe de planta** | Que no frene la producción | Que el robot no estorba y la parada es solo por zona |
+| **Gerente o jefe de planta** | Que no frene la producción | Que el robot no estorba y no frena la producción |
 | **Responsable de seguridad e higiene** | Cumplir la norma y tener registros | Reportes, historial de alertas, evidencia con foto |
 
 El **responsable de seguridad e higiene** suele ser quien abre la puerta; el **dueño** firma.

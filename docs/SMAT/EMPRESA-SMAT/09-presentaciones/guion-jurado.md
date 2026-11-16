@@ -10,7 +10,7 @@
 |---|---|---|---|---|
 | 1 | Presentación | Tiziano | 1 | IDEPP; quiénes somos |
 | 2 | El problema | Morena | 2 | Accidentes por no usar EPP; el supervisor no puede estar en todos lados |
-| 3 | La solución | Tiziano | 2 | Qué es DROID-E3D; diagrama cámara → IA → backend → web → máquina |
+| 3 | La solución | Tiziano | 2 | Qué es DROID-E3D; diagrama cámara → IA → backend → web → robot |
 | 4 | **Demo en vivo** | Morena (robot) y Tiziano (web) | 5 | Ver abajo |
 | 5 | Cómo está hecho | Tiziano (software) y Morena (hardware e IA) | 2 | Arquitectura, seguridad, GitHub |
 | 6 | El negocio | Tiziano | 2 | Cliente, precios, proyección, FODA |
@@ -21,8 +21,8 @@
 1. **Tiziano** abre el panel del encargado en el proyector y el celular del empleado: todo en verde.
 2. **Morena** pone el robot en marcha desde la web (**Iniciar**): el estado cambia a «recorriendo».
 3. Un integrante entra a la zona **sin casco**.
-4. La IA lo detecta → aparece la **alerta con foto** en el panel y en el celular del empleado → la máquina de la zona (una lámpara conectada al relé) **se apaga**.
-5. **Tiziano** abre el detalle de la alerta, la **resuelve** y **reactiva la máquina**: la lámpara se enciende.
+4. La IA lo detecta → aparece la **alerta con foto** en el panel y en el celular del empleado → el robot **frena**, muestra el **signo de peligro** y suena la **alarma** durante 10 segundos.
+5. **Tiziano** abre el detalle de la alerta y la **resuelve**: queda registrada con foto, zona y hora.
 6. **Morena** toca **PARADA DE EMERGENCIA** en la web: el robot se detiene.
 7. **Tiziano** muestra la **auditoría**: quedó registrado quién hizo cada acción.
 
@@ -45,8 +45,8 @@
 | ¿Qué pasa si se corta internet? | La demo y la planta funcionan en red local; la versión online es para acceder desde afuera. |
 | ¿Cómo se comunica el robot con el sistema? | Por HTTP: el ESP32 consulta al servidor cada 1-2 segundos qué hacer y le informa su estado, con una clave propia. |
 | ¿Cómo protegen el sistema? | Contraseñas con hash, roles validados en el servidor, claves distintas para cada máquina y registro de auditoría. |
-| ¿Cuánto cuesta y cuánto ganan? | $950.000 de instalación (nos cuesta $583.000) y $55.000 por mes. Detalle en la proyección a 3 años. |
-| ¿Es legal frenar una máquina? | Sí: la parada la conecta un electricista del cliente y es una medida de seguridad adicional; no reemplaza las protecciones de la máquina. |
+| ¿Cuánto cuesta y cuánto ganan? | $950.000 de instalación (nos cuesta $429.000) y $55.000 por mes. Detalle en la proyección a 3 años. |
+| ¿Frena las máquinas? | No: el robot se detiene en la zona, da la alarma y avisa al encargado con foto para que actúe. Detener una máquina obliga a intervenir la instalación eléctrica de la fábrica. |
 | ¿Qué norma cumple? | Ayuda a cumplir la Ley 19.587 y el Decreto 351/79 (control del uso de EPP) y complementa la constancia de entrega de la Res. SRT 299/2011. |
 | ¿Qué harían con más tiempo? | Piloto en una fábrica real, detectar otros riesgos (derrames, pasillos obstruidos) e integrar la asistencia de Touch ID. |
 

@@ -12,10 +12,10 @@
 
 **La solución.** **DROID-E3D** es un robot que recorre la planta y, con inteligencia artificial, detecta si cada trabajador usa **casco, guantes, lentes y chaleco** según su zona. Si falta algo:
 1. avisa al instante al trabajador y al encargado, con foto;
-2. **detiene la máquina** de esa zona hasta que el encargado la reactive;
+2. el robot **se detiene en la zona**, muestra el signo de peligro y hace sonar la alarma;
 3. deja todo registrado para la inspección y la ART.
 
-**La demo.** Alguien se saca el casco frente al robot → en segundos llega la alerta al celular del encargado → la máquina de la zona se detiene → el encargado la resuelve desde la web.
+**La demo.** Alguien se saca el casco frente al robot → en segundos llega la alerta al celular del encargado → el robot frena y suena la alarma → el encargado la resuelve desde la web.
 
 **Por qué nosotros.** Un solo robot cubre muchas zonas (más barato que una cámara por zona), **actúa** en lugar de solo avisar, y respeta la privacidad: consentimiento, fotos solo de las alertas y por 90 días.
 
@@ -28,4 +28,4 @@
 ---
 
 **Versión de 30 segundos:**
-> «Los accidentes por no usar el equipo de protección pasan cuando nadie está mirando. DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin casco, guantes o lentes, avisa al instante y frena la máquina de esa zona. Buscamos nuestra primera fábrica piloto.»
+> «Los accidentes por no usar el equipo de protección pasan cuando nadie está mirando. DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin casco, guantes o lentes, avisa al instante y da la alarma en esa zona. Buscamos nuestra primera fábrica piloto.»

@@ -19,7 +19,7 @@
 |---|---|
 | Dueño | «Un robot que controla el EPP en todos los turnos por menos de lo que cuesta un supervisor.» |
 | Seguridad e higiene | «Registro con foto de cada falta, listo para la inspección y la ART.» |
-| Jefe de planta | «Solo se detiene la máquina de la zona con la falta.» |
+| Jefe de planta | «La producción no se frena: el robot avisa en el lugar.» |
 | Jurado / comunidad | «Tecnología hecha por estudiantes para que nadie se lastime trabajando.» |
 
 ## Canales
@@ -27,7 +27,7 @@
 | Canal | Acción | Responsable |
 |---|---|---|
 | **Demo en vivo** | Llevar el robot a la escuela y a 2 eventos; grabar todo | Morena |
-| **Video demo** | 1 minuto: alguien se saca el casco → alerta en el celular → la máquina se detiene | Tiziano y Morena |
+| **Video demo** | 1 minuto: alguien se saca el casco → alerta en el celular → el robot frena y suena la alarma | Tiziano y Morena |
 | **LinkedIn** | 1 publicación por semana; contacto directo con responsables de seguridad e higiene | Tiziano |
 | **Instagram** | 2 videos cortos por semana del robot y del proceso | Morena |
 | **Web pública** | Página con «Pedir demo» (Fase L de la web) | Tiziano |

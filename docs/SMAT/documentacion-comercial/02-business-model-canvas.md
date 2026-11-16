@@ -18,7 +18,7 @@ DROID-E3D es **hardware + software**, así que tiene dos caminos:
 
 | Parte | Cómo se entrega | Por qué |
 |---|---|---|
-| **Hardware** (robot, cortes de máquina, PC de IA) | **Lo instalamos nosotros en la fábrica** | El corte de máquina se conecta a la instalación eléctrica (con el electricista de la planta) y hay que configurar las zonas y la ruta del robot en el lugar. No se puede mandar por correo. |
+| **Hardware** (robot, PC de IA) | **Lo instalamos nosotros en la fábrica** | Hay que configurar las zonas y la ruta del robot en el lugar y dejar la IA andando en la PC de la fábrica. No se puede mandar por correo. |
 | **Software** (plataforma web) | **Un link**: se abre en la PC o en el celular, sin descargar nada (en noviembre, con la Fase 7, también se podrá instalar como app desde el navegador) | Así todos los empleados lo usan sin pasar por una tienda de apps. |
 
 Para **conseguir** clientes: visita con demo en planta, presentación en los parques industriales y aliados que
@@ -31,10 +31,10 @@ Elegimos un **soporte híbrido**:
 | Tipo | Qué incluye | Costo para nosotros |
 |---|---|---|
 | **Automatizado** | Manual de uso y preguntas frecuentes en la web; la plataforma avisa sola si el robot se desconecta | Casi nulo |
-| **Personal** | Soporte remoto en horario laboral (≈ 2 horas por cliente por mes) y **una visita técnica cada 3 meses**; si falla un sensor o el corte de máquina, vamos a la planta | $32.000 por cliente por mes, cubierto por el abono de $55.000 |
+| **Personal** | Soporte remoto en horario laboral (≈ 2 horas por cliente por mes) y **una visita técnica cada 3 meses**; si falla un sensor o el robot, vamos a la planta | $32.000 por cliente por mes, cubierto por el abono de $55.000 |
 
-**Por qué híbrido:** DROID-E3D es un sistema de **seguridad**: si una máquina no se reactiva o el robot se
-detiene, la fábrica no puede quedarse sola leyendo un manual. Pero las dudas comunes («¿cómo cargo un
+**Por qué híbrido:** DROID-E3D es un sistema de **seguridad**: si el robot se detiene o deja de
+alertar, la fábrica no puede quedarse sola leyendo un manual. Pero las dudas comunes («¿cómo cargo un
 empleado?») se resuelven con la ayuda escrita, sin gastar horas.
 
 ---
@@ -44,14 +44,14 @@ empleado?») se resuelven con la ayuda escrita, sin gastar horas.
 | # | Bloque | DROID-E3D |
 |---|---|---|
 | 1 | **Segmento de clientes** | PyMEs industriales de 20 a 200 empleados (metalúrgicas, plásticos, muebles, alimentos, autopartes) de Alta Gracia, Gran Córdoba y Malagueño: ≈ 495 industrias. Decide el dueño; abre la puerta el responsable de higiene y seguridad; usan el sistema el encargado y los empleados. |
-| 2 | **Propuesta de valor** | Control automático de casco, guantes, lentes y chaleco en todos los turnos; alerta en segundos con foto; parada solo de la máquina de la zona; registro para la ART y las inspecciones. |
+| 2 | **Propuesta de valor** | Control automático de casco, guantes, lentes y chaleco en todos los turnos; alerta en segundos con foto; el robot se detiene y da la alarma en la zona; registro para la ART y las inspecciones. |
 | 3 | **Canales** | Venta directa con demo en planta; parques industriales; aliados (STI Developments, consultoras); web pública. Hardware instalado por nosotros; software por link. |
 | 4 | **Relación con clientes** | Instalación y capacitación presencial; soporte híbrido (ayuda en la web + remoto humano); visita cada 3 meses; informe mensual de cumplimiento. |
-| 5 | **Fuentes de ingresos** | Pago único $950.000 + abono $55.000 por mes; máquina extra $120.000; mini PC para la IA $350.000 si hace falta; alquiler $120.000 por mes desde 2028. Modelo: hardware + abono. |
+| 5 | **Fuentes de ingresos** | Pago único $950.000 + abono $55.000 por mes; mini PC para la IA $350.000 si hace falta; alquiler $120.000 por mes desde 2028. Modelo: hardware + abono. |
 | 6 | **Recursos clave** | Robot con ruedas, ESP32-S3 y cámara; una PC de la fábrica (o una mini PC) para la IA; Python/Flask, React y MySQL; el saber de IA y hardware (Morena) y de web (Tiziano). |
 | 7 | **Actividades clave** | Programar la plataforma y la IA; armar y probar robots; instalar y configurar zonas; soporte y mantenimiento. |
 | 8 | **Socios clave** | Equipo de TOUCH-ID, el otro producto de IDEPP (venta conjunta); STI Developments y consultoras de higiene y seguridad; proveedores de electrónica; parques industriales; la escuela; hosting. |
-| 9 | **Estructura de costos** | Fijos ≈ $121.000 por mes (servidor, dominio, INPI, DNDA, 10 h de mantenimiento, marketing); $583.000 por instalación; $32.000 por cliente por mes. Punto de equilibrio: 3 clientes por año. |
+| 9 | **Estructura de costos** | Fijos ≈ $121.000 por mes (servidor, dominio, INPI, DNDA, 10 h de mantenimiento, marketing); $429.000 por instalación; $32.000 por cliente por mes. Punto de equilibrio: 2 clientes por año (3 con el piloto). |
 
 Los números salen de `01-viabilidad-comercial.md` y `03-punto-de-equilibrio.md`; el mercado, de
 `04-dimension-del-mercado.md`.

@@ -29,19 +29,10 @@ Son las piezas que usamos en el robot nuevo (desde el 29/10/2026), confirmadas p
 | Cuerpo del WALL-E impreso en 3D (PLA) | 1 | 10.000 | PrintaLot |
 | **Subtotal robot** | | **214.000** (≈ USD 136) | |
 
-## 2. Corte de máquina (una por zona)
+## 2. Corte de máquina
 
-| Componente | $ | Fuente |
-|---|---|---|
-| Placa ESP32 | 13.000 | HobbyTronica |
-| Módulo relé 5 V 10 A | 4.000 | TodoMicro |
-| Contactor tripolar 9 A, bobina 220 V (lo conecta un electricista matriculado) | 26.000 | Chint (Santiago Kohn), Sica |
-| Fuente de 5 V 2 A | 10.000 | Mercado Libre, Qualis |
-| Gabinete plástico | 12.000 | Estimado |
-| Cables y borneras | 5.000 | Estimado |
-| **Subtotal por máquina** | **70.000** (≈ USD 45) | |
-
-Instalación típica: **2 máquinas** → $140.000.
+Ya no forma parte del producto (15/11/2026): DROID-E3D no detiene las máquinas de la fábrica. Cuando hay una falta,
+el robot se detiene en la zona, muestra el signo de peligro, suena la alarma y la alerta llega con foto a la web.
 
 ## 3. Servidor de IA
 
@@ -70,14 +61,13 @@ Valor hora de referencia: **$8.000** (justificado en `../../documentacion-comerc
 | Concepto | $ |
 |---|---|
 | Robot | 214.000 |
-| Corte de 2 máquinas | 140.000 |
 | Servidor de IA (PC de la fábrica) | 0 |
 | Mano de obra | 176.000 |
-| **Subtotal** | **530.000** |
-| Imprevistos y garantía (10 %) | 53.000 |
-| **Costo total por instalación** | **583.000** (≈ USD 371) |
+| **Subtotal** | **390.000** |
+| Imprevistos y garantía (10 %) | 39.000 |
+| **Costo total por instalación** | **429.000** (≈ USD 273) |
 
-Si la fábrica necesita la mini PC, el costo sube a $903.000.
+Si la fábrica necesita la mini PC, el costo sube a $749.000.
 
 ## 6. Costo mensual por cliente (lo cubre el abono)
 
@@ -100,3 +90,6 @@ el marketing no dependen de la cantidad de clientes: suman **≈ $121.000 por me
 > el audio es un amplificador MAX98357A en vez de un DFPlayer; los servos son 7 en vez de 4. Los seguidores de línea
 > se quedan y se suma el sensor de distancia: en la fábrica el robot recorre solo la ruta cargada en la web y tiene
 > que frenar ante un obstáculo (el control remoto es para la demo). El robot pasa de $200.000 a $214.000.
+>
+> **Cambio del 15/11/2026 (2):** se saca el corte de máquina ($70.000 por máquina, 2 por instalación): el producto
+> no detiene máquinas. El costo por instalación baja de $583.000 a $429.000.

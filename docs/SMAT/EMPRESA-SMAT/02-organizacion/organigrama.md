@@ -18,7 +18,7 @@
                           Software y web       Hardware e IA          Negocio
                             (Tiziano)            (Morena)        (Tiziano + Morena)
                         backend · frontend   robot · ESP32 ·     finanzas · marca ·
-                        base de datos ·      relé · cámara ·     legal · comercial
+                        base de datos ·      audio · cámara ·    legal · comercial
                         despliegue           YOLO · facial
 ```
 
@@ -29,7 +29,7 @@
 | Área | Responsable | Qué incluye |
 |---|---|---|
 | Software y web | **Tiziano** | Backend Flask, base de datos, web React, despliegue, documentación técnica |
-| Hardware e IA | **Morena** | Robot con ruedas, ESP32-S3 del robot y ESP32 de la máquina, cámara, servidor YOLO, reconocimiento facial |
+| Hardware e IA | **Morena** | Robot con ruedas, ESP32-S3 del robot, cámara, servidor YOLO, reconocimiento facial |
 | Negocio | **Tiziano y Morena** | Marca del producto, finanzas, legal, comercial, presentaciones |
 
 ## Cómo cambia cuando crezca

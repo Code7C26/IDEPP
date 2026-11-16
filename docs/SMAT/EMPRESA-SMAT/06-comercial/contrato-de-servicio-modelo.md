@@ -13,7 +13,7 @@
 **Entre** [IDEPP / razón social], con domicilio en [ ], en adelante **«el Prestador»**, **y** [razón social del cliente], CUIT [ ], con domicilio en [ ], representada por [ ], en adelante **«el Cliente»**, se acuerda:
 
 ### 1. Objeto
-El Prestador brinda al Cliente el servicio de control automático del uso de equipos de protección personal (EPP) mediante el sistema **DROID-E3D** (robot, servidor de IA, cortes de máquina y plataforma web), en la planta ubicada en [ ].
+El Prestador brinda al Cliente el servicio de control automático del uso de equipos de protección personal (EPP) mediante el sistema **DROID-E3D** (robot, servidor de IA y plataforma web), en la planta ubicada en [ ].
 
 ### 2. Servicios incluidos en el abono
 a) Acceso a la plataforma web para los usuarios que indique el Cliente.
@@ -23,7 +23,7 @@ d) Una visita de mantenimiento preventivo cada 3 meses.
 e) Reemplazo de piezas por desgaste normal.
 
 ### 3. No incluido
-Roturas por mal uso, golpes o manipulación por terceros; obras eléctricas; traslado del sistema a otra planta; ampliaciones (nuevas zonas o máquinas), que se cotizan aparte.
+Roturas por mal uso, golpes o manipulación por terceros; obras eléctricas; traslado del sistema a otra planta; ampliaciones (nuevas zonas o más robots), que se cotizan aparte.
 
 ### 4. Precio
 Abono mensual de **$55.000** (o lo que indique la propuesta aceptada), pagadero del 1 al 10 de cada mes. Se actualiza cada 3 meses según el índice de precios al consumidor (IPC) del INDEC, con aviso de 30 días.
@@ -33,9 +33,8 @@ Plazo de **12 meses** desde la instalación, renovable automáticamente por per�
 
 ### 6. Obligaciones del Cliente
 a) Mantener la conexión wifi en las zonas del recorrido.
-b) Hacer instalar los cortes de máquina por un electricista matriculado.
-c) Informar a los trabajadores y obtener su **consentimiento** para el tratamiento de imágenes (ver cláusula 8).
-d) No mover ni modificar el robot ni los cortes sin consultar.
+b) Informar a los trabajadores y obtener su **consentimiento** para el tratamiento de imágenes (ver cláusula 8).
+c) No mover ni modificar el robot sin consultar.
 
 ### 7. Responsabilidades
 DROID-E3D es una **herramienta de apoyo** para controlar el uso de EPP. **No reemplaza** las obligaciones de seguridad e higiene del empleador (Ley 19.587 y normas complementarias) ni la entrega de EPP certificado. El Prestador no responde por accidentes ocurridos en la planta; sí responde por el correcto funcionamiento del sistema dentro de lo previsto en este contrato. Ante una falla del sistema, el Prestador la atiende en los plazos de la cláusula 2.c.
