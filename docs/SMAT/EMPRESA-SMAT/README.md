@@ -36,6 +36,7 @@ Socios: **Tiziano** (software y web) y **Morena** (hardware e IA).
 | Comercial | [Plan de marketing](06-comercial/plan-de-marketing.md) | Tiziano | completo (v1) |
 | | [Propuesta comercial (modelo)](06-comercial/propuesta-comercial-modelo.md) | Tiziano | completo (v1) |
 | | [Contrato de servicio (modelo)](06-comercial/contrato-de-servicio-modelo.md) | Tiziano | completo (v1) · revisar con abogado antes de usarlo |
+| | [Entrega e instalación](06-comercial/entrega-e-instalacion.md) | Morena | borrador (v1) |
 | Legal | [Forma jurídica](07-legal/forma-juridica.md) | Tiziano | completo (v1) · orientativo |
 | | [Propiedad intelectual](07-legal/propiedad-intelectual.md) | Tiziano | completo (v1) · orientativo |
 | | [Normativa de seguridad e higiene](07-legal/normativa-seguridad-higiene.md) | Tiziano | completo (v1) · orientativo |
