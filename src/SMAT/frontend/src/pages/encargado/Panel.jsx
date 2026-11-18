@@ -12,6 +12,7 @@ import Tabla from '../../components/Tabla.jsx'
 import TarjetaRobot from '../../components/TarjetaRobot.jsx'
 import Titulo from '../../components/Titulo.jsx'
 import { useAvisos } from '../../context/AvisosContext.jsx'
+import { useIdioma } from '../../context/IdiomaContext.jsx'
 import usePolling from '../../hooks/usePolling.js'
 import { mensajeError, tarjeta } from '../../utils/estilos.js'
 import { haceCuanto } from '../../utils/formato.js'
@@ -20,6 +21,7 @@ import { calcularTendencia } from '../../utils/tendencia.js'
 
 export default function Panel() {
   const avisar = useAvisos()
+  const { t } = useIdioma()
   const [errorAccion, setErrorAccion] = useState('')
   const [zonaAbierta, setZonaAbierta] = useState(null)   // id de la zona del panel lateral
   const stats = usePolling(() => getStats(), 5000)
@@ -49,24 +51,24 @@ export default function Panel() {
 
   return (
     <>
-      <Titulo titulo="Panel" subtitulo="Se actualiza solo cada pocos segundos" />
+      <Titulo titulo={t('Panel')} subtitulo={t('Se actualiza solo cada pocos segundos')} />
       {error && <p role="alert" className={`mb-4 ${mensajeError}`}>{error}</p>}
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard titulo="Alertas activas" valor={s?.incidencias_activas} icono="alerta" tono={s?.incidencias_activas ? 'alerta' : 'ok'}
-                  detalle={s?.incidencias_activas ? `Sin resolver · la más vieja, ${haceCuanto(s.activa_mas_antigua)}` : 'Todo resuelto'} />
-        <StatCard titulo="Hoy" valor={s?.incidencias_hoy} icono="reportes" tono="marca"
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4" data-guia="numeros">
+        <StatCard titulo={t('Alertas activas')} valor={s?.incidencias_activas} icono="alerta" tono={s?.incidencias_activas ? 'alerta' : 'ok'}
+                  detalle={s?.incidencias_activas ? `Sin resolver · la más vieja, ${haceCuanto(s.activa_mas_antigua)}` : t('Todo resuelto')} />
+        <StatCard titulo={t('Hoy')} valor={s?.incidencias_hoy} icono="reportes" tono="marca"
                   tendencia={s && calcularTendencia(s.incidencias_hoy, s.incidencias_ayer, 'ayer')}
                   serie={serie.slice(-7)} />
-        <StatCard titulo="Últimos 7 días" valor={s?.incidencias_semana} icono="panel"
+        <StatCard titulo={t('Últimos 7 días')} valor={s?.incidencias_semana} icono="panel"
                   tendencia={s && calcularTendencia(s.incidencias_semana, s.incidencias_semana_anterior, 'la semana anterior')}
                   serie={serie} />
-        <StatCard titulo="Empleados activos" valor={s?.empleados_activos} icono="empleados" tono="ok" detalle="En planta, con usuario activo" />
+        <StatCard titulo={t('Empleados activos')} valor={s?.empleados_activos} icono="empleados" tono="ok" detalle={t('En planta, con usuario activo')} />
       </div>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[3fr_2fr]">
-        <section className={tarjeta}>
-          <h2 className="mb-3 text-lg font-semibold">Mapa de la fábrica</h2>
+        <section className={tarjeta} data-guia="mapa">
+          <h2 className="mb-3 text-lg font-semibold">{t('Mapa de la fábrica')}</h2>
           {zonas.cargando && <p className="text-sm text-zinc-500">Cargando…</p>}
           {/* El mapa espera a las alertas: sin ellas pintaría todo en verde, como si estuviera en orden */}
           {zonas.datos && activas.datos && (
@@ -75,14 +77,14 @@ export default function Panel() {
                          onSeleccionar={(z) => setZonaAbierta(z.id)} />
           )}
           <LeyendaMapa conRecorrido />
-          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">Tocá una zona para ver su detalle.</p>
+          <p className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{t('Tocá una zona para ver su detalle.')}</p>
         </section>
 
         <div className="space-y-6">
           <TarjetaRobot robot={robot.datos} />
           <section>
-            <h2 className="text-lg font-semibold">Zonas con más alertas</h2>
-            <p className="mb-3 text-xs text-zinc-500 dark:text-zinc-400">Desde el inicio, activas y resueltas</p>
+            <h2 className="text-lg font-semibold">{t('Zonas con más alertas')}</h2>
+            <p className="mb-3 text-xs text-zinc-500 dark:text-zinc-400">{t('Desde el inicio, activas y resueltas')}</p>
             <Tabla claveFila="zona" filas={s?.top_zonas || []}
                    columnas={[{ clave: 'zona', titulo: 'Zona' }, { clave: 'incidencias', titulo: 'Alertas', clase: 'text-right tabular-nums' }]} />
           </section>
@@ -90,8 +92,8 @@ export default function Panel() {
         </div>
       </div>
 
-      <section className="mt-6">
-        <h2 className="mb-3 text-lg font-semibold">Últimas alertas</h2>
+      <section className="mt-6" data-guia="ultimas">
+        <h2 className="mb-3 text-lg font-semibold">{t('Últimas alertas')}</h2>
         {recientes.cargando && <p className="text-sm text-zinc-500">Cargando…</p>}
         <div className="grid gap-2 lg:grid-cols-2">
           {(recientes.datos?.incidencias || []).map((inc) => <AlertCard key={inc.id} incidencia={inc} onResolver={resolver} />)}

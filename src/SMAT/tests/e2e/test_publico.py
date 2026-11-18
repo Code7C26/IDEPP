@@ -147,3 +147,53 @@ def test_la_web_describe_el_robot_actual_y_lo_que_detecta_hoy(abrir):
         assert "ruedas" not in contenido and "detiene la máquina" not in contenido, ruta
         assert "próximo: guantes" not in contenido, ruta
     assert abrir(None, "/").get_by_text("Detecta casco, guantes, lentes y chaleco").is_visible()
+
+
+def test_la_web_cambia_a_ingles_y_lo_recuerda(base_limpia, abrir):
+    """Etapa 5: sección bilingüe. El botón ES · EN cambia los textos clave y la elección queda guardada."""
+    pag = abrir(None, "/")
+    pag.get_by_role("button", name="Cambiar idioma a inglés").first.click()
+    assert pag.get_by_role("heading", level=1).inner_text().startswith("Safety that")
+    assert pag.get_by_role("link", name="Request a demo").first.is_visible()
+    assert pag.evaluate("document.documentElement.lang") == "en"
+    pag.reload()
+    assert pag.get_by_role("heading", level=1).inner_text().startswith("Safety that")      # quedó guardado
+    pag.goto(pag.url.rstrip("/") + "/login")
+    assert pag.get_by_role("heading", name="Log in to DROID-E3D").is_visible()
+    pag.get_by_role("button", name="Change language to Spanish").first.click()
+    assert pag.get_by_role("heading", name="Ingresá a DROID-E3D").is_visible()
+    assert not pag.errores
+
+
+def test_la_guia_interactiva_recorre_la_pagina(base_limpia, abrir):
+    """Etapa 5: versión interactiva (como Intro.js). El botón "?" abre la guía de la página y se recorre paso a paso."""
+    pag = abrir(None, "/")
+    pag.get_by_role("button", name="Abrir la guía").first.click()
+    guia = pag.get_by_role("dialog")
+    assert guia.get_by_text("Paso 1 de 5").is_visible()
+    for _ in range(4):
+        guia.get_by_role("button", name="Siguiente").click()
+    assert guia.get_by_text("Paso 5 de 5").is_visible()
+    guia.get_by_role("button", name="Terminar").click()
+    assert pag.get_by_role("dialog").count() == 0
+    assert not pag.errores
+
+
+def test_el_asistente_responde_las_preguntas_frecuentes(base_limpia, abrir):
+    """Etapa 5: chatbot de preguntas frecuentes. Responde lo que se toca y lo que se escribe, en los dos idiomas."""
+    pag = abrir(None, "/", ancho=390, alto=800)
+    pag.get_by_role("button", name="Abrir las preguntas frecuentes").click()
+    asistente = pag.get_by_role("dialog", name="Preguntas frecuentes")
+    asistente.get_by_role("button", name="¿Cuánto cuesta?").click()
+    assert asistente.get_by_text("$1.400.000", exact=False).is_visible()
+    asistente.get_by_label("Escribí tu pregunta").fill("qué pasa con las fotos de mi cara")
+    asistente.get_by_role("button", name="Enviar").click()
+    assert asistente.get_by_text("consentimiento del empleado", exact=False).is_visible()
+    asistente.get_by_label("Escribí tu pregunta").fill("xyz")
+    asistente.get_by_role("button", name="Enviar").click()
+    assert asistente.get_by_text("No tengo esa respuesta", exact=False).is_visible()
+    asistente.get_by_role("link", name="Ir a Contacto").last.click()
+    assert pag.url.endswith("/contacto") and pag.get_by_role("dialog").count() == 0
+    assert not pag.errores
+    # En el juego no está: en el celular taparía los botones para manejar el robot
+    assert abrir(None, "/juego", ancho=390, alto=800).get_by_role("button", name="Abrir las preguntas frecuentes").count() == 0

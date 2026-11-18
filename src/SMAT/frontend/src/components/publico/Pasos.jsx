@@ -1,5 +1,6 @@
 // Los 4 pasos de DROID-E3D: cámara → IA → alerta → el robot se detiene y da la alarma.
 // detalle = true agrega una explicación más larga de cada paso (página "Cómo funciona").
+import { useIdioma } from '../../context/IdiomaContext.jsx'
 import Icono from '../Icono.jsx'
 
 export const PASOS = [
@@ -14,6 +15,7 @@ export const PASOS = [
 ]
 
 export default function Pasos({ detalle = false }) {
+  const { t } = useIdioma()
   return (
     <ol className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       {PASOS.map((p, i) => (
@@ -22,8 +24,8 @@ export default function Pasos({ detalle = false }) {
             <span className="grid size-11 place-items-center rounded-xl bg-tinta text-marca shadow-[3px_3px_0_var(--color-marca)] dark:bg-zinc-800"><Icono nombre={p.icono} /></span>
             <span className="font-titulo text-4xl font-black text-marca italic tabular-nums" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
           </div>
-          <h3 className="mt-4 font-bold"><span className="sr-only">Paso {i + 1}: </span>{p.titulo}</h3>
-          <p className="mt-1.5 text-sm text-zinc-600 dark:text-zinc-400">{detalle ? p.detalle : p.texto}</p>
+          <h3 className="mt-4 font-bold"><span className="sr-only">{t('Paso')} {i + 1}: </span>{t(p.titulo)}</h3>
+          <p className="mt-1.5 text-sm text-zinc-600 dark:text-zinc-400">{t(detalle ? p.detalle : p.texto)}</p>
         </li>
       ))}
     </ol>

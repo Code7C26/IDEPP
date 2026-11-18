@@ -1,6 +1,7 @@
 // Piezas que se repiten en la página pública: sección con título, tarjeta con ícono,
 // encabezado de página y la franja final de "Pedí una demo".
 import { Link } from 'react-router-dom'
+import { useIdioma } from '../../context/IdiomaContext.jsx'
 import Icono from '../Icono.jsx'
 
 export const botonOscuro = 'sombra-marca inline-flex items-center justify-center gap-2 rounded-xl bg-tinta px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-zinc-900'
@@ -60,6 +61,7 @@ export function Caracteristica({ icono, titulo, children }) {
 
 // Franja oscura del final: invita a pedir una demo
 export function LlamadoDemo() {
+  const { t } = useIdioma()
   return (
     <section className="px-4 pb-16 md:px-8">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-tinta px-6 py-12 text-white md:px-12 md:pr-72">
@@ -70,11 +72,11 @@ export function LlamadoDemo() {
         <div className="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
             <span className="rayas-marca mb-3" aria-hidden="true" />
-            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">¿Querés verlo funcionando en tu planta?</h2>
-            <p className="mt-2 max-w-xl text-zinc-300">Te mostramos el robot, la alerta con foto y la alarma en una demo de 20 minutos.</p>
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">{t('¿Querés verlo funcionando en tu planta?')}</h2>
+            <p className="mt-2 max-w-xl text-zinc-300">{t('Te mostramos el robot, la alerta con foto y la alarma en una demo de 20 minutos.')}</p>
           </div>
           <Link to="/contacto" className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-marca px-5 py-3 text-sm font-bold text-tinta shadow-[4px_4px_0_#fff] transition hover:-translate-y-0.5">
-            Pedir una demo <Icono nombre="flecha" className="size-4" />
+            {t('Pedir una demo')} <Icono nombre="flecha" className="size-4" />
           </Link>
         </div>
       </div>
