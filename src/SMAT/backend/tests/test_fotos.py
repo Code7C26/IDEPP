@@ -24,7 +24,7 @@ def test_yolo_manda_alerta_con_foto(cliente, encargada):
     assert r.status_code == 201
     inc = r.get_json()
     assert inc["imagen_url"].startswith(f"/uploads/evidencias/{inc['id']}_") and inc["imagen_url"].endswith(".png")
-    assert inc["empleado_id"] == CARLOS and inc["confianza"] == 0.9 and inc["maquina_detenida"] is True
+    assert inc["empleado_id"] == CARLOS and inc["confianza"] == 0.9
 
     foto = cliente.get("/api" + inc["imagen_url"], headers=encargada)
     assert foto.status_code == 200 and foto.data == PNG

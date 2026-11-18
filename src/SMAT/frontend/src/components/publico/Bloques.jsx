@@ -71,7 +71,7 @@ export function LlamadoDemo() {
           <div>
             <span className="rayas-marca mb-3" aria-hidden="true" />
             <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">¿Querés verlo funcionando en tu planta?</h2>
-            <p className="mt-2 max-w-xl text-zinc-300">Te mostramos el robot, la alerta con foto y la parada de máquina en una demo de 20 minutos.</p>
+            <p className="mt-2 max-w-xl text-zinc-300">Te mostramos el robot, la alerta con foto y la alarma en una demo de 20 minutos.</p>
           </div>
           <Link to="/contacto" className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-marca px-5 py-3 text-sm font-bold text-tinta shadow-[4px_4px_0_#fff] transition hover:-translate-y-0.5">
             Pedir una demo <Icono nombre="flecha" className="size-4" />

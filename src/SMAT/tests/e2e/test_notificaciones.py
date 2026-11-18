@@ -77,14 +77,14 @@ def test_el_service_worker_muestra_la_notificacion(encargada):
         pag.wait_for_timeout(250)
     registro = next(r["registrationId"] for r in registros if r["scopeURL"].startswith(PWA))
 
-    mensaje = {"titulo": "Nueva alerta: sin casco", "texto": "Zona C · Pedro Sosa · máquina detenida",
+    mensaje = {"titulo": "Nueva alerta: sin casco", "texto": "Zona C · Pedro Sosa",
                "url": "/app/incidencias", "etiqueta": "alerta-99"}
     cdp.send("ServiceWorker.deliverPushMessage", {"origin": PWA, "registrationId": registro, "data": json.dumps(mensaje)})
     for _ in range(20):
         if notificaciones(pag):
             break
         pag.wait_for_timeout(250)
-    assert notificaciones(pag) == [{"titulo": "Nueva alerta: sin casco", "texto": "Zona C · Pedro Sosa · máquina detenida"}], \
+    assert notificaciones(pag) == [{"titulo": "Nueva alerta: sin casco", "texto": "Zona C · Pedro Sosa"}], \
         f"permiso de notificaciones: {pag.evaluate('Notification.permission')}"
 
 
@@ -108,7 +108,7 @@ def test_push_real_con_el_servicio_de_edge(navegador, base_limpia, tmp_path):
             pytest.skip("Sin conexión con el servicio de push de Edge (¿hay internet?). La tarjeta dice: " + " ".join(tarjeta.inner_text().split()))
 
         api("/incidents", cabeceras=YOLO, datos={"tipo": "sin_chaleco", "zona_id": 4, "empleado_id": 7, "confianza": 0.93})
-        esperada = {"titulo": "Nueva alerta: sin chaleco", "texto": "Zona D · Sofía Romero · máquina detenida"}
+        esperada = {"titulo": "Nueva alerta: sin chaleco", "texto": "Zona D · Sofía Romero"}
         for _ in range(60):                                  # pasa por los servidores de Microsoft: puede tardar
             if esperada in notificaciones(pag):
                 break

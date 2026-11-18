@@ -1,5 +1,5 @@
 // Auditoría: quién hizo qué y cuándo (resolver alertas, órdenes al robot, cambios de empleados y zonas,
-// paradas de máquina, descargas...). En PC es una tabla; en el celular, una lista de tarjetas.
+// alertas de la IA, descargas...). En PC es una tabla; en el celular, una lista de tarjetas.
 import { useState } from 'react'
 import { getAuditoria } from '../../api/client.js'
 import Avatar from '../../components/Avatar.jsx'
@@ -17,7 +17,7 @@ import { formatearFecha, haceCuanto } from '../../utils/formato.js'
 
 const POR_PAGINA = 25
 
-// Quién lo hizo: una persona, o el "Sistema" (las máquinas: la IA o el robot)
+// Quién lo hizo: una persona, o el "Sistema" (los programas: la IA o el robot)
 function Quien({ registro }) {
   if (!registro.usuario_id) {
     return <span className="flex items-center gap-2"><span className="grid size-7 place-items-center rounded-full bg-zinc-100 text-zinc-500 dark:bg-zinc-800"><Icono nombre="robot" className="size-4" /></span>Sistema</span>
@@ -53,7 +53,7 @@ export default function Auditoria() {
     { nombre: 'accion', etiqueta: 'Qué hizo', tipo: 'select',
       opciones: (lista.datos?.acciones || []).map((a) => ({ valor: a, texto: accionLegible(a).texto })) },
     { nombre: 'usuario_id', etiqueta: 'Quién', tipo: 'select',
-      opciones: [{ valor: 'sistema', texto: 'Sistema (máquinas)' },
+      opciones: [{ valor: 'sistema', texto: 'Sistema (IA y robot)' },
                  ...(lista.datos?.usuarios || []).map((u) => ({ valor: u.id, texto: u.nombre }))] },
     { nombre: 'desde', etiqueta: 'Desde', tipo: 'fecha' },
     { nombre: 'hasta', etiqueta: 'Hasta', tipo: 'fecha' },

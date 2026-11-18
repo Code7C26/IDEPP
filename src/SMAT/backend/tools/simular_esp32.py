@@ -1,17 +1,14 @@
-"""Simula el ESP32 del robot (y, opcionalmente, los ESP32 de las máquinas) para probar la web sin hardware.
+"""Simula el ESP32 del robot para probar la web sin hardware.
 
 Hace lo mismo que haría el robot real, usando la API de docs/API.md:
   - pregunta cada 1,5 s si hay una orden  (GET /robot/comando-pendiente)
   - la ejecuta y la confirma               (POST /robot/reporte con comando_ejecutado)
   - recorre la ruta zona por zona, esperando en cada una, y gasta batería
-  - con --maquinas, también vigila la máquina de cada zona (GET /zones/<id>/maquina) y avisa
-    cuando "abriría el relé" (máquina detenida) o lo "cerraría" (máquina reactivada)
 
 Uso (con el backend andando):
     cd backend
     python tools/simular_esp32.py                 # lee ROBOT_API_KEY del archivo .env
     python tools/simular_esp32.py --velocidad 10  # 10 veces más rápido, ideal para una demo
-    python tools/simular_esp32.py --maquinas      # además simula las máquinas
 Para cortarlo: Ctrl+C.
 """
 import argparse
@@ -104,38 +101,25 @@ class RobotSimulado:
             **({"comando_ejecutado": ejecutado} if ejecutado else {})})
 
 
-def vigilar_maquinas(api, zonas, previas):
-    """Simula los ESP32 de las máquinas: avisa cuando cambia el estado del relé."""
-    for zona in zonas:
-        info = api.llamar("GET", f"/zones/{zona['id']}/maquina")
-        if previas.get(zona["id"]) not in (None, info["maquina_activa"]):
-            avisar(f"MÁQUINA «{info['maquina']}» (zona {zona['id']}): "
-                   + ("relé CERRADO, puede funcionar" if info["maquina_activa"] else "relé ABIERTO, MÁQUINA CORTADA"))
-        previas[zona["id"]] = info["maquina_activa"]
-
-
 def main():
-    ap = argparse.ArgumentParser(description="Simula el ESP32 del robot y de las máquinas")
+    ap = argparse.ArgumentParser(description="Simula el ESP32 del robot")
     ap.add_argument("--url", default=os.getenv("DROID_URL", "http://127.0.0.1:5000/api"), help="dirección del backend")
     ap.add_argument("--key", default=os.getenv("ROBOT_API_KEY", ""), help="ROBOT_API_KEY (por defecto, la del .env)")
     ap.add_argument("--velocidad", type=float, default=1.0, help="1 = tiempo real; 10 = diez veces más rápido")
     ap.add_argument("--bateria", type=int, default=100, help="batería inicial (0 a 100)")
-    ap.add_argument("--maquinas", action="store_true", help="también simula las máquinas de cada zona")
     ap.add_argument("--duracion", type=float, default=0, help="corta solo a los N segundos (0 = hasta Ctrl+C)")
     args = ap.parse_args()
     if not args.key:
         sys.exit("Falta la clave: poné ROBOT_API_KEY en backend/.env o pasá --key")
 
     api = Api(args.url, args.key)
-    robot, previas = RobotSimulado(api, args.velocidad, args.bateria), {}
+    robot = RobotSimulado(api, args.velocidad, args.bateria)
     avisar(f"Robot simulado conectado a {args.url} (velocidad x{args.velocidad:g}). Ctrl+C para cortar.")
     inicio = time.time()
     try:
         while not args.duracion or time.time() - inicio < args.duracion:
             try:
                 robot.ciclo()
-                if args.maquinas:
-                    vigilar_maquinas(api, api.llamar("GET", "/zones")["zonas"], previas)
             except urllib.error.HTTPError as e:
                 avisar(f"El backend respondió {e.code}: revisá la clave o el contenido de la orden")
             except (urllib.error.URLError, TimeoutError):

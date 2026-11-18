@@ -1,4 +1,4 @@
-"""Robot (ESP32 y control desde la web) y máquinas (parada automática, reactivación, parada manual)."""
+"""Robot: el ESP32 y el control desde la web. DROID-E3D no corta máquinas (decisión 010)."""
 from datetime import datetime, timedelta
 
 from tests.conftest import ROBOT, YOLO
@@ -138,40 +138,14 @@ def test_video(cliente, encargada):
     assert cliente.put("/api/robot/video", json={"url_video": ""}, headers=encargada).status_code == 200   # vacía = sin video
 
 
-def maquina_activa(cliente, zona):
-    return cliente.get(f"/api/zones/{zona}/maquina", headers=ROBOT).json["maquina_activa"]
-
-
-def test_una_falta_detiene_la_maquina_de_la_zona(cliente):
-    assert maquina_activa(cliente, 2) is True
+def test_una_falta_no_toca_las_maquinas_y_queda_en_la_auditoria(cliente, encargada, consulta_sql):
     r = cliente.post("/api/incidents", json={"tipo": "sin_casco", "zona_id": 2}, headers=YOLO).json
-    assert r["maquina_detenida"] is True and maquina_activa(cliente, 2) is False
-    otra = cliente.post("/api/incidents", json={"tipo": "sin_lentes", "zona_id": 2}, headers=YOLO).json
-    assert otra["maquina_detenida"] is False                       # ya estaba detenida
-
-
-def test_zona_sin_maquina_no_se_detiene_ni_se_reactiva(cliente, encargada):
-    zona = cliente.post("/api/zones", json={"nombre": "Zona Libre", "grilla_x": 12}, headers=encargada).json["id"]
-    assert cliente.post("/api/incidents", json={"tipo": "sin_casco", "zona_id": zona}, headers=YOLO).json["maquina_detenida"] is False
-    assert cliente.put(f"/api/zones/{zona}/reactivar", headers=encargada).status_code == 400
-
-
-def test_solo_el_encargado_reactiva_y_queda_auditado(cliente, encargada, empleado, consulta_sql):
-    cliente.post("/api/incidents", json={"tipo": "sin_casco", "zona_id": 2}, headers=YOLO)
-    assert cliente.put("/api/zones/2/reactivar", headers=empleado).status_code == 403
-    r = cliente.put("/api/zones/2/reactivar", headers=encargada).json
-    assert r["maquina_activa"] is True and r["alertas_activas"] >= 1
-    assert maquina_activa(cliente, 2) is True
-    assert cliente.put("/api/zones/2/reactivar", headers=encargada).status_code == 409
-    filas = consulta_sql("SELECT accion, usuario_id FROM auditoria WHERE accion LIKE '%maquina%'")
-    assert ("parada_maquina", None) in filas and ("reactivar_maquina", 2) in filas
-
-
-def test_parada_manual(cliente, encargada, empleado):
-    assert cliente.put("/api/zones/2/detener", headers=empleado).status_code == 403
-    assert cliente.put("/api/zones/2/detener", headers=encargada).json["maquina_activa"] is False
-    assert cliente.put("/api/zones/2/detener", headers=encargada).status_code == 409
-    assert maquina_activa(cliente, 2) is False
+    assert "maquina_detenida" not in r and "maquina_activa" not in cliente.get("/api/zones/2", headers=encargada).json
+    # Ya no existen los endpoints del corte de máquina
+    assert cliente.get("/api/zones/2/maquina", headers=ROBOT).status_code == 404
+    for accion in ("reactivar", "detener"):
+        assert cliente.put(f"/api/zones/2/{accion}", headers=encargada).status_code in (404, 405)
+    assert ("nueva_alerta", None) in consulta_sql("SELECT accion, usuario_id FROM auditoria")
 
 
 def test_rostros_por_ahora_vacio_y_con_clave(cliente):

@@ -85,7 +85,7 @@ def test_sin_conexion_la_alerta_se_guarda_igual_sin_foto(cliente, supabase):
     r = alerta_con_foto(cliente)
     assert r.status_code == 201
     inc = r.get_json()
-    assert inc["imagen_url"] is None and inc["maquina_detenida"] is True   # la seguridad no depende de la foto
+    assert inc["imagen_url"] is None and inc["id"]   # la alerta no depende de la foto
 
 
 def test_sin_conexion_el_rostro_avisa_que_falló(cliente, encargada, supabase):

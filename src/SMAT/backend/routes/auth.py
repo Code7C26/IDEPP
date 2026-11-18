@@ -39,7 +39,7 @@ def login():
 @auth_bp.route("/me", methods=["GET"])
 @token_required
 def mi_perfil():
-    """Datos del usuario con sesión, incluida su zona completa (EPP, máquina...)."""
+    """Datos del usuario con sesión, incluida su zona completa (EPP, máquina o puesto...)."""
     user = db.session.get(Usuario, request.user_id)
     if not user or not user.activo:
         return {"error": "Usuario no encontrado"}, 404

@@ -174,23 +174,19 @@ def crear_incidencia():
             db.session.rollback()
             return {"error": str(e)}, 400
         except AlmacenNoDisponible as e:
-            # La alerta y la parada de la máquina importan más que la foto: se guarda igual, sin foto
+            # La alerta importa más que la foto: se guarda igual, sin foto
             print(f"[AVISO] Alerta #{inc.id} sin foto: {e}")
 
-    # Seguridad: si la zona tiene máquina, se detiene hasta que el encargado la reactive.
-    # La parada la hace el sistema (no una persona), por eso queda en auditoría sin usuario.
-    parada = bool(zona.maquina and zona.maquina_activa)
-    if parada:
-        zona.maquina_activa = False
-        registrar("parada_maquina", f"Zona '{zona.nombre}': máquina detenida por la incidencia #{inc.id} ({inc.tipo})")
+    # Las máquinas de la fábrica no se tocan: el que se detiene y da la alarma es el robot (decisión 010).
+    # La alerta la manda un programa (la IA), por eso queda en la auditoría sin usuario: «Sistema».
+    registrar("nueva_alerta", f"Zona '{zona.nombre}': {inc.tipo} (incidencia #{inc.id})")
     db.session.commit()
-    notificar_alerta(inc, parada)   # notificación push a los encargados y al empleado (si la activaron)
-    return {**inc.to_dict(), "maquina_detenida": parada}, 201
+    notificar_alerta(inc)   # notificación push a los encargados y al empleado (si la activaron)
+    return inc.to_dict(), 201
 
 
 def marcar_resuelta(inc):
-    """Deja la alerta resuelta a nombre del encargado de esta sesión y lo anota en la auditoría.
-    No reactiva la máquina: eso se decide aparte, desde Zonas."""
+    """Deja la alerta resuelta a nombre del encargado de esta sesión y lo anota en la auditoría."""
     inc.estado = "resuelta"
     inc.resuelta_por = request.user_id
     inc.resuelta_at = datetime.now()

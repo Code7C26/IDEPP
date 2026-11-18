@@ -13,14 +13,14 @@
 | ✅ | Ya funciona, podés probarlo hoy |
 | 🔜 | Se implementa en la fase indicada; el formato ya está definido |
 
-## Autenticación de las máquinas
+## Autenticación de los programas (IA y robot)
 
-Las máquinas **no usan usuario/contraseña**: mandan una clave en el header `X-API-KEY`.
+Los programas **no usan usuario/contraseña**: mandan una clave en el header `X-API-KEY`.
 
 | Quién | Clave (en `backend/.env`) | Para qué endpoints |
 |---|---|---|
 | Servidor de IA (YOLO) | `YOLO_API_KEY` | `POST /incidents`, `GET /rostros`, `GET /zones` |
-| ESP32 (robot y máquinas) | `ROBOT_API_KEY` | `/robot/comando-pendiente`, `/robot/reporte`, `/zones/<id>/maquina`, `GET /zones` |
+| ESP32 del robot | `ROBOT_API_KEY` | `/robot/comando-pendiente`, `/robot/reporte`, `GET /zones` |
 
 Las claves las genera el backend y **nunca se suben al repo**. Pedísela a Tiziano por fuera de GitHub.
 Sin clave → `401`. Clave equivocada → `401`. Servidor sin clave configurada → `503`.
@@ -44,7 +44,7 @@ Header: `X-API-KEY: <YOLO_API_KEY>`
 | `empleado` | no | Alternativa a `empleado_id`: el **nombre** del empleado tal como está en la web (ej. el de la carpeta de fotos de la IA). Sin importar mayúsculas. Si no hay nadie con ese nombre (o es `"Desconocido"`), la alerta se guarda igual, sin empleado |
 | `confianza` | no | número de 0 a 1 (por defecto 0) |
 
-Respuesta `201` con la incidencia creada (`id`, `timestamp`, `estado: "activa"`...) y `maquina_detenida`: `true` si **esta falta detuvo la máquina de la zona** (la zona tiene máquina y estaba activa). Errores `400`: tipo inválido, zona o empleado inexistente, confianza fuera de rango.
+Respuesta `201` con la incidencia creada (`id`, `timestamp`, `estado: "activa"`...). Ya no trae `maquina_detenida`: DROID-E3D no corta máquinas (decisión 010). (Antes: la zona tiene máquina y estaba activa). Errores `400`: tipo inválido, zona o empleado inexistente, confianza fuera de rango.
 
 ### ✅ `POST /incidents` con foto de evidencia
 Mismo endpoint, pero `multipart/form-data` con los campos de arriba (como texto) más `imagen` (JPG o PNG, máx. **5 MB**). El JSON simple de arriba sigue funcionando.
@@ -69,7 +69,7 @@ Para que la alerta quede a nombre de alguien, ese nombre tiene que existir como 
 Header: `X-API-KEY` (la de YOLO o la del robot). Sirve para saber qué EPP exigir en cada zona:
 ```json
 { "zonas": [ { "id": 1, "nombre": "Zona A", "maquina": "Sierra circular",
-               "epp_requerido": ["casco", "lentes", "guantes"], "maquina_activa": true } ] }
+               "epp_requerido": ["casco", "lentes", "guantes"] } ] }
 ```
 
 ### ✅ `GET /rostros` · fotos para el reconocimiento facial
@@ -149,22 +149,12 @@ Estos endpoints los usa el encargado con sesión (`Authorization: Bearer ...`); 
 
 ---
 
-## 3. ESP32 de la máquina (relé)
+## 3. Máquinas de la fábrica
 
-### ✅ `GET /zones/<id>/maquina`
-Header: `X-API-KEY: <ROBOT_API_KEY>`
-```json
-{ "zona_id": 2, "maquina": "Soldadora MIG", "maquina_activa": true }
-```
-- `maquina_activa: true` → relé cerrado, la máquina funciona.
-- `maquina_activa: false` → **abrir el relé y cortar la máquina**.
-
-Consultar cada 1-2 s. **Si no hay conexión con el backend, decidan juntos qué hace el ESP32** (recomendado: dejar la máquina como está y encender un LED de aviso).
-
-**Cuándo cambia `maquina_activa`** (✅ ya funciona):
-- `false` → cuando YOLO registra una incidencia en la zona (si la zona tiene máquina), o cuando el encargado la detiene a mano desde la web.
-- `true` → solo cuando **el encargado la reactiva** desde la web (`PUT /zones/<id>/reactivar`). La IA nunca reactiva una máquina.
-- Todo queda en la auditoría (la parada automática figura como hecha por el «Sistema»).
+**DROID-E3D ya no corta máquinas** (decisión 010, noviembre de 2026): cuando la IA ve una falta, el robot se detiene
+en la zona, muestra el signo de peligro y da la alarma. Se quitaron `GET /zones/<id>/maquina`,
+`PUT /zones/<id>/reactivar` y `PUT /zones/<id>/detener`, y el campo `maquina_activa` de las zonas. El campo
+`maquina` sigue: es el nombre de la máquina o puesto de cada zona, para reconocerla en el mapa.
 
 ---
 
@@ -191,7 +181,7 @@ Solo el encargado, con su sesión. El período es `?desde=AAAA-MM-DD&hasta=AAAA-
 
 | Endpoint | Para qué |
 |---|---|
-| ✅ `GET /reports/diario` | `dias` (cada día, con la cantidad por tipo y el total), `por_tipo`, `por_zona`, `total`, `activas`, `resueltas`, `paradas_maquina` |
+| ✅ `GET /reports/diario` | `dias` (cada día, con la cantidad por tipo y el total), `por_tipo`, `por_zona`, `total`, `activas`, `resueltas`, `zonas_con_alertas`, `zonas_total` |
 | ✅ `GET /reports/ranking` | `empleados` y `zonas`, de mejor a peor cumplimiento (`alertas`, `dias_con_alerta`, `cumplimiento` en %), y `alertas_sin_identificar` |
 | ✅ `GET /reports/incidencias.csv` | Las alertas del período en CSV para Excel (separado por `;`, UTF-8 con BOM). Queda en la auditoría |
 | ✅ `GET /reports/mensual.pdf?mes=AAAA-MM` | Informe mensual en PDF para la ART (por defecto el mes actual, hasta hoy). Queda en la auditoría |
@@ -205,7 +195,7 @@ Comentarios: el encargado en cualquier alerta; el empleado, solo en las suyas (s
 
 Cada incidencia trae además `cantidad_comentarios`.
 
-Resolver alertas (solo encargado; no reactiva la máquina y queda en la auditoría):
+Resolver alertas (solo encargado; queda en la auditoría):
 
 | Endpoint | Para qué |
 |---|---|
@@ -224,7 +214,7 @@ Zonas de ejemplo: `1` Zona A · `2` Zona B · `3` Zona C · `4` Zona D (ver `doc
 Empleados de ejemplo: ids `1`, `3`, `4`, `5`, `6`, `7` (el `2` es la encargada). Los datos son ficticios.
 
 Un usuario normal se loguea con `POST /login` `{ "usuario": "...", "contrasena": "..." }` → devuelve `token`
-para usar como `Authorization: Bearer <token>`. Eso es para personas, no para las máquinas.
+para usar como `Authorization: Bearer <token>`. Eso es para personas, no para los programas.
 
 ---
 
@@ -239,13 +229,12 @@ Invoke-RestMethod -Method Post -Uri http://localhost:5000/api/incidents -Headers
 
 $r = @{ "X-API-KEY" = "<tu ROBOT_API_KEY>" }
 Invoke-RestMethod -Uri http://localhost:5000/api/robot/comando-pendiente -Headers $r
-Invoke-RestMethod -Uri http://localhost:5000/api/zones/1/maquina -Headers $r
 ```
 
-Ejemplos de código en `docs/integracion/` (`esp32_robot.ino`, `esp32_maquina.ino`, `cliente_yolo.py`).
-**Simulador del robot y las máquinas (✅ ya disponible):** `python backend/tools/simular_esp32.py --maquinas` actúa como el ESP32 del robot (recibe órdenes, recorre la ruta, reporta batería) y vigila las máquinas; sirve para probar la web y para ver el comportamiento esperado antes de programar la placa. 
+Ejemplos de código en `docs/integracion/` (`esp32_robot.ino`, `cliente_yolo.py`).
+**Simulador del robot (✅ ya disponible):** `python backend/tools/simular_esp32.py` actúa como el ESP32 del robot (recibe órdenes, recorre la ruta, reporta batería); sirve para probar la web y para ver el comportamiento esperado antes de programar la placa. 
 
-**Simulador de la IA (✅ ya disponible):** `python backend/tools/simular_yolo.py` hace de servidor YOLO: lee las zonas y los rostros y cada 20 s manda una alerta con una foto de evidencia dibujada por el script (o la tuya con `--imagen foto.jpg`). Opciones: `--cada 5`, `--cantidad 3`, `--zona 2`, `--empleado 4` (`0` = no reconocido). Cada alerta detiene la máquina de la zona, como en la fábrica.
+**Simulador de la IA (✅ ya disponible):** `python backend/tools/simular_yolo.py` hace de servidor YOLO: lee las zonas y los rostros y cada 20 s manda una alerta con una foto de evidencia dibujada por el script (o la tuya con `--imagen foto.jpg`). Opciones: `--cada 5`, `--cantidad 3`, `--zona 2`, `--empleado 4` (`0` = no reconocido).
 
 ## 6. Códigos de respuesta
 

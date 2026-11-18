@@ -5,7 +5,7 @@ Cumplimiento: es la misma definición que ve el empleado en su inicio (frontend/
 """
 from datetime import datetime, time, timedelta
 
-from models import db, Auditoria, Incidencia, Usuario, Zona
+from models import db, Incidencia, Usuario, Zona
 
 TIPOS = ("sin_casco", "sin_guantes", "sin_lentes", "sin_chaleco")
 
@@ -48,7 +48,6 @@ def resumen_diario(desde, hasta):
              .outerjoin(Incidencia, db.and_(Incidencia.zona_id == Zona.id, en_periodo(desde, hasta)))
              .group_by(Zona.id, Zona.nombre).order_by(Zona.nombre).all())
 
-    inicio, fin = limites(desde, hasta)
     activas = Incidencia.query.filter(en_periodo(desde, hasta), Incidencia.estado == "activa").count()
     total = sum(d["total"] for d in dias)
     return {
@@ -59,8 +58,8 @@ def resumen_diario(desde, hasta):
         "total": total,
         "activas": activas,
         "resueltas": total - activas,
-        "paradas_maquina": Auditoria.query.filter(Auditoria.accion == "parada_maquina",
-                                                  Auditoria.created_at >= inicio, Auditoria.created_at < fin).count(),
+        "zonas_con_alertas": sum(1 for _, _, cantidad in zonas if cantidad),
+        "zonas_total": len(zonas),
     }
 
 

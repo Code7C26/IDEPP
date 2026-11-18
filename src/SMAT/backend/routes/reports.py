@@ -39,7 +39,7 @@ def leer_periodo():
 @reports_bp.route("/reports/diario", methods=["GET"])
 @rol_requerido("encargado")
 def reporte_diario():
-    """Alertas de cada día del período (por tipo), totales por tipo y por zona, activas/resueltas y paradas de máquina."""
+    """Alertas de cada día del período (por tipo), totales por tipo y por zona, activas/resueltas y zonas con alertas."""
     desde, hasta, error = leer_periodo()
     if error:
         return {"error": error}, 400

@@ -47,7 +47,7 @@ def rol_requerido(*roles):
 
 def sesion_o_api_key(*nombres_clave):
     """Para datos de solo lectura que pueden ver tanto las personas (con token) como las
-    máquinas (con X-API-KEY de cualquiera de las claves indicadas)."""
+    programas de la IA y del robot (con X-API-KEY de cualquiera de las claves indicadas)."""
     def decorador(f):
         @wraps(f)
         def decorated(*args, **kwargs):
@@ -64,7 +64,7 @@ def sesion_o_api_key(*nombres_clave):
 
 
 def api_key_requerida(nombre_clave):
-    """Para las máquinas (YOLO, ESP32): exige el header  X-API-KEY.
+    """Para los programas (la IA y el ESP32 del robot): exige el header  X-API-KEY.
     `nombre_clave` es el nombre en Config, ej. "YOLO_API_KEY" o "ROBOT_API_KEY"."""
     def decorador(f):
         @wraps(f)

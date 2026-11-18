@@ -112,9 +112,9 @@ def test_se_puede_jugar_a_patrulla(base_limpia, abrir_3d):
 
 
 def test_la_web_describe_el_robot_actual_y_lo_que_detecta_hoy(abrir):
-    """El robot ya no es oruga (issue #101), y con modelo_epp.pt la IA detecta casco, guantes, lentes y chaleco."""
+    """El robot tiene orugas y no corta máquinas (PR #149 y #153), y la IA detecta casco, guantes, lentes y chaleco."""
     for ruta in ("/", "/como-funciona", "/nosotros"):
         contenido = abrir(None, ruta).locator("body").inner_text().lower()
-        assert "oruga" not in contenido, ruta
+        assert "ruedas" not in contenido and "detiene la máquina" not in contenido, ruta
         assert "próximo: guantes" not in contenido, ruta
     assert abrir(None, "/").get_by_text("Detecta casco, guantes, lentes y chaleco").is_visible()

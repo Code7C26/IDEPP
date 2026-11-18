@@ -12,14 +12,13 @@ db = SQLAlchemy()
 
 
 class Zona(db.Model):
-    """Una zona de la fábrica: tiene una máquina y un EPP obligatorio."""
+    """Una zona de la fábrica: su máquina o puesto de trabajo y el EPP obligatorio."""
     __tablename__ = "zonas"
 
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), unique=True, nullable=False)
-    maquina = db.Column(db.String(100))                        # ej. "Sierra circular"
+    maquina = db.Column(db.String(100))                        # máquina o puesto de la zona, ej. "Sierra circular"
     epp_requerido = db.Column(db.String(200), default="", server_default="")      # texto: "casco,guantes,lentes"
-    maquina_activa = db.Column(db.Boolean, default=True, server_default=db.true())       # False = la máquina debe estar parada
     # Posición en el mapa de la fábrica (grilla): x, y, ancho y alto en celdas
     grilla_x = db.Column(db.Integer, default=0, server_default="0")
     grilla_y = db.Column(db.Integer, default=0, server_default="0")
@@ -30,7 +29,7 @@ class Zona(db.Model):
         epp = [e for e in (self.epp_requerido or "").split(",") if e]
         return {
             "id": self.id, "nombre": self.nombre, "maquina": self.maquina,
-            "epp_requerido": epp, "maquina_activa": self.maquina_activa,
+            "epp_requerido": epp,
             "grilla_x": self.grilla_x, "grilla_y": self.grilla_y,
             "ancho": self.ancho, "alto": self.alto,
         }
@@ -158,11 +157,11 @@ class SuscripcionPush(db.Model):
 
 
 class Auditoria(db.Model):
-    """Registro de quién hizo qué y cuándo (acciones del encargado, parada de máquina...)."""
+    """Registro de quién hizo qué y cuándo (acciones del encargado, alertas de la IA...)."""
     __tablename__ = "auditoria"
 
     id = db.Column(db.Integer, primary_key=True)
-    usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))   # None = una máquina (YOLO/ESP32)
+    usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))   # None = un programa (la IA o el robot)
     accion = db.Column(db.String(50), nullable=False)                  # ej. "resolver_incidencia"
     detalle = db.Column(db.String(255), default="", server_default="")
     created_at = db.Column(db.DateTime, default=datetime.now, server_default=db.func.now())

@@ -119,7 +119,7 @@ def generar_informe_mensual(desde, hasta, mes, autor):
         tarjetas([("Alertas", d["total"], f"{d['activas']} sin resolver"),
                   ("Cumplimiento promedio", f"{promedio} %", "de los empleados activos"),
                   ("Resueltas", f"{round(d['resueltas'] * 100 / d['total']) if d['total'] else 0} %", f"{d['resueltas']} de {d['total']}"),
-                  ("Paradas de máquina", d["paradas_maquina"], "por alertas de EPP")]),
+                  ("Zonas con alertas", d["zonas_con_alertas"], f"de {d['zonas_total']} zonas")]),
         Paragraph("Alertas por día", SUBTITULO),
         grafico_por_dia(d["dias"]),
         Paragraph("Cumplimiento = días sin alertas / días del período. Bien: 90 % o más · A mejorar: 75 a 89 % · "

@@ -39,7 +39,7 @@ def test_diario_cuenta_por_dia_tipo_y_zona(enero, encargada):
     assert r["dias"][9]["sin_guantes"] == 1                                  # "hasta" incluye todo el último día
     assert {t["tipo"]: t["total"] for t in r["por_tipo"]} == {"sin_casco": 2, "sin_guantes": 1, "sin_lentes": 1, "sin_chaleco": 1}
     assert {z["zona"]: z["total"] for z in r["por_zona"]} == {"Zona A": 3, "Zona B": 1, "Zona C": 0, "Zona D": 1}
-    assert r["paradas_maquina"] == 0
+    assert r["zonas_con_alertas"] == 3 and r["zonas_total"] == 4
 
 
 def test_ranking_de_empleados_y_zonas(enero, encargada):

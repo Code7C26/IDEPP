@@ -57,7 +57,7 @@ async function request(path, options = {}) {
 export const loginUser = (usuario, contrasena) =>
   request('/login', { method: 'POST', body: JSON.stringify({ usuario, contrasena }) })
 
-// Datos del usuario con sesión, con su zona completa (EPP, máquina). Sirve para el inicio y el perfil.
+// Datos del usuario con sesión, con su zona completa (EPP, máquina o puesto). Sirve para el inicio y el perfil.
 export const getMe = () => request('/me')
 
 // ---------- Incidencias ----------
@@ -84,7 +84,7 @@ export const getStats = () => request('/stats')
 // ---------- Reportes (solo encargado) ----------
 
 // periodo: { desde: 'AAAA-MM-DD', hasta: 'AAAA-MM-DD' }
-// Alertas por día (con el detalle por tipo), por tipo, por zona, activas/resueltas y paradas de máquina
+// Alertas por día (con el detalle por tipo), por tipo, por zona, activas/resueltas y zonas con alertas
 export const getReporteDiario = (periodo) => request(`/reports/diario${armarConsulta(periodo)}`)
 // Cumplimiento de cada empleado y de cada zona (días sin alertas / días del período)
 export const getRanking = (periodo) => request(`/reports/ranking${armarConsulta(periodo)}`)
@@ -156,11 +156,6 @@ export const getRobotRoute = () => request('/robot/ruta')
 export const saveRobotRoute = (ruta) => request('/robot/ruta', { method: 'PUT', body: JSON.stringify({ ruta }) })
 // Dirección del video en vivo (la sirve la PC con la IA). Texto vacío = sin video.
 export const saveRobotVideo = (url_video) => request('/robot/video', { method: 'PUT', body: JSON.stringify({ url_video }) })
-
-// ---------- Máquinas (solo encargado) ----------
-
-export const reactivateMachine = (zonaId) => request(`/zones/${zonaId}/reactivar`, { method: 'PUT' })
-export const stopMachine = (zonaId) => request(`/zones/${zonaId}/detener`, { method: 'PUT' })
 
 // ---------- Notificaciones push (cualquier usuario con sesión) ----------
 

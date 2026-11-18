@@ -14,7 +14,7 @@ const VALORES = [
 // El equipo de DROID-E3D dentro de IDEPP: Tiziano y Morena. Las otras socias hacen Touch ID y no salen en esta web.
 const EQUIPO = [
   { nombre: 'Tiziano Tomás Donato', rol: 'Socio · Software y web', texto: 'Plataforma web, base de datos, servidor y despliegue.' },
-  { nombre: 'Morena Boeris', rol: 'Socia · Hardware e IA', texto: 'Robot con ruedas y ESP32-S3, corte de máquinas, cámara, YOLO y reconocimiento facial.' },
+  { nombre: 'Morena Boeris', rol: 'Socia · Hardware e IA', texto: 'Robot con orugas y ESP32-S3, cámara, alarma, YOLO y reconocimiento facial.' },
 ]
 
 export default function Nosotros() {

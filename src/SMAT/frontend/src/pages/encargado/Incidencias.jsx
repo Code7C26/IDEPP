@@ -156,7 +156,6 @@ export default function Incidencias() {
       <Confirmar abierto={confirmando} tono="aviso" titulo={`Resolver ${nombreCantidad}`} accion="Sí, resolver" ocupado={resolviendo} error={errorVarias}
                  onCancelar={() => setConfirmando(false)} onConfirmar={resolverMarcadas}>
         <p>{marcadas.length === 1 ? 'Queda resuelta' : 'Quedan resueltas'} a tu nombre y se anota en la auditoría.</p>
-        <p>Las máquinas detenidas no se reactivan: eso se hace desde Zonas, después de revisar cada una.</p>
       </Confirmar>
 
       <Modal abierto={Boolean(elegida)} titulo="Detalle de la alerta" onCerrar={() => setElegida(null)}

@@ -12,7 +12,7 @@ import { campo } from '../../utils/estilos.js'
 const QUE_PASA = [
   'Te respondemos en 1 o 2 días hábiles.',
   'Coordinamos una demo de 20 minutos (en tu planta o por videollamada).',
-  'Si te sirve, armamos una propuesta según tus zonas y máquinas.',
+  'Si te sirve, armamos una propuesta según tus zonas y turnos.',
 ]
 
 export default function Contacto() {
@@ -35,7 +35,7 @@ export default function Contacto() {
   return (
     <>
       <EncabezadoPagina antetitulo="Contacto" titulo="Pedí una demo">
-        Contanos sobre tu planta y te mostramos DROID-E3D funcionando: la alerta con foto, la parada de máquina y el control del robot.
+        Contanos sobre tu planta y te mostramos DROID-E3D funcionando: la alerta con foto, la alarma del robot y su control desde el celular.
       </EncabezadoPagina>
 
       <Seccion>
@@ -50,7 +50,7 @@ export default function Contacto() {
                 <input className={campo} value={datos.empresa} autoComplete="organization" onChange={cambiar('empresa')} />
               </Campo>
             </div>
-            <Campo etiqueta="Mensaje" obligatorio error={error('mensaje')} ayuda="Por ejemplo: cuántas zonas y máquinas tiene la planta.">
+            <Campo etiqueta="Mensaje" obligatorio error={error('mensaje')} ayuda="Por ejemplo: cuántas zonas y turnos tiene la planta.">
               <textarea rows={5} className={campo} value={datos.mensaje} onChange={cambiar('mensaje')} onBlur={tocar('mensaje')} />
             </Campo>
 

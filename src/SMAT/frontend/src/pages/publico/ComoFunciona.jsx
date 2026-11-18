@@ -11,16 +11,16 @@ const PARTES = [
   { icono: 'robot', nombre: 'Robot', detalle: 'ESP32-S3 + cámara ESP32-CAM' },
   { icono: 'ia', nombre: 'Servidor de IA', detalle: 'YOLO + reconocimiento facial' },
   { icono: 'panel', nombre: 'Plataforma web', detalle: 'Alertas, mapa, reportes' },
-  { icono: 'maquina', nombre: 'Máquina', detalle: 'ESP32 + relé de corte' },
+  { icono: 'empleados', nombre: 'Celulares', detalle: 'El encargado y cada empleado' },
 ]
 
 const APP = [
   { icono: 'panel', titulo: 'Panel en vivo', texto: 'Alertas del día, tendencia de la semana y el mapa de la fábrica con el robot moviéndose.' },
   { icono: 'robot', titulo: 'Control del robot', texto: 'Video en vivo, ruta por zonas, iniciar, pausar y parada de emergencia.' },
-  { icono: 'zonas', titulo: 'Zonas y máquinas', texto: 'Qué equipo exige cada zona y qué máquina se corta si alguien no lo usa.' },
+  { icono: 'zonas', titulo: 'Zonas', texto: 'Qué equipo exige cada zona y su lugar en el mapa de la fábrica.' },
   { icono: 'empleados', titulo: 'Empleados', texto: 'Cada uno con su usuario: ve sus alertas, su cumplimiento y sus fotos.' },
   { icono: 'reportes', titulo: 'Historial y reportes', texto: 'Filtros por zona, empleado, falta y fecha; listo para inspecciones.' },
-  { icono: 'auditoria', titulo: 'Auditoría', texto: 'Quién resolvió cada alerta y quién reactivó cada máquina, con fecha y hora.' },
+  { icono: 'auditoria', titulo: 'Auditoría', texto: 'Quién resolvió cada alerta y quién le dio cada orden al robot, con fecha y hora.' },
 ]
 
 const PRIVACIDAD = [
@@ -49,13 +49,13 @@ function Esquema() {
 }
 
 export default function ComoFunciona() {
-  useTituloPagina('Cómo funciona', 'Un robot con cámara recorre la planta, la IA detecta si falta el casco, los guantes, los lentes o el chaleco, avisa con foto y detiene la máquina de esa zona.')
+  useTituloPagina('Cómo funciona', 'Un robot con cámara recorre la planta, la IA detecta si falta el casco, los guantes, los lentes o el chaleco, avisa con foto y el robot da la alarma en esa zona.')
 
   return (
     <>
       <EncabezadoPagina antetitulo="Cómo funciona" titulo="Un robot, una IA y una plataforma que trabajan juntos">
-        DROID-E3D controla el uso del equipo de protección personal durante todo el turno y actúa solo
-        donde hace falta: en la zona y en la máquina de la persona sin equipo.
+        DROID-E3D controla el uso del equipo de protección personal durante todo el turno y actúa en el lugar:
+        el robot se detiene junto a la persona sin equipo y da la alarma, sin frenar el resto de la planta.
       </EncabezadoPagina>
 
       <Seccion antetitulo="Paso a paso" titulo="Qué pasa cuando alguien trabaja sin su equipo">
@@ -66,12 +66,12 @@ export default function ComoFunciona() {
         <div className="mt-6"><RenderEmbebido archivo="robot" titulo="Robot DROID-E3D: modelo 3D del robot" /></div>
         {/* Hasta que el render se actualice en Claude: muestra el robot anterior (decisión 008) */}
         <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
-          Modelo de diseño: el robot actual cambió a ruedas y a otras piezas. Este modelo se va a actualizar.
+          Modelo de diseño: algunas piezas del robot actual son distintas. Este modelo se va a actualizar.
         </p>
       </Seccion>
 
       <Seccion gris antetitulo="El sistema" titulo="Cuatro partes conectadas por la red de la planta"
-               descripcion="El robot y las máquinas consultan a la plataforma cada 1 o 2 segundos. Si el robot deja de responder 10 segundos, la web lo muestra como desconectado.">
+               descripcion="El robot consulta a la plataforma cada 1 o 2 segundos. Si el robot deja de responder 10 segundos, la web lo muestra como desconectado.">
         <Esquema />
       </Seccion>
 

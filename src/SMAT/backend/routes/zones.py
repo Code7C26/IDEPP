@@ -22,7 +22,7 @@ def aplicar_datos(zona, data, es_nueva):
         zona.nombre = nombre
 
     if "maquina" in data:
-        maquina, error = texto(data, "maquina", "La máquina", 100)
+        maquina, error = texto(data, "maquina", "La máquina o puesto", 100)
         if error:
             return error
         zona.maquina = maquina
@@ -48,7 +48,7 @@ def aplicar_datos(zona, data, es_nueva):
 @zones_bp.route("/zones", methods=["GET"])
 @sesion_o_api_key("YOLO_API_KEY", "ROBOT_API_KEY")
 def listar_zonas():
-    """Lo pueden leer las personas (con sesión) y las máquinas (con X-API-KEY)."""
+    """Lo pueden leer las personas (con sesión) y los programas de la IA y del robot (con X-API-KEY)."""
     zonas = Zona.query.order_by(Zona.nombre).all()
     return {"zonas": [z.to_dict() for z in zonas]}
 
@@ -82,38 +82,6 @@ def editar_zona(zona_id):
     if error:
         return {"error": error}, 400
     registrar("editar_zona", f"Zona '{zona.nombre}'")
-    db.session.commit()
-    return zona.to_dict()
-
-
-@zones_bp.route("/zones/<int:zona_id>/reactivar", methods=["PUT"])
-@rol_requerido("encargado")
-def reactivar_maquina(zona_id):
-    """El encargado vuelve a habilitar la máquina de la zona (la que se detuvo por una falta de EPP).
-    Se puede aunque queden alertas sin resolver: la decisión es del encargado y queda auditada."""
-    zona = db.get_or_404(Zona, zona_id)
-    if not zona.maquina:
-        return {"error": "Esta zona no tiene máquina"}, 400
-    if zona.maquina_activa:
-        return {"error": "La máquina ya está activa"}, 409
-    zona.maquina_activa = True
-    activas = Incidencia.query.filter_by(zona_id=zona.id, estado="activa").count()
-    registrar("reactivar_maquina", f"Zona '{zona.nombre}' ({activas} alerta(s) activa(s) sin resolver)")
-    db.session.commit()
-    return {**zona.to_dict(), "alertas_activas": activas}
-
-
-@zones_bp.route("/zones/<int:zona_id>/detener", methods=["PUT"])
-@rol_requerido("encargado")
-def detener_maquina(zona_id):
-    """Parada manual de la máquina de una zona (por ejemplo, ante un riesgo que la IA no ve)."""
-    zona = db.get_or_404(Zona, zona_id)
-    if not zona.maquina:
-        return {"error": "Esta zona no tiene máquina"}, 400
-    if not zona.maquina_activa:
-        return {"error": "La máquina ya está detenida"}, 409
-    zona.maquina_activa = False
-    registrar("detener_maquina", f"Zona '{zona.nombre}': parada manual")
     db.session.commit()
     return zona.to_dict()
 

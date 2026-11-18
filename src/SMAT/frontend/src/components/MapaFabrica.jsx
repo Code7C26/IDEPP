@@ -1,11 +1,11 @@
 // Plano de la fábrica en grilla (SVG). Cada zona es un rectángulo de celdas.
-//  - verde: todo en orden · rojo: alertas activas · naranja: máquina detenida
-//  - cada zona muestra su máquina (con su estado) y los íconos del EPP obligatorio
+//  - verde: todo en orden · rojo: alertas activas
+//  - cada zona muestra su máquina o puesto y los íconos del EPP obligatorio
 //  - el robot se mueve de zona en zona con una animación; su recorrido se dibuja punteado
 // Props:
 //   zonas            lista de zonas (con grilla_x, grilla_y, ancho, alto)
 //   alertasPorZona   { zona_id: cantidad de alertas activas }; null si no se conocen (el empleado solo
-//                    ve las suyas): el mapa no dice "Todo en orden", solo si la máquina está parada
+//                    ve las suyas): el mapa no dice "Todo en orden"
 //   robot            { zona_actual_id, conectado } (opcional)
 //   ruta             lista de zona_id en el orden del recorrido (opcional)
 //   seleccionada     id de la zona resaltada (opcional)
@@ -21,7 +21,6 @@ const MARGEN = 5
 const COLORES = {
   ok: { caja: 'fill-ok/15 stroke-ok', texto: 'fill-ok' },
   alerta: { caja: 'fill-alerta/20 stroke-alerta', texto: 'fill-alerta' },
-  detenida: { caja: 'fill-naranja/20 stroke-naranja', texto: 'fill-naranja' },
   neutro: { caja: 'fill-zinc-200/40 stroke-zinc-400 dark:fill-zinc-700/30 dark:stroke-zinc-600', texto: 'fill-zinc-500 dark:fill-zinc-400' },
 }
 
@@ -55,11 +54,11 @@ function ZonaEnMapa({ zona, alertasPorZona, seleccionada, onSeleccionar }) {
             className={`${COLORES[estado].caja} transition-[stroke-width] ${seleccionada ? 'stroke-[6]' : 'stroke-[2.5]'}`} />
       <text x={x + 14} y={y + 38} className={`fill-zinc-900 text-[29px] font-bold dark:fill-zinc-100 ${HALO}`}>{zona.nombre}</text>
 
-      {/* Máquina: engranaje verde si anda, naranja si está detenida */}
+      {/* Máquina o puesto de la zona */}
       {zona.maquina && ancho >= 190 && (
         <g className="fill-zinc-600 dark:fill-zinc-300">
           <svg x={x + 12} y={y + 48} width="24" height="24"
-               className={zona.maquina_activa ? 'text-ok' : 'text-naranja'}><Icono nombre="maquina" className="" /></svg>
+               className="text-zinc-500 dark:text-zinc-400"><Icono nombre="maquina" className="" /></svg>
           <text x={x + 42} y={y + 67} className={`text-[21px] ${HALO}`}>{zona.maquina}</text>
         </g>
       )}
@@ -145,10 +144,10 @@ export function LeyendaMapa({ conRecorrido = false }) {
   )
   return (
     <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400">
-      {item('bg-ok', 'En orden')}{item('bg-alerta', 'Alertas activas')}{item('bg-naranja', 'Máquina detenida')}
+      {item('bg-ok', 'En orden')}{item('bg-alerta', 'Alertas activas')}
       <li className="flex items-center gap-1.5"><span className="size-3 rounded-full bg-marca ring-2 ring-tinta" />Robot</li>
       {conRecorrido && <li className="flex items-center gap-1.5"><span className="grid size-3.5 place-items-center rounded-full bg-tinta text-[8px] font-bold text-white dark:bg-zinc-100 dark:text-zinc-900">1</span>Parada del recorrido</li>}
-      <li className="flex items-center gap-1.5"><Icono nombre="maquina" className="size-3.5" />Máquina</li>
+      <li className="flex items-center gap-1.5"><Icono nombre="maquina" className="size-3.5" />Máquina o puesto</li>
       <li className="flex items-center gap-1.5"><Icono nombre="casco" className="size-3.5" />EPP obligatorio</li>
     </ul>
   )

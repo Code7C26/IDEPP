@@ -1,7 +1,7 @@
 // Panel del encargado: números del día, mapa de la fábrica, estado del robot y últimas alertas.
 // Todo se actualiza solo cada pocos segundos.
 import { useState } from 'react'
-import { getIncidents, getRobot, getRobotRoute, getStats, getZones, reactivateMachine, resolveIncident, stopMachine } from '../../api/client.js'
+import { getIncidents, getRobot, getRobotRoute, getStats, getZones, resolveIncident } from '../../api/client.js'
 import AlertCard from '../../components/AlertCard.jsx'
 import DetalleZona from '../../components/DetalleZona.jsx'
 import MapaFabrica, { LeyendaMapa } from '../../components/MapaFabrica.jsx'
@@ -45,13 +45,6 @@ export default function Panel() {
     } catch (e) {
       setErrorAccion(e.message)
     }
-  }
-
-  // Desde el panel lateral de la zona: detener o reactivar su máquina (los errores los muestra el panel)
-  const cambiarMaquina = async (accion) => {
-    await (accion === 'detener' ? stopMachine : reactivateMachine)(zona.id)
-    zonas.recargar()
-    avisar(`${zona.maquina} ${accion === 'detener' ? 'detenida' : 'reactivada'}`)
   }
 
   return (
@@ -108,7 +101,7 @@ export default function Panel() {
       <PanelLateral abierto={Boolean(zona)} titulo={zona?.nombre} onCerrar={() => setZonaAbierta(null)}
                     descripcion={zona && (alertasPorZona[zona.id] ? `${alertasPorZona[zona.id]} alerta(s) activa(s)` : 'Todo en orden')}>
         {zona && <DetalleZona key={zona.id} zona={zona} alertas={listaActivas.filter((i) => i.zona_id === zona.id)}
-                              onResolver={resolver} onMaquina={cambiarMaquina} />}
+                              onResolver={resolver} />}
       </PanelLateral>
     </>
   )

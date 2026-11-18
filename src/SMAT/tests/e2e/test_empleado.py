@@ -121,7 +121,6 @@ def test_sin_3d_avisa_y_el_mapa_no_afirma_que_todo_esta_en_orden(base_limpia, ab
     assert figura.get_by_text("Sin conexión · el robot nunca se conectó").is_visible()
     assert figura.locator('svg[aria-label="Plano de la fábrica"]').is_visible()
     assert figura.get_by_text("Todo en orden").count() == 0
-    assert figura.get_by_text("Máquina en marcha").first.is_visible()
     assert not pag.errores
 
 

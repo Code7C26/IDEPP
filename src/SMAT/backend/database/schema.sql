@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS zonas (
     nombre VARCHAR(100) UNIQUE NOT NULL,
     maquina VARCHAR(100),
     epp_requerido VARCHAR(200) DEFAULT '',          -- "casco,guantes,lentes"
-    maquina_activa BOOLEAN DEFAULT TRUE,            -- FALSE = la máquina debe estar parada
     grilla_x INT DEFAULT 0,                         -- posición en el mapa de la fábrica
     grilla_y INT DEFAULT 0,
     ancho INT DEFAULT 2,
@@ -87,7 +86,7 @@ CREATE TABLE IF NOT EXISTS suscripciones_push (
 
 CREATE TABLE IF NOT EXISTS auditoria (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NULL,                            -- NULL = lo hizo una máquina (YOLO/ESP32)
+    usuario_id INT NULL,                            -- NULL = lo hizo un programa (la IA o el robot)
     accion VARCHAR(50) NOT NULL,
     detalle VARCHAR(255) DEFAULT '',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

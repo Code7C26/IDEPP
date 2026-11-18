@@ -46,7 +46,7 @@ function ConfigVideo({ actual, onGuardar }) {
 export default function Robot() {
   const robot = usePolling(() => getRobot(), 2000)       // se actualiza cada 2 s para ver la respuesta del robot
   const ruta = usePolling(() => getRobotRoute(), 0)
-  const zonas = usePolling(() => getZones(), 5000)        // cada tanto: las máquinas se detienen con las alertas
+  const zonas = usePolling(() => getZones(), 5000)        // cada tanto: para el mapa
   const activas = usePolling(() => getIncidents({ estado: 'activa', limit: 200 }), 5000)
   const r = robot.datos
 
