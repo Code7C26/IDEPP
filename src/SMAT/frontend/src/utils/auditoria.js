@@ -1,6 +1,8 @@
 // Cómo se muestra cada acción de la auditoría: texto en castellano y tono de la etiqueta.
 // Las acciones las escribe el backend con utils/auditoria.py -> registrar("accion", "detalle").
 export const ACCIONES = {
+  nueva_alerta: { texto: 'La IA registró una alerta', tono: 'alerta' },
+  // Estas tres son de cuando DROID-E3D cortaba máquinas (hasta noviembre de 2026): quedan para leer el historial
   parada_maquina: { texto: 'Máquina detenida por una alerta', tono: 'alerta' },
   detener_maquina: { texto: 'Detuvo una máquina', tono: 'alerta' },
   reactivar_maquina: { texto: 'Reactivó una máquina', tono: 'ok' },

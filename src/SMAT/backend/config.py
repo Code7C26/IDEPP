@@ -40,9 +40,9 @@ class Config:
     # Modo debug (recarga sola al guardar). Las pruebas automáticas lo apagan con FLASK_DEBUG=0.
     DEBUG = os.getenv("FLASK_DEBUG", "1") == "1"
 
-    # Claves para las máquinas (no para personas). Van en el header X-API-KEY.
+    # Claves para los programas de la IA y del robot (no para personas). Van en el header X-API-KEY.
     YOLO_API_KEY = os.getenv("YOLO_API_KEY", "")      # servidor de IA
-    ROBOT_API_KEY = os.getenv("ROBOT_API_KEY", "")    # ESP32 del robot y de las máquinas
+    ROBOT_API_KEY = os.getenv("ROBOT_API_KEY", "")    # ESP32 del robot
 
     # Fotos (evidencias de las alertas y rostros). La carpeta no se sube a GitHub.
     UPLOAD_DIR = os.getenv("UPLOAD_DIR", os.path.join(os.path.dirname(__file__), "uploads"))

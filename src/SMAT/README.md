@@ -12,13 +12,13 @@
 ```
 Cámara → servidor YOLO ──POST /api/incidents──▶ Backend Flask ──▶ MySQL ──▶ Web (React)
                                                      ▲
-                       ESP32 del robot y de las máquinas consultan por HTTP cada 1-2 s
+                       El ESP32 del robot consulta por HTTP cada 1-2 s
 ```
 
 - **Empleado:** ve el estado de su zona, el EPP que tiene que usar, su cumplimiento y sus alertas (con foto), y puede comentarlas.
-- **Encargado:** ve y resuelve todas las alertas, controla el robot (iniciar, pausar, parada de emergencia, ruta, video), detiene y reactiva máquinas, gestiona zonas y empleados, y tiene reportes (CSV y PDF para la ART) y auditoría.
+- **Encargado:** ve y resuelve todas las alertas, controla el robot (iniciar, pausar, parada de emergencia, ruta, video), gestiona zonas y empleados, y tiene reportes (CSV y PDF para la ART) y auditoría.
 - **Avisos:** cartel y sonido en la web, y notificaciones push al celular o la PC aunque la web esté cerrada.
-- **Máquinas (YOLO y ESP32):** no tienen usuario; se identifican con una clave en el header `X-API-KEY`.
+- **Programas (la IA y el ESP32 del robot):** no tienen usuario; se identifican con una clave en el header `X-API-KEY`.
 
 ## Capturas
 
@@ -47,8 +47,7 @@ Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra M
 | Área | Estado |
 |---|---|
 | Backend: login con roles, zonas, empleados, incidencias (filtros, orden, búsqueda, estadísticas), auditoría | ✅ Funciona |
-| Backend: endpoints para YOLO y ESP32 (`/incidents`, `/rostros`, `/robot/*`, `/zones/<id>/maquina`) | ✅ Funciona; falta probarlo con el hardware real (6.5) |
-| Backend: parada automática de la máquina al detectar una falta y reactivación por el encargado | ✅ Funciona |
+| Backend: endpoints para YOLO y ESP32 (`/incidents`, `/rostros`, `/robot/*`) | ✅ Funciona; falta probarlo con el hardware real (6.5) |
 | Backend: foto de evidencia en las alertas y fotos de rostro con consentimiento (Ley 25.326) | ✅ Funciona |
 | Frontend: diseño estilo SaaS (claro/oscuro, celular y PC), pantallas del empleado y del encargado | ✅ Funciona |
 | Frontend: control del robot con video en vivo, mapa con recorrido, detalle de cada zona | ✅ Funciona con el simulador |
@@ -99,7 +98,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 copy .env.example .env
 ```
-Editá `backend\.env`: poné `DB_PASS` (en XAMPP suele estar vacía), un `JWT_SECRET` propio y las dos claves de las máquinas.
+Editá `backend\.env`: poné `DB_PASS` (en XAMPP suele estar vacía), un `JWT_SECRET` propio y las dos claves de los programas (IA y robot).
 Para generar una clave:
 ```powershell
 python -c "import secrets; print(secrets.token_urlsafe(24))"
@@ -141,11 +140,11 @@ Abrí: http://localhost:5173 . Para entrar desde el celular, poné la IP de tu P
 ```powershell
 cd backend
 venv\Scripts\activate
-python tools\demo_en_vivo.py    # robot simulado + máquinas + una alerta ficticia con foto cada 30 s
+python tools\demo_en_vivo.py    # robot simulado + una alerta ficticia con foto cada 30 s
 ```
-Agrega alertas ficticias y detiene máquinas en la base local. Para solo el robot, sin alertas: `python tools\simular_esp32.py --velocidad 3 --maquinas`.
+Agrega alertas ficticias en la base local. Para solo el robot, sin alertas: `python tools\simular_esp32.py --velocidad 3`.
 
-Con el backend y la web andando, entrá como `maria` a **Robot** y tocá **Iniciar**: el robot simulado recorre las zonas, reporta su batería y obedece pausar, detener y la parada de emergencia. Con `--maquinas` también se ve cuándo se «corta» y se «reactiva» cada máquina.
+Con el backend y la web andando, entrá como `maria` a **Robot** y tocá **Iniciar**: el robot simulado recorre las zonas, reporta su batería y obedece pausar, detener y la parada de emergencia.
 
 ### Probar la integración con la IA sin hardware
 ```powershell
@@ -182,7 +181,6 @@ Todas las rutas llevan el prefijo `/api`. Contrato completo en [`docs/API.md`](d
 | GET/POST/PUT/DELETE | `/zones`, `/users` | encargado (lectura de zonas: todos) | Gestión de zonas y empleados |
 | GET/POST/PUT | `/robot/estado`, `/robot/comando`, `/robot/ruta`, `/robot/video` | encargado | Control del robot |
 | GET/POST | `/robot/comando-pendiente`, `/robot/reporte` | ESP32 del robot | Recibir órdenes y reportar estado |
-| GET | `/zones/:id/maquina` | ESP32 de la máquina | Saber si la máquina debe estar activa |
 | GET | `/rostros` | YOLO | Fotos de rostro (con consentimiento) para reconocer a cada empleado |
 | GET/POST/DELETE | `/users/:id/rostros` | encargado o el propio empleado | Ver, subir y borrar fotos de rostro |
 | GET | `/uploads/:carpeta/:archivo` | personas o YOLO | Descargar una foto (nunca es pública) |
@@ -195,5 +193,5 @@ Todas las rutas llevan el prefijo `/api`. Contrato completo en [`docs/API.md`](d
 ## Seguridad
 - Contraseñas guardadas con hash (pbkdf2-sha256), nunca en texto.
 - El rol se valida **en el backend**, no solo en la web.
-- Las máquinas usan claves distintas por función; si falta o es incorrecta, la respuesta es `401`.
+- Los programas usan claves distintas por función; si falta o es incorrecta, la respuesta es `401`.
 - Las fotos de rostro solo se guardan con consentimiento del empleado (Ley 25.326); él mismo puede borrarlas desde su perfil y se borran al darlo de baja. Ninguna foto es pública: se piden con sesión o con la clave de la IA.

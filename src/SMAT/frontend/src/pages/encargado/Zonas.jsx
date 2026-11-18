@@ -1,6 +1,6 @@
-// Gestión de zonas: su máquina, el EPP obligatorio y su lugar en el mapa de la fábrica.
+// Gestión de zonas: su máquina o puesto, el EPP obligatorio y su lugar en el mapa de la fábrica.
 import { useState } from 'react'
-import { createZone, deleteZone, getIncidents, getZones, reactivateMachine, stopMachine, updateZone } from '../../api/client.js'
+import { createZone, deleteZone, getIncidents, getZones, updateZone } from '../../api/client.js'
 import Confirmar from '../../components/Confirmar.jsx'
 import FormZona from '../../components/FormZona.jsx'
 import MapaFabrica from '../../components/MapaFabrica.jsx'
@@ -18,7 +18,6 @@ export default function Zonas() {
   const activas = usePolling(() => getIncidents({ estado: 'activa', limit: 200 }), 10000)
   const [formulario, setFormulario] = useState(null)   // null = cerrado · {} = nueva · zona = editar
   const [aBorrar, setABorrar] = useState(null)
-  const [maquina, setMaquina] = useState(null)         // { zona, accion: 'reactivar' | 'detener', alertas }
   const [error, setError] = useState('')
   const [ocupado, setOcupado] = useState(false)
   const lista = zonas.datos?.zonas || []
@@ -29,7 +28,7 @@ export default function Zonas() {
     try {
       await accion()
       zonas.recargar(); avisar(exito)
-      setFormulario(null); setABorrar(null); setMaquina(null)
+      setFormulario(null); setABorrar(null)
     } catch (e) {
       setError(e.message)
     } finally {
@@ -37,16 +36,6 @@ export default function Zonas() {
     }
   }
   const abrirFormulario = (zona) => { setError(''); setFormulario(zona) }
-
-  // Antes de reactivar una máquina se cuenta cuántas alertas siguen sin resolver en la zona
-  const abrirMaquina = async (zona, accion) => {
-    setError(''); setMaquina({ zona, accion, alertas: null })
-    if (accion === 'reactivar') {
-      try { setMaquina({ zona, accion, alertas: (await getIncidents({ zona_id: zona.id, estado: 'activa', limit: 1 })).total }) }
-      catch (e) { setError(e.message) }
-    }
-  }
-  const reactivando = maquina?.accion === 'reactivar'
 
   return (
     <>
@@ -68,37 +57,20 @@ export default function Zonas() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {lista.map((z) => (
-          <TarjetaZona key={z.id} zona={z} onEditar={abrirFormulario} onMaquina={abrirMaquina}
+          <TarjetaZona key={z.id} zona={z} onEditar={abrirFormulario}
                        onBorrar={(zona) => { setError(''); setABorrar(zona) }} />
         ))}
       </div>
 
       <PanelLateral abierto={Boolean(formulario)} ancho="lg" onCerrar={() => setFormulario(null)}
                     titulo={formulario?.id ? `Editar ${formulario.nombre}` : 'Nueva zona'}
-                    descripcion="Máquina, equipo de protección obligatorio y lugar en el mapa.">
+                    descripcion="Máquina o puesto, equipo de protección obligatorio y lugar en el mapa.">
         {formulario && (
           <FormZona key={formulario.id || 'nueva'} inicial={formulario} zonas={lista} error={error} guardando={ocupado}
                     onCancelar={() => setFormulario(null)}
                     onGuardar={(datos) => ejecutar(() => (formulario.id ? updateZone(formulario.id, datos) : createZone(datos)), formulario.id ? 'Zona guardada' : 'Zona creada')} />
         )}
       </PanelLateral>
-
-      <Confirmar abierto={Boolean(maquina)} tono={reactivando ? 'aviso' : 'peligro'} ocupado={ocupado || (reactivando && maquina?.alertas === null && !error)} error={error}
-                 titulo={`${reactivando ? 'Reactivar' : 'Detener'} ${maquina?.zona.maquina || ''}`} accion={reactivando ? 'Sí, reactivar' : 'Sí, detener'}
-                 onCancelar={() => setMaquina(null)}
-                 onConfirmar={() => ejecutar(() => (reactivando ? reactivateMachine : stopMachine)(maquina.zona.id),
-                   `${maquina.zona.maquina} ${reactivando ? 'reactivada' : 'detenida'}`)}>
-        {reactivando
-          ? <>
-              <p>La máquina de <strong>{maquina?.zona.nombre}</strong> vuelve a funcionar.</p>
-              {maquina?.alertas > 0 && (
-                <p className="rounded-lg bg-naranja/10 px-3 py-2 text-orange-800 dark:text-orange-300">
-                  Hay {maquina.alertas} alerta{maquina.alertas > 1 ? 's' : ''} activa{maquina.alertas > 1 ? 's' : ''} sin resolver en esta zona. Confirmá que ya se corrigió el uso del equipo.
-                </p>
-              )}
-            </>
-          : <p>La máquina de <strong>{maquina?.zona.nombre}</strong> se corta hasta que la reactives.</p>}
-      </Confirmar>
 
       <Confirmar abierto={Boolean(aBorrar)} titulo={`Borrar ${aBorrar?.nombre || ''}`} accion="Sí, borrar" ocupado={ocupado} error={error}
                  onCancelar={() => setABorrar(null)} onConfirmar={() => ejecutar(() => deleteZone(aBorrar.id), `${aBorrar.nombre} fue borrada`)}>

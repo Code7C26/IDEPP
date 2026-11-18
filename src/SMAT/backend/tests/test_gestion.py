@@ -2,7 +2,7 @@
 from tests.conftest import MARIA, ROBOT, YOLO
 
 
-def test_zonas_se_leen_con_sesion_o_con_clave_de_maquina(cliente, empleado):
+def test_zonas_se_leen_con_sesion_o_con_clave_de_un_programa(cliente, empleado):
     assert len(cliente.get("/api/zones", headers=empleado).json["zonas"]) == 4
     assert cliente.get("/api/zones", headers=YOLO).status_code == 200
     assert cliente.get("/api/zones", headers=ROBOT).status_code == 200

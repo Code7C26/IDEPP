@@ -48,7 +48,7 @@ export default function Reportes() {
         <StatCard titulo="Cumplimiento promedio" valor={promedio == null ? null : `${promedio}%`} detalle="de los empleados activos" />
         <StatCard titulo="Resueltas" valor={d ? (d.total ? `${Math.round((d.resueltas * 100) / d.total)}%` : '—') : null}
                   detalle={d && `${d.resueltas} de ${d.total}`} />
-        <StatCard titulo="Paradas de máquina" valor={d?.paradas_maquina} detalle="por alertas de EPP" />
+        <StatCard titulo="Zonas con alertas" valor={d?.zonas_con_alertas} detalle={d && `de ${d.zonas_total} zonas`} />
       </div>
 
       {d && (

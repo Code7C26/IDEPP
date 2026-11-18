@@ -3,13 +3,13 @@
 **Jerarquía:** IDEPP (empresa de 5 socios, repo `Code7C26/IDEPP`) → dos productos: TOUCH-ID (Alexandra, Sol y Lola)
 y DROID-E3D (Tiziano y Morena = robot + web). En la web de DROID-E3D solo se muestra el equipo Tiziano y Morena. Marca: "DROID-E3D by IDEPP".
 
-Robot con ruedas y ESP32-S3 (desde el 29/10) recorre la fábrica, una cámara + IA YOLO detecta si los empleados usan su EPP
+Robot con orugas y ESP32-S3 recorre la fábrica, una cámara + IA YOLO detecta si los empleados usan su EPP
 (casco, guantes, lentes y chaleco con `modelo_epp.pt`, en la rama `SMAT-hardware`) e identifica al empleado por reconocimiento facial. Si no lo usan:
-alarma y/o parada de la máquina. Esta carpeta (`src/SMAT/`) es la app web; la empresa vive en `docs/SMAT/EMPRESA-SMAT/` (desde acá: `../../docs/SMAT/EMPRESA-SMAT/`).
-**Morena** es socia de IDEPP y además responsable de hardware/IA (ESP32, relé, cámara, YOLO, facial). Hasta que tenga el hardware se usan simuladores y `docs/API.md`.
+el robot se detiene en la zona y da la alarma (no se cortan máquinas, decisión 010). Esta carpeta (`src/SMAT/`) es la app web; la empresa vive en `docs/SMAT/EMPRESA-SMAT/` (desde acá: `../../docs/SMAT/EMPRESA-SMAT/`).
+**Morena** es socia de IDEPP y además responsable de hardware/IA (ESP32, cámara, YOLO, facial). Hasta que tenga el hardware se usan simuladores y `docs/API.md`.
 
 Flujo: cámara → servidor YOLO → POST /api/incidents (este backend) → MySQL → web (+ push al celular).
-El ESP32 consulta por HTTP al backend qué comando ejecutar y si su máquina debe estar parada.
+El ESP32 del robot consulta por HTTP al backend qué comando ejecutar.
 
 ## Stack
 - backend/: Flask + Flask-SQLAlchemy + PyMySQL + JWT. `python app.py` (puerto 5000). MySQL de XAMPP.

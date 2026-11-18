@@ -68,7 +68,7 @@ def test_alerta_avisa_a_los_encargados_y_al_empleado_detectado(cliente, enviados
     por_destino = {e["endpoint"].rsplit("/", 1)[1]: e for e in enviados}
     assert set(por_destino) == {"maria", "carlos"}                       # Juan no tiene nada que ver
     assert por_destino["maria"]["titulo"] == "Nueva alerta: sin lentes"
-    assert por_destino["maria"]["texto"] == "Zona B · Carlos Díaz · máquina detenida"
+    assert por_destino["maria"]["texto"] == "Zona B · Carlos Díaz"
     assert por_destino["maria"]["url"] == "/app/incidencias"
     assert por_destino["carlos"]["titulo"] == "Recordá usar los lentes"
     assert por_destino["carlos"]["url"] == "/app/mis-alertas"

@@ -2,9 +2,9 @@
 
 Es para ver o mostrar la web funcionando. Usa los simuladores de siempre (simular_esp32.py y simular_yolo.py):
   - el robot recorre las zonas y obedece las órdenes de la web
-  - cada tanto entra una alerta con foto, y la máquina de esa zona se detiene
+  - cada tanto entra una alerta con foto, como las que manda la IA cuando el robot ve una falta
 
-Ojo: agrega alertas ficticias y detiene máquinas en la base que use el backend. No borra nada.
+Ojo: agrega alertas ficticias en la base que use el backend. No borra nada.
 Por eso apunta siempre a esta PC, aunque el .env tenga DROID_URL con la versión online.
 
 Uso (con el backend andando):
@@ -46,7 +46,7 @@ def main():
         sys.exit(f"No se pudo conectar con {args.url}: primero arrancá el backend (python app.py)")
 
     simuladores = [
-        lanzar("simular_esp32.py", "--url", args.url, "--velocidad", str(args.velocidad), "--maquinas"),
+        lanzar("simular_esp32.py", "--url", args.url, "--velocidad", str(args.velocidad)),
         lanzar("simular_yolo.py", "--url", args.url, "--cada", str(args.cada)),
     ]
     print("\nDemo en vivo andando. En la web: entrá como encargado, andá a Robot y tocá Iniciar. Ctrl+C para cortar.\n", flush=True)

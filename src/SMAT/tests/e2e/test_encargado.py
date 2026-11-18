@@ -16,13 +16,8 @@ def test_panel_mapa_abre_el_detalle_de_la_zona(base_limpia, abrir):
     assert panel.get_by_text("Soldadora MIG").is_visible()
     assert panel.get_by_text("Carlos Díaz").first.is_visible()
 
-    # Detener la máquina desde el panel lateral pide confirmación
-    panel.get_by_role("button", name="Detener máquina").click()
-    panel.get_by_role("button", name="Sí, detener").click()
-    pag.wait_for_timeout(900)
-    assert panel.get_by_text("Detenida").is_visible()
-    zona_b = next(z for z in api("/zones", token=token())["zonas"] if z["id"] == 2)
-    assert zona_b["maquina_activa"] is False
+    # DROID-E3D no corta máquinas (decisión 010): el detalle no ofrece detenerla
+    assert panel.get_by_role("button", name="Detener máquina").count() == 0
     assert not pag.errores
 
 
@@ -104,7 +99,7 @@ def test_resolver_varias_alertas_a_la_vez(base_limpia, abrir):
     # Cancelar la confirmación no resuelve nada
     pag.get_by_role("button", name="Resolver 2 alertas").click()
     ventana = pag.get_by_role("dialog", name="Resolver 2 alertas")
-    assert ventana.get_by_text("no se reactivan").is_visible()
+    assert ventana.get_by_text("a tu nombre", exact=False).is_visible()
     ventana.get_by_role("button", name="Cancelar").click()
     assert api("/incidents?estado=activa&limit=1", token=token())["total"] == activas_antes
 
@@ -178,7 +173,7 @@ def test_zonas_superposicion_alta_y_borrado(base_limpia, abrir):
     assert pag.locator("article").count() == 4
     pag.get_by_role("button", name="+ Nueva zona").click()
     pag.get_by_label("Nombre de la zona").fill("Zona E")
-    pag.get_by_label("Máquina", exact=True).fill("Torno CNC")
+    pag.get_by_label("Máquina o puesto").fill("Torno CNC")
     assert pag.get_by_text("se superpone con").is_visible() and pag.get_by_role("button", name="Crear zona").is_disabled()
     pag.get_by_label("Columna").fill("6")
     assert pag.get_by_role("button", name="Crear zona").is_enabled()

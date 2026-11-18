@@ -2,13 +2,13 @@
 
 Guía para mostrar DROID-E3D en la feria, en el aula o frente al jurado. La notebook de Tiziano hace de
 **servidor**: tiene MySQL y Flask, y Flask sirve la API y la web compilada en la **misma dirección**.
-Los celulares, el robot, la máquina y la PC con la IA se conectan a esa notebook por WiFi.
+Los celulares, el robot y la PC con la IA se conectan a esa notebook por WiFi.
 
 ```
             WiFi propia (router o hotspot del celular)
-  ┌──────────────┬──────────────┬──────────────┬──────────────┐
-Notebook       Celulares      ESP32 robot    ESP32 máquina   PC de Morena
-MySQL + Flask  http://IP:5000 URL_BASE       URL_BASE        servidor_ia (DROID_URL)
+  ┌──────────────┬──────────────┬──────────────┐
+Notebook       Celulares      ESP32 robot    PC de Morena
+MySQL + Flask  http://IP:5000 URL_BASE       servidor_ia (DROID_URL)
 (el servidor)
 ```
 
@@ -92,7 +92,6 @@ Remove-NetFirewallRule -DisplayName "DROID-E3D (puerto 5000)"
 |---|---|---|
 | Celulares y proyector | Abrir `http://IP:5000` | Navegador |
 | ESP32 del robot | `URL_BACKEND "http://IP:5000/api"`, `ROBOT_API_KEY` y `ZONA_DEL_ROBOT` | `servidor_ia/robot_droid/secretos.h` (se vuelve a cargar al ESP32) |
-| ESP32 de la máquina | `URL_BASE = "http://IP:5000/api"` y `ROBOT_KEY` | `docs/integracion/esp32_maquina.ino` |
 | IA en la PC de Morena | `DROID_URL=http://IP:5000/api`, `YOLO_API_KEY`, `URL_CAMARA`, `URL_ESP32_ALERTA` | `servidor_ia/.env` (copia de `.env.example`) |
 | IA en la misma notebook | Solo `URL_CAMARA` y `URL_ESP32_ALERTA`: la clave la lee de `backend/.env` | `servidor_ia/.env` |
 | Zona de las alertas | `DROID_ZONA_ID=1` si el robot no informa en qué zona está (ver abajo) | `servidor_ia/.env` |
@@ -101,7 +100,7 @@ Remove-NetFirewallRule -DisplayName "DROID-E3D (puerto 5000)"
 Las claves (`ROBOT_API_KEY`, `YOLO_API_KEY`) están en `backend\.env` y se pasan **por fuera de GitHub**.
 
 > **Importante:** la IA no sabe en qué zona está: usa la que informa el robot. Si el robot no la informó y no hay
-> `DROID_ZONA_ID`, la web **rechaza la alerta** (error 400): no aparece nada y la máquina no se detiene.
+> `DROID_ZONA_ID`, la web **rechaza la alerta** (error 400): no aparece nada en la web.
 
 ## 6. Si falta el hardware: simuladores
 
@@ -110,14 +109,14 @@ Con el backend andando, en otra ventana de PowerShell:
 ```powershell
 cd C:\Users\tomas\Fat\TOUCH-ID\src\SMAT\backend
 venv\Scripts\activate
-python tools\demo_en_vivo.py             # robot que recorre las zonas + máquinas + una alerta con foto cada 30 s
+python tools\demo_en_vivo.py             # robot que recorre las zonas + una alerta con foto cada 30 s
 python tools\demo_en_vivo.py --cada 15   # lo mismo, con una alerta cada 15 s
 ```
 
 En la web: **Robot → Iniciar** y se ve al robot moverse en el mapa. Las alertas llegan solas al Panel,
 con sonido y un aviso en pantalla. Para cortarlo: `Ctrl+C`.
 
-Agrega alertas ficticias y detiene máquinas en la base local, pero no borra nada. Apunta siempre a esta PC,
+Agrega alertas ficticias en la base local, pero no borra nada. Apunta siempre a esta PC,
 aunque el `.env` tenga `DROID_URL` con la versión online. Si solo necesitás una de las dos partes, usá
 `tools\simular_esp32.py` o `tools\simular_yolo.py`.
 

@@ -14,7 +14,7 @@ auditoria_bp = Blueprint("auditoria", __name__)
 @rol_requerido("encargado")
 def listar_auditoria():
     """Registros, del más nuevo al más viejo. Filtros opcionales:
-    accion · usuario_id (un id, o "sistema" para lo que hicieron las máquinas) · desde / hasta (AAAA-MM-DD) ·
+    accion · usuario_id (un id, o "sistema" para lo que hicieron los programas) · desde / hasta (AAAA-MM-DD) ·
     q (busca en el detalle) · page y limit (por defecto 25, máximo 100).
     También devuelve las acciones y las personas que aparecen, para armar los filtros de la página."""
     args = request.args

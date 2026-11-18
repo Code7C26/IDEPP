@@ -11,7 +11,7 @@ import useTituloPagina from '../../hooks/useTituloPagina.js'
 const BENEFICIOS = [
   { icono: 'alerta', titulo: 'Menos accidentes', texto: 'Alertas por zona y por empleado, con el porcentaje de cumplimiento de cada uno.' },
   { icono: 'robot', titulo: 'Control sin sumar personal', texto: 'El robot recorre las zonas todo el turno; el encargado ve todo desde el celular.' },
-  { icono: 'reloj', titulo: 'Respuesta inmediata', texto: 'La alerta llega en segundos y la máquina de esa zona se detiene hasta que se resuelva.' },
+  { icono: 'reloj', titulo: 'Respuesta inmediata', texto: 'La alerta llega en segundos y el robot da la alarma en la zona, en el momento.' },
   { icono: 'documento', titulo: 'Registro para la ART', texto: 'Historial con fecha, zona, falta y foto, y quién resolvió cada alerta.' },
   { icono: 'perfil', titulo: 'Cambio de hábito', texto: 'Cada empleado ve su propio cumplimiento y su racha de días sin alertas.' },
   { icono: 'candado', titulo: 'Respeto por las personas', texto: 'Las fotos se usan solo para seguridad, con consentimiento y por tiempo limitado.' },
@@ -19,13 +19,13 @@ const BENEFICIOS = [
 
 const PARA_QUIEN = [
   { rol: 'Dueño', frase: 'Un accidente evitado paga el sistema.' },
-  { rol: 'Jefe de planta', frase: 'Solo se detiene la máquina de la zona con la falta; el resto de la planta sigue.' },
+  { rol: 'Jefe de planta', frase: 'El robot avisa en la zona con la falta; ninguna máquina se frena y la planta sigue.' },
   { rol: 'Seguridad e higiene', frase: 'Todo queda registrado con foto, listo para la inspección.' },
   { rol: 'Empleado', frase: 'Te avisa a vos primero, y podés ver tu propio cumplimiento.' },
 ]
 
 export default function InicioPublico() {
-  useTituloPagina('', 'DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin su equipo de protección, avisa al instante y detiene la máquina de esa zona.')
+  useTituloPagina('', 'DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin su equipo de protección, avisa al instante y da la alarma en la zona.')
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function InicioPublico() {
             </h1>
             <p className="mt-5 max-w-xl text-lg text-zinc-600 text-pretty max-lg:mx-auto dark:text-zinc-300">
               DROID-E3D es un robot que recorre la fábrica, detecta con inteligencia artificial a quien trabaja sin su equipo
-              de protección, avisa al instante y detiene la máquina de esa zona.
+              de protección, avisa al instante y da la alarma en la zona.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
               <Link to="/contacto" className={botonOscuro}>Pedir una demo <Icono nombre="flecha" className="size-4" /></Link>
@@ -100,7 +100,7 @@ export default function InicioPublico() {
         </div>
       </Seccion>
 
-      <Seccion antetitulo="Cómo funciona" titulo="De la cámara a la máquina detenida, en segundos">
+      <Seccion antetitulo="Cómo funciona" titulo="De la cámara a la alarma, en segundos">
         <Pasos />
         <Link to="/como-funciona" className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-marca-oscuro hover:underline dark:text-marca">
           Ver el detalle <Icono nombre="flecha" className="size-4" />

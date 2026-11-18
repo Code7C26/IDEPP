@@ -1,0 +1,18 @@
+/* Montserrat, la letra de los títulos (manual de marca v3). Está en el repo para que la web ande sin internet
+   el día de la demo. Licencia SIL Open Font License 1.1 (https://openfontlicense.org), descargada de Google Fonts.
+   Copyright 2011 The Montserrat Project Authors (https://github.com/JulietaUla/Montserrat).
+   Solo el juego «latin», que incluye las letras del español (tildes, ñ, ¿ y ¡). */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600 900;
+  font-display: swap;
+  src: url('/fuentes/montserrat.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 800 900;
+  font-display: swap;
+  src: url('/fuentes/montserrat-italica.woff2') format('woff2');
+}

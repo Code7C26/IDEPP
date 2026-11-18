@@ -12,7 +12,7 @@ const pwa = VitePWA({
   manifest: {
     name: 'DROID-E3D by IDEPP',
     short_name: 'DROID-E3D',
-    description: 'Control del equipo de protección en la fábrica: alertas, robot y máquinas.',
+    description: 'Control del equipo de protección en la fábrica: alertas, robot y reportes.',
     lang: 'es-AR',
     start_url: '/app',                   // al abrir la app instalada va directo al sistema (pide login si hace falta)
     scope: '/',

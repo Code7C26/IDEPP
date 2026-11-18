@@ -24,7 +24,7 @@ export default function FormZona({ inicial, zonas, error, guardando, onGuardar, 
 
   // La zona tal como quedaría: se usa para el mapa de vista previa y para ver si choca
   const borrador = {
-    id: inicial.id ?? -1, nombre: f.nombre.trim() || 'Zona nueva', maquina: f.maquina, maquina_activa: inicial.maquina_activa ?? true,
+    id: inicial.id ?? -1, nombre: f.nombre.trim() || 'Zona nueva', maquina: f.maquina,
     epp_requerido: f.epp_requerido,
     grilla_x: entero(f.grilla_x, 0), grilla_y: entero(f.grilla_y, 0), ancho: entero(f.ancho, 1), alto: entero(f.alto, 1),
   }
@@ -56,7 +56,7 @@ export default function FormZona({ inicial, zonas, error, guardando, onGuardar, 
         <Campo etiqueta="Nombre de la zona" obligatorio error={errorDe('nombre')}>
           <input className={campo} value={f.nombre} onChange={(e) => setF({ ...f, nombre: e.target.value })} onBlur={tocar('nombre')} />
         </Campo>
-        <Campo etiqueta="Máquina" ayuda={f.maquina ? 'Se corta sola si alguien trabaja sin su equipo.' : 'Sin máquina, una falta solo genera la alerta.'}>
+        <Campo etiqueta="Máquina o puesto" ayuda="Para reconocer la zona en el mapa. Opcional.">
           <input className={campo} value={f.maquina} onChange={(e) => setF({ ...f, maquina: e.target.value })} placeholder="Ej: Sierra circular" />
         </Campo>
       </div>

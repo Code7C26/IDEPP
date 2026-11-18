@@ -1,5 +1,5 @@
-"""Robot y máquinas. Dos tipos de endpoints:
- - Para los ESP32: exigen el header X-API-KEY (ROBOT_API_KEY).
+"""Robot. Dos tipos de endpoints:
+ - Para el ESP32 del robot: exigen el header X-API-KEY (ROBOT_API_KEY).
  - Para la web: exigen sesión de encargado (header Authorization). La posición la puede ver cualquier sesión."""
 from datetime import datetime
 from urllib.parse import urlsplit
@@ -179,16 +179,3 @@ def guardar_url_video():
     registrar("editar_video_robot", url or "(sin video)")
     db.session.commit()
     return robot.to_dict()
-
-
-# ---------------------------------------------------------------------------
-# Para el ESP32 de la máquina
-# ---------------------------------------------------------------------------
-
-@robot_bp.route("/zones/<int:zona_id>/maquina", methods=["GET"])
-@api_key_requerida("ROBOT_API_KEY")
-def estado_de_maquina(zona_id):
-    """El ESP32 de la máquina (relé) pregunta si su máquina puede funcionar.
-    maquina_activa = false -> hay que cortarla."""
-    zona = db.get_or_404(Zona, zona_id)
-    return {"zona_id": zona.id, "maquina": zona.maquina, "maquina_activa": bool(zona.maquina_activa)}

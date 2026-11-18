@@ -32,7 +32,7 @@ function Estado({ activas }) {
 
 export default function Inicio() {
   const { usuario } = useAuth()
-  const yo = usePolling(() => getMe(), 10000) // la zona y el estado de la máquina pueden cambiar
+  const yo = usePolling(() => getMe(), 10000) // la zona asignada puede cambiar
   const alertas = usePolling(() => getIncidents({ desde: fechaHaceDias(DIAS - 1), limit: 200 }), 8000)
   const posicion = usePolling(() => getRobotPosition(), 3000)
   const zonas = usePolling(() => getZones(), 15000)

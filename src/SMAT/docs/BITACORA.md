@@ -2,6 +2,14 @@
 
 > Una entrada por semana (más nueva arriba). Se genera con `/bitacora`.
 
+## Semana 7 · desde el 16/11/2026
+
+**Hecho**
+- 18/11: **La web deja el corte de máquina** (decisión 010): sin parada automática, sin botones para detener o reactivar, sin el endpoint del ESP32 de la máquina y sin «paradas de máquina» en los reportes (ahora, zonas con alertas). Cada alerta de la IA queda en la auditoría. Los textos públicos dicen que el robot tiene orugas y da la alarma en la zona.
+
+**Problemas**
+- Al borrar una carpeta de trabajo de git con `node_modules` enlazado, se vació el `node_modules` de la carpeta principal. Se recuperó con `npm ci`.
+
 ## Semana 6 · desde el 09/11/2026
 
 **Hecho**

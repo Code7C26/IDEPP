@@ -24,13 +24,6 @@ conectados a la web de Tiziano. Se completa **el día de la prueba** y se sube a
 | 1.4 | Web: Parada de emergencia | Se detiene al instante; solo sale con "Detener" | | |
 | 1.5 | Apagar el WiFi del robot | A los 10 s la web muestra "Sin conexión" | | |
 
-## 2. Máquina (relé)
-
-| # | Paso | Resultado esperado | ✔ / ✘ | Notas |
-|---|---|---|---|---|
-| 2.1 | Web: Detener máquina (Panel → zona) | El relé corta en menos de 2 s | | |
-| 2.2 | Web: Reactivar máquina | El relé vuelve a cerrar | | |
-
 ## 3. Cámara e IA (YOLO)
 
 | # | Paso | Resultado esperado | ✔ / ✘ | Notas |
@@ -38,7 +31,7 @@ conectados a la web de Tiziano. Se completa **el día de la prueba** y se sube a
 | 3.1 | Video en vivo en la página Robot | Se ve la imagen con las cajas de detección | | |
 | 3.2 | YOLO lee `GET /rostros` y descarga las fotos | Reconoce a los empleados de prueba | | |
 | 3.3 | Empleado de prueba **sin casco** frente a la cámara | Aparece una alerta con **foto**, su nombre y la zona correcta | | |
-| 3.4 | Misma prueba en una zona con máquina | La máquina se detiene sola (relé) | | |
+| 3.4 | Misma prueba con el robot en esa zona | El robot se detiene, muestra el signo de peligro y suena la alarma | | |
 | 3.5 | Persona sin fotos cargadas | Alerta como "Desconocido" | | |
 | 3.6 | El empleado borra sus fotos desde Mi perfil | YOLO deja de reconocerlo en la próxima lectura de `/rostros` | | |
 
@@ -47,8 +40,8 @@ conectados a la web de Tiziano. Se completa **el día de la prueba** y se sube a
 | # | Paso | Resultado esperado | ✔ / ✘ | Tiempo |
 |---|---|---|---|---|
 | 4.1 | Falta de EPP → alerta en el panel del encargado | Menos de 5 s | | |
-| 4.2 | Falta de EPP → máquina detenida | Menos de 5 s | | |
-| 4.3 | Encargado resuelve la alerta y reactiva la máquina | Queda en Auditoría | | |
+| 4.2 | Falta de EPP → alarma del robot | Menos de 5 s | | |
+| 4.3 | Encargado resuelve la alerta | Queda en Auditoría | | |
 
 ## Problemas encontrados
 

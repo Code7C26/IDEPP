@@ -67,7 +67,7 @@ def _enviar(app, destinos, datos):
             db.session.commit()
 
 
-def notificar_alerta(inc, maquina_detenida=False):
+def notificar_alerta(inc):
     """Avisa una alerta nueva: a los encargados (con el nombre del empleado) y al empleado detectado."""
     tipo = NOMBRES_TIPO.get(inc.tipo, inc.tipo)
     zona = inc.zona.nombre if inc.zona else "zona desconocida"
@@ -75,7 +75,7 @@ def notificar_alerta(inc, maquina_detenida=False):
     quien = inc.empleado.nombre if inc.empleado else "Persona no identificada"
     enviar_a_usuarios(encargados, {
         "titulo": f"Nueva alerta: {tipo.lower()}",
-        "texto": f"{zona} · {quien}" + (" · máquina detenida" if maquina_detenida else ""),
+        "texto": f"{zona} · {quien}",
         "url": "/app/incidencias",
         "etiqueta": f"alerta-{inc.id}",
     })

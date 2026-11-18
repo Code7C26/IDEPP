@@ -20,26 +20,23 @@ export function zonasQueChocan(zonas, borrador) {
   return zonas.filter((z) => z.id !== borrador.id && seSuperponen(z, borrador))
 }
 
-// Estado visual de una zona: alerta (hay alertas activas), detenida (máquina parada) u ok
+// Estado visual de una zona: alerta (hay alertas activas) u ok
 export function estadoZona(zona, alertasActivas = 0) {
-  if (alertasActivas > 0) return 'alerta'
-  if (zona.maquina && !zona.maquina_activa) return 'detenida'
-  return 'ok'
+  return alertasActivas > 0 ? 'alerta' : 'ok'
 }
 
 // Igual, pero sin saber siempre las alertas: el empleado solo ve las suyas (alertasPorZona = null).
-// En ese caso no se puede afirmar que una zona está en orden: solo se sabe si su máquina está parada.
+// En ese caso no se puede afirmar que una zona está en orden.
 export function estadoVisible(zona, alertasPorZona) {
   if (alertasPorZona) return estadoZona(zona, alertasPorZona[zona.id] || 0)
-  return zona.maquina && !zona.maquina_activa ? 'detenida' : 'neutro'
+  return 'neutro'
 }
 
 // Frase corta para mostrar en cada zona según su estado
 export function resumenZona(zona, estado, alertas = 0) {
   if (estado === 'alerta') return `${alertas} alerta${alertas > 1 ? 's' : ''}`
-  if (estado === 'detenida') return 'Máquina detenida'
   if (estado === 'ok') return 'Todo en orden'
-  return zona.maquina ? 'Máquina en marcha' : ''
+  return ''
 }
 
 // Cuenta las alertas activas de cada zona: { 2: 3, 4: 1 }

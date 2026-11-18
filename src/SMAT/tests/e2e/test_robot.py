@@ -1,4 +1,4 @@
-"""Robot y máquinas, con el ESP32 simulado (backend/tools/simular_esp32.py) y un video MJPEG de prueba."""
+"""Robot, con el ESP32 simulado (backend/tools/simular_esp32.py) y un video MJPEG de prueba."""
 import io
 import os
 import subprocess
@@ -47,7 +47,7 @@ def robot_simulado():
     os.makedirs(os.path.dirname(LOG_SIMULADOR), exist_ok=True)
     log = open(LOG_SIMULADOR, "w", encoding="utf-8")
     simulador = subprocess.Popen([sys.executable, "-u", os.path.join(APP, "backend", "tools", "simular_esp32.py"),
-                                  "--url", API, "--key", ROBOT["X-API-KEY"], "--velocidad", "20", "--maquinas"],
+                                  "--url", API, "--key", ROBOT["X-API-KEY"], "--velocidad", "20"],
                                  stdout=log, stderr=subprocess.STDOUT, env={**os.environ, "PYTHONIOENCODING": "utf-8"})
     video = ThreadingHTTPServer(("127.0.0.1", PUERTO_VIDEO), VideoDePrueba)
     threading.Thread(target=video.serve_forever, daemon=True).start()
@@ -133,20 +133,13 @@ def test_video_en_vivo(robot_simulado, abrir):
     assert esperar_texto(pag, "la dirección termina en /video", 1, exacto=False)
 
 
-def test_la_falta_detiene_la_maquina_y_el_encargado_la_reactiva(robot_simulado, abrir):
-    r = api("/incidents", cabeceras=YOLO, datos={"tipo": "sin_guantes", "zona_id": 3, "empleado_id": 6, "confianza": 0.91})
-    assert r["maquina_detenida"] is True
+def test_una_falta_no_corta_ninguna_maquina(robot_simulado, abrir):
+    """DROID-E3D no corta máquinas (decisión 010): la zona no muestra estado de máquina ni botones para reactivarla."""
+    api("/incidents", cabeceras=YOLO, datos={"tipo": "sin_guantes", "zona_id": 3, "empleado_id": 6, "confianza": 0.91})
     pag = abrir("maria", "/app/zonas")
     zona_c = pag.locator("article", has_text="Zona C")
-    assert zona_c.get_by_text("Máquina detenida").first.is_visible()
-    time.sleep(3)
-    assert "relé ABIERTO" in robot_simulado()                       # el ESP32 de la máquina cortó
-
-    zona_c.get_by_role("button", name="Reactivar máquina").click()
-    pag.wait_for_timeout(800)
-    assert pag.get_by_text("sin resolver en esta zona").is_visible()
-    pag.get_by_role("button", name="Sí, reactivar").click()
-    pag.wait_for_timeout(1200)
-    assert api("/zones/3", token=sesion("maria")["token"])["maquina_activa"] is True
-    time.sleep(3)
-    assert "relé CERRADO" in robot_simulado()
+    assert zona_c.is_visible()
+    assert zona_c.get_by_text("Máquina detenida").count() == 0
+    assert zona_c.get_by_role("button", name="Reactivar máquina").count() == 0
+    assert "relé" not in robot_simulado()
+    assert not pag.errores

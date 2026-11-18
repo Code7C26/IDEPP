@@ -32,9 +32,8 @@ def test_la_demo_hace_andar_la_web_sin_hardware(base_limpia, abrir):
             pag.wait_for_timeout(500)
         assert len(zonas - {None}) >= 2
 
-        # Entran alertas y se detienen máquinas
+        # Entran alertas
         assert api("/incidents?limit=1", token=token)["total"] > alertas_antes
-        assert any(not z["maquina_activa"] for z in api("/zones", token=token)["zonas"])
         assert not pag.errores
     finally:
         # No se usa terminate(): mataría a la demo y sus simuladores seguirían mandando alertas a las otras pruebas

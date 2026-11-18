@@ -16,7 +16,7 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 | Ruta | Página | Qué muestra |
 |---|---|---|
 | `/` | Inicio | Qué es DROID-E3D, el problema, render «DROID-E3D en la fábrica», botón "Pedir demo" |
-| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → parada de máquina, render «Robot DROID-E3D 3D» |
+| `/como-funciona` | Cómo funciona | Diagrama cámara → IA → alerta → alarma del robot, render «Robot DROID-E3D 3D» |
 | `/juego` | Juego | «Patrulla DROID-E3D» |
 | `/planes` | Planes | Robot + abono de la web + mantenimiento |
 | `/nosotros` | Nosotros | IDEPP; equipo |
@@ -36,7 +36,7 @@ Mientras no esté el hardware, el backend se prueba con los simuladores y el con
 | `/app/panel` | Panel | Tarjetas, mapa de fábrica en grilla, robot, últimas alertas |
 | `/app/incidencias` | Incidencias | Tabla con filtros, detalle con foto, comentarios, resolver |
 | `/app/empleados` | Empleados | CRUD, asignación de zona, fotos de rostro con consentimiento |
-| `/app/zonas` | Zonas | CRUD, máquina, EPP, posición en la grilla, reactivar máquina |
+| `/app/zonas` | Zonas | CRUD, máquina o puesto, EPP, posición en la grilla |
 | `/app/robot` | Robot | Video en vivo, zona real en el mapa, simulación «DROID-E3D en la fábrica», estado, batería, ruta, iniciar/pausar, EMERGENCIA |
 | `/app/reportes` | Reportes | Gráficos, ranking de cumplimiento, CSV y PDF |
 | `/app/auditoria` | Auditoría | Quién hizo qué y cuándo |
@@ -76,7 +76,7 @@ frontend/src/
 
 - **usuarios**: id, usuario, contrasena, nombre, legajo, rol, zona_id, activo, created_at
 - **fotos_rostro**: id, usuario_id, ruta_archivo, consentimiento_at
-- **zonas**: id, nombre, maquina, epp_requerido, maquina_activa, grilla_x, grilla_y, ancho, alto
+- **zonas**: id, nombre, maquina (nombre de la máquina o puesto), epp_requerido, grilla_x, grilla_y, ancho, alto
 - **incidencias**: id, tipo, timestamp, zona_id, empleado_id, confianza, estado, imagen_url, resuelta_por, resuelta_at
 - **comentarios**: id, incidencia_id, usuario_id, texto, created_at
 - **robot**: id, estado, bateria, zona_actual_id, comando_pendiente, url_video, ultima_conexion
@@ -175,7 +175,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] 6.6 Unir el servidor de IA de Morena (`servidor_ia/`) con el backend: alertas con foto, empleado por nombre y zona del robot; `tools/cargar_trabajadores_ia.py`
 - [x] 6.7 (Morena) IPs de la cámara y del robot en `servidor_ia/.env`; fotos de caras y modelos fuera de GitHub; el CI revisa `servidor_ia/` (PR #73)
 - [ ] 6.8 (Morena) Conectar el robot nuevo (ESP32-S3) con la web: órdenes, estado y zona (sin esto, la web lo ve sin conexión y rechaza las alertas sin zona). El PR borrador #96 es para el robot anterior: hay que adaptarlo
-- [ ] 6.5 Prueba de integración real (`docs/integracion/PRUEBA.md`, guía lista) con la cámara, el robot y la máquina (#48)
+- [ ] 6.5 Prueba de integración real (`docs/integracion/PRUEBA.md`, guía lista) con la cámara, la IA y el robot (#48)
 
 ### Fase 7 · Tiempo real
 - [x] 7.1 `AlertaSonora`: polling 3 s + banner + botón "activar sonido" (#49)
@@ -207,6 +207,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [ ] M.9 Versión interactiva: chatbot simple de preguntas frecuentes (#101)
 - [ ] M.10 Actualizar los renders en Claude con el robot nuevo y volver a copiarlos (`tools/copiar_renders.py`)
 - [x] M.11 La empresa pasa a ser IDEPP: web, documentos y logos (Morena, PR #104); informe PDF, copia de los renders, «oruga» y Word (decisión 009)
+- [x] M.12 Sin corte de máquina: el robot se detiene y da la alarma; la web deja de mostrar y controlar máquinas, y los textos públicos dicen orugas (decisión 010)
 
 ### Fase E · Empresa IDEPP desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Tiziano, Morena) escribe su parte; Claude ayuda solo en las de Tiziano y deja `TODO (socio)` donde falte una decisión.

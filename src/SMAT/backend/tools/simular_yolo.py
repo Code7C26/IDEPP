@@ -6,7 +6,7 @@ Hace lo mismo que el servidor real, usando la API de docs/API.md:
   - cada tanto "detecta" a alguien sin un EPP  (POST /incidents con una foto de evidencia)
 
 La foto la dibuja el propio script (una persona con un recuadro rojo), o podés pasar una tuya con --imagen.
-Ojo: cada alerta DETIENE la máquina de la zona, igual que en la fábrica.
+Ojo: cada alerta queda guardada en la base del backend, como una real.
 
 Uso (con el backend andando):
     cd backend
@@ -153,8 +153,7 @@ def main():
                       "confianza": round(random.uniform(0.62, 0.97), 2)}
             try:
                 inc = api.enviar_alerta(campos, foto, nombre)
-                avisar(f"ALERTA #{inc['id']}: {tipo} en {inc['zona']} ({inc['empleado_nombre']}, {inc['confianza']:.0%})"
-                       + (" -> máquina DETENIDA" if inc["maquina_detenida"] else ""))
+                avisar(f"ALERTA #{inc['id']}: {tipo} en {inc['zona']} ({inc['empleado_nombre']}, {inc['confianza']:.0%})")
             except urllib.error.HTTPError as e:
                 avisar(f"El backend rechazó la alerta ({e.code}): {e.read().decode(errors='replace')}")
             except urllib.error.URLError:
