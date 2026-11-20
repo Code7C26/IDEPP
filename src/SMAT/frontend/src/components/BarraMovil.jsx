@@ -23,8 +23,9 @@ export default function BarraMovil() {
     <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/90 backdrop-blur md:hidden dark:border-zinc-800 dark:bg-zinc-900/90">
       <div className="h-1 franja-marca" />
       <div className="flex h-14 items-center justify-between gap-2 px-3">
-        <Link to={inicioSegunRol(usuario)} aria-label={t('Ir al inicio')}><Logo className="size-8" textoClase="max-[339px]:hidden" /></Link>
-        <div className="flex items-center gap-0.5">
+        {/* min-w-0 + overflow-hidden: si algo no entra (por ejemplo, mientras carga la tipografía), se recorta el logo y no la página */}
+        <Link to={inicioSegunRol(usuario)} aria-label={t('Ir al inicio')} className="min-w-0 overflow-hidden"><Logo className="size-8" textoClase="max-[339px]:hidden" /></Link>
+        <div className="flex shrink-0 items-center gap-0.5">
           <button type="button" onClick={sonido.alternar} className={boton} aria-pressed={sonido.activado} aria-label={t('Sonido de alertas')} data-guia="sonido">
             <Icono nombre={sonido.activado ? 'campana' : 'silencio'} />
           </button>
