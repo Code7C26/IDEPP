@@ -4,7 +4,7 @@
 > **6 · Desarrollo (software)**, **7 · Pruebas** y **11 · Anexos (capturas)**. Para pasarlo al
 > documento en línea (link en [`README.md`](README.md)): copiar cada sección debajo de su título y
 > después aplicar el formato APA en Google Docs. Lo que falta está marcado **[COMPLETAR]**.
-> Datos al 02/11/2026.
+> Datos al 20/11/2026.
 
 ---
 
@@ -16,19 +16,19 @@ DROID-E3D tiene cuatro partes que se comunican por la red WiFi de la planta:
 
 | Parte | Qué hace | Tecnología | Responsable |
 |---|---|---|---|
-| **Robot** (con ruedas) | Recorre las zonas de la fábrica con una cámara | ESP32-S3 y ESP32-CAM | Morena |
+| **Robot** (con orugas) | Recorre las zonas de la fábrica con una cámara. Si hay una falta, se detiene, muestra el signo de peligro y hace sonar la alarma | ESP32-S3 y ESP32-CAM | Morena |
 | **Servidor de IA** | Detecta si falta el casco, los guantes, los lentes o el chaleco, y reconoce la cara del trabajador | Python, YOLO, OpenCV | Morena |
-| **Backend** | Recibe las alertas, las guarda y da las órdenes al robot y a las máquinas | Python, Flask, MySQL | Tiziano |
+| **Backend** | Recibe las alertas, las guarda, avisa a las personas y da las órdenes al robot | Python, Flask, MySQL | Tiziano |
 | **Aplicación web** | Muestra las alertas, el mapa, el robot y los reportes al encargado y a cada empleado | React | Tiziano |
 
 Así funciona el recorrido de una alerta:
 
 1. La cámara del robot filma la zona en la que está.
 2. El servidor de IA detecta una falta de equipo de protección personal (EPP) y reconoce al trabajador.
-3. La IA envía la alerta al backend (`POST /api/incidents`), con la foto del momento, el tipo de falta y la confianza de la detección.
-4. El backend guarda la alerta en MySQL, marca la máquina de esa zona para que se detenga y envía una notificación push al encargado y al empleado.
-5. El ESP32 de la máquina consulta su estado cada 1 o 2 segundos y abre el relé. El ESP32 del robot consulta, del mismo modo, si tiene una orden pendiente.
-6. El encargado ve la alerta en la web, la resuelve y vuelve a activar la máquina.
+3. La IA le avisa al robot, que se detiene en la zona, muestra el signo de peligro y hace sonar la alarma durante 10 segundos. Las máquinas de la fábrica no se tocan (decisión 010).
+4. Al mismo tiempo, la IA envía la alerta al backend (`POST /api/incidents`), con la foto del momento, el tipo de falta y la confianza de la detección.
+5. El backend guarda la alerta en MySQL y envía una notificación push al encargado y al empleado.
+6. El encargado ve la alerta en la web y la resuelve. El ESP32 del robot consulta cada 1 o 2 segundos si tiene una orden pendiente (iniciar, pausar, detener o parada de emergencia).
 
 El contrato entre las partes (qué datos envía cada una y qué recibe) está documentado en
 `src/SMAT/docs/API.md`. Gracias a ese documento, hardware y software pudieron avanzar en paralelo:
@@ -46,7 +46,9 @@ Cada decisión importante quedó registrada en `src/SMAT/docs/decisiones/`, con 
 | 004 · Avisos al celular | Web instalable (PWA) + notificaciones push | WebSockets, app nativa | Las alertas llegan aunque la web esté cerrada, sin publicar una app en las tiendas |
 | 007 · Publicación | Render (API y web) + Supabase (base y fotos) | PythonAnywhere, que dejó de ofrecer MySQL gratis, y SQLite | Gratis, y usa servicios que se emplean en la industria |
 | 006 · Medida de cumplimiento | Días sin alertas sobre los días del período | Alertas por persona | Se explica en una frase y es justo entre zonas que el robot visita con distinta frecuencia |
-| 008 · Renders 3D y juego | Los archivos originales dentro de la web, en iframes | Reescribirlos como componentes de React | Se ven exactamente igual y se actualizan copiándolos. Reescribirlos no quedaba igual |
+| 008 · Renders 3D y juego | Los archivos originales dentro de la web, en iframes | Reescribirlos como componentes de React | Se ven exactamente igual y se actualizan copiándolos. Desde el 20/11, el juego se edita en la web para sumarle el nombre del jugador y el ranking |
+| 009 · Nombre de la empresa | IDEPP, con dos productos: Touch ID y DROID-E3D | Seguir como SMAT | Las dos empresas se unieron en una |
+| 010 · Qué hace el robot ante una falta | Se detiene y da la alarma en la zona | Cortar la máquina con un relé | Cortar la energía de la máquina de un cliente necesita un electricista y es un riesgo si se hace mal; la alarma alcanza para que la persona se ponga el equipo |
 
 ### 5.3 Base de datos
 
@@ -54,13 +56,13 @@ Usamos 9 tablas. En la PC y en la demo local están en MySQL (MariaDB de XAMPP);
 
 | Tabla | Guarda |
 |---|---|
-| `zonas` | Zonas de la planta, su máquina, el EPP obligatorio y si la máquina está activa |
+| `zonas` | Zonas de la planta, su máquina o puesto, el EPP obligatorio y su lugar en el mapa |
 | `usuarios` | Empleados y encargados: rol, legajo, zona y contraseña cifrada |
 | `incidencias` | Cada alerta: tipo de falta, zona, empleado, confianza, foto, estado y quién la resolvió |
 | `fotos_rostro` | Fotos de la cara para el reconocimiento facial (solo con consentimiento) |
 | `comentarios` | Conversación entre el encargado y el empleado sobre una alerta |
 | `suscripciones_push` | Dispositivos que reciben notificaciones |
-| `auditoria` | Quién hizo qué y cuándo (altas, bajas, máquinas detenidas, descargas) |
+| `auditoria` | Quién hizo qué y cuándo (altas, bajas, alertas, órdenes al robot, descargas) |
 | `robot` | Estado del robot: conexión, batería, zona actual y orden pendiente |
 | `puntos_ruta` | Orden en que el robot recorre las zonas y cuánto espera en cada una |
 
@@ -68,7 +70,7 @@ Usamos 9 tablas. En la PC y en la demo local están en MySQL (MariaDB de XAMPP);
 
 | Quién | Pantallas |
 |---|---|
-| **Público** (sin cuenta) | Inicio, Cómo funciona, Juego, Planes, Nosotros, Contacto e Ingresar |
+| **Público** (sin cuenta) | Inicio, Cómo funciona, Juego, Planes, Nosotros, Contacto e Ingresar. En español o en inglés, con un asistente de preguntas frecuentes |
 | **Empleado** (pensado para el celular) | Inicio (su zona, el EPP obligatorio, su cumplimiento y dónde está el robot), Mis alertas y Mi perfil (con sus fotos de rostro) |
 | **Encargado** (celular y PC) | Panel, Incidencias, Robot, Zonas, Empleados, Reportes y Auditoría |
 
@@ -78,16 +80,18 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 ### 5.5 Diseño de la interfaz
 
 - **Pensado primero para el celular:** el empleado y el encargado la usan en la planta. En el celular hay una barra de navegación abajo; en la PC, una barra lateral fija.
-- **Colores con significado:** verde para «en orden», rojo para «alerta activa», naranja para «máquina detenida». El amarillo de seguridad (`#f5b800`) es el color de la marca.
+- **Colores con significado:** verde para «en orden» y rojo para «alerta activa». El naranja de la caja del robot (`#f7931e`) es el color de la marca, con fondo crema y la tipografía Montserrat.
 - **Modo claro y oscuro** en todas las pantallas.
-- **Mapa de la fábrica:** cada zona se muestra con su máquina, el EPP obligatorio, sus alertas y la posición del robot.
+- **Español e inglés:** un botón ES/EN cambia el idioma de las frases principales, y la web lo recuerda.
+- **Guía interactiva:** el botón «?» recorre la pantalla paso a paso y explica para qué sirve cada parte.
+- **Mapa de la fábrica:** cada zona se muestra con su máquina o puesto, el EPP obligatorio, sus alertas y la posición del robot.
 - **Avisos inmediatos:** cuando llega una alerta aparecen un cartel y un sonido, y llega una notificación aunque la web esté cerrada.
 
 ### 5.6 Seguridad y datos personales
 
 - Las contraseñas se guardan **cifradas** (PBKDF2-SHA256), nunca en texto plano.
 - Las sesiones usan **tokens JWT**. Si a alguien se le da de baja o se le cambia el rol, su sesión se corta al instante.
-- El robot, la máquina y la IA se identifican con **claves propias** (`X-API-KEY`), distintas de las de las personas.
+- El robot y la IA se identifican con **claves propias** (`X-API-KEY`), distintas de las de las personas.
 - Las fotos de rostro y de evidencia **no son públicas**: solo se ven con una sesión iniciada.
 - Antes de subir una foto de rostro hay que **dar el consentimiento** expreso (Ley 25.326). Cada persona puede borrar sus fotos cuando quiera.
 - Todas las acciones importantes quedan en la **auditoría**.
@@ -101,9 +105,9 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 ### 6.1 Forma de trabajo
 
 - **Planificación por fases:** el trabajo se dividió en fases y tareas en `src/SMAT/docs/PLAN.md`. Cada tarea se marca cuando está terminada.
-- **GitHub:** repositorio `Code7C26/IDEPP` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 02/11 hubo **31 issues** de IDEPP (**27 cerrados**).
-- **Ramas y Pull Requests:** cada socio trabaja en su rama (`SMAT-web`, `SMAT-hardware`, `SMAT-empresa`) y los cambios entran a `main` solo con un Pull Request. Hasta el 02/11 se integraron **24 Pull Requests** y **54 commits**.
-- **Pruebas automáticas en cada cambio:** GitHub Actions corre todas las pruebas antes de aceptar un Pull Request (ver sección 7). Hasta el 02/11 corrió **39 veces**.
+- **GitHub:** repositorio `Code7C26/IDEPP` y tablero Kanban «Kanban TOUCH-ID». Cada tarea tiene un issue con su etiqueta (`smat:web`, `smat:hardware`, `smat:empresa`, `smat:profe`…). Hasta el 20/11 hubo **55 issues** de DROID-E3D (**37 cerrados**).
+- **Ramas y Pull Requests:** cada socio trabaja en su rama (`SMAT-web`, `SMAT-hardware`, `SMAT-empresa`) o en una rama por tarea (por ejemplo, `SMAT-juego` o `docs-actas`), y los cambios entran a `main` solo con un Pull Request. Hasta el 20/11 se integraron **65 Pull Requests** de DROID-E3D y **157 commits**.
+- **Pruebas automáticas en cada cambio:** GitHub Actions corre todas las pruebas antes de aceptar un Pull Request (ver sección 7). Hasta el 20/11 corrió **109 veces**.
 - **Registro:** una bitácora semanal (`docs/BITACORA.md`) y las decisiones técnicas por escrito (`docs/decisiones/`).
 - **Herramientas:** Visual Studio Code, Git y GitHub, XAMPP (MySQL) y **Claude Code**, un asistente de programación con inteligencia artificial que usamos para escribir y revisar código, pruebas y documentación. Cada cambio se revisó y se probó antes de integrarlo.
 
@@ -115,7 +119,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 | 1 · Backend | 05/10 | API con Flask, base de datos, sesiones y contrato con el hardware (`API.md`) |
 | 2 y 3 · Base de la web y empleado | 06/10 | React + Tailwind, modo oscuro, menú por rol y pantallas del empleado |
 | 4 · Encargado | 06/10 | Mapa de la fábrica, panel, incidencias, empleados y zonas |
-| 5 · Robot y máquinas | 06/10 | Órdenes al robot, parada de emergencia, ruta, video en vivo, parada automática de la máquina y simulador del ESP32 |
+| 5 · Robot | 06/10 | Órdenes al robot, parada de emergencia, ruta, video en vivo y simulador del ESP32. También el corte automático de la máquina, que se sacó el 18/11 (decisión 010) |
 | T · Pruebas | 07/10 | Pruebas automáticas del backend y de la web, corriendo en GitHub Actions |
 | R · Rediseño | 07/10 | Estilo de aplicación profesional: barra lateral, avisos flotantes, tablas ordenables y mapa con íconos |
 | 6 · IA y reconocimiento facial | 07 y 08/10 | Foto de evidencia, fotos de rostro con consentimiento y conexión con el servidor de IA de Morena |
@@ -123,15 +127,15 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 | 7 · Tiempo real | 08/10 | Cartel y sonido de alertas, web instalable y notificaciones push |
 | 8 · Reportes | 09/10 | Gráficos, ranking de cumplimiento, descargas en CSV y PDF mensual para la ART, comentarios y auditoría |
 | 9 · Pulido y publicación | 15 al 22/10 | Revisión de todas las pantallas, guía de la demo local y preparación de la versión de internet en Render + Supabase |
-| M · Mejoras | 03/11 | Corrección de errores graves, demo sin hardware con un solo comando, resolver varias alertas a la vez, renders 3D y juego integrados en la web |
+| M · Mejoras | 03 al 20/11 | Corrección de errores graves, demo sin hardware con un solo comando, resolver varias alertas a la vez, renders 3D y juego en la web (03/11); cambio a IDEPP (10 y 11/11); sin corte de máquina (18/11); juego con nombre del jugador y ranking, web bilingüe, guía interactiva y asistente de preguntas frecuentes (20/11) |
 
 ### 6.3 Funcionalidades principales
 
 **Encargado** (capturas 2 a 6 del anexo):
-- **Panel** con las alertas activas, la comparación con el día y la semana anterior, el mapa de la fábrica, el estado del robot y las últimas alertas.
+- **Panel** con las alertas activas, la comparación con el día y la semana anterior, el mapa de la fábrica, el estado del robot y las zonas con más alertas.
 - **Incidencias:** lista con filtros, foto de evidencia, resolución de alertas (de a una o varias a la vez) y comentarios con el empleado.
 - **Robot:** iniciar, pausar, detener y parada de emergencia, ruta editable, video en vivo y su zona en el mapa. Sin conexión no se puede iniciar, para que nunca arranque solo al volver.
-- **Zonas:** máquina, EPP obligatorio, ubicación en el mapa, y detener o reactivar la máquina.
+- **Zonas:** nombre, máquina o puesto, EPP obligatorio y ubicación en el mapa.
 - **Empleados:** altas, bajas, cambios de zona y fotos de rostro.
 - **Reportes:** alertas por día, por tipo de EPP y por zona, y ranking de cumplimiento. Se descargan en CSV y en un PDF mensual con firmas, para la ART.
 - **Auditoría:** quién hizo qué y cuándo, con filtros.
@@ -141,17 +145,19 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 - **Mis alertas:** su historial, con la foto de cada alerta y la posibilidad de comentar.
 - **Mi perfil:** sus datos, el tema de la pantalla, sus fotos de rostro (con consentimiento) y las notificaciones.
 
-**Público** (captura 1 del anexo): página de IDEPP que presenta el producto, cómo funciona, los planes y el contacto.
+**Público** (captura 1 del anexo): página de IDEPP que presenta el producto, cómo funciona, el juego, los planes y el contacto. Está en español y en inglés, y tiene un **asistente de preguntas frecuentes** (qué es, qué detecta, qué pasa si falta el equipo, precios, fotos de la cara y cómo pedir una demo) que responde sin inteligencia artificial ni internet.
+
+**En todas las pantallas:** botón ES/EN para el idioma y botón «?» con la guía interactiva.
 
 **Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot DROID-E3D 3D» (el modelo del robot), «DROID-E3D en la fábrica» (una simulación del recorrido) y el juego «Patrulla DROID-E3D», donde se maneja el robot por la planta para encontrar a quien le falta su equipo de protección; pide el nombre del jugador y guarda un ranking en el navegador. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
 
 ### 6.4 Integración con el hardware y la IA
 
-- El servidor de IA de Morena (`src/SMAT/servidor_ia/`) se conectó con el backend mediante `conexion_droid.py`. Cada alerta llega a la web con la foto, el nombre del trabajador reconocido y la zona donde está el robot, y detiene la máquina de esa zona.
+- El servidor de IA de Morena (`src/SMAT/servidor_ia/`) se conectó con el backend mediante `conexion_droid.py`. Cada alerta llega a la web con la foto, el nombre del trabajador reconocido y la zona donde está el robot. Al mismo tiempo, la IA le avisa al robot, que se detiene y da la alarma.
 - Las direcciones de la cámara, del robot y del backend se configuran en un archivo `.env`. Así, si cambia la red, no hace falta tocar el código.
-- Para trabajar sin el hardware armamos dos simuladores: `simular_esp32.py` (un robot que recorre las zonas y las máquinas) y `simular_yolo.py` (envía alertas con foto). `demo_en_vivo.py` lanza los dos con un solo comando, así se puede hacer la demo completa aunque falte una pieza.
-- La web muestra en qué zona está el robot a partir de lo que él informa; la posición se conoce por zona, no al centímetro. El robot cambió el 29/10 (ruedas y ESP32-S3), así que su conexión con la web, escrita para el robot anterior (Pull Request borrador #96), hay que adaptarla antes de la prueba real.
-- **[COMPLETAR]** Resultado de la prueba real con el robot, la cámara y la máquina (tarea 6.5, `docs/integracion/PRUEBA.md`).
+- Para trabajar sin el hardware armamos dos simuladores: `simular_esp32.py` (un robot que recorre las zonas) y `simular_yolo.py` (envía alertas con foto). `demo_en_vivo.py` lanza los dos con un solo comando, así se puede hacer la demo completa aunque falte una pieza.
+- La web muestra en qué zona está el robot a partir de lo que él informa; la posición se conoce por zona, no al centímetro. El robot actual (orugas y ESP32-S3) todavía no informa su zona a la web: la conexión escrita para el robot anterior (Pull Request borrador #96) hay que adaptarla antes de la prueba real.
+- El 15/11 se probó el robot con todo junto (sección 7.5). **[COMPLETAR]** Resultado de la prueba con la web: robot conectado, órdenes desde el celular y alertas con foto (tarea 6.5, `docs/integracion/PRUEBA.md`).
 
 ### 6.5 Publicación
 
@@ -164,12 +170,12 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 
 ### 7.1 Pruebas automáticas
 
-El proyecto tiene **257 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
+El proyecto tiene **261 pruebas automáticas** que corren solas en GitHub Actions cada vez que se propone un cambio. Si alguna falla, el cambio no se integra.
 
 | Tipo | Cantidad | Herramienta | Qué prueban |
 |---|---|---|---|
-| **De la API** (backend) | 124 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot y máquinas, reportes, comentarios, auditoría, notificaciones, conexión con la IA y robustez. Corren dos veces: contra MySQL y contra Postgres, el motor de la versión de internet |
-| **De punta a punta** (navegador real) | 133 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones y la revisión visual |
+| **De la API** (backend) | 124 | pytest | Sesiones y roles, alertas, fotos y consentimiento, robot, reportes, comentarios, auditoría, notificaciones, conexión con la IA, robustez y que los renders y el juego anden sin internet. Corren dos veces: contra MySQL y contra Postgres, el motor de la versión de internet |
+| **De punta a punta** (navegador real) | 137 | Playwright | Recorridos completos como lo haría una persona: entrar, ver y resolver alertas, manejar el robot, reportes, web instalable, notificaciones, el juego y su ranking, el cambio de idioma, la guía, el asistente y la revisión visual |
 
 Las pruebas usan **bases de datos propias** (`robot_db_test` y `robot_db_e2e`): nunca tocan los datos reales.
 
@@ -181,6 +187,7 @@ Una prueba recorre automáticamente las **18 pantallas** en **celular (360 px) y
 - no haya errores de la página,
 - no aparezca scroll horizontal,
 - ningún texto se salga de su tarjeta,
+- el nombre del logo entre en un renglón,
 - no quede un «Cargando…» trabado,
 - el tema se aplique bien,
 - no haya imágenes rotas.
@@ -212,12 +219,21 @@ Además, revisa que cada pantalla **avise si el servidor no responde**, en lugar
 | Sin conexión, la batería se veía en verde, como si fuera un dato actual | Revisión de las pantallas | Se muestra en gris, como último dato |
 | «Cumplimiento» se salía de su tarjeta en el celular | Revisión de las pantallas | Tarjeta compacta, y la prueba automática ahora busca textos desbordados |
 | Sin placa de video, el render 3D dejaba lenta toda la página | GitHub Actions | En la pantalla con la parada de emergencia se carga recién al tocar un botón, y fuera de la pantalla se pausa |
+| Las fuentes se pedían a Google: sin internet, la web cambiaba de letra | Prueba de los renders sin conexión | Las tipografías se guardan en la web |
+| Los renders seguían mostrando que el robot para la máquina, después de la decisión 010 | Revisión contra la decisión | `copiar_renders.py` lo corrige al copiarlos, y una prueba controla que no vuelva |
+| En el juego, escanear entre dos operarios daba falsa alarma aunque uno tuviera la falta | Revisión del juego | Elige a quien tiene la falta |
+| Una prueba con el render 3D fallaba de a ratos | Pruebas de punta a punta en la PC | Con el 3D por software, las consultas cada 3 s no dejaban la red quieta: esas pruebas esperan lo que necesitan (el dibujo, un botón) |
+| En el celular, con los botones de idioma y guía, el nombre del logo se partía en dos renglones | Capturas para este documento | Botones un poco más chicos, y la revisión automática controla el logo |
 
 ### 7.5 Prueba real con el hardware
 
-**[COMPLETAR]** con la planilla de `docs/integracion/PRUEBA.md` el día de la prueba: robot (conexión,
-órdenes, parada de emergencia), máquina (corte y reactivación del relé) y cámara con IA (detección,
-reconocimiento, alerta con foto y parada de la máquina). Fecha, participantes y resultados.
+**15/11/2026 · Primera prueba con todo junto** (Morena, con el robot armado): pantalla, alarma, joystick en el celular, cámara e IA.
+
+- **Resultado:** cuando la IA ve a alguien sin casco, el robot frena, muestra el signo de peligro y suena durante 10 segundos.
+- **Problemas que aparecieron y cómo se resolvieron:** la alerta tardaba hasta 4 s (ahora 0,1 s); la cámara se recalentaba (se limitó a 5 fotos por segundo); la IA guardaba una sola falta (ahora guarda cada una).
+- **Pendiente:** el modelo de IA detecta bien solo el casco (entre 40 y 60 % de confianza): se están sacando fotos para reentrenarlo.
+
+**[COMPLETAR]** con la planilla de `docs/integracion/PRUEBA.md` el día de la prueba con la web: robot conectado (estado, órdenes y parada de emergencia desde el celular) y cámara con IA (detección, reconocimiento y alerta con foto en la web). Fecha, participantes y resultados.
 
 ### 7.6 Pruebas con usuarios
 
@@ -229,16 +245,16 @@ reconocimiento, alerta con foto y parada de la máquina). Fecha, participantes y
 
 ### 11.1 Capturas de la aplicación
 
-Están en la carpeta `capturas/`, junto a este archivo. Se tomaron con **datos de prueba**: los empleados son ficticios y no aparecen fotos de personas reales.
+Están en la carpeta `capturas/`, junto a este archivo. Se sacaron el 20/11/2026 con `src/SMAT/tests/e2e/test_capturas_documento.py`, con **datos de prueba**: los empleados son ficticios y no aparecen fotos de personas reales.
 
 | N.º | Archivo | Qué muestra |
 |---|---|---|
-| 1 | `01-pagina-publica.png` | Página pública de IDEPP (PC) |
-| 2 | `02-panel-encargado.png` | Panel del encargado: indicadores, mapa de la fábrica, robot y últimas alertas |
+| 1 | `01-pagina-publica.png` | Página pública de IDEPP (PC), con la simulación del robot en la fábrica |
+| 2 | `02-panel-encargado.png` | Panel del encargado: indicadores, mapa de la fábrica, robot y zonas con más alertas |
 | 3 | `03-incidencias.png` | Lista de incidencias con filtros |
-| 4 | `04-control-robot.png` | Control del robot: órdenes, ruta y video |
+| 4 | `04-control-robot.png` | Control del robot: video, órdenes, ruta y su zona en el mapa |
 | 5 | `05-reportes.png` | Reportes: gráficos y ranking de cumplimiento |
-| 6 | `06-zonas-modo-oscuro.png` | Zonas y máquinas, en modo oscuro |
+| 6 | `06-zonas-modo-oscuro.png` | Zonas de la planta, en modo oscuro |
 | 7 | `07-empleado-celular.png` | Inicio del empleado en el celular |
 | 8 | `08-mis-alertas-celular-oscuro.png` | Mis alertas en el celular, en modo oscuro |
 

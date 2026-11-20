@@ -22,6 +22,14 @@ def test_usan_solo_archivos_locales(archivo):
         assert os.path.isfile(os.path.join(CARPETA, pedido)), pedido
 
 
+
+@pytest.mark.parametrize("archivo", ["robot.html", "fabrica.html", "patrulla.html"])
+def test_el_robot_no_para_las_maquinas(archivo):
+    """Decisión 010: el robot se detiene y da la alarma; las máquinas siguen andando."""
+    texto = open(os.path.join(CARPETA, archivo), encoding="utf-8").read()
+    assert not re.findall(r"para la máquina|se frena la máquina|MAQUINA PARADA|: PARADA|detenida<|s\.running = false", texto)
+
+
 def test_las_tipografias_existen():
     css = open(os.path.join(CARPETA, "fuentes.css"), encoding="utf-8").read()
     fuentes = re.findall(r'url\("([^"]+)"\)', css)

@@ -11,26 +11,32 @@
 
 ```
 Cámara → servidor YOLO ──POST /api/incidents──▶ Backend Flask ──▶ MySQL ──▶ Web (React)
-                                                     ▲
-                       El ESP32 del robot consulta por HTTP cada 1-2 s
+               │                                     ▲
+               └──▶ robot: se detiene y da la alarma  └── el ESP32 del robot consulta por HTTP cada 1-2 s
 ```
+
+Ante una falta, el robot se detiene en la zona, muestra el signo de peligro y hace sonar la alarma. Las máquinas de la
+fábrica no se tocan ([decisión 010](docs/decisiones/010-sin-corte-de-maquina.md)).
 
 - **Empleado:** ve el estado de su zona, el EPP que tiene que usar, su cumplimiento y sus alertas (con foto), y puede comentarlas.
 - **Encargado:** ve y resuelve todas las alertas, controla el robot (iniciar, pausar, parada de emergencia, ruta, video), gestiona zonas y empleados, y tiene reportes (CSV y PDF para la ART) y auditoría.
 - **Avisos:** cartel y sonido en la web, y notificaciones push al celular o la PC aunque la web esté cerrada.
+- **Para todos:** la web está en español y en inglés (botón ES/EN), y el botón «?» abre una guía paso a paso de cada pantalla.
+  La página pública tiene un asistente de preguntas frecuentes y el juego «Patrulla DROID-E3D», con ranking.
 - **Programas (la IA y el ESP32 del robot):** no tienen usuario; se identifican con una clave en el header `X-API-KEY`.
 
 ## Capturas
 
-Con datos de prueba (empleados ficticios, sin fotos de personas reales).
+Con datos de prueba (empleados ficticios, sin fotos de personas reales). Se vuelven a sacar con
+`tests/e2e/test_capturas_documento.py` (cómo, al principio del archivo).
 
 | Panel del encargado (PC) | Inicio del empleado (celular) |
 |---|---|
-| ![Panel del encargado: indicadores, mapa de la fábrica, robot y últimas alertas](../../docs/SMAT/documentacion-final/capturas/02-panel-encargado.png) | ![Inicio del empleado en el celular](../../docs/SMAT/documentacion-final/capturas/07-empleado-celular.png) |
+| ![Panel del encargado: indicadores, mapa de la fábrica, robot y zonas con más alertas](../../docs/SMAT/documentacion-final/capturas/02-panel-encargado.png) | ![Inicio del empleado en el celular](../../docs/SMAT/documentacion-final/capturas/07-empleado-celular.png) |
 
 | Control del robot | Reportes |
 |---|---|
-| ![Control del robot: órdenes, ruta y video](../../docs/SMAT/documentacion-final/capturas/04-control-robot.png) | ![Reportes: gráficos y ranking de cumplimiento](../../docs/SMAT/documentacion-final/capturas/05-reportes.png) |
+| ![Control del robot: video, órdenes, ruta y su zona en el mapa](../../docs/SMAT/documentacion-final/capturas/04-control-robot.png) | ![Reportes: gráficos y ranking de cumplimiento](../../docs/SMAT/documentacion-final/capturas/05-reportes.png) |
 
 Más capturas en [`docs/SMAT/documentacion-final/capturas/`](../../docs/SMAT/documentacion-final/capturas/).
 
@@ -40,9 +46,9 @@ Más capturas en [`docs/SMAT/documentacion-final/capturas/`](../../docs/SMAT/doc
 - **Guion para el jurado** (quién habla, demo paso a paso, plan B y preguntas posibles): [`guion-jurado.md`](../../docs/SMAT/EMPRESA-SMAT/09-presentaciones/guion-jurado.md).
 - **Usuarios:** `maria` (encargada) y `juan` (empleado), contraseña `pass123` (ver la tabla de abajo).
 
-## Estado técnico (04/11/2026)
+## Estado técnico (20/11/2026)
 
-Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra MySQL y contra Postgres, y **133 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 17 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
+Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra MySQL y contra Postgres, y **137 de punta a punta** en el navegador (Playwright), entre ellas el recorrido de las 18 pantallas en celular y PC, en claro y oscuro. Corren solas en GitHub Actions en cada PR.
 
 | Área | Estado |
 |---|---|
@@ -51,13 +57,14 @@ Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra M
 | Backend: foto de evidencia en las alertas y fotos de rostro con consentimiento (Ley 25.326) | ✅ Funciona |
 | Frontend: diseño estilo SaaS (claro/oscuro, celular y PC), pantallas del empleado y del encargado | ✅ Funciona |
 | Frontend: control del robot con video en vivo, mapa con recorrido, detalle de cada zona | ✅ Funciona con el simulador |
-| Renders 3D y juego (`/`, `/como-funciona`, `/juego`): archivos originales en `frontend/public/robot3d`, decisión 008 | ✅ Funciona; son simulaciones, no están conectadas al robot real |
+| Renders 3D y juego (`/`, `/como-funciona`, `/juego`): archivos de Claude en `frontend/public/robot3d`, decisión 008. El juego pide el nombre y guarda un ranking | ✅ Funciona; son simulaciones, no están conectadas al robot real |
 | Página pública de IDEPP (`/`, `/como-funciona`, `/juego`, `/planes`, `/nosotros`, `/contacto`) | ✅ Funciona; mail y WhatsApp de contacto en `frontend/.env` |
+| Español e inglés, guía interactiva y asistente de preguntas frecuentes (Etapa 5) | ✅ Funciona |
 | Tiempo real: cartel y sonido, web instalable (PWA), notificaciones push | ✅ Funciona (push e instalación en el celular solo con https) |
 | Reportes con gráficos y ranking, CSV, PDF mensual, comentarios, auditoría | ✅ Funciona |
 | Servidor de IA de Morena (`servidor_ia/`) conectado con la web | ✅ Conectado; falta la prueba real con la cámara y el robot |
 | Publicación en internet (Render + Supabase) | 🔜 Código listo y probado con Postgres; Supabase cargado; falta publicar en Render (9.3) |
-| Hardware (robot, relé, cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`; el robot cambió el 29/10 a un WALL-E con orugas y ESP32-S3, con pruebas por pieza en `servidor_ia/walle_*` (PR #83). La conexión con la web del PR borrador #96 es para el robot anterior y hay que adaptarla; falta la prueba real (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
+| Hardware (robot y cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`: un WALL-E con orugas y ESP32-S3, con pruebas por pieza en `servidor_ia/walle_*`. El 15/11 se probó con todo junto: ante una falta, frena, muestra el signo de peligro y suena la alarma. La conexión con la web del PR borrador #96 es para el robot anterior y hay que adaptarla; falta la prueba con la web (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
 
 El detalle tarea por tarea está en [`docs/PLAN.md`](docs/PLAN.md) y los documentos de la empresa y el reporte de avance en [`docs/SMAT/`](../../docs/SMAT/) (en la raíz del repo).
 
@@ -162,7 +169,7 @@ backend\venv\Scripts\activate
 pip install -r backend\requirements-dev.txt      # una sola vez
 
 python -m pytest backend\tests        # 124 pruebas de la API (~2 min), usan la base robot_db_test
-python tests\correr_e2e.py            # 133 pruebas con navegador real (~9 min), usan robot_db_e2e
+python tests\correr_e2e.py            # 137 pruebas con navegador real (~10 min), usan robot_db_e2e
 ```
 Las pruebas **nunca tocan la base de desarrollo** (`robot_db`). Las de punta a punta levantan su propio backend (puerto 5001) y su propia web (5174), y prueban también el robot con el ESP32 simulado.
 En GitHub corren solas en cada Pull Request (`.github/workflows/smat-ci.yml`): si algo se rompe, el PR muestra una cruz roja.

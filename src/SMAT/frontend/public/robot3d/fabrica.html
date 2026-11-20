@@ -82,7 +82,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
 <div class="wrap">
   <header>
     <h1>DROID-E3D en la <span>fábrica</span></h1>
-    <p class="sub">Simulación del recorrido por los sectores de la planta: el robot revisa a cada operario y, si alguien no tiene el casco, frena, avisa, para la máquina y guarda la falta.</p>
+    <p class="sub">Simulación del recorrido por los sectores de la planta: el robot revisa a cada operario y, si alguien no tiene el casco, frena, da la alarma, avisa y guarda la falta. Las máquinas siguen andando.</p>
   </header>
 
   <div class="stage" id="stage">
@@ -102,7 +102,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
       <ol class="steps" id="steps">
         <li data-k="patrol"><span class="n">1</span><div><b>Patrulla</b><small>Recorre la ruta marcada en el piso.</small></div></li>
         <li data-k="scan"><span class="n">2</span><div><b>Escanea</b><small>La cámara de los ojos busca casco y reconoce la cara.</small></div></li>
-        <li data-k="alert"><span class="n">3</span><div><b>Alerta</b><small>Se frena, suena el buzzer y se para la máquina.</small></div></li>
+        <li data-k="alert"><span class="n">3</span><div><b>Alerta</b><small>Se frena, muestra el signo de peligro y suena la alarma.</small></div></li>
         <li data-k="log"><span class="n">4</span><div><b>Registra</b><small>Guarda la falta con fecha, hora y nombre.</small></div></li>
       </ol>
       <div class="counters">
@@ -115,7 +115,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
       <h2>Registro de incidencias</h2>
       <div class="tbl">
         <table>
-          <thead><tr><th>Hora</th><th>Operario</th><th>Falta</th><th>Sector</th><th>Máquina</th></tr></thead>
+          <thead><tr><th>Hora</th><th>Operario</th><th>Falta</th><th>Sector</th><th>Puesto</th></tr></thead>
           <tbody id="log"><tr><td colspan="5" class="empty">Todavía no hay faltas. La primera aparece cuando el robot llegue a la agujereadora.</td></tr></tbody>
         </table>
       </div>
@@ -402,7 +402,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
       ctx.beginPath(); ctx.arc(120, 90, 78, 0, Math.PI * 2); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(65, 35); ctx.lineTo(175, 145); ctx.stroke();
       ctx.font = '700 32px "IBM Plex Sans", sans-serif'; ctx.fillText('SIN CASCO!', 120, 196);
-      ctx.font = '600 20px "IBM Plex Sans", sans-serif'; ctx.fillText('MAQUINA PARADA', 120, 224);
+      ctx.font = '600 20px "IBM Plex Sans", sans-serif'; ctx.fillText('ALARMA', 120, 224);
     }
     lcd.tex.needsUpdate = true;
   }
@@ -970,7 +970,7 @@ td.mono { font-family: var(--mono); font-size: 13px; }
   function addLog(s) {
     if (logEl.querySelector('.empty')) logEl.innerHTML = '';
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td class="mono">' + hhmmss() + '</td><td>' + s.name + '</td><td><span class="pill">Sin casco</span></td><td>' + s.sector + '</td><td>' + s.m.name + ' detenida</td>';
+    tr.innerHTML = '<td class="mono">' + hhmmss() + '</td><td>' + s.name + '</td><td><span class="pill">Sin casco</span></td><td>' + s.sector + '</td><td>' + s.m.name + '</td>';
     logEl.prepend(tr);
     while (logEl.children.length > 6) logEl.lastChild.remove();
   }
@@ -1017,8 +1017,8 @@ td.mono { font-family: var(--mono); font-size: 13px; }
             counts.bad++; s.label.userData.draw('✖ SIN CASCO · ' + s.name, '#d7262b'); s.label.visible = true; s.box.material.color.setHex(0xd7262b);
             coneMat.color.setHex(0xd7262b);
             phase = 'alert'; phaseT = 0; setState('Alerta · ' + s.name + ' sin casco', 'alert'); setStep('alert', true); drawLCD('alert');
-            s.running = false; M.beacon.color.setHex(0xff2a1a);
-            setTimeout(() => { addLog(s); setStep('log', true); drawScreen(['ALERTA: ' + s.name, 'Falta: sin casco', s.m.name + ': PARADA', 'Faltas hoy: ' + counts.bad], true); }, 1200 / timeScale);
+            M.beacon.color.setHex(0xff2a1a);
+            setTimeout(() => { addLog(s); setStep('log', true); drawScreen(['ALERTA: ' + s.name, 'Falta: sin casco', 'Robot: ALARMA', 'Faltas hoy: ' + counts.bad], true); }, 1200 / timeScale);
           }
           updateCounters();
         }

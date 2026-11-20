@@ -41,6 +41,9 @@ copia, para no perder esos cambios. Los renders siguen como estaban: originales 
   acerca, y el jurado puede preguntarlo. Se aceptó porque el robot igual se ve en la planta y su recorrido es fijo.
 - **El empleado no ve las alertas de otros.** En su mapa, las demás zonas no dicen «Todo en orden»: solo si su máquina
   está parada.
-- Los archivos muestran el robot anterior: orugas, driver DRV8833 y pantalla de 1,3". El robot cambió el 29/10 a ruedas,
-  TB6612FNG, ESP32-S3 y pantalla de 1,54". Se actualizan en Claude y se vuelven a copiar; hasta entonces, «Cómo
-  funciona» aclara debajo del render que es un modelo de diseño.
+- Los archivos muestran el robot de diseño: orugas, driver DRV8833 y pantalla de 1,3". El robot actual también tiene
+  orugas (volvió a ellas el 15/11), pero usa ESP32-S3, driver TB6612FNG y pantalla ST7789. «Cómo funciona» aclara debajo
+  del render que es un modelo de diseño.
+- **Sin corte de máquina** (decisión 010, 20/11): los originales de Claude todavía muestran que el robot para la máquina.
+  `copiar_renders.py` lo corrige al copiarlos (el robot se detiene y da la alarma; la máquina sigue andando), y
+  `test_renders.py` controla que no vuelva.
