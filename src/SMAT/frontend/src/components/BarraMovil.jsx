@@ -10,7 +10,8 @@ import { BotonGuia } from './GuiaInteractiva.jsx'
 import Icono from './Icono.jsx'
 import Logo from './Logo.jsx'
 
-const boton = 'grid size-9 place-items-center rounded-lg text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'
+// size-8: con el idioma y la guía, a 360 px no entraban los botones y el logo se partía en dos renglones
+const boton = 'grid size-8 place-items-center rounded-lg text-zinc-500 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:bg-zinc-800'
 
 export default function BarraMovil() {
   const { usuario, cerrarSesion } = useAuth()
@@ -21,8 +22,8 @@ export default function BarraMovil() {
   return (
     <header className="sticky top-0 z-30 border-b border-zinc-200/80 bg-white/90 backdrop-blur md:hidden dark:border-zinc-800 dark:bg-zinc-900/90">
       <div className="h-1 franja-marca" />
-      <div className="flex h-14 items-center justify-between px-4">
-        <Link to={inicioSegunRol(usuario)} aria-label={t('Ir al inicio')}><Logo className="size-8" /></Link>
+      <div className="flex h-14 items-center justify-between gap-2 px-3">
+        <Link to={inicioSegunRol(usuario)} aria-label={t('Ir al inicio')}><Logo className="size-8" textoClase="max-[339px]:hidden" /></Link>
         <div className="flex items-center gap-0.5">
           <button type="button" onClick={sonido.alternar} className={boton} aria-pressed={sonido.activado} aria-label={t('Sonido de alertas')} data-guia="sonido">
             <Icono nombre={sonido.activado ? 'campana' : 'silencio'} />

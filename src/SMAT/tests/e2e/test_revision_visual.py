@@ -86,6 +86,12 @@ def test_pantalla_se_ve_bien(abrir, pantalla, tamano, tema):
     salidos = pag.evaluate(TEXTOS_DESBORDADOS)
     assert not salidos, f"{ruta} tiene textos que se salen de su tarjeta en {tamano}: {salidos}"
 
+    # El nombre del logo entra en un renglón (en el celular se partía al sumar los botones de idioma y guía)
+    partidos = pag.evaluate("""[...document.querySelectorAll('header span, aside span')]
+        .filter(e => e.textContent === 'DROID-E3D' && e.offsetParent
+                     && e.getBoundingClientRect().height > parseFloat(getComputedStyle(e).fontSize) * 1.6).length""")
+    assert not partidos, f"{ruta}: el nombre del logo se parte en dos renglones en {tamano}"
+
     oscuro = pag.evaluate("document.documentElement.classList.contains('dark')")
     assert oscuro == (tema == "oscuro"), f"{ruta}: el tema {tema} no se aplicó"
 

@@ -1,6 +1,7 @@
 // Logo de DROID-E3D: una letra D naranja con el lente de una cámara (ver el manual de marca).
-// conTexto = muestra también "DROID-E3D by IDEPP" al lado.
-export default function Logo({ conTexto = true, className = 'size-9' }) {
+// conTexto = muestra también "DROID-E3D by IDEPP" al lado. textoClase = clases para ese texto (por ejemplo, ocultarlo en
+// pantallas muy chicas).
+export default function Logo({ conTexto = true, className = 'size-9', textoClase = '' }) {
   return (
     <span className="inline-flex items-center gap-2">
       <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
@@ -15,9 +16,9 @@ export default function Logo({ conTexto = true, className = 'size-9' }) {
         <circle cx="34.5" cy="28.5" r="2.3" fill="#f5b800" />
       </svg>
       {conTexto && (
-        <span className="leading-none">
+        <span className={`leading-none ${textoClase}`}>
           {/* El nombre como en la caja: Montserrat gruesa e inclinada, con "E3D" en naranja */}
-          <span className="block font-titulo text-base font-black tracking-tight italic">DROID-<span className="text-marca">E3D</span></span>
+          <span className="block font-titulo text-base font-black tracking-tight whitespace-nowrap italic">DROID-<span className="text-marca">E3D</span></span>
           <span className="block text-[11px] font-medium text-zinc-500 dark:text-zinc-400">by IDEPP</span>
         </span>
       )}

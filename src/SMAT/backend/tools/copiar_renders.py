@@ -1,10 +1,12 @@
 """Copia los renders de DROID-E3D (los HTML descargados de Claude) a la web: frontend/public/robot3d.
 
-Se copian tal cual, salvo dos cosas:
+Se copian tal cual, salvo tres cosas:
   - los enlaces a internet (Three.js y las tipografías) pasan a ser archivos locales, para que anden sin
     conexión el día de la demo, y se suma embebido.js, que solo actúa cuando el archivo está dentro de la web;
   - si todavía dicen SMAT (el nombre viejo de la empresa), el logo del chasis pasa a decir IDEPP y los títulos
-    DROID-E3D, como quedó en el PR #104.
+    DROID-E3D, como quedó en el PR #104;
+  - si todavía dicen que el robot para la máquina, se corrige: el robot se detiene y da la alarma, y las máquinas
+    siguen andando (decisión 010).
 
 El juego (patrulla.html) ya no se copia: desde el 20/11/2026 se edita directamente en la web (nombre del jugador,
 ranking, los 4 equipos de protección). Si se volviera a copiar el de Claude, se perderían esos cambios.
@@ -39,6 +41,25 @@ CAMBIOS = [
      '<script src="/robot3d/OrbitControls.js"></script>'),
 ]
 
+# Sin corte de máquina (decisión 010). Los originales de Claude todavía lo muestran; si ya no lo dicen, no se cambia nada
+SIN_CORTE_DE_MAQUINA = [
+    ("si alguien no tiene el casco, frena, avisa, para la máquina y guarda la falta.",
+     "si alguien no tiene el casco, frena, da la alarma, avisa y guarda la falta. Las máquinas siguen andando."),
+    ("<small>Se frena, suena el buzzer y se para la máquina.</small>",
+     "<small>Se frena, muestra el signo de peligro y suena la alarma.</small>"),
+    ("<th>Sector</th><th>Máquina</th>", "<th>Sector</th><th>Puesto</th>"),
+    ("s.m.name + ' detenida</td>'", "s.m.name + '</td>'"),
+    ("ctx.fillText('MAQUINA PARADA', 120, 224);", "ctx.fillText('ALARMA', 120, 224);"),
+    ("s.running = false; M.beacon.color.setHex(0xff2a1a);", "M.beacon.color.setHex(0xff2a1a);"),
+    ("s.m.name + ': PARADA'", "'Robot: ALARMA'"),
+]
+
+
+def sin_corte_de_maquina(texto):
+    for viejo, nuevo in SIN_CORTE_DE_MAQUINA:
+        texto = texto.replace(viejo, nuevo)
+    return texto
+
 
 def main():
     ap = argparse.ArgumentParser(description="Copia los renders a frontend/public/robot3d")
@@ -58,6 +79,7 @@ def main():
         # El nombre viejo: el logo del chasis dice IDEPP (la empresa) y el resto, DROID-E3D (el producto)
         texto = texto.replace("ctx.fillText('SMAT',", "ctx.fillText('IDEPP',")
         texto = re.sub(r"\bSMAT\b", "DROID-E3D", texto)
+        texto = sin_corte_de_maquina(texto)
         if "https://" in texto.replace("http://www.w3.org", ""):
             print(f"Ojo: «{origen}» todavía tiene algún enlace a internet. Revisalo: no andaría sin conexión.")
         with open(os.path.join(DESTINO, nombre), "w", encoding="utf-8", newline="") as salida:
