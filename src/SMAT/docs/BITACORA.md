@@ -7,6 +7,8 @@
 **Hecho**
 - 18/11: **La web deja el corte de máquina** (decisión 010): sin parada automática, sin botones para detener o reactivar, sin el endpoint del ESP32 de la máquina y sin «paradas de máquina» en los reportes (ahora, zonas con alertas). Cada alerta de la IA queda en la auditoría. Los textos públicos dicen que el robot tiene orugas y da la alarma en la zona.
 - 20/11: **Juego para mostrar** (Patrulla DROID-E3D): pide el nombre del jugador, tiene menú con pestañas (Jugar, Ranking y Cómo se juega) y guarda los 10 mejores puntajes por modo y dificultad en el navegador. A la gente le puede faltar el casco, los guantes, los lentes o el chaleco; suma racha de faltas seguidas, cuenta regresiva y pausa sola al cambiar de pestaña. Como el robot real, ya no frena la máquina. Desde ahora el juego se edita en la web y no se vuelve a copiar de Claude.
+- 20/11: **Etapa 5 de la consigna** (#101): la web es **bilingüe** (botón ES/EN en la página pública y en la app, que se recuerda), tiene una **guía interactiva** que recorre cada página con el botón «?» y un **asistente de preguntas frecuentes** en la página pública (precios, qué detecta, la alarma, las fotos y la demo), sin librerías ni internet.
+- 20/11: Una prueba con 3D fallaba de a ratos en esta computadora, también en `main`: con el 3D por software, a veces la página nunca quedaba medio segundo sin pedidos. Las pruebas con 3D ya no esperan eso.
 
 **Problemas**
 - Al borrar una carpeta de trabajo de git con `node_modules` enlazado, se vació el `node_modules` de la carpeta principal. Se recuperó con `npm ci`.

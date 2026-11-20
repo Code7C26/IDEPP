@@ -203,8 +203,8 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] M.5 Renders 3D y juego en la web: los archivos originales de Claude, en iframes (decisión 008). Empleado y encargado con la zona real en el mapa y la simulación aclarada; Inicio, Cómo funciona y `/juego` con los archivos completos (#93)
 - [ ] M.6 (con Morena) El robot informa su zona (#95). Las marcas en el piso dependen de los sensores de línea, que el robot nuevo todavía no tiene: hay que volver a definirlo
 - [x] M.7 Textos de la web: el robot actual y lo que hoy detecta la IA (#101)
-- [ ] M.8 Función bilingüe español-inglés (#101)
-- [ ] M.9 Versión interactiva: chatbot simple de preguntas frecuentes (#101)
+- [x] M.8 Función bilingüe español-inglés: botón ES/EN en la página pública y en la app, con las frases clave traducidas (#101)
+- [x] M.9 Versión interactiva: asistente de preguntas frecuentes en la página pública y guía interactiva (botón «?») en todas las páginas (#101)
 - [ ] M.10 Actualizar los renders en Claude con el robot nuevo y volver a copiarlos (`tools/copiar_renders.py`)
 - [x] M.11 La empresa pasa a ser IDEPP: web, documentos y logos (Morena, PR #104); informe PDF, copia de los renders, «oruga» y Word (decisión 009)
 - [x] M.12 Sin corte de máquina: el robot se detiene y da la alarma; la web deja de mostrar y controlar máquinas, y los textos públicos dicen orugas (decisión 010)
