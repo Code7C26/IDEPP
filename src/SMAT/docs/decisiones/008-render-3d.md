@@ -16,6 +16,11 @@ en tiempo real por dónde anda. Hizo en Claude tres páginas: «Robot DROID-E3D 
 Los archivos originales en `frontend/public/robot3d`, en iframes (`components/RenderEmbebido.jsx`). No se editan ahí:
 se cambian en Claude, se descargan y se copian con `backend/tools/copiar_renders.py`.
 
+**Actualización 20/11/2026:** el juego se edita en la web. Tiziano pidió mejorarlo para mostrarlo: pantalla para
+cargar el nombre, menú con pestañas, ranking de los 10 mejores por modo y dificultad (guardado en el navegador),
+faltas de casco, guantes, lentes o chaleco, racha, cuenta regresiva y pausa automática. `copiar_renders.py` ya no lo
+copia, para no perder esos cambios. Los renders siguen como estaban: originales de Claude.
+
 ## Consecuencias
 - La copia solo cambia los enlaces a internet por archivos locales (Three.js 0.128, la versión que usan, y las
   tipografías). Sin esto no andarían en la demo sin conexión.

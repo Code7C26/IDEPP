@@ -1,4 +1,4 @@
-"""Copia los renders y el juego de DROID-E3D (los HTML descargados de Claude) a la web: frontend/public/robot3d.
+"""Copia los renders de DROID-E3D (los HTML descargados de Claude) a la web: frontend/public/robot3d.
 
 Se copian tal cual, salvo dos cosas:
   - los enlaces a internet (Three.js y las tipografías) pasan a ser archivos locales, para que anden sin
@@ -6,7 +6,10 @@ Se copian tal cual, salvo dos cosas:
   - si todavía dicen SMAT (el nombre viejo de la empresa), el logo del chasis pasa a decir IDEPP y los títulos
     DROID-E3D, como quedó en el PR #104.
 
-Si cambiás un render o el juego en Claude, descargalo de nuevo y corré esto:
+El juego (patrulla.html) ya no se copia: desde el 20/11/2026 se edita directamente en la web (nombre del jugador,
+ranking, los 4 equipos de protección). Si se volviera a copiar el de Claude, se perderían esos cambios.
+
+Si cambiás un render en Claude, descargalo de nuevo y corré esto:
     cd backend
     python tools/copiar_renders.py                     # los busca en la carpeta Descargas
     python tools/copiar_renders.py --carpeta C:\\otra   # o en otra carpeta
@@ -23,7 +26,6 @@ DESTINO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "
 ARCHIVOS = {
     "robot.html": ["Robot DROID-E3D 3D.html", "Robot SMAT 3D.html"],
     "fabrica.html": ["DROID-E3D en la fábrica.html", "SMAT en la fábrica.html"],
-    "patrulla.html": ["Patrulla DROID-E3D.html", "Patrulla SMAT.html"],
 }
 
 # Qué se reemplaza en cada archivo: si alguno falta, el archivo cambió y hay que revisarlo a mano
@@ -39,7 +41,7 @@ CAMBIOS = [
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Copia los renders y el juego a frontend/public/robot3d")
+    ap = argparse.ArgumentParser(description="Copia los renders a frontend/public/robot3d")
     ap.add_argument("--carpeta", default=os.path.join(os.path.expanduser("~"), "Downloads"), help="dónde están los HTML descargados")
     args = ap.parse_args()
 

@@ -208,6 +208,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [ ] M.10 Actualizar los renders en Claude con el robot nuevo y volver a copiarlos (`tools/copiar_renders.py`)
 - [x] M.11 La empresa pasa a ser IDEPP: web, documentos y logos (Morena, PR #104); informe PDF, copia de los renders, «oruga» y Word (decisión 009)
 - [x] M.12 Sin corte de máquina: el robot se detiene y da la alarma; la web deja de mostrar y controlar máquinas, y los textos públicos dicen orugas (decisión 010)
+- [x] M.13 Juego para mostrar: nombre del jugador, menú con pestañas, ranking por modo y dificultad, los 4 equipos de protección, racha, cuenta regresiva y pausa automática (decisión 008, actualización)
 
 ### Fase E · Empresa IDEPP desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Tiziano, Morena) escribe su parte; Claude ayuda solo en las de Tiziano y deja `TODO (socio)` donde falte una decisión.

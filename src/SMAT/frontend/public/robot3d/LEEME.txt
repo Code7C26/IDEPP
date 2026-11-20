@@ -1,10 +1,12 @@
-Renders y juego de DROID-E3D, hechos en Claude. No se editan acá: se cambian en Claude, se descargan y se copian
-con backend/tools/copiar_renders.py, que reemplaza los enlaces a internet por estos archivos locales y, si todavía
+Renders y juego de DROID-E3D, hechos en Claude. Los renders no se editan acá: se cambian en Claude, se descargan y
+se copian con backend/tools/copiar_renders.py, que reemplaza los enlaces a internet por estos archivos locales y, si todavía
 dicen SMAT, pone IDEPP en el chasis y DROID-E3D en los títulos.
 
 robot.html     Robot DROID-E3D 3D
 fabrica.html   DROID-E3D en la fábrica
-patrulla.html  Patrulla DROID-E3D (el juego)
+patrulla.html  Patrulla DROID-E3D (el juego). Este SÍ se edita acá desde el 20/11/2026: tiene pantalla para el
+               nombre del jugador, ranking guardado en el navegador y los 4 equipos de protección.
+               copiar_renders.py ya no lo copia.
 embebido.js    Los acomoda cuando están dentro de la web. Abiertos solos, no hace nada.
 
 Terceros:

@@ -79,29 +79,37 @@ body {
 @media (pointer: coarse) { .hint { bottom: 92px; } }
 .pad button.scan { width: 74px; height: 74px; background: var(--alert); color: #fff; font-size: 26px; }
 .below { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
-@media (max-width: 760px) { .opts { display: grid; gap: 6px; }
-.opts h3 { font: 600 11px var(--body); letter-spacing: .1em; text-transform: uppercase; margin: 4px 0 0; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { font: 600 13px var(--body); padding: 5px 10px; border: 2px solid var(--ink); background: #fff7d6; color: var(--ink); cursor: pointer; }
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--safety); }
-.chip:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-.modeDesc { font-size: 13px; min-height: 2.6em; }
-.dialog { max-height: 100%; overflow-y: auto; }
-.row { display: flex; flex-wrap: wrap; gap: 8px; }
-.ghost { background: transparent; color: var(--ink); }
-.ghost:hover { background: rgba(0,0,0,.08); }
-.offroad { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); background: var(--alert); color: #fff; border: 3px solid var(--ink); padding: 10px 18px; text-align: center; font: 400 clamp(18px, 3vw, 30px)/1.1 var(--display); pointer-events: none; animation: blink .6s steps(2) infinite; }
-.offroad small { display: block; font: 600 14px var(--body); margin-top: 4px; }
-@keyframes blink { 50% { background: #7a0d10; } }
-@media (prefers-reduced-motion: reduce) { .offroad { animation: none; } }
-.hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); background: rgba(29,33,28,.85); color: #fff; font: 600 15px var(--body); padding: 5px 12px; pointer-events: none; white-space: nowrap; }
-.hint .kbd { color: var(--ink); }
-@media (pointer: coarse) { .hint { bottom: 92px; } }
-.pad button.scan { width: 74px; height: 74px; background: var(--alert); color: #fff; font-size: 26px; }
-.below { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) { .below { grid-template-columns: minmax(0, 1fr); } }
 .card { background: var(--panel); border: 1px solid var(--line); padding: 16px; min-width: 0; }
 .card h3 { font: 600 12px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
 .card p { margin: 0 0 6px; max-width: 65ch; }
+/* Menú de inicio: jugador, pestañas y ranking (guardado en este navegador) */
+.stage { min-height: 440px; }
+.dialog.ancho { max-width: 640px; }
+.dialog h3 { font: 600 11px var(--body); letter-spacing: .1em; text-transform: uppercase; margin: 4px 0 0; }
+.saludo { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; font-weight: 600; }
+.link { background: none; border: 0; padding: 0; font: 600 13px var(--body); color: var(--ink); text-decoration: underline; cursor: pointer; }
+.link:focus-visible, .tab:focus-visible, .campo:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.campo { font: 600 18px var(--body); padding: 8px 10px; border: 3px solid var(--ink); background: #fff; color: #1d211c; width: 100%; box-sizing: border-box; }
+.aviso { font-weight: 600; color: #7a0d10; }
+.tabs { display: flex; flex-wrap: wrap; border-bottom: 3px solid var(--ink); }
+.tab { font: 400 15px var(--display); padding: 6px 12px; background: transparent; color: var(--ink); border: 0; cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--safety); }
+.panel { display: grid; gap: 10px; }
+.tabla { width: 100%; border-collapse: collapse; font: 500 14px var(--mono); font-variant-numeric: tabular-nums; background: #fff7d6; }
+.tabla th { font: 600 11px var(--body); letter-spacing: .08em; text-transform: uppercase; text-align: left; padding: 4px 8px; border-bottom: 2px solid var(--ink); }
+.tabla td { padding: 4px 8px; border-bottom: 1px solid rgba(29,33,28,.2); overflow-wrap: break-word; }
+.tabla .num { text-align: right; white-space: nowrap; }
+.tabla th:first-child { width: 2.5em; text-align: center; }
+.tabla td:first-child { text-align: center; }
+@media (max-width: 480px) {
+  .tab { font-size: 13px; padding: 6px 8px; }
+  .tabla td, .tabla th { padding: 4px 5px; }
+  .tabla .fecha { display: none; }
+}
+.tabla tr.yo td { background: var(--ink); color: var(--safety); }
+.chica { font-size: 13px; }
+.cuenta { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); font: 400 clamp(56px, 12vw, 120px)/1 var(--display); color: var(--safety); text-shadow: 5px 5px 0 var(--ink); pointer-events: none; }
 </style>
 
 <div class="wrap">
@@ -112,7 +120,9 @@ body {
       <div>TIEMPO<b id="time">90</b></div>
       <div id="modeTag">CLÁSICO</div>
       <div class="lives" id="lives">VIDAS</div>
+      <div id="combo">RACHA<b id="comboN">0</b></div>
     </div>
+    <div class="cuenta" id="cuenta" hidden>3</div>
     <div class="offroad" id="offroad" hidden>⚠ FUERA DE LA RUTA<small>Volvé a la calle amarilla</small></div>
     <div class="hint" id="hint" hidden>Apretá <span class="kbd">R</span> para escanear</div>
     <div class="toast" id="toast" style="opacity:0">¡Bien!</div>
@@ -121,49 +131,103 @@ body {
       <div class="grp"><button class="scan" id="padScan" aria-label="Escanear">R</button></div>
       <div class="grp"><button data-k="down" aria-label="Retroceder">▼</button><button data-k="up" aria-label="Avanzar">▲</button></div>
     </div>
-    <div class="overlay" id="menu">
-      <div class="dialog">
+    <div class="overlay" id="inicio" hidden>
+      <form class="dialog" id="formNombre" novalidate>
         <h1>Patrulla DROID-E3D</h1>
-        <p>Sos el robot de seguridad. Andá por la calle amarilla y, cuando alguien se saque el casco (aparece un <b>⚠</b>), acercate y apretá <span class="kbd">R</span> para escanearlo.</p>
-        <div class="opts">
-          <h3>Modo de juego</h3>
-          <div class="chips" id="modeChips">
-            <button class="chip" data-mode="clasico">Turno clásico</button>
-            <button class="chip" data-mode="contrarreloj">Contrarreloj</button>
-            <button class="chip" data-mode="supervivencia">Supervivencia</button>
-            <button class="chip" data-mode="practica">Práctica</button>
-          </div>
-          <p class="modeDesc" id="modeDesc"></p>
-          <h3>Dificultad</h3>
-          <div class="chips" id="diffChips">
-            <button class="chip" data-diff="facil">Fácil</button>
-            <button class="chip" data-diff="normal">Normal</button>
-            <button class="chip" data-diff="dificil">Difícil</button>
-          </div>
-          <h3>Cámara</h3>
-          <div class="chips" id="camChips">
-            <button class="chip" data-cam="atras">Detrás del robot</button>
-            <button class="chip" data-cam="arriba">Desde arriba</button>
-          </div>
+        <p>Sos el robot de seguridad de la fábrica. Antes de arrancar, decinos quién juega: tus puntos van al ranking de este equipo.</p>
+        <label for="nombre"><b>¿Cómo te llamás?</b></label>
+        <input class="campo" id="nombre" maxlength="16" autocomplete="nickname" placeholder="Tu nombre o apodo" aria-describedby="avisoNombre">
+        <p class="aviso" id="avisoNombre" hidden>Escribí un nombre de 2 letras o más.</p>
+        <div class="opts" id="previos" hidden>
+          <h3>Ya jugaron en este equipo</h3>
+          <div class="chips" id="chipsPrevios"></div>
         </div>
-        <p style="font-size:13px">Moverse: <span class="kbd">↑</span><span class="kbd">↓</span><span class="kbd">←</span><span class="kbd">→</span> o <span class="kbd">WASD</span> · Escanear: <span class="kbd">R</span> · Pausa: <span class="kbd">P</span></p>
-        <p id="bestMenu"></p>
-        <button class="play" id="btnPlay">JUGAR</button>
+        <div class="row"><button class="play" type="submit">ENTRAR</button><button class="play ghost" type="button" id="btnVolver" hidden>VOLVER</button></div>
+      </form>
+    </div>
+    <div class="overlay" id="menu" hidden>
+      <div class="dialog ancho">
+        <h1>Patrulla DROID-E3D</h1>
+        <div class="saludo"><span>Hola, <span id="nombreJugador"></span></span><button class="link" id="btnCambiar">Cambiar de jugador</button></div>
+        <div class="tabs" role="tablist" aria-label="Menú">
+          <button class="tab" role="tab" id="tab-jugar" data-tab="jugar" aria-controls="panel-jugar">JUGAR</button>
+          <button class="tab" role="tab" id="tab-ranking" data-tab="ranking" aria-controls="panel-ranking">RANKING</button>
+          <button class="tab" role="tab" id="tab-ayuda" data-tab="ayuda" aria-controls="panel-ayuda">CÓMO SE JUEGA</button>
+        </div>
+        <div class="panel" role="tabpanel" id="panel-jugar" aria-labelledby="tab-jugar">
+          <div class="opts">
+            <h3>Modo de juego</h3>
+            <div class="chips" id="modeChips">
+              <button class="chip" data-mode="clasico">Turno clásico</button>
+              <button class="chip" data-mode="contrarreloj">Contrarreloj</button>
+              <button class="chip" data-mode="supervivencia">Supervivencia</button>
+              <button class="chip" data-mode="practica">Práctica</button>
+            </div>
+            <p class="modeDesc" id="modeDesc"></p>
+            <h3>Dificultad</h3>
+            <div class="chips" id="diffChips">
+              <button class="chip" data-diff="facil">Fácil</button>
+              <button class="chip" data-diff="normal">Normal</button>
+              <button class="chip" data-diff="dificil">Difícil</button>
+            </div>
+            <h3>Cámara</h3>
+            <div class="chips" id="camChips">
+              <button class="chip" data-cam="atras">Detrás del robot</button>
+              <button class="chip" data-cam="arriba">Desde arriba</button>
+            </div>
+          </div>
+          <p id="bestMenu"></p>
+          <button class="play" id="btnPlay">JUGAR</button>
+        </div>
+        <div class="panel" role="tabpanel" id="panel-ranking" aria-labelledby="tab-ranking" hidden>
+          <div class="opts">
+            <h3>Modo</h3>
+            <div class="chips" id="rankModo">
+              <button class="chip" data-mode="clasico">Turno clásico</button>
+              <button class="chip" data-mode="contrarreloj">Contrarreloj</button>
+              <button class="chip" data-mode="supervivencia">Supervivencia</button>
+            </div>
+            <h3>Dificultad</h3>
+            <div class="chips" id="rankDif">
+              <button class="chip" data-diff="facil">Fácil</button>
+              <button class="chip" data-diff="normal">Normal</button>
+              <button class="chip" data-diff="dificil">Difícil</button>
+            </div>
+          </div>
+          <table class="tabla" id="tablaRanking"></table>
+          <p class="chica" id="rankVacio" hidden>Todavía nadie jugó en este modo. ¡Podés ser el primero!</p>
+          <p class="chica">Los 10 mejores puntajes de este equipo. Tus partidas aparecen resaltadas.</p>
+          <div><button class="link" id="btnBorrar">Borrar el ranking de este equipo</button></div>
+        </div>
+        <div class="panel" role="tabpanel" id="panel-ayuda" aria-labelledby="tab-ayuda" hidden>
+          <p>Andá por la calle amarilla. Cuando a alguien le falta el <b>casco</b>, los <b>guantes</b>, los <b>lentes</b> o el <b>chaleco</b>, aparece un <b>⚠</b> con un anillo naranja: acercate y escanealo.</p>
+          <ul>
+            <li>Moverse: <span class="kbd">↑</span><span class="kbd">↓</span><span class="kbd">←</span><span class="kbd">→</span> o <span class="kbd">WASD</span> · Escanear: <span class="kbd">R</span> · Pausa: <span class="kbd">P</span> o <span class="kbd">Esc</span>. En el celular, con los botones de la pantalla.</li>
+            <li>Cada falta que encontrás suma 100 puntos, más un extra si llegás rápido.</li>
+            <li>Racha: si encontrás varias seguidas sin errores, los puntos valen ×1,5 desde la 3.ª y ×2 desde la 5.ª.</li>
+            <li>Escanear a alguien que tenía todo puesto es una falsa alarma: −50 y se corta la racha.</li>
+            <li>Fuera de la ruta perdés puntos y no podés escanear.</li>
+            <li>Si se te pasa alguien, perdés una vida (o 150 puntos en contrarreloj).</li>
+          </ul>
+          <p class="chica">Como el robot real: se detiene, da la alarma y la persona se pone su equipo. Las máquinas siguen andando.</p>
+        </div>
       </div>
     </div>
     <div class="overlay" id="pause" hidden>
       <div class="dialog">
         <h2>Pausa</h2>
-        <div class="row"><button class="play" id="btnResume">SEGUIR</button><button class="play ghost" id="btnQuit">SALIR AL MENÚ</button></div>
+        <p class="chica">Apretá <span class="kbd">P</span> o <span class="kbd">Esc</span> para seguir.</p>
+        <div class="row"><button class="play" id="btnResume">SEGUIR</button><button class="play ghost" id="btnQuit">TERMINAR</button></div>
       </div>
     </div>
     <div class="overlay" id="over" hidden>
-      <div class="dialog">
+      <div class="dialog ancho">
         <h2 id="overTitle">¡Turno terminado!</h2>
         <div><span class="big" id="final">0</span> puntos</div>
-        <p id="overText"></p>
-        <p id="bestOver"></p>
-        <div class="row"><button class="play" id="btnAgain">JUGAR OTRA VEZ</button><button class="play ghost" id="btnMenu">CAMBIAR MODO</button></div>
+        <p id="overPuesto"></p>
+        <p id="overText" class="chica"></p>
+        <table class="tabla" id="tablaOver"></table>
+        <div class="row"><button class="play" id="btnAgain">JUGAR OTRA VEZ</button><button class="play ghost" id="btnVerRanking">VER RANKING</button><button class="play ghost" id="btnMenu">MENÚ</button></div>
       </div>
     </div>
   </div>
@@ -171,11 +235,12 @@ body {
   <div class="below">
     <div class="card">
       <h3>Cómo se juega</h3>
-      <p>Recorré la calle amarilla de los 6 sectores. Si te salís, suena una alerta hasta que vuelvas. Cuando alguien se saca el casco, acercate y apretá R: el robot lo escanea, suena la alarma, se frena la máquina y la persona se lo vuelve a poner. Si escaneás a alguien que sí tenía casco, es una falsa alarma y perdés puntos.</p>
+      <p>Recorré la calle amarilla de los 6 sectores. Cuando a alguien le falta el casco, los guantes, los lentes o el chaleco, acercate y apretá R: el robot lo escanea, se detiene, da la alarma y la persona se pone su equipo. Si escaneás a alguien que tenía todo puesto, es una falsa alarma y perdés puntos. Si te salís de la ruta, suena una alerta hasta que vuelvas.</p>
+      <p>Al empezar, cargás tu nombre: los puntajes quedan en el ranking de este equipo, por modo y dificultad.</p>
     </div>
     <div class="card">
       <h3>¿Qué es DROID-E3D?</h3>
-      <p>Un robot que recorre la planta, mira con la cámara de sus ojos si cada trabajador tiene el casco puesto y, si no lo tiene, frena la máquina y avisa. Menos accidentes, sin tener a alguien vigilando todo el día.</p>
+      <p>Un robot con orugas que recorre la planta y, con la cámara de sus ojos y una inteligencia artificial, revisa si cada persona tiene puesto su equipo de protección. Si falta algo, se detiene, da la alarma y avisa al celular del encargado. Las máquinas siguen andando. Menos accidentes, sin tener a alguien vigilando todo el día.</p>
     </div>
   </div>
 </div>
@@ -435,8 +500,8 @@ body {
     ctx.fillRect(x - s * 1.3, y - s * 0.05, s * 2.6, s * 0.22);
     ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(x - s * 0.12, y - s, s * 0.24, s);
   }
-  // modos: 'ok', 'scan', 'alert' (también acepta true/false)
-  function drawLCD(alert) {
+  // modos: 'ok', 'scan', 'alert' (también acepta true/false). En 'alert', falta = el equipo que no tenía
+  function drawLCD(alert, falta) {
     const mode = typeof alert === 'string' ? alert : (alert ? 'alert' : 'ok');
     const ctx = lcd.ctx, w = 240, h = 240;
     const bg = { ok: '#0f6b35', scan: '#123a8c', alert: '#b3161c', off: '#c26a00' }[mode];
@@ -446,7 +511,7 @@ body {
       drawHelmet(ctx, 120, 110, 52, '#f2d000');
       ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 12; ctx.lineCap = 'round';
       ctx.beginPath(); ctx.moveTo(150, 128); ctx.lineTo(166, 146); ctx.lineTo(196, 112); ctx.stroke();
-      ctx.font = '700 34px "IBM Plex Sans", sans-serif'; ctx.fillText('CASCO OK', 120, 192);
+      ctx.font = '700 34px "IBM Plex Sans", sans-serif'; ctx.fillText('EPP OK', 120, 192);
     } else if (mode === 'scan') {
       ctx.strokeStyle = '#7fb0ff'; ctx.lineWidth = 6;
       [30, 55, 80].forEach(r => { ctx.beginPath(); ctx.arc(120, 105, r, 0, Math.PI * 2); ctx.stroke(); });
@@ -460,8 +525,8 @@ body {
       ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 14; ctx.lineCap = 'round';
       ctx.beginPath(); ctx.arc(120, 90, 78, 0, Math.PI * 2); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(65, 35); ctx.lineTo(175, 145); ctx.stroke();
-      ctx.font = '700 32px "IBM Plex Sans", sans-serif'; ctx.fillText('SIN CASCO!', 120, 196);
-      ctx.font = '600 20px "IBM Plex Sans", sans-serif'; ctx.fillText('MAQUINA PARADA', 120, 224);
+      ctx.font = '700 32px "IBM Plex Sans", sans-serif'; ctx.fillText('SIN ' + (falta || 'casco').toUpperCase() + '!', 120, 196, 224);
+      ctx.font = '600 20px "IBM Plex Sans", sans-serif'; ctx.fillText('ALARMA', 120, 224);
     }
     lcd.tex.needsUpdate = true;
   }
@@ -888,11 +953,12 @@ body {
       const boot = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.28), M.black); boot.position.set(x, 0.05, 0.04); g.add(boot);
     });
     const torso = roundedBox(0.46, 0.62, 0.26, 0.06, shirt); torso.position.y = 1.2; g.add(torso);
-    const arms = [];
+    const arms = [], hands = [];
+    const glovesMat = mat(0xe0c040);
     [-1, 1].forEach(s => {
       const arm = new THREE.Group();
       const up = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.055, 0.55, 10), shirt); up.position.y = -0.27; arm.add(up);
-      const hand = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), o.gloves ? mat(0xe0c040) : skin); hand.position.y = -0.58; arm.add(hand);
+      const hand = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), o.gloves ? glovesMat : skin); hand.position.y = -0.58; arm.add(hand); hands.push(hand);
       arm.position.set(s * 0.29, 1.47, 0); arm.rotation.z = s * 0.08; g.add(arm); arms.push(arm);
     });
     const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.1, 10), skin); neck.position.y = 1.55; g.add(neck);
@@ -911,10 +977,10 @@ body {
     const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.02, 24), shell.material); brim.position.set(0, 0, 0.03); brim.scale.set(1, 1, 1.15); helmet.add(brim);
     const ridge = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.018, 6, 24, Math.PI), shell.material); ridge.rotation.y = Math.PI / 2; helmet.add(ridge);
     helmet.position.y = 1.8; g.add(helmet);
-    // anteojos
-    if (o.glasses) { const gl = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.05, 0.04), mat(0x223344, { roughness: 0.1, metalness: 0.5, transparent: true, opacity: 0.85 })); gl.position.set(0, 1.73, 0.13); g.add(gl); }
+    // anteojos (en el juego cualquiera se los puede sacar: se crean siempre y se muestran u ocultan)
+    const glasses = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.05, 0.04), mat(0x223344, { roughness: 0.1, metalness: 0.5, transparent: true, opacity: 0.85 })); glasses.position.set(0, 1.73, 0.13); glasses.visible = !!o.glasses; g.add(glasses);
     shadowAll(g);
-    return { g, helmet, arms, vest };
+    return { g, helmet, arms, vest, glasses, hands, glovesMat, skin };
   }
 
   // etiqueta flotante (lo que "ve" la IA)
@@ -925,8 +991,11 @@ body {
     sp.userData.draw = (text, color) => {
       const ctx = c.ctx; ctx.clearRect(0, 0, 512, 128);
       ctx.fillStyle = color; ctx.fillRect(8, 16, 496, 96);
-      ctx.fillStyle = '#fff'; ctx.font = '600 44px "IBM Plex Sans", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText(text, 256, 66); c.tex.needsUpdate = true;
+      ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      // achica la letra hasta que entre (los sectores tienen nombres largos)
+      let size = 44;
+      do { ctx.font = '600 ' + size + 'px "IBM Plex Sans", sans-serif'; } while (ctx.measureText(text).width > 476 && (size -= 2) > 22);
+      ctx.fillText(text, 256, 66, 484); c.tex.needsUpdate = true;
     };
     scene.add(sp); return sp;
   }
@@ -1062,20 +1131,65 @@ body {
 
   // ---- opciones ----
   const MODES = {
-    clasico: { name: 'CLÁSICO', time: 90, lives: 3, rate: 1, ramp: 45, desc: '90 segundos y 3 vidas. Cada vez se sacan el casco más seguido.' },
-    contrarreloj: { name: 'CONTRARRELOJ', time: 60, lives: null, rate: 1.6, ramp: 60, desc: '60 segundos, sin vidas. Muchos se sacan el casco: sumá todo lo que puedas. Si se te pasa alguien, perdés 150 puntos.' },
-    supervivencia: { name: 'SUPERVIVENCIA', time: null, lives: 3, rate: 1, ramp: 35, desc: 'Sin límite de tiempo. Aguantá lo más que puedas con 3 vidas: se pone cada vez más difícil.' },
-    practica: { name: 'PRÁCTICA', time: null, lives: null, rate: 0.7, ramp: 0, desc: 'Sin tiempo ni vidas, para aprender a manejar. Apretá P para salir.' }
+    clasico: { name: 'CLÁSICO', titulo: 'Turno clásico', time: 90, lives: 3, rate: 1, ramp: 45, desc: '90 segundos y 3 vidas. Cada vez a más gente le falta algo de su equipo.' },
+    contrarreloj: { name: 'CONTRARRELOJ', titulo: 'Contrarreloj', time: 60, lives: null, rate: 1.6, ramp: 60, desc: '60 segundos, sin vidas. Hay muchas faltas: sumá todo lo que puedas. Si se te pasa alguien, perdés 150 puntos.' },
+    supervivencia: { name: 'SUPERVIVENCIA', titulo: 'Supervivencia', time: null, lives: 3, rate: 1, ramp: 35, desc: 'Sin límite de tiempo. Aguantá lo más que puedas con 3 vidas: se pone cada vez más difícil.' },
+    practica: { name: 'PRÁCTICA', titulo: 'Práctica', time: null, lives: null, rate: 0.7, ramp: 0, desc: 'Sin tiempo ni vidas, para aprender a manejar. No suma al ranking. Apretá P para salir.' }
   };
   const DIFFS = {
     facil: { limit: 20, wait: [6, 11], speed: 3.5, range: 2.8, name: 'Fácil' },
     normal: { limit: 15, wait: [4, 9], speed: 3.2, range: 2.5, name: 'Normal' },
     dificil: { limit: 10, wait: [3, 6], speed: 3.0, range: 2.2, name: 'Difícil' }
   };
+  const EPP = ['casco', 'guantes', 'lentes', 'chaleco'];   // lo que detecta la IA de DROID-E3D
   const ROAD = 1.0;   // media calle
   const opts = { mode: 'clasico', diff: 'normal', cam: 'atras' };
   try { Object.assign(opts, JSON.parse(localStorage.getItem('smat-opts') || '{}')); } catch (e) {}
+  if (!MODES[opts.mode]) opts.mode = 'clasico';
+  if (!DIFFS[opts.diff]) opts.diff = 'normal';
   function saveOpts() { try { localStorage.setItem('smat-opts', JSON.stringify(opts)); } catch (e) {} }
+
+  // ---- jugador, ranking y récords: quedan guardados en este navegador ----
+  function leer(clave, porDefecto) {
+    try { const v = JSON.parse(localStorage.getItem(clave)); return v == null || typeof v !== typeof porDefecto ? porDefecto : v; } catch (e) { return porDefecto; }
+  }
+  function guardar(clave, valor) { try { localStorage.setItem(clave, JSON.stringify(valor)); } catch (e) {} }
+  const mismo = (a, b) => String(a).toLowerCase() === String(b).toLowerCase();
+  const limpiarNombre = t => String(t).replace(/\s+/g, ' ').trim().slice(0, 16);
+  const jugador = { nombre: limpiarNombre(leer('droid-jugador', '')) };
+  function jugadores() { const l = leer('droid-jugadores', []); return Array.isArray(l) ? l.filter(n => typeof n === 'string' && n) : []; }
+  function tabla(modo, dif) {
+    const t = leer('droid-ranking', {})[modo + '-' + dif];
+    return Array.isArray(t) ? t.filter(f => f && typeof f.nombre === 'string' && typeof f.puntos === 'number') : [];
+  }
+  // Suma la partida al top 10 de su modo y dificultad. Devuelve la tabla nueva y el puesto (-1 si no entró)
+  function anotar(modo, dif, fila) {
+    const t = tabla(modo, dif).concat([fila]).sort((a, b) => b.puntos - a.puntos || a.fecha - b.fecha).slice(0, 10);
+    const r = leer('droid-ranking', {}); r[modo + '-' + dif] = t; guardar('droid-ranking', r);
+    return { t, puesto: t.indexOf(fila) };
+  }
+  const claveRecord = (modo, dif, nombre) => modo + '-' + dif + '|' + String(nombre).toLowerCase();
+  function recordDe(modo, dif, nombre) { return +leer('droid-records', {})[claveRecord(modo, dif, nombre)] || 0; }
+  function anotarRecord(modo, dif, nombre, puntos) { const r = leer('droid-records', {}); r[claveRecord(modo, dif, nombre)] = puntos; guardar('droid-records', r); }
+  function fechaCorta(ms) { const d = new Date(ms); return isNaN(d) ? '' : String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0'); }
+  const MEDALLAS = ['🥇', '🥈', '🥉'];
+  // filas: [[puesto desde 0, fila], ...]. Los nombres van con textContent: los escribe cualquiera
+  function pintarTabla(el, filas, resaltar) {
+    el.replaceChildren(); el.hidden = !filas.length;
+    if (!filas.length) return;
+    const cab = el.createTHead().insertRow();
+    const CLASES = ['', '', 'num', 'num', 'num fecha'];
+    ['#', 'Jugador', 'Puntos', 'Faltas', 'Fecha'].forEach((texto, j) => {
+      const th = document.createElement('th'); th.scope = 'col'; th.textContent = texto; th.className = CLASES[j]; cab.appendChild(th);
+    });
+    const cuerpo = el.createTBody();
+    filas.forEach(([i, f]) => {
+      const tr = cuerpo.insertRow(); if (resaltar(f)) tr.className = 'yo';
+      [MEDALLAS[i] || i + 1, f.nombre, f.puntos, f.faltas || 0, fechaCorta(f.fecha)].forEach((v, j) => {
+        const td = tr.insertCell(); td.textContent = v; td.className = CLASES[j];
+      });
+    });
+  }
 
   const $ = id => document.getElementById(id);
   function paintChips() {
@@ -1088,15 +1202,98 @@ body {
   document.querySelectorAll('#modeChips .chip').forEach(c => c.addEventListener('click', () => { opts.mode = c.dataset.mode; saveOpts(); paintChips(); }));
   document.querySelectorAll('#diffChips .chip').forEach(c => c.addEventListener('click', () => { opts.diff = c.dataset.diff; saveOpts(); paintChips(); }));
   document.querySelectorAll('#camChips .chip').forEach(c => c.addEventListener('click', () => { opts.cam = c.dataset.cam; saveOpts(); paintChips(); }));
+  function showBest() {
+    const m = MODES[opts.mode];
+    if (opts.mode === 'practica') { $('bestMenu').textContent = ''; return; }
+    const b = recordDe(opts.mode, opts.diff, jugador.nombre);
+    const donde = m.titulo.toLowerCase() + ' · ' + DIFFS[opts.diff].name.toLowerCase();
+    $('bestMenu').textContent = b ? 'Tu récord en ' + donde + ': ' + b + ' puntos.' : 'Todavía no jugaste en ' + donde + '.';
+  }
+
+  // ---- pestañas del menú ----
+  const vistaRanking = { modo: 'clasico', dif: 'normal' };
+  const pestanas = [...document.querySelectorAll('#menu .tab')];
+  function verPestana(nombre) {
+    pestanas.forEach(b => {
+      const si = b.dataset.tab === nombre;
+      b.setAttribute('aria-selected', si); b.tabIndex = si ? 0 : -1; $('panel-' + b.dataset.tab).hidden = !si;
+    });
+    if (nombre === 'ranking') pintarRanking();
+  }
+  pestanas.forEach((b, i) => {
+    b.addEventListener('click', () => verPestana(b.dataset.tab));
+    b.addEventListener('keydown', e => {
+      const paso = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!paso) return;
+      const otra = pestanas[(i + paso + pestanas.length) % pestanas.length];
+      otra.focus(); verPestana(otra.dataset.tab); e.preventDefault();
+    });
+  });
+  function pintarRanking() {
+    document.querySelectorAll('#rankModo .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.mode === vistaRanking.modo));
+    document.querySelectorAll('#rankDif .chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.diff === vistaRanking.dif));
+    const filas = tabla(vistaRanking.modo, vistaRanking.dif);
+    pintarTabla($('tablaRanking'), filas.map((f, i) => [i, f]), f => mismo(f.nombre, jugador.nombre));
+    $('rankVacio').hidden = filas.length > 0;
+  }
+  document.querySelectorAll('#rankModo .chip').forEach(c => c.addEventListener('click', () => { vistaRanking.modo = c.dataset.mode; pintarRanking(); }));
+  document.querySelectorAll('#rankDif .chip').forEach(c => c.addEventListener('click', () => { vistaRanking.dif = c.dataset.diff; pintarRanking(); }));
+  // Borrar pide un segundo toque, por si fue sin querer (sirve para empezar de cero antes de una muestra)
+  let borrarT = null;
+  const TEXTO_BORRAR = 'Borrar el ranking de este equipo';
+  $('btnBorrar').addEventListener('click', () => {
+    const b = $('btnBorrar');
+    if (!borrarT) {
+      b.textContent = '¿Seguro? Tocá de nuevo para borrar todos los puntajes';
+      borrarT = setTimeout(() => { borrarT = null; b.textContent = TEXTO_BORRAR; }, 4000);
+      return;
+    }
+    clearTimeout(borrarT); borrarT = null; b.textContent = TEXTO_BORRAR;
+    guardar('droid-ranking', {}); guardar('droid-records', {});
+    pintarRanking(); showBest();
+  });
+
+  // ---- quién juega ----
+  function mostrarInicio() {
+    game.state = 'menu'; stopKeys();
+    ['menu', 'over', 'pause', 'hud', 'offroad', 'hint', 'cuenta'].forEach(id => $(id).hidden = true);
+    $('pad').classList.remove('show');
+    STATIONS.forEach(resetWorker); cone.visible = false; lightsOff();
+    $('nombre').value = ''; $('nombre').removeAttribute('aria-invalid'); $('avisoNombre').hidden = true;
+    const previos = jugadores();
+    $('previos').hidden = !previos.length;
+    $('chipsPrevios').replaceChildren(...previos.map(n => {
+      const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.textContent = n;
+      c.addEventListener('click', () => elegirJugador(n));
+      return c;
+    }));
+    $('btnVolver').hidden = !jugador.nombre;
+    $('inicio').hidden = false;
+  }
+  function elegirJugador(n) {
+    jugador.nombre = n; guardar('droid-jugador', n);
+    guardar('droid-jugadores', [n].concat(jugadores().filter(x => !mismo(x, n))).slice(0, 8));
+    toMenu('jugar');
+  }
+  $('formNombre').addEventListener('submit', e => {
+    e.preventDefault();
+    const n = limpiarNombre($('nombre').value);
+    if (n.length < 2) { $('avisoNombre').hidden = false; $('nombre').setAttribute('aria-invalid', 'true'); $('nombre').focus(); return; }
+    elegirJugador(n);
+  });
+  $('btnVolver').addEventListener('click', () => toMenu('jugar'));
+  $('btnCambiar').addEventListener('click', () => { mostrarInicio(); $('nombre').focus(); });
 
   // ---- teclado y botones ----
   const keys = { up: false, down: false, left: false, right: false };
   const map = { ArrowUp: 'up', KeyW: 'up', ArrowDown: 'down', KeyS: 'down', ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right' };
   window.addEventListener('keydown', e => {
+    const tePausa = (e.code === 'KeyP' || e.code === 'Escape') && !e.repeat;
+    if (game.state === 'pause' && tePausa) { pause(false); e.preventDefault(); return; }
     if (game.state !== 'play') return;
     if (map[e.code]) { keys[map[e.code]] = true; e.preventDefault(); }
     if (e.code === 'KeyR' && !e.repeat) { tryScan(); e.preventDefault(); }
-    if (e.code === 'KeyP' || e.code === 'Escape') { pause(true); e.preventDefault(); }
+    if (tePausa) { pause(true); e.preventDefault(); }
   });
   window.addEventListener('keyup', e => { if (map[e.code]) keys[map[e.code]] = false; });
   document.querySelectorAll('.pad button[data-k]').forEach(b => {
@@ -1106,13 +1303,13 @@ body {
     b.addEventListener('pointerdown', on); b.addEventListener('pointerup', off); b.addEventListener('pointerleave', off); b.addEventListener('pointercancel', off);
   });
   $('padScan').addEventListener('pointerdown', e => { e.preventDefault(); if (game.state === 'play') tryScan(); });
+  // Si se cambia de pestaña o se toca fuera del juego, se pausa solo: así no corre el tiempo ni quedan teclas "pegadas"
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(true); });
+  window.addEventListener('blur', () => pause(true));
+  if (window.matchMedia('(pointer: coarse)').matches) $('hint').innerHTML = 'Tocá <span class="kbd">R</span> para escanear';
 
   // ---- estado ----
-  const game = { state: 'menu', score: 0, time: 0, elapsed: 0, lives: 3, caught: 0, missed: 0, falsos: 0, yaw: 0, x: 0, z: 0, tread: 0, alertT: 0, scanT: 0, scanTarget: null, off: false, offBeep: 0, offTotal: 0 };
-  const bestKey = () => 'smat-best-' + opts.mode + '-' + opts.diff;
-  function getBest() { try { return +localStorage.getItem(bestKey()) || 0; } catch (e) { return 0; } }
-  function setBest(v) { try { localStorage.setItem(bestKey(), v); } catch (e) {} }
-  function showBest() { const b = getBest(); $('bestMenu').textContent = opts.mode === 'practica' ? '' : b ? 'Tu récord en este modo: ' + b + ' puntos' : ''; }
+  const game = { state: 'menu', score: 0, time: 0, elapsed: 0, lives: 3, caught: 0, missed: 0, falsos: 0, racha: 0, mejorRacha: 0, cuenta: 0, yaw: 0, x: 0, z: 0, tread: 0, alertT: 0, scanT: 0, scanTarget: null, off: false, offBeep: 0, offTotal: 0 };
 
   let toastTimer = null;
   function toast(text, bad) {
@@ -1124,13 +1321,23 @@ body {
     $('lives').hidden = m.lives == null;
     $('lives').innerHTML = 'VIDAS' + [0, 1, 2].map(i => '<span class="' + (i < game.lives ? '' : 'off') + '"></span>').join('');
   }
+  // Racha: faltas seguidas sin que se pase nadie ni haya falsas alarmas
+  const multi = () => game.racha >= 5 ? 2 : game.racha >= 3 ? 1.5 : 1;
+  const coma = n => String(n).replace('.', ',');
+  function drawCombo() { $('comboN').textContent = game.racha + (multi() > 1 ? ' ×' + coma(multi()) : ''); }
   function addScore(n) { game.score = Math.max(0, game.score + n); $('score').textContent = Math.round(game.score); }
   const D = () => DIFFS[opts.diff];
   function level() { const r = MODES[opts.mode].ramp; return MODES[opts.mode].rate * (r ? 1 + game.elapsed / r : 1); }
   function nextWait() { const [a, b] = D().wait; return (a + Math.random() * (b - a)) / level(); }
 
+  function ponerEquipo(s, item, puesto) {
+    if (item === 'casco') s.w.helmet.visible = puesto;
+    else if (item === 'chaleco') s.w.vest.visible = puesto;
+    else if (item === 'lentes') s.w.glasses.visible = puesto;
+    else if (item === 'guantes') s.w.hands.forEach(h => { h.material = puesto ? s.w.glovesMat : s.w.skin; });
+  }
   function resetWorker(s) {
-    s.wearing = true; s.w.helmet.visible = true; s.w.helmet.position.y = 1.8;
+    s.wearing = true; s.falta = null; EPP.forEach(e => ponerEquipo(s, e, true)); s.w.helmet.position.y = 1.8;
     s.unsafeT = 0; s.next = nextWait(); s.fixT = -1; s.markT = 0;
     s.running = true; s.ring.visible = false; s.label.visible = false; s.box.visible = false;
   }
@@ -1138,60 +1345,98 @@ body {
   function start() {
     const m = MODES[opts.mode];
     game.state = 'play'; game.score = 0; game.time = m.time || 0; game.elapsed = 0; game.lives = m.lives || 0;
-    game.caught = 0; game.missed = 0; game.falsos = 0; game.offTotal = 0;
+    game.caught = 0; game.missed = 0; game.falsos = 0; game.offTotal = 0; game.racha = 0; game.mejorRacha = 0;
     game.x = -11; game.z = 0; game.yaw = 0; game.alertT = 0; game.scanT = 0; game.scanTarget = null; game.off = false;
     STATIONS.forEach(resetWorker);
     STATIONS[1].next = 2;
-    ['menu', 'over', 'pause', 'offroad', 'hint'].forEach(id => $(id).hidden = true);
+    ['menu', 'over', 'pause', 'offroad', 'hint', 'inicio'].forEach(id => $(id).hidden = true);
     $('hud').hidden = false; $('pad').classList.add('show');
     $('modeTag').textContent = m.name + ' · ' + D().name.toUpperCase();
-    $('score').textContent = 0; $('time').textContent = m.time || '0'; drawLives(); drawLCD('ok');
-    beep(660, 0.12); setTimeout(() => beep(880, 0.15), 120);
+    $('score').textContent = 0; $('time').textContent = m.time || '0'; drawLives(); drawCombo(); drawLCD('ok');
+    // cuenta regresiva: el robot y los trabajadores esperan hasta el "¡A patrullar!"
+    game.cuenta = 3; $('cuenta').textContent = '3'; $('cuenta').hidden = false;
+    beep(660, 0.12);
   }
   function stopKeys() { Object.keys(keys).forEach(k => keys[k] = false); document.querySelectorAll('.pad button').forEach(b => b.classList.remove('on')); }
   function pause(on) {
     if (on && game.state !== 'play') return;
+    if (!on && game.state !== 'pause') return;
     game.state = on ? 'pause' : 'play'; $('pause').hidden = !on; stopKeys();
   }
-  function toMenu() {
+  function toMenu(pestana) {
     game.state = 'menu'; stopKeys();
-    ['over', 'pause', 'hud', 'offroad', 'hint'].forEach(id => $(id).hidden = true);
+    ['over', 'pause', 'hud', 'offroad', 'hint', 'cuenta', 'inicio'].forEach(id => $(id).hidden = true);
     $('menu').hidden = false; $('pad').classList.remove('show');
+    $('nombreJugador').textContent = jugador.nombre;
     STATIONS.forEach(resetWorker); cone.visible = false; lightsOff(); paintChips();
+    if (opts.mode !== 'practica') vistaRanking.modo = opts.mode;
+    vistaRanking.dif = opts.diff;
+    verPestana(typeof pestana === 'string' ? pestana : 'jugar');
   }
   function end(reason) {
     game.state = 'over'; stopKeys();
-    $('offroad').hidden = true; $('hint').hidden = true; cone.visible = false; lightsOff();
-    const best = Math.max(getBest(), Math.round(game.score)); setBest(best);
-    $('final').textContent = Math.round(game.score);
+    ['offroad', 'hint', 'cuenta'].forEach(id => $(id).hidden = true); cone.visible = false; lightsOff();
+    const m = MODES[opts.mode], puntos = Math.round(game.score);
+    const donde = m.titulo + ' · ' + D().name;
+    $('final').textContent = puntos;
     $('overTitle').textContent = reason === 'lives' ? '¡Demasiados riesgos!' : '¡Turno terminado!';
+
+    // ranking
+    let filas = [], fila = null, puesto = -1;
+    if (opts.mode === 'practica') $('overPuesto').textContent = 'La práctica no suma al ranking.';
+    else if (puntos <= 0) $('overPuesto').textContent = 'Con 0 puntos no entrás al ranking. ¡Probá otra vez!';
+    else {
+      fila = { nombre: jugador.nombre, puntos, faltas: game.caught, fecha: Date.now() };
+      const r = anotar(opts.mode, opts.diff, fila);
+      puesto = r.puesto;
+      const antes = recordDe(opts.mode, opts.diff, jugador.nombre);
+      if (puntos > antes) anotarRecord(opts.mode, opts.diff, jugador.nombre, puntos);
+      let txt = puesto === 0 ? '🏆 ¡Primer puesto en ' + donde + '!' : puesto > 0 ? 'Quedaste ' + (puesto + 1) + '.º en el ranking de ' + donde + '.' : 'No alcanzó para el top 10 de ' + donde + '.';
+      if (puntos > antes && antes) txt += ' ¡Nuevo récord personal! (antes: ' + antes + ')';
+      else if (puntos <= antes) txt += ' Tu récord: ' + antes + '.';
+      $('overPuesto').textContent = txt;
+      // los 5 primeros; si quedó más abajo, los 3 primeros y su puesto
+      filas = r.t.slice(0, 5).map((f, i) => [i, f]);
+      if (puesto >= 5) filas = filas.slice(0, 3).concat([[puesto, fila]]);
+    }
+    pintarTabla($('tablaOver'), filas, f => f === fila);
+
     const sc = game.score;
     const rank = sc >= 2000 ? 'Jefe de seguridad 🏆' : sc >= 1100 ? 'Inspector estrella' : sc >= 400 ? 'Inspector junior' : 'Aprendiz de robot';
     let txt = 'Corregiste ' + game.caught + (game.caught === 1 ? ' falta' : ' faltas') + ', se te ' + (game.missed === 1 ? 'pasó 1' : 'pasaron ' + game.missed) + ' y tuviste ' + game.falsos + (game.falsos === 1 ? ' falsa alarma' : ' falsas alarmas') + '.';
+    if (game.mejorRacha >= 3) txt += ' Mejor racha: ' + game.mejorRacha + ' seguidas.';
     if (opts.mode === 'supervivencia') txt += ' Aguantaste ' + Math.floor(game.elapsed) + ' segundos.';
     if (game.offTotal > 1) txt += ' Estuviste ' + Math.round(game.offTotal) + ' s fuera de la ruta.';
     $('overText').textContent = txt + ' Rango: ' + rank + '.';
-    $('bestOver').textContent = 'Récord (' + MODES[opts.mode].name.toLowerCase() + ', ' + D().name.toLowerCase() + '): ' + best + ' puntos';
+    $('btnVerRanking').hidden = opts.mode === 'practica';
     $('over').hidden = false; $('pad').classList.remove('show');
     beep(330, 0.3, 'triangle');
+    if (puesto === 0) { setTimeout(() => beep(880, 0.12), 320); setTimeout(() => beep(1320, 0.25), 460); }
   }
   $('btnPlay').addEventListener('click', start);
   $('btnAgain').addEventListener('click', start);
-  $('btnMenu').addEventListener('click', toMenu);
+  $('btnMenu').addEventListener('click', () => toMenu('jugar'));
+  $('btnVerRanking').addEventListener('click', () => toMenu('ranking'));
   $('btnResume').addEventListener('click', () => pause(false));
-  $('btnQuit').addEventListener('click', () => { if (opts.mode === 'practica') toMenu(); else end('quit'); });
-  paintChips();
+  $('btnQuit').addEventListener('click', () => { if (opts.mode === 'practica') toMenu('jugar'); else end('quit'); });
 
   function lightsOff() { M.beacon.emissive.setHex(0); beaconLight.intensity = 0; eyeRingMat.emissive.setHex(0); }
 
   // ---- escanear con R ----
+  // Si en el alcance hay alguien sin su equipo, lo elige aunque otro esté más cerca; si no, el más cercano (falsa alarma)
   function nearest() {
-    let best = null, bd = 1e9;
-    STATIONS.forEach(s => { if (s.fixT >= 0) return; const d = Math.hypot(s.pos[0] - game.x, s.pos[1] - game.z); if (d < bd) { bd = d; best = s; } });
+    let best = null, bd = 1e9, falta = null, fd = 1e9;
+    STATIONS.forEach(s => {
+      if (s.fixT >= 0) return;
+      const d = Math.hypot(s.pos[0] - game.x, s.pos[1] - game.z);
+      if (d < bd) { bd = d; best = s; }
+      if (!s.wearing && d < fd) { fd = d; falta = s; }
+    });
+    if (fd <= D().range) return falta;
     return bd <= D().range ? best : null;
   }
   function tryScan() {
-    if (game.scanT > 0 || game.alertT > 0) return;
+    if (game.scanT > 0 || game.alertT > 0 || game.cuenta > 0) return;
     if (game.off) { toast('No podés escanear fuera de la ruta', true); beep(180, 0.15); return; }
     const s = nearest();
     if (!s) { toast('No hay nadie cerca para escanear', true); beep(220, 0.12); return; }
@@ -1201,20 +1446,25 @@ body {
   }
   function finishScan(s) {
     if (!s.wearing) {
-      const pts = 100 + Math.max(0, Math.round((D().limit - s.unsafeT) * 20));
-      addScore(pts); game.caught++;
-      s.wearing = true; s.ring.visible = false; s.running = false; s.fixT = 0;
-      s.w.helmet.visible = true; s.w.helmet.position.y = 2.6;
+      game.racha++; game.mejorRacha = Math.max(game.mejorRacha, game.racha);
+      const base = 100 + Math.max(0, Math.round((D().limit - s.unsafeT) * 20));
+      const x = multi(), pts = Math.round(base * x);
+      addScore(pts); game.caught++; drawCombo();
+      const falta = s.falta;
+      // el robot se detiene y da la alarma; la persona se pone su equipo. La máquina sigue andando
+      s.wearing = true; s.falta = null; s.ring.visible = false; s.fixT = 0;
+      ponerEquipo(s, falta, true);
+      if (falta === 'casco') s.w.helmet.position.y = 2.6;
       s.label.userData.draw('✔ ' + s.name + ' +' + pts, '#2f8f4e'); s.label.visible = true; s.box.material.color.setHex(0xd7262b);
-      game.alertT = 1.4; drawLCD('alert');
-      toast('¡Falta detectada! +' + pts);
+      game.alertT = 1.4; drawLCD('alert', falta);
+      toast(x > 1 ? '¡Racha de ' + game.racha + '! ×' + coma(x) + ' +' + pts : '¡Detectado: sin ' + falta + '! +' + pts);
       beep(1200, 0.12); setTimeout(() => beep(900, 0.12), 140); setTimeout(() => beep(1200, 0.12), 280);
     } else {
-      game.falsos++;
+      game.falsos++; game.racha = 0; drawCombo();
       if (opts.mode !== 'practica') addScore(-50);
-      s.label.userData.draw('Tenía casco · falsa alarma', '#5d6459'); s.label.visible = true; s.markT = 1.5;
+      s.label.userData.draw('Tenía todo puesto · falsa alarma', '#5d6459'); s.label.visible = true; s.markT = 1.5;
       s.box.material.color.setHex(0x2f8f4e);
-      toast(opts.mode === 'practica' ? 'Falsa alarma: tenía casco' : 'Falsa alarma −50', true); beep(260, 0.2, 'triangle');
+      toast(opts.mode === 'practica' ? 'Falsa alarma: tenía todo puesto' : 'Falsa alarma −50', true); beep(260, 0.2, 'triangle');
       drawLCD('ok');
     }
   }
@@ -1222,6 +1472,17 @@ body {
   function update(dt, now) {
     if (game.state !== 'play') return;
     const m = MODES[opts.mode];
+    if (game.cuenta > 0) {
+      const antes = Math.ceil(game.cuenta);
+      game.cuenta -= dt;
+      const ahora = Math.ceil(game.cuenta);
+      if (ahora !== antes) {
+        if (ahora > 0) { $('cuenta').textContent = ahora; beep(660, 0.12); }
+        else { $('cuenta').hidden = true; toast('¡A patrullar!'); beep(990, 0.2); }
+      }
+      animarPuestos(dt, now);
+      return;
+    }
     game.elapsed += dt;
     if (m.time) { game.time -= dt; $('time').textContent = Math.max(0, Math.ceil(game.time)); if (game.time <= 0) return end('time'); }
     else $('time').textContent = m.lives ? Math.floor(game.elapsed) : '∞';
@@ -1283,14 +1544,15 @@ body {
       if (s.fixT >= 0) {
         s.fixT += dt;
         s.w.helmet.position.y = Math.max(1.8, 2.6 - s.fixT * 1.2);
-        if (s.fixT > 1.5) { s.fixT = -1; s.running = true; s.label.visible = false; s.box.visible = false; s.next = nextWait(); }
+        if (s.fixT > 1.5) { s.fixT = -1; s.label.visible = false; s.box.visible = false; s.next = nextWait(); }
         return;
       }
       if (s.wearing) {
         s.next -= dt;
         if (s.next <= 0) {
-          s.wearing = false; s.w.helmet.visible = false; s.unsafeT = 0; s.ring.visible = true;
-          s.label.userData.draw('⚠ Sin casco · ' + s.sector, '#e07000'); s.label.visible = true;
+          s.falta = EPP[Math.floor(Math.random() * EPP.length)];
+          s.wearing = false; ponerEquipo(s, s.falta, false); s.unsafeT = 0; s.ring.visible = true;
+          s.label.userData.draw('⚠ Sin ' + s.falta + ' · ' + s.sector, '#e07000'); s.label.visible = true;
           beep(520, 0.08);
         }
         return;
@@ -1299,10 +1561,10 @@ body {
       const lim = D().limit;
       s.ring.scale.setScalar(1 + Math.sin(now / 150) * 0.15);
       s.ring.material.color.setHex(s.unsafeT > lim - 5 ? 0xd7262b : 0xff8a00);
-      if (s.unsafeT > lim - 5 && m.name !== 'PRÁCTICA') s.label.userData.draw('⚠ ¡Rápido! ' + Math.ceil(lim - s.unsafeT) + ' s', '#d7262b');
+      if (s.unsafeT > lim - 5 && m.name !== 'PRÁCTICA') s.label.userData.draw('⚠ ¡Rápido! Sin ' + s.falta + ' · ' + Math.ceil(lim - s.unsafeT) + ' s', '#d7262b');
       if (Math.hypot(s.pos[0] - game.x, s.pos[1] - game.z) <= D().range && !game.off) canScan = true;
       if (s.unsafeT > lim && m.name !== 'PRÁCTICA') {
-        game.missed++;
+        game.missed++; game.racha = 0; drawCombo();
         if (m.lives) { game.lives--; drawLives(); } else addScore(-150);
         toast('¡Se te pasó ' + s.name + '!', true); beep(200, 0.35, 'sawtooth');
         resetWorker(s);
@@ -1311,6 +1573,10 @@ body {
     });
     $('hint').hidden = !(canScan && game.scanT <= 0 && game.alertT <= 0);
 
+    animarPuestos(dt, now);
+  }
+  // máquinas y brazos de los operarios (las máquinas no se frenan nunca: el robot solo da la alarma)
+  function animarPuestos(dt, now) {
     STATIONS.forEach((s, i) => {
       if (s.running) s.m.spin.forEach(sp => { if (sp.custom) sp.custom(dt); else sp.o.rotation[sp.axis] += sp.speed * dt; });
       else s.m.spin.forEach(sp => sp.stop && sp.stop());
@@ -1357,7 +1623,8 @@ body {
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-  window.__game = { start, game, keys, update, updateCamera, tryScan, STATIONS, opts };
+  if (jugador.nombre) toMenu('jugar'); else mostrarInicio();
+  window.__game = { start, end, toMenu, game, keys, update, updateCamera, tryScan, STATIONS, opts };
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => drawLCD('ok'));
 })();
 </script>
