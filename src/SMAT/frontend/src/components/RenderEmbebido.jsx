@@ -1,5 +1,5 @@
-// Muestra uno de los renders o el juego de DROID-E3D dentro de la página, en un iframe. Son los archivos originales
-// hechos en Claude (public/robot3d): no se editan acá, se copian con backend/tools/copiar_renders.py.
+// Muestra uno de los renders o el juego de DROID-E3D dentro de la página, en un iframe. Son los archivos hechos en
+// Claude (public/robot3d): los renders se copian con backend/tools/copiar_renders.py; el juego se edita ahí mismo.
 // Props:
 //   archivo      'robot' | 'fabrica' | 'patrulla'
 //   titulo       para los lectores de pantalla

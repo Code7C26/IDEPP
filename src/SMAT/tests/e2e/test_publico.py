@@ -102,12 +102,41 @@ def test_los_renders_se_ven_dentro_de_las_paginas(base_limpia, abrir_3d):
             "m => m.contentDocument.documentElement.scrollHeight <= m.clientHeight + 2")
 
 
+def _entrar_al_juego(pag, nombre):
+    """El juego pide el nombre la primera vez: con él guarda los puntajes en el ranking."""
+    juego = pag.frame_locator("iframe")
+    juego.get_by_label("¿Cómo te llamás?").fill(nombre)
+    juego.get_by_role("button", name="ENTRAR").click()
+    return juego
+
+
 def test_se_puede_jugar_a_patrulla(base_limpia, abrir_3d):
     pag = abrir_3d(None, "/juego", ancho=640, alto=700)
-    juego = pag.frame_locator("iframe")
-    juego.get_by_role("button", name="JUGAR").click()
+    juego = _entrar_al_juego(pag, "Ana")
+    assert juego.locator("#nombreJugador").inner_text() == "Ana"
+    juego.get_by_role("button", name="JUGAR", exact=True).click()
     assert juego.locator("#hud").is_visible()
     assert not juego.locator("#menu").is_visible()
+    assert not pag.errores
+
+
+def test_el_juego_guarda_los_puntajes_en_el_ranking(base_limpia, abrir_3d):
+    pag = abrir_3d(None, "/juego", ancho=640, alto=700)
+    juego = _entrar_al_juego(pag, "Ana")
+    juego.get_by_role("button", name="JUGAR", exact=True).click()
+    marco = next(f for f in pag.frames if "patrulla" in f.url)
+    marco.evaluate("window.__game.game.score = 900; window.__game.end('time')")
+    assert juego.get_by_text("¡Primer puesto en Turno clásico · Normal!").is_visible()
+    juego.get_by_role("button", name="VER RANKING").click()
+    fila = juego.locator("#tablaRanking tbody tr").first
+    assert "Ana" in fila.inner_text() and "900" in fila.inner_text()
+
+    # Queda guardado en el navegador: al volver, recuerda al jugador y su ranking
+    pag.reload()
+    juego.locator("#menu").wait_for(timeout=15000)
+    assert juego.locator("#nombreJugador").inner_text() == "Ana"
+    juego.get_by_role("tab", name="RANKING").click()
+    assert "900" in juego.locator("#tablaRanking tbody tr").first.inner_text()
     assert not pag.errores
 
 

@@ -143,7 +143,7 @@ encargado y solo ve sus propias alertas. Esto se controla también en el backend
 
 **Público** (captura 1 del anexo): página de IDEPP que presenta el producto, cómo funciona, los planes y el contacto.
 
-**Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot DROID-E3D 3D» (el modelo del robot), «DROID-E3D en la fábrica» (una simulación del recorrido) y el juego «Patrulla DROID-E3D», donde se maneja el robot por la planta. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
+**Renders 3D y juego:** la web incluye tres páginas hechas por el equipo: «Robot DROID-E3D 3D» (el modelo del robot), «DROID-E3D en la fábrica» (una simulación del recorrido) y el juego «Patrulla DROID-E3D», donde se maneja el robot por la planta para encontrar a quien le falta su equipo de protección; pide el nombre del jugador y guarda un ranking en el navegador. Andan sin internet. Son simulaciones con operarios de ejemplo: en la aplicación llevan un cartel que lo aclara, y la posición real del robot se muestra aparte, en el mapa.
 
 ### 6.4 Integración con el hardware y la IA
 

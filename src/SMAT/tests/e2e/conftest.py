@@ -9,6 +9,7 @@ import re
 import urllib.request
 
 import pytest
+from playwright.sync_api import TimeoutError as PlaywrightTimeout
 from playwright.sync_api import sync_playwright
 
 APP = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -108,8 +109,9 @@ def base_limpia():
     recrear_base(os.getenv("E2E_DB", "robot_db_e2e"))
 
 
-def _abridor(navegador, request, capturar=True):
-    """Generador con la función abrir(usuario, ruta): al final de la prueba guarda una captura y cierra todo."""
+def _abridor(navegador, request, capturar=True, red_quieta=True):
+    """Generador con la función abrir(usuario, ruta): al final de la prueba guarda una captura y cierra todo.
+    red_quieta=False: no exige que la red quede quieta (ver abrir_3d)."""
     contextos = []
 
     def _abrir(usuario, ruta, ancho=1280, alto=900, tema="claro"):
@@ -124,7 +126,13 @@ def _abridor(navegador, request, capturar=True):
         pagina.on("response", lambda r: pagina.errores.append(f"{r.status} {r.url}")
                   if r.status >= 500 or (r.status == 404 and "favicon" not in r.url) else None)
         pagina.goto(WEB + ruta)
-        pagina.wait_for_load_state("networkidle")
+        if red_quieta:
+            pagina.wait_for_load_state("networkidle")
+        else:
+            try:
+                pagina.wait_for_load_state("networkidle", timeout=5000)
+            except PlaywrightTimeout:
+                pass
         pagina.wait_for_timeout(800)
         contextos.append((ctx, pagina))
         return pagina
@@ -148,8 +156,11 @@ def abrir(navegador, request):
 @pytest.fixture
 def abrir_3d(navegador_3d, request):
     """Igual que abrir, en el navegador con WebGL. Sin placa de video el 3D frena toda la página: en estas
-    pruebas conviene una ventana chica, y hay que bajar hasta el render con centrar_render."""
-    yield from _abridor(navegador_3d, request, capturar=False)
+    pruebas conviene una ventana chica, y hay que bajar hasta el render con centrar_render.
+    No espera a que la red quede quieta: con el 3D por software las respuestas llegan tarde y, a veces, las consultas
+    cada 3 s de la app no dejan nunca medio segundo sin pedidos (pasaba en el celular del empleado, también en main).
+    Cada prueba espera lo que necesita (el canvas, un botón)."""
+    yield from _abridor(navegador_3d, request, capturar=False, red_quieta=False)
 
 
 # GitHub Actions no tiene placa de video: la fábrica y el robot en 3D tardan más que el límite de las pruebas.
