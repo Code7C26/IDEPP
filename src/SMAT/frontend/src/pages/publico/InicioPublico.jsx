@@ -6,6 +6,7 @@ import { Antetitulo, botonClaro, botonOscuro, Caracteristica, LlamadoDemo, Secci
 import Captura from '../../components/publico/Captura.jsx'
 import Pasos from '../../components/publico/Pasos.jsx'
 import RenderEmbebido from '../../components/RenderEmbebido.jsx'
+import { useIdioma } from '../../context/IdiomaContext.jsx'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 
 const BENEFICIOS = [
@@ -25,6 +26,7 @@ const PARA_QUIEN = [
 ]
 
 export default function InicioPublico() {
+  const { t } = useIdioma()
   useTituloPagina('', 'DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin su equipo de protección, avisa al instante y da la alarma en la zona.')
 
   return (
@@ -40,22 +42,21 @@ export default function InicioPublico() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-6 pt-12 pb-10 md:px-8 lg:grid-cols-[1.15fr_1fr] lg:pt-20">
           <div className="text-center lg:text-left">
             <p className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
-              <span className="size-2 shrink-0 rounded-full bg-ok" /> Detecta casco, guantes, lentes y chaleco
+              <span className="size-2 shrink-0 rounded-full bg-ok" /> {t('Detecta casco, guantes, lentes y chaleco')}
             </p>
             {/* el nombre grande e inclinado, como en la caja */}
             <p aria-hidden="true" className="mt-6 flex items-center justify-center gap-3 font-titulo text-2xl font-black tracking-tight italic lg:justify-start">
               DROID-<span className="-ml-3 text-marca">E3D</span><span className="rayas-marca" />
             </p>
             <h1 className="mt-2 text-5xl font-extrabold tracking-tight text-balance md:text-6xl">
-              Seguridad que <span className="text-marca-oscuro dark:text-marca">recorre la planta</span>
+              {t('Seguridad que')} <span className="text-marca-oscuro dark:text-marca">{t('recorre la planta')}</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-zinc-600 text-pretty max-lg:mx-auto dark:text-zinc-300">
-              DROID-E3D es un robot que recorre la fábrica, detecta con inteligencia artificial a quien trabaja sin su equipo
-              de protección, avisa al instante y da la alarma en la zona.
+              {t('DROID-E3D es un robot que recorre la fábrica, detecta con inteligencia artificial a quien trabaja sin su equipo de protección, avisa al instante y da la alarma en la zona.')}
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-              <Link to="/contacto" className={botonOscuro}>Pedir una demo <Icono nombre="flecha" className="size-4" /></Link>
-              <Link to="/como-funciona" className={botonClaro}>Ver cómo funciona</Link>
+              <Link to="/contacto" className={botonOscuro}>{t('Pedir una demo')} <Icono nombre="flecha" className="size-4" /></Link>
+              <Link to="/como-funciona" className={botonClaro}>{t('Ver cómo funciona')}</Link>
             </div>
           </div>
           {/* el robot, sobre un círculo naranja con las rayas de la caja */}
@@ -75,7 +76,7 @@ export default function InicioPublico() {
             {BENEFICIOS.slice(0, 4).map((b) => (
               <li key={b.titulo} className="flex items-center gap-3">
                 <span className="grid size-10 shrink-0 place-items-center rounded-lg border border-white/15 text-marca"><Icono nombre={b.icono} /></span>
-                <span className="font-titulo text-sm font-bold">{b.titulo}</span>
+                <span className="font-titulo text-sm font-bold">{t(b.titulo)}</span>
               </li>
             ))}
           </ul>
@@ -86,38 +87,38 @@ export default function InicioPublico() {
         </div>
       </section>
 
-      <Seccion antetitulo="El robot en acción">
+      <Seccion antetitulo={t('El robot en acción')}>
         <div className="mt-6"><RenderEmbebido archivo="fabrica" titulo="DROID-E3D en la fábrica: simulación del recorrido del robot" /></div>
         <Link to="/juego" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-marca-oscuro hover:underline dark:text-marca">
-          Manejalo vos en el juego <Icono nombre="flecha" className="size-4" />
+          {t('Manejalo vos en el juego')} <Icono nombre="flecha" className="size-4" />
         </Link>
       </Seccion>
 
-      <Seccion gris antetitulo="Por qué DROID-E3D" titulo="Control continuo del equipo de protección, sin perseguir a nadie"
-               descripcion="Pensado para PyMEs industriales que quieren cumplir con la normativa de seguridad e higiene sin sumar supervisores.">
+      <Seccion gris antetitulo={t('Por qué DROID-E3D')} titulo={t('Control continuo del equipo de protección, sin perseguir a nadie')}
+               descripcion={t('Pensado para PyMEs industriales que quieren cumplir con la normativa de seguridad e higiene sin sumar supervisores.')}>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {BENEFICIOS.map((b) => <Caracteristica key={b.titulo} icono={b.icono} titulo={b.titulo}>{b.texto}</Caracteristica>)}
+          {BENEFICIOS.map((b) => <Caracteristica key={b.titulo} icono={b.icono} titulo={t(b.titulo)}>{t(b.texto)}</Caracteristica>)}
         </div>
       </Seccion>
 
-      <Seccion antetitulo="Cómo funciona" titulo="De la cámara a la alarma, en segundos">
+      <Seccion antetitulo={t('Cómo funciona')} titulo={t('De la cámara a la alarma, en segundos')}>
         <Pasos />
         <Link to="/como-funciona" className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-marca-oscuro hover:underline dark:text-marca">
-          Ver el detalle <Icono nombre="flecha" className="size-4" />
+          {t('Ver el detalle')} <Icono nombre="flecha" className="size-4" />
         </Link>
       </Seccion>
 
       <Seccion gris>
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
-            <Antetitulo>Para cada persona de la planta</Antetitulo>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight">Cada uno ve lo que necesita</h2>
+            <Antetitulo>{t('Para cada persona de la planta')}</Antetitulo>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight">{t('Cada uno ve lo que necesita')}</h2>
             <div className="trazo-marca mt-3" aria-hidden="true" />
             <dl className="mt-8 space-y-4">
               {PARA_QUIEN.map((p) => (
                 <div key={p.rol} className="rounded-r-xl border-l-4 border-marca bg-white/70 py-3 pr-4 pl-4 dark:bg-zinc-900/60">
-                  <dt className="font-titulo text-sm font-extrabold">{p.rol}</dt>
-                  <dd className="mt-0.5 text-zinc-600 dark:text-zinc-300">«{p.frase}»</dd>
+                  <dt className="font-titulo text-sm font-extrabold">{t(p.rol)}</dt>
+                  <dd className="mt-0.5 text-zinc-600 dark:text-zinc-300">«{t(p.frase)}»</dd>
                 </div>
               ))}
             </dl>
