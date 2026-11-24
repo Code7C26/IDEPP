@@ -44,7 +44,7 @@ empleado?») se resuelven con la ayuda escrita, sin gastar horas.
 | # | Bloque | DROID-E3D |
 |---|---|---|
 | 1 | **Segmento de clientes** | PyMEs industriales de 20 a 200 empleados (metalúrgicas, plásticos, muebles, alimentos, autopartes) de Alta Gracia, Gran Córdoba y Malagueño: ≈ 495 industrias. Decide el dueño; abre la puerta el responsable de higiene y seguridad; usan el sistema el encargado y los empleados. |
-| 2 | **Propuesta de valor** | Control automático de casco, guantes, lentes y chaleco en todos los turnos; alerta en segundos con foto; el robot se detiene y da la alarma en la zona; registro para la ART y las inspecciones. |
+| 2 | **Propuesta de valor** | Control automático de casco, chaleco y lentes en todos los turnos; alerta en segundos con foto; el robot se detiene y da la alarma en la zona; registro para la ART y las inspecciones. |
 | 3 | **Canales** | Venta directa con demo en planta; parques industriales; aliados (STI Developments, consultoras); web pública. Hardware instalado por nosotros; software por link. |
 | 4 | **Relación con clientes** | Instalación y capacitación presencial; soporte híbrido (ayuda en la web + remoto humano); visita cada 3 meses; informe mensual de cumplimiento. |
 | 5 | **Fuentes de ingresos** | Pago único $1.400.000 + abono $75.000 por mes; mini PC para la IA $350.000 si hace falta; alquiler $120.000 por mes desde 2028. Modelo: hardware + abono. |

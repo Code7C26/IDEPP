@@ -2,9 +2,19 @@
 
 > Una entrada por semana (más nueva arriba). Se genera con `/bitacora`.
 
+## Semana 8 · desde el 23/11/2026
+
+**Hecho**
+- 24/11: **La documentación dice lo que controla el producto hoy:** casco, chaleco y lentes (decisión del 17/11). Se corrigieron la misión, la propuesta de valor, los dos Canvas, el pitch, la viabilidad, el mercado, el Match, el manual de usuario y el documento final. Donde se nombraba un relé (era del corte de máquina) ahora dice ESP32-S3.
+- 24/11: Video de IDEPP en inglés y en castellano (estilo cámara de IA, ≈1 min): la animación está lista; faltan las voces de los cinco.
+
+**Pendiente**
+- La web y el juego todavía aceptan «sin guantes»: Tiziano decide si lo saca.
+
 ## Semana 7 · desde el 16/11/2026
 
 **Hecho**
+- 17/11: **La IA controla tres elementos:** casco, chaleco y lentes. Se sacan los guantes y el barbijo. Se prepararon las herramientas para sacar fotos con la cámara del robot, marcarlas y reentrenar el modelo (`servidor_ia/entrenamiento/`).
 - 18/11: **La web deja el corte de máquina** (decisión 010): sin parada automática, sin botones para detener o reactivar, sin el endpoint del ESP32 de la máquina y sin «paradas de máquina» en los reportes (ahora, zonas con alertas). Cada alerta de la IA queda en la auditoría. Los textos públicos dicen que el robot tiene orugas y da la alarma en la zona.
 - 20/11: **Juego para mostrar** (Patrulla DROID-E3D): pide el nombre del jugador, tiene menú con pestañas (Jugar, Ranking y Cómo se juega) y guarda los 10 mejores puntajes por modo y dificultad en el navegador. A la gente le puede faltar el casco, los guantes, los lentes o el chaleco; suma racha de faltas seguidas, cuenta regresiva y pausa sola al cambiar de pestaña. Como el robot real, ya no frena la máquina. Desde ahora el juego se edita en la web y no se vuelve a copiar de Claude.
 - 20/11: **Etapa 5 de la consigna** (#101): la web es **bilingüe** (botón ES/EN en la página pública y en la app, que se recuerda), tiene una **guía interactiva** que recorre cada página con el botón «?» y un **asistente de preguntas frecuentes** en la página pública (precios, qué detecta, la alarma, las fotos y la demo), sin librerías ni internet.

@@ -5,7 +5,7 @@
 
 **Jerarquía:** IDEPP (5 socios; productos TOUCH-ID y DROID-E3D) → DROID-E3D (Tiziano y Morena; producto = robot + web).
 **Repo:** `Code7C26/IDEPP` · rama de trabajo `SMAT-web` · PR a `main` al final de cada fase.
-**Hardware/IA:** **Morena** (ESP32, relé, cámara, YOLO, reconocimiento facial), rama `SMAT-hardware`.
+**Hardware/IA:** **Morena** (ESP32-S3, cámara, YOLO, reconocimiento facial), rama `SMAT-hardware`.
 Mientras no esté el hardware, el backend se prueba con los simuladores y el contrato de `docs/API.md`.
 
 ---

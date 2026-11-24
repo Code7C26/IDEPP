@@ -7,7 +7,7 @@
 | Bloque | DROID-E3D |
 |---|---|
 | **1. Segmentos de clientes** | PyMEs industriales de Argentina con 20 a 200 empleados en planta: metalúrgicas, carpinterías, plásticos, alimentos, autopartes. Quien usa el sistema: encargado de planta y responsable de seguridad e higiene. Ver `cliente-ideal.md`. |
-| **2. Propuesta de valor** | Control automático y continuo del uso de casco, guantes, lentes y chaleco; alerta inmediata con foto; el robot se detiene y da la alarma en la zona si alguien trabaja sin protección; registro para inspecciones. Sin sumar supervisores. Ver `propuesta-de-valor.md`. |
+| **2. Propuesta de valor** | Control automático y continuo del uso de casco, chaleco y lentes; alerta inmediata con foto; el robot se detiene y da la alarma en la zona si alguien trabaja sin protección; registro para inspecciones. Sin sumar supervisores. Ver `propuesta-de-valor.md`. |
 | **3. Canales** | Visitas y demos en planta; LinkedIn; recomendación de consultoras de higiene y seguridad; ferias industriales; web pública con «Pedir demo». |
 | **4. Relación con clientes** | Instalación y capacitación presencial; soporte remoto incluido en el abono; visita de mantenimiento cada 3 meses; reporte mensual de cumplimiento. |
 | **5. Fuentes de ingresos** | (a) Venta del robot con instalación (pago único). (b) **Abono mensual** de la plataforma web, soporte y actualizaciones. (c) Plan alquiler: todo incluido por mes, sin pago inicial. Ver `../05-finanzas/precios.md`. |

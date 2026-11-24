@@ -6,7 +6,7 @@
 
 ## En una frase
 
-> **Para las PyMEs industriales que no pueden controlar todo el tiempo que sus trabajadores usen el equipo de protección, DROID-E3D es un robot que recorre la planta, detecta con inteligencia artificial a quien trabaja sin casco, guantes, lentes o chaleco, avisa al instante y da la alarma en esa misma zona.**
+> **Para las PyMEs industriales que no pueden controlar todo el tiempo que sus trabajadores usen el equipo de protección, DROID-E3D es un robot que recorre la planta, detecta con inteligencia artificial a quien trabaja sin casco, chaleco o lentes, avisa al instante y da la alarma en esa misma zona.**
 
 **Versión corta (titular de la web):** *Seguridad que recorre la planta.*
 
