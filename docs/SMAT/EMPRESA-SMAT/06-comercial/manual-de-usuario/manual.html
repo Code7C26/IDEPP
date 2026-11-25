@@ -131,6 +131,11 @@
   .contratapa .logo-caja img { width: 52mm; display: block; }
   .contratapa .logo-caja div { font: 600 6pt Montserrat, sans-serif; letter-spacing: .3em; color: var(--tinta); margin-top: 1mm; }
   .contratapa h2 { font: 800 13pt Montserrat, sans-serif; margin-bottom: 4mm; }
+  .contratapa .qr { display: flex; align-items: center; gap: 4mm; background: var(--crema); color: var(--tinta); border-radius: 3mm;
+                     padding: 3mm 4mm; margin-top: 5mm; text-align: left; box-shadow: 0.8mm 0.8mm 0 var(--naranja); }
+  .contratapa .qr img { width: 20mm; height: 20mm; display: block; }
+  .contratapa .qr b { display: block; font: 800 9.5pt Montserrat, sans-serif; }
+  .contratapa .qr span { font-size: 7.8pt; color: var(--gris); line-height: 1.35; }
   .contratapa .dato { display: flex; gap: 3mm; align-items: center; justify-content: center; margin: 1.6mm 0; font-size: 9.5pt; }
   .contratapa .marca-final { position: absolute; bottom: calc(14mm + var(--b)); left: 0; right: 0; text-align: center;
                              font: italic 900 14pt Montserrat, sans-serif; }
@@ -636,6 +641,8 @@
     <div class="dato"><svg class="ic chico naranja"><use href="#i-calendario"/></svg><span><b>Una visita cada 3 meses</b> para revisar todo</span></div>
     <div class="dato"><svg class="ic chico naranja"><use href="#i-mail"/></svg><span><b>idepp.3d@gmail.com</b></span></div>
     <p style="font-size:7.8pt;color:#bbb;margin-top:4mm">El soporte y las visitas están incluidos en el abono mensual.</p>
+    <div class="qr"><img src="qr-tutorial.svg" alt="QR al video tutorial">
+      <div><b>Mirá el video tutorial</b><span>Escaneá el código con la cámara del celular.<br>idepp.netlify.app/tutorial</span></div></div>
   </div>
   <div class="marca-final">DROID-<span>E3D</span> <span style="font-size:9pt;font-style:normal;font-weight:600;color:#fff">by IDEPP</span>
     <small>© 2026 IDEPP</small>
