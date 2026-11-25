@@ -7,7 +7,7 @@ En este registro está lo que hizo Morena en el proyecto. Cada punto se puede co
 
 ## 1. Robot (hardware y programa)
 
-- Elegí, compré y armé las piezas del robot: ESP32-S3, servos con PCA9685, motores con orugas, pantalla ST7789, amplificador MAX98357A con parlante, pilas 18650, seguidores de línea y sensor de distancia.
+- Elegí y armé las piezas del robot: ESP32-S3, servos con PCA9685, motores con orugas, pantalla ST7789, amplificador MAX98357A con parlante, pilas 18650, seguidores de línea y sensor de distancia.
 - Armé el cuerpo y el cableado interno del robot que se mostró en la feria del colegio.
 - Programé el robot (`src/SMAT/servidor_ia/robot_droid/`):
   - sketches de prueba del WALL-E con ESP32-S3, motores, buzzer, seguidores de línea y sensor de distancia;
@@ -40,7 +40,7 @@ En este registro está lo que hizo Morena en el proyecto. Cada punto se puede co
 
 ## 4. Documento final del proyecto
 
-- Escribí y ordené las 11 secciones de la guía del colegio en el documento final.
+- Armé el documento final siguiendo las 11 secciones de la guía del colegio.
 - Armé el PDF en formato APA con la hoja membretada del colegio y los documentos originales del equipo.
 
 ## 5. Marca y marketing
