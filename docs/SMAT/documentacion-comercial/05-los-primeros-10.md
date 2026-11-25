@@ -44,7 +44,7 @@ conjunta: asistencia del personal (Touch ID) y seguridad en planta (DROID-E3D) e
 
 > **«Probá DROID-E3D gratis 30 días en una zona de tu planta.** Llevamos el robot, lo configuramos y
 > capacitamos a tu encargado, sin costo y sin compromiso. Al final te entregamos el
-> **informe de cumplimiento** de esa zona: cuántas veces se trabajó sin casco, guantes, lentes o chaleco, en qué
+> **informe de cumplimiento** de esa zona: cuántas veces se trabajó sin casco, chaleco o lentes, en qué
 > horario y en qué puesto. Si decidís seguir, la primera empresa que contrate paga **la mitad de la instalación**
 > ($700.000 en lugar de $1.400.000)».
 

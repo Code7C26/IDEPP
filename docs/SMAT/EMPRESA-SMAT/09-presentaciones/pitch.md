@@ -10,7 +10,7 @@
 
 **El problema.** En una fábrica, un trabajador se saca los lentes «solo un minuto» frente a la sierra. Nadie lo ve: el supervisor está en otra zona o en otro turno. Así ocurren muchos accidentes que el equipo de protección habría evitado.
 
-**La solución.** **DROID-E3D** es un robot que recorre la planta y, con inteligencia artificial, detecta si cada trabajador usa **casco, guantes, lentes y chaleco** según su zona. Si falta algo:
+**La solución.** **DROID-E3D** es un robot que recorre la planta y, con inteligencia artificial, detecta si cada trabajador usa **casco, chaleco y lentes** según su zona. Si falta algo:
 1. avisa al instante al trabajador y al encargado, con foto;
 2. el robot **se detiene en la zona**, muestra el signo de peligro y hace sonar la alarma;
 3. deja todo registrado para la inspección y la ART.
@@ -28,4 +28,4 @@
 ---
 
 **Versión de 30 segundos:**
-> «Los accidentes por no usar el equipo de protección pasan cuando nadie está mirando. DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin casco, guantes o lentes, avisa al instante y da la alarma en esa zona. Buscamos nuestra primera fábrica piloto.»
+> «Los accidentes por no usar el equipo de protección pasan cuando nadie está mirando. DROID-E3D es un robot que recorre la fábrica, detecta con IA a quien trabaja sin casco, chaleco o lentes, avisa al instante y da la alarma en esa zona. Buscamos nuestra primera fábrica piloto.»

@@ -17,7 +17,7 @@
 | Hosting de la plataforma (6 meses de Render a USD 7 por mes) | Demo online sin que el servidor se duerma | 66.000 |
 | Dominio `.com.ar` (1 año) | Web pública | 8.500 |
 | Registro de la marca en el INPI (1 clase) | Proteger «DROID-E3D» (ver `../07-legal/propiedad-intelectual.md`) | 40.600 |
-| Material de demo: casco, guantes, lentes y chalecos; impresiones | Mostrar la detección | 40.000 (estimado) |
+| Material de demo: cascos, chalecos y lentes; impresiones | Mostrar la detección | 40.000 (estimado) |
 | **Subtotal** | | **479.100** |
 | Imprevistos (10 %) | | 47.900 |
 | **Total** | | **≈ 527.000** (≈ USD 336) |

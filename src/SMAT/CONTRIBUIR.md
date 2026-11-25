@@ -8,7 +8,7 @@ servidor de IA), `docs/SMAT/` (empresa, costos y reportes) y en los archivos `sm
 | Rama | Quién | Para qué |
 |---|---|---|
 | `SMAT-web` | Tiziano y Tizi (con Claude) | App web de DROID-E3D |
-| `SMAT-hardware` | Morena | ESP32, relé, cámara, YOLO, reconocimiento facial (`servidor_ia/`) |
+| `SMAT-hardware` | Morena | ESP32-S3, cámara, YOLO, reconocimiento facial (`servidor_ia/`) |
 | `SMAT-empresa` | Tiziano y Morena | Documentos de `docs/SMAT/EMPRESA-SMAT/` |
 | `main` | — | Siempre funciona. Solo se entra por Pull Request |
 

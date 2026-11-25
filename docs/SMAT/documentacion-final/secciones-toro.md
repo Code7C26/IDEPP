@@ -17,7 +17,7 @@ DROID-E3D tiene cuatro partes que se comunican por la red WiFi de la planta:
 | Parte | Qué hace | Tecnología | Responsable |
 |---|---|---|---|
 | **Robot** (con orugas) | Recorre las zonas de la fábrica con una cámara. Si hay una falta, se detiene, muestra el signo de peligro y hace sonar la alarma | ESP32-S3 y ESP32-CAM | Morena |
-| **Servidor de IA** | Detecta si falta el casco, los guantes, los lentes o el chaleco, y reconoce la cara del trabajador | Python, YOLO, OpenCV | Morena |
+| **Servidor de IA** | Detecta si falta el casco, el chaleco o los lentes, y reconoce la cara del trabajador | Python, YOLO, OpenCV | Morena |
 | **Backend** | Recibe las alertas, las guarda, avisa a las personas y da las órdenes al robot | Python, Flask, MySQL | Tiziano |
 | **Aplicación web** | Muestra las alertas, el mapa, el robot y los reportes al encargado y a cada empleado | React | Tiziano |
 

@@ -20,7 +20,7 @@ IDEPP diseña, fabrica e instala **DROID-E3D**, un robot que recorre la planta y
 ## 3. Nuestra solución
 
 - Un robot DROID-E3D recorre **[N] zonas** de su planta siguiendo una ruta configurable.
-- Detecta si cada trabajador usa **[casco / guantes / lentes / chaleco]** según la zona.
+- Detecta si cada trabajador usa **[casco / chaleco / lentes]** según la zona.
 - Si falta algo: **alerta inmediata** con foto al encargado y al trabajador, y el robot se detiene en la zona con el signo de peligro y la alarma.
 - Plataforma web y en el celular: panel, historial, cumplimiento por zona y por empleado, reportes.
 

@@ -26,7 +26,7 @@ Antes de sumar una función, la pasamos por este filtro. Analizamos las cuatro m
 
 | Ítem | Detalle |
 |---|---|
-| **Optimización técnica** | Una cámara en el robot detecta con YOLO a quien trabaja sin casco, guantes, lentes o chaleco; la web registra la alerta con foto y el robot **se detiene en esa zona**, muestra el signo de peligro y suena la alarma. |
+| **Optimización técnica** | Una cámara en el robot detecta con YOLO a quien trabaja sin casco, chaleco o lentes; la web registra la alerta con foto y el robot **se detiene en esa zona**, muestra el signo de peligro y suena la alarma. |
 | **Plazo de desarrollo** | ≈ 80 horas: plataforma y API para la IA y el robot (≈ 45 h, Tiziano), servidor de IA (≈ 35 h, Morena). |
 | **Insumos adicionales** | Una PC de la fábrica para la IA (si no tiene, una mini PC usada: $320.000); la cámara del robot es una ESP32-CAM ($30.000). Los modelos de IA son gratuitos (ver licencia en la sección 5). |
 | **Repercusión en la propuesta de valor** | **[X] Elevada** · [ ] Moderada · [ ] Reducida |

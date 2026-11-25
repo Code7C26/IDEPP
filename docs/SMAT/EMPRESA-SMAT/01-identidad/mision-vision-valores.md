@@ -8,7 +8,7 @@
 
 **Ayudar a las fábricas a que cada trabajador vuelva a su casa sano, controlando de forma automática y respetuosa que use su equipo de protección personal.**
 
-IDEPP diseña, fabrica e instala **DROID-E3D**: un robot que recorre la planta, detecta con inteligencia artificial si los empleados usan casco, guantes, lentes y chaleco, avisa al instante y, en la misma zona, se detiene, muestra el signo de peligro y hace sonar la alarma.
+IDEPP diseña, fabrica e instala **DROID-E3D**: un robot que recorre la planta, detecta con inteligencia artificial si los empleados usan casco, chaleco y lentes, avisa al instante y, en la misma zona, se detiene, muestra el signo de peligro y hace sonar la alarma.
 
 ## Visión
 

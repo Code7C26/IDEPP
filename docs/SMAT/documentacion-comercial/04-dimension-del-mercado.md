@@ -4,7 +4,7 @@
 > **Equipo:** Tiziano · Morena · **Actualizado:** 12/11/2026
 
 **Nuestro cliente:** una PyME industrial con producción en planta (metalúrgica, plásticos, muebles, alimentos,
-autopartes) de **20 a 200 empleados**, que necesita controlar el uso de casco, guantes, lentes y chaleco.
+autopartes) de **20 a 200 empleados**, que necesita controlar el uso de casco, chaleco y lentes.
 
 ---
 

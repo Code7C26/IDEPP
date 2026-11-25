@@ -13,7 +13,7 @@ Se arma desde `manual-de-usuario/manual.html`. Si cambia algo del producto, se c
 ## 1. Qué es DROID-E3D
 
 DROID-E3D es un robot que **recorre la planta y controla que cada persona tenga puesto su equipo de
-protección** (casco, chaleco, barbijo, lentes, según la zona). Funciona en tres partes:
+protección** (casco, chaleco y lentes, según la zona). Funciona en tres partes:
 
 | Parte | Qué hace |
 |---|---|
@@ -49,7 +49,7 @@ hace sonar una alarma durante 10 segundos**. Al mismo tiempo, la alerta llega co
 | Palabra | Qué quiere decir |
 |---|---|
 | **IA (inteligencia artificial)** | El programa de la PC que mira el video y reconoce si falta el equipo |
-| **Equipo de protección** | Casco, chaleco, barbijo, lentes o guantes. A veces se lo llama EPP |
+| **Equipo de protección** | Casco, chaleco y lentes. A veces se lo llama EPP |
 | **WiFi de 2,4 GHz** | El tipo de WiFi más común. El robot no se conecta al de 5 GHz |
 | **Ruta** | La cinta pegada en el piso que el robot sigue para recorrer la planta |
 

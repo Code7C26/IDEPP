@@ -6,7 +6,7 @@
 ## Explicación breve del proyecto
 
 Nuestro proyecto es DROID-E3D, un robot que recorre las zonas de una fábrica con una cámara y se fija si los
-trabajadores tienen puesto su equipo de protección: casco, guantes, lentes y chaleco.
+trabajadores tienen puesto su equipo de protección: casco, chaleco y lentes.
 
 Si ve a alguien trabajando sin su equipo, la computadora lo detecta con inteligencia artificial, reconoce quién es
 (siempre que esa persona haya dado su permiso) y manda una alerta con foto a la página del empleado y a la del
@@ -45,7 +45,7 @@ el turno, avise en el momento con la alarma y deje guardada cada falta con foto,
 
 ## 3. Tecnología utilizada
 
-El robot va a tener una placa ESP32 que lo mueve por la ruta y hace sonar la alarma cuando hay una falta. Como cámara
+El robot va a tener una placa ESP32-S3 que lo mueve por la ruta y hace sonar la alarma cuando hay una falta. Como cámara
 usamos una ESP32-CAM, que manda el video por WiFi a la computadora (al principio probamos con un celular y la app IP Webcam).
 
 En la computadora corre un programa en Python con YOLO, que detecta el equipo de protección, y OpenCV, que reconoce
@@ -67,13 +67,13 @@ la página del empleado y a la del encargado.
 - ☐ App para celular: preferimos una página web porque es más rápida de hacer y también se abre en el celular.
 - ☑ Base de datos: para guardar cada falta con fecha, hora, zona, trabajador y foto.
 - ☑ Dashboard de monitoreo: el panel del encargado con el mapa de la fábrica y las alertas.
-- ☑ Arduino / Raspberry: usamos una placa ESP32, que se programa con Arduino.
+- ☑ Arduino / Raspberry: usamos una placa ESP32-S3, que se programa con Arduino.
 - ☑ Automatización: el robot sigue una ruta y la alarma suena sola cuando hay una falta.
 - ☑ Otra: inteligencia artificial para reconocer el equipo de protección y las caras.
 
 **¿Qué necesitamos aprender para hacerlo?**
 
-Para el robot tenemos que aprender a programar la placa ESP32 con Arduino, a manejar los motores, el parlante, la pantalla, los servos y la
+Para el robot tenemos que aprender a programar la placa ESP32-S3 con Arduino, a manejar los motores, el parlante, la pantalla, los servos y la
 conexión WiFi, y a armar y cablear todo. También tenemos que aprender a usar YOLO en Python para que reconozca el
 equipo de protección, y OpenCV para reconocer caras, y a pasar el video de la cámara del robot a la computadora.
 

@@ -1,6 +1,6 @@
 # API de DROID-E3D · contrato con hardware e IA
 
-> Para **Morena** (ESP32, relé, cámara, YOLO). Si algo de acá no te sirve o falta algo, abrí un Issue
+> Para **Morena** (ESP32-S3, cámara, YOLO). Si algo de acá no te sirve o falta algo, abrí un Issue
 > `smat:hardware` o `smat:ia`. **Este documento es un contrato:** si cambia, se avisa en el PR.
 
 **URL base:** `http://<IP-de-la-PC>:5000/api` (en la demo local) · `https://<usuario>.pythonanywhere.com/api` (online)

@@ -27,8 +27,8 @@
 
 ## ❓ ¿Qué problema resuelve?
 
-En una PyME industrial nadie puede mirar todo el tiempo si cada trabajador tiene puesto el casco, los guantes, los
-lentes y el chaleco:
+En una PyME industrial nadie puede mirar todo el tiempo si cada trabajador tiene puesto el casco, el chaleco
+y los lentes:
 
 - Un supervisor cubre un solo turno y no ve toda la planta.
 - Un accidente cuesta días de trabajo, sube la alícuota de la ART y puede terminar en un juicio.
@@ -44,7 +44,7 @@ alarma.
 
 | Función | Descripción |
 |---|---|
-| 🦺 **Detección de EPP** | Casco, guantes, lentes y chaleco, según lo que exige cada zona |
+| 🦺 **Detección de EPP** | Casco, chaleco y lentes, según lo que exige cada zona |
 | 🚨 **Alerta con foto** | Llega en segundos al panel del encargado, con la zona, el empleado y la confianza de la IA |
 | 🚨 **Alarma en el lugar** | El robot se detiene en la zona, muestra el peligro y suena; la producción sigue |
 | 🤖 **Control del robot** | Iniciar, pausar, parada de emergencia, ruta por zonas y video en vivo desde la web |
