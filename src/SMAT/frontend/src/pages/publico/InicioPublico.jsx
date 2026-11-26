@@ -42,7 +42,7 @@ export default function InicioPublico() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-6 pt-12 pb-10 md:px-8 lg:grid-cols-[1.15fr_1fr] lg:pt-20">
           <div className="text-center lg:text-left">
             <p className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
-              <span className="size-2 shrink-0 rounded-full bg-ok" /> {t('Detecta casco, guantes, lentes y chaleco')}
+              <span className="size-2 shrink-0 rounded-full bg-ok" /> {t('Detecta casco, chaleco y lentes')}
             </p>
             {/* el nombre grande e inclinado, como en la caja */}
             <p aria-hidden="true" className="mt-6 flex items-center justify-center gap-3 font-titulo text-2xl font-black tracking-tight italic lg:justify-start">

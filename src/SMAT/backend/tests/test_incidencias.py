@@ -93,7 +93,7 @@ def test_alta_por_nombre_de_zona(cliente):
 
 
 @pytest.mark.parametrize("cambio", [
-    {"tipo": "sin_botas"}, {"zona_id": 99}, {"confianza": 5}, {"empleado_id": 999},
+    {"tipo": "sin_botas"}, {"tipo": "sin_guantes"}, {"zona_id": 99}, {"confianza": 5}, {"empleado_id": 999},
 ])
 def test_alta_con_datos_invalidos(cliente, cambio):
     assert cliente.post("/api/incidents", json={**NUEVA, **cambio}, headers=YOLO).status_code == 400

@@ -8,7 +8,7 @@ import Modal from '../../components/Modal.jsx'
 import Paginador from '../../components/Paginador.jsx'
 import Titulo from '../../components/Titulo.jsx'
 import usePolling from '../../hooks/usePolling.js'
-import { nombreTipo } from '../../utils/formato.js'
+import { TIPOS_ALERTA, nombreTipo } from '../../utils/formato.js'
 
 const POR_PAGINA = 10
 
@@ -16,7 +16,7 @@ const CAMPOS = [
   { nombre: 'desde', etiqueta: 'Desde', tipo: 'fecha' },
   { nombre: 'hasta', etiqueta: 'Hasta', tipo: 'fecha' },
   { nombre: 'tipo', etiqueta: 'Qué faltaba', tipo: 'select',
-    opciones: ['sin_casco', 'sin_guantes', 'sin_lentes', 'sin_chaleco'].map((t) => ({ valor: t, texto: nombreTipo(t) })) },
+    opciones: TIPOS_ALERTA.map((t) => ({ valor: t, texto: nombreTipo(t) })) },
   { nombre: 'estado', etiqueta: 'Estado', tipo: 'select',
     opciones: [{ valor: 'activa', texto: 'Activas' }, { valor: 'resuelta', texto: 'Resueltas' }] },
 ]

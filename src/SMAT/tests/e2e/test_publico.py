@@ -141,12 +141,12 @@ def test_el_juego_guarda_los_puntajes_en_el_ranking(base_limpia, abrir_3d):
 
 
 def test_la_web_describe_el_robot_actual_y_lo_que_detecta_hoy(abrir):
-    """El robot tiene orugas y no corta máquinas (PR #149 y #153), y la IA detecta casco, guantes, lentes y chaleco."""
+    """El robot tiene orugas y no corta máquinas (PR #149 y #153), y la IA controla casco, chaleco y lentes (decisión 011)."""
     for ruta in ("/", "/como-funciona", "/nosotros"):
         contenido = abrir(None, ruta).locator("body").inner_text().lower()
         assert "ruedas" not in contenido and "detiene la máquina" not in contenido, ruta
-        assert "próximo: guantes" not in contenido, ruta
-    assert abrir(None, "/").get_by_text("Detecta casco, guantes, lentes y chaleco").is_visible()
+        assert "guantes" not in contenido, ruta
+    assert abrir(None, "/").get_by_text("Detecta casco, chaleco y lentes").is_visible()
 
 
 def test_la_web_cambia_a_ingles_y_lo_recuerda(base_limpia, abrir):

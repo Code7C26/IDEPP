@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from flask import Blueprint, request
 from sqlalchemy import or_
 
-from models import db, Incidencia, Usuario, Zona, obtener_robot
+from models import TIPOS_ALERTA, db, Incidencia, Usuario, Zona, obtener_robot
 from utils.archivos import AlmacenNoDisponible, ImagenInvalida, guardar_imagen
 from utils.auditoria import registrar
 from utils.decoradores import token_required, rol_requerido, api_key_requerida
@@ -12,7 +12,7 @@ from utils.validacion import id_valido, leer_fecha, leer_json
 
 incidents_bp = Blueprint("incidents", __name__)
 
-TIPOS_VALIDOS = ("sin_casco", "sin_guantes", "sin_lentes", "sin_chaleco")
+TIPOS_VALIDOS = TIPOS_ALERTA   # «sin_guantes» ya no se acepta (decisión 011)
 
 # Columnas por las que se puede ordenar la lista (?orden=confianza  o  ?orden=-confianza para al revés)
 ORDENES = {"timestamp": Incidencia.timestamp, "zona": Zona.nombre, "empleado": Usuario.nombre,

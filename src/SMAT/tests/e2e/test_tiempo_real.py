@@ -30,9 +30,9 @@ def test_el_empleado_solo_se_entera_de_las_suyas(base_limpia, abrir):
     pag.wait_for_timeout(4500)
     assert not pag.get_by_text("Nueva alerta", exact=True).is_visible()
 
-    nueva_alerta("sin_guantes", 1, 1)                           # Juan
+    nueva_alerta("sin_lentes", 1, 1)                            # Juan
     assert esperar_texto(pag, "Nueva alerta", 8)
-    assert "Sin guantes en Zona A" in pag.get_by_role("alert").filter(has_text="Nueva alerta").inner_text()
+    assert "Sin lentes en Zona A" in pag.get_by_role("alert").filter(has_text="Nueva alerta").inner_text()
 
 
 def test_la_campana_activa_el_sonido_y_lo_recuerda(abrir):

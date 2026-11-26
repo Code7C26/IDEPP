@@ -14,7 +14,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.platypus import KeepTogether, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
-from models import Incidencia
+from models import NOMBRES_TIPO, Incidencia
 from utils.reportes import en_periodo, ranking, resumen_diario
 
 TINTA = colors.HexColor("#1f2328")
@@ -25,7 +25,6 @@ LINEA = colors.HexColor("#e4e4e7")
 FONDO = colors.HexColor("#f4f4f5")
 NIVELES = {"Bien": colors.HexColor("#15803d"), "A mejorar": colors.HexColor("#c2410c"), "Riesgo": colors.HexColor("#b91c1c")}
 
-NOMBRES_TIPO = {"sin_casco": "Sin casco", "sin_guantes": "Sin guantes", "sin_lentes": "Sin lentes", "sin_chaleco": "Sin chaleco"}
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 ANCHO = A4[0] - 36 * mm   # ancho útil de la hoja
 
@@ -126,7 +125,7 @@ def generar_informe_mensual(desde, hasta, mes, autor):
                   "Riesgo: menos de 75 %.", TEXTO),
     ]
 
-    por_tipo = [["Equipo que faltó", "Alertas"]] + [[NOMBRES_TIPO[t["tipo"]], t["total"]] for t in d["por_tipo"]]
+    por_tipo = [["Equipo que faltó", "Alertas"]] + [[NOMBRES_TIPO.get(t["tipo"], t["tipo"]), t["total"]] for t in d["por_tipo"]]
     por_zona = [["Zona", "Alertas", "Cumplimiento", "Nivel"]] + [
         [z["nombre"], z["alertas"], f"{z['cumplimiento']} %", nivel(z["cumplimiento"])] for z in r["zonas"]]
     lado_a_lado = Table([[tabla(por_tipo, [40 * mm, 20 * mm], (1,)), tabla(por_zona, [32 * mm, 18 * mm, 24 * mm, 22 * mm], (1, 2), 3)]],

@@ -38,7 +38,7 @@ Header: `X-API-KEY: <YOLO_API_KEY>`
 
 | Campo | Obligatorio | Detalle |
 |---|---|---|
-| `tipo` | sí | `sin_casco`, `sin_guantes`, `sin_lentes` o `sin_chaleco` |
+| `tipo` | sí | `sin_casco`, `sin_chaleco` o `sin_lentes` (desde el 17/11, `sin_guantes` responde `400`: decisión 011) |
 | `zona_id` | no* | id de la zona. *Alternativa: `"zona": "Zona A"` (por nombre). **Si no mandás ninguna, se usa la zona que reportó el robot** (la cámara va en el robot); si el robot nunca reportó su zona → `400` |
 | `empleado_id` | no | id del empleado reconocido. Omitilo o mandá `null` si no lo identificó |
 | `empleado` | no | Alternativa a `empleado_id`: el **nombre** del empleado tal como está en la web (ej. el de la carpeta de fotos de la IA). Sin importar mayúsculas. Si no hay nadie con ese nombre (o es `"Desconocido"`), la alerta se guarda igual, sin empleado |
@@ -69,7 +69,7 @@ Para que la alerta quede a nombre de alguien, ese nombre tiene que existir como 
 Header: `X-API-KEY` (la de YOLO o la del robot). Sirve para saber qué EPP exigir en cada zona:
 ```json
 { "zonas": [ { "id": 1, "nombre": "Zona A", "maquina": "Sierra circular",
-               "epp_requerido": ["casco", "lentes", "guantes"] } ] }
+               "epp_requerido": ["casco", "lentes"] } ] }
 ```
 
 ### ✅ `GET /rostros` · fotos para el reconocimiento facial

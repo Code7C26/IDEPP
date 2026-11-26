@@ -15,10 +15,10 @@ export const PREGUNTAS = [
   {
     pregunta: { es: '¿Qué detecta?', en: 'What does it detect?' },
     respuesta: {
-      es: 'Casco, guantes, lentes y chaleco. Cada zona tiene su equipo obligatorio, y el robot revisa el de la zona en la que está.',
-      en: 'Helmet, gloves, goggles and vest. Each area has its own required equipment, and the robot checks the one for the area it is in.',
+      es: 'Casco, chaleco y lentes. Cada zona tiene su equipo obligatorio, y el robot revisa el de la zona en la que está.',
+      en: 'Helmet, vest and goggles. Each area has its own required equipment, and the robot checks the one for the area it is in.',
     },
-    palabras: ['detecta', 'casco', 'guantes', 'lentes', 'chaleco', 'epp', 'detect', 'helmet', 'gloves', 'vest'],
+    palabras: ['detecta', 'casco', 'lentes', 'chaleco', 'epp', 'detect', 'helmet', 'goggles', 'vest'],
   },
   {
     pregunta: { es: '¿Qué pasa si alguien no tiene su equipo?', en: 'What happens if someone is missing their equipment?' },

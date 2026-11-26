@@ -18,7 +18,7 @@ se cambian en Claude, se descargan y se copian con `backend/tools/copiar_renders
 
 **Actualización 20/11/2026:** el juego se edita en la web. Tiziano pidió mejorarlo para mostrarlo: pantalla para
 cargar el nombre, menú con pestañas, ranking de los 10 mejores por modo y dificultad (guardado en el navegador),
-faltas de casco, guantes, lentes o chaleco, racha, cuenta regresiva y pausa automática. `copiar_renders.py` ya no lo
+faltas de casco, chaleco o lentes (los guantes se sacaron el 25/11, decisión 011), racha, cuenta regresiva y pausa automática. `copiar_renders.py` ya no lo
 copia, para no perder esos cambios. Los renders siguen como estaban: originales de Claude.
 
 ## Consecuencias
@@ -41,9 +41,10 @@ copia, para no perder esos cambios. Los renders siguen como estaban: originales 
   acerca, y el jurado puede preguntarlo. Se aceptó porque el robot igual se ve en la planta y su recorrido es fijo.
 - **El empleado no ve las alertas de otros.** En su mapa, las demás zonas no dicen «Todo en orden»: solo si su máquina
   está parada.
-- Los archivos muestran el robot de diseño: orugas, driver DRV8833 y pantalla de 1,3". El robot actual también tiene
-  orugas (volvió a ellas el 15/11), pero usa ESP32-S3, driver TB6612FNG y pantalla ST7789. «Cómo funciona» aclara debajo
-  del render que es un modelo de diseño.
+- El render del robot muestra la forma del diseño. Desde el 25/11, su lista de piezas es la del robot actual (en el
+  original de Claude y en la web): orugas con 2 motores con reductora, driver TB6612FNG, pantalla ST7789, ESP32-S3,
+  cámara ESP32-CAM, parlante con amplificador MAX98357A y 2 pilas 18650. «Cómo funciona» aclara debajo del render que
+  es un modelo de diseño.
 - **Sin corte de máquina** (decisión 010, 20/11): los originales de Claude todavía muestran que el robot para la máquina.
   `copiar_renders.py` lo corrige al copiarlos (el robot se detiene y da la alarma; la máquina sigue andando), y
   `test_renders.py` controla que no vuelva.

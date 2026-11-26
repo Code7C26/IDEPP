@@ -11,7 +11,7 @@ import StatCard from '../../components/StatCard.jsx'
 import Titulo from '../../components/Titulo.jsx'
 import usePolling from '../../hooks/usePolling.js'
 import { mensajeError, tarjeta, textoSuave } from '../../utils/estilos.js'
-import { NOMBRES_EPP } from '../../utils/formato.js'
+import { nombreEpp } from '../../utils/formato.js'
 
 function Seccion({ titulo, subtitulo, children, className = '' }) {
   return (
@@ -31,7 +31,7 @@ export default function Reportes() {
   const r = ranking.datos
 
   const promedio = r?.empleados.length ? Math.round(r.empleados.reduce((suma, e) => suma + e.cumplimiento, 0) / r.empleados.length) : null
-  const porTipo = (d?.por_tipo || []).map((t) => ({ nombre: NOMBRES_EPP[t.tipo.replace('sin_', '')], total: t.total }))
+  const porTipo = (d?.por_tipo || []).map((t) => ({ nombre: nombreEpp(t.tipo.replace('sin_', '')), total: t.total }))
     .sort((a, b) => b.total - a.total)
   const porZona = (d?.por_zona || []).map((z) => ({ nombre: z.zona, total: z.total })).sort((a, b) => b.total - a.total)
 
@@ -54,7 +54,7 @@ export default function Reportes() {
       {d && (
         <>
           <Seccion titulo="Alertas por día" subtitulo="Pasá el mouse por una columna para ver qué equipo faltó" className="mt-6">
-            <GraficoPorDia dias={d.dias} />
+            <GraficoPorDia dias={d.dias} tipos={d.tipos} />
           </Seccion>
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             <Seccion titulo="¿Qué equipo faltó?" subtitulo="Alertas por tipo de EPP">
