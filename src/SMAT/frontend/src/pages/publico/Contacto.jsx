@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Campo from '../../components/Campo.jsx'
 import Icono from '../../components/Icono.jsx'
+import { useIdioma } from '../../context/IdiomaContext.jsx'
 import { EncabezadoPagina, Seccion } from '../../components/publico/Bloques.jsx'
 import useTituloPagina from '../../hooks/useTituloPagina.js'
 import useValidacion from '../../hooks/useValidacion.js'
@@ -17,7 +18,9 @@ const QUE_PASA = [
 
 export default function Contacto() {
   useTituloPagina('Contacto', 'Pedí una demo de DROID-E3D: el robot que controla el uso del equipo de protección en tu fábrica.')
-  const [datos, setDatos] = useState({ nombre: '', empresa: '', mensaje: 'Me gustaría ver una demo de DROID-E3D.' })
+  const { t } = useIdioma()
+  // El mensaje que ya viene escrito es lo que tipea la persona: el traductor de la página no lo toca, va con t()
+  const [datos, setDatos] = useState({ nombre: '', empresa: '', mensaje: t('Me gustaría ver una demo de DROID-E3D.') })
   const { error, tocar, puedeEnviar } = useValidacion({
     nombre: datos.nombre.trim() ? '' : 'Escribí tu nombre.',
     mensaje: datos.mensaje.trim().length >= 10 ? '' : 'Contanos un poco más (al menos 10 letras).',

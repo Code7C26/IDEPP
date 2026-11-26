@@ -1311,6 +1311,10 @@ body {
   const game = { state: 'menu', score: 0, time: 0, elapsed: 0, lives: 3, caught: 0, missed: 0, falsos: 0, racha: 0, mejorRacha: 0, cuenta: 0, yaw: 0, x: 0, z: 0, tread: 0, alertT: 0, scanT: 0, scanTarget: null, off: false, offBeep: 0, offTotal: 0 };
 
   let toastTimer = null;
+  // Una frase por <span>: así la web, en inglés, traduce cada una por separado
+  function ponerFrases(el, frases) {
+    el.replaceChildren(...frases.flatMap((f, i) => { const s = document.createElement('span'); s.textContent = f; return i ? [' ', s] : [s]; }));
+  }
   function toast(text, bad) {
     const t = $('toast'); t.textContent = text; t.className = 'toast' + (bad ? ' bad' : ''); t.style.opacity = 1;
     clearTimeout(toastTimer); toastTimer = setTimeout(() => t.style.opacity = 0, 1500);
@@ -1389,10 +1393,10 @@ body {
       puesto = r.puesto;
       const antes = recordDe(opts.mode, opts.diff, jugador.nombre);
       if (puntos > antes) anotarRecord(opts.mode, opts.diff, jugador.nombre, puntos);
-      let txt = puesto === 0 ? '🏆 ¡Primer puesto en ' + donde + '!' : puesto > 0 ? 'Quedaste ' + (puesto + 1) + '.º en el ranking de ' + donde + '.' : 'No alcanzó para el top 10 de ' + donde + '.';
-      if (puntos > antes && antes) txt += ' ¡Nuevo récord personal! (antes: ' + antes + ')';
-      else if (puntos <= antes) txt += ' Tu récord: ' + antes + '.';
-      $('overPuesto').textContent = txt;
+      const frasesPuesto = [puesto === 0 ? '🏆 ¡Primer puesto en ' + donde + '!' : puesto > 0 ? 'Quedaste ' + (puesto + 1) + '.º en el ranking de ' + donde + '.' : 'No alcanzó para el top 10 de ' + donde + '.'];
+      if (puntos > antes && antes) frasesPuesto.push('¡Nuevo récord personal! (antes: ' + antes + ')');
+      else if (puntos <= antes) frasesPuesto.push('Tu récord: ' + antes + '.');
+      ponerFrases($('overPuesto'), frasesPuesto);
       // los 5 primeros; si quedó más abajo, los 3 primeros y su puesto
       filas = r.t.slice(0, 5).map((f, i) => [i, f]);
       if (puesto >= 5) filas = filas.slice(0, 3).concat([[puesto, fila]]);
@@ -1401,11 +1405,12 @@ body {
 
     const sc = game.score;
     const rank = sc >= 2000 ? 'Jefe de seguridad 🏆' : sc >= 1100 ? 'Inspector estrella' : sc >= 400 ? 'Inspector junior' : 'Aprendiz de robot';
-    let txt = 'Corregiste ' + game.caught + (game.caught === 1 ? ' falta' : ' faltas') + ', se te ' + (game.missed === 1 ? 'pasó 1' : 'pasaron ' + game.missed) + ' y tuviste ' + game.falsos + (game.falsos === 1 ? ' falsa alarma' : ' falsas alarmas') + '.';
-    if (game.mejorRacha >= 3) txt += ' Mejor racha: ' + game.mejorRacha + ' seguidas.';
-    if (opts.mode === 'supervivencia') txt += ' Aguantaste ' + Math.floor(game.elapsed) + ' segundos.';
-    if (game.offTotal > 1) txt += ' Estuviste ' + Math.round(game.offTotal) + ' s fuera de la ruta.';
-    $('overText').textContent = txt + ' Rango: ' + rank + '.';
+    const frases = ['Corregiste ' + game.caught + (game.caught === 1 ? ' falta' : ' faltas') + ', se te ' + (game.missed === 1 ? 'pasó 1' : 'pasaron ' + game.missed) + ' y tuviste ' + game.falsos + (game.falsos === 1 ? ' falsa alarma' : ' falsas alarmas') + '.'];
+    if (game.mejorRacha >= 3) frases.push('Mejor racha: ' + game.mejorRacha + ' seguidas.');
+    if (opts.mode === 'supervivencia') frases.push('Aguantaste ' + Math.floor(game.elapsed) + ' segundos.');
+    if (game.offTotal > 1) frases.push('Estuviste ' + Math.round(game.offTotal) + ' s fuera de la ruta.');
+    frases.push('Rango: ' + rank + '.');
+    ponerFrases($('overText'), frases);
     $('btnVerRanking').hidden = opts.mode === 'practica';
     $('over').hidden = false; $('pad').classList.remove('show');
     beep(330, 0.3, 'triangle');
