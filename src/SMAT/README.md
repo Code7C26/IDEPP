@@ -42,6 +42,7 @@ Más capturas en [`docs/SMAT/documentacion-final/capturas/`](../../docs/SMAT/doc
 
 ## Demo
 
+- **En internet:** https://droid-e3d.onrender.com (Render + Supabase, plan gratis). Si nadie la visitó en los últimos 15 minutos, la primera carga tarda cerca de 1 minuto: abrirla un rato antes de mostrarla. Usuarios de ejemplo: `maria` (encargada) y `juan` (empleado); la contraseña se la pasa Tiziano (no está en el repo).
 - **En la red local** (feria, aula o jurado, sin internet): [`docs/DEMO-LOCAL.md`](docs/DEMO-LOCAL.md).
 - **Guion para el jurado** (quién habla, demo paso a paso, plan B y preguntas posibles): [`guion-jurado.md`](../../docs/SMAT/EMPRESA-SMAT/09-presentaciones/guion-jurado.md).
 - **Usuarios:** `maria` (encargada) y `juan` (empleado), contraseña `pass123` (ver la tabla de abajo).
@@ -63,7 +64,7 @@ Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra M
 | Tiempo real: cartel y sonido, web instalable (PWA), notificaciones push | ✅ Funciona (push e instalación en el celular solo con https) |
 | Reportes con gráficos y ranking, CSV, PDF mensual, comentarios, auditoría | ✅ Funciona |
 | Servidor de IA de Morena (`servidor_ia/`) conectado con la web | ✅ Conectado; falta la prueba real con la cámara y el robot |
-| Publicación en internet (Render + Supabase) | 🔜 Código listo y probado con Postgres; Supabase cargado; falta publicar en Render (9.3) |
+| Publicación en internet (Render + Supabase) | ✅ Publicada el 25/11 en https://droid-e3d.onrender.com. Falta la clave de Storage (las fotos de las alertas se guardan en el disco de Render, que se borra al reiniciar) |
 | Hardware (robot y cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`: un WALL-E con orugas y ESP32-S3, con pruebas por pieza en `servidor_ia/walle_*`. El 15/11 se probó con todo junto: ante una falta, frena, muestra el signo de peligro y suena la alarma. La conexión con la web del PR borrador #96 es para el robot anterior y hay que adaptarla; falta la prueba con la web (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
 
 El detalle tarea por tarea está en [`docs/PLAN.md`](docs/PLAN.md) y los documentos de la empresa y el reporte de avance en [`docs/SMAT/`](../../docs/SMAT/) (en la raíz del repo).

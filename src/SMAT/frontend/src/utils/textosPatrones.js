@@ -66,6 +66,7 @@ export const PATRONES = [
   [/^Marcar la alerta de (.+) en (.+)$/, (p, t) => `Select the alert for ${t(p[1])} in ${t(p[2])}`],
   [/^Ver detalle: (.+)$/, (p, t) => `See details: ${t(p[1])}`],
   [/^Evidencia: (.+)$/, (p, t) => `Evidence: ${t(p[1])}`],
+  [/^Resolver (\d+) alertas?$/, (p) => `Resolve ${p[1]} ${plural(p[1], 'alert', 'alerts')}`],
 
   // Listas («Casco, Lentes» o «Chaleco: 18, Lentes: 13»)
   [/^EPP: (.+)$/, (p, t) => `PPE: ${p[1].split(', ').map(t).join(', ')}`],
