@@ -193,7 +193,7 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 ### Fase 9 · Pulido y despliegue
 - [x] 9.1 Revisión 360px / PC / modo oscuro; errores y estados de carga (#57) · `tests/e2e/test_revision_visual.py`
 - [x] 9.2 Guía de demo local (IP de la PC, firewall) (#58) · `docs/DEMO-LOCAL.md`
-- [x] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007): publicada el 25/11/2026 en https://droid-e3d.onrender.com. Falta la clave de Storage para las fotos (#59)
+- [x] 9.3 Versión online en Render + Supabase (`docs/DESPLIEGUE.md`, decisión 007): publicada el 25/11/2026 en https://droid-e3d.onrender.com. Las fotos van a Supabase Storage desde el 26/11 (#59)
 - [ ] 9.4 README final con capturas y guion de demo (#60) · README y capturas al día con el logo y el diseño nuevos (20/11); falta la dirección online (9.3) y el resultado de la 6.5
 
 ### Fase M · Mejoras de la web y render 3D (pedido del usuario, 03/11/2026)

@@ -64,7 +64,7 @@ Pruebas automáticas en el repo: **124 de la API** (pytest), que corren contra M
 | Tiempo real: cartel y sonido, web instalable (PWA), notificaciones push | ✅ Funciona (push e instalación en el celular solo con https) |
 | Reportes con gráficos y ranking, CSV, PDF mensual, comentarios, auditoría | ✅ Funciona |
 | Servidor de IA de Morena (`servidor_ia/`) conectado con la web | ✅ Conectado; falta la prueba real con la cámara y el robot |
-| Publicación en internet (Render + Supabase) | ✅ Publicada el 25/11 en https://droid-e3d.onrender.com. Falta la clave de Storage (las fotos de las alertas se guardan en el disco de Render, que se borra al reiniciar) |
+| Publicación en internet (Render + Supabase) | ✅ Publicada el 25/11 en https://droid-e3d.onrender.com, con las fotos en Supabase Storage (probado el 26/11: se suben, se ven y siguen ahí después de reiniciar) |
 | Hardware (robot y cámara) | Sketch del robot de Morena en `servidor_ia/robot_droid/`: un WALL-E con orugas y ESP32-S3, con pruebas por pieza en `servidor_ia/walle_*`. El 15/11 se probó con todo junto: ante una falta, frena, muestra el signo de peligro y suena la alarma. La conexión con la web del PR borrador #96 es para el robot anterior y hay que adaptarla; falta la prueba con la web (6.5). Sin hardware: `backend/tools/simular_esp32.py` y `backend/tools/simular_yolo.py` |
 
 El detalle tarea por tarea está en [`docs/PLAN.md`](docs/PLAN.md) y los documentos de la empresa y el reporte de avance en [`docs/SMAT/`](../../docs/SMAT/) (en la raíz del repo).
