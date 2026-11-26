@@ -5,6 +5,8 @@
 ## Semana 8 · desde el 23/11/2026
 
 **Hecho**
+- 25/11: **La web se publica** en https://droid-e3d.onrender.com, con la base en Supabase.
+- 25/11: **Todo en inglés:** con el botón EN se traduce toda la web (páginas, app, avisos, fechas, mensajes del servidor), los renders y el juego, no solo las frases clave. Una prueba recorre 17 páginas en inglés y falla si queda algo en español.
 - 24/11: **La documentación dice lo que controla el producto hoy:** casco, chaleco y lentes (decisión del 17/11). Se corrigieron la misión, la propuesta de valor, los dos Canvas, el pitch, la viabilidad, el mercado, el Match, el manual de usuario y el documento final. Donde se nombraba un relé (era del corte de máquina) ahora dice ESP32-S3.
 - 24/11: Video de IDEPP en inglés y en castellano (estilo cámara de IA, ≈1 min): la animación está lista; faltan las voces de los cinco.
 - 25/11: **La web controla tres elementos** (decisión 011): casco, chaleco y lentes. Sin guantes en los filtros, el formulario de zona, los textos, el asistente y el juego. Las alertas viejas «sin guantes» se siguen viendo y cuentan en los reportes; las zonas que los pedían dejan de pedirlos.

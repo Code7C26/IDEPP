@@ -4,6 +4,7 @@
 // Las traducciones están en utils/textos.js. Si una frase no está traducida, se muestra en español.
 import { createContext, useContext, useEffect, useState } from 'react'
 import { INGLES } from '../utils/textos.js'
+import { traducir, traducirDocumento } from '../utils/traductorPagina.js'
 
 const IdiomaContext = createContext(null)
 
@@ -25,6 +26,19 @@ export function IdiomaProvider({ children }) {
       localStorage.setItem('idioma', idioma)
     } catch {
       // no pasa nada si no se puede guardar
+    }
+  }, [idioma])
+
+  // En inglés se traduce TODO lo que se ve, no solo lo que usa t() (utils/traductorPagina.js). Al volver al
+  // español, la función que devuelve deja cada texto como estaba.
+  // Los renders y el juego (iframes) usan la misma función para lo que dibujan en la escena (robot3d/embebido.js).
+  useEffect(() => {
+    if (idioma !== 'en') return undefined
+    window.__traducirTexto = traducir
+    const dejarDeTraducir = traducirDocumento(document)
+    return () => {
+      delete window.__traducirTexto
+      dejarDeTraducir()
     }
   }, [idioma])
 

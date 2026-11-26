@@ -5,8 +5,25 @@
 //    (dos dedos giran y hacen zoom); en el juego no, porque se maneja con botones en la pantalla
 //  - con ?solo=escena se ve solo la escena y sus botones, sin el título ni los paneles de abajo
 //  - le avisa a la página cuánto mide, para que el iframe no tenga barra de scroll propia
+//  - si la web está en inglés, traduce lo que dibuja en la escena (carteles, pantallita, etiquetas); el texto de la
+//    página lo traduce la web desde afuera (utils/traductorPagina.js)
 (function () {
   if (window.parent === window) return
+
+  // ---------- Inglés ----------
+  let traducirTexto = null
+  try {
+    if (window.parent.document.documentElement.lang === 'en') traducirTexto = window.parent.__traducirTexto || null
+  } catch (e) { /* otra dirección: no se traduce */ }
+  if (traducirTexto) {
+    for (const metodo of ['fillText', 'strokeText']) {
+      const original = CanvasRenderingContext2D.prototype[metodo]
+      CanvasRenderingContext2D.prototype[metodo] = function (texto, ...resto) {
+        const en = typeof texto === 'string' ? traducirTexto(texto) : null
+        return original.call(this, en ?? texto, ...resto)
+      }
+    }
+  }
 
   const esJuego = location.pathname.includes('patrulla')
   const soloEscena = new URLSearchParams(location.search).get('solo') === 'escena'

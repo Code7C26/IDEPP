@@ -2,7 +2,11 @@
 // La clave es la frase en español, tal cual aparece en la página; el valor es cómo se dice en inglés.
 // Para traducir algo nuevo: en el componente escribí {t('Frase en español')} y agregala acá abajo.
 // Si una frase no está en la lista, se muestra en español (no se rompe nada).
+// El resto de la web (lo que no usa t()) está en textosPaginas.js: lo traduce utils/traductorPagina.js.
+import { INGLES_PAGINAS } from './textosPaginas.js'
+
 export const INGLES = {
+  ...INGLES_PAGINAS,
   // Botones y avisos generales
   'Ingresar': 'Log in',
   'Ingresando…': 'Logging in…',
