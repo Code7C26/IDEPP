@@ -30,7 +30,7 @@ def test_me_trae_la_zona_completa_con_su_epp(cliente, empleado):
     r = cliente.get("/api/me", headers=empleado)
     assert r.status_code == 200
     assert r.json["zona"] == "Zona A"
-    assert r.json["zona_detalle"]["epp_requerido"] == ["casco", "lentes", "guantes"]
+    assert r.json["zona_detalle"]["epp_requerido"] == ["casco", "lentes"]
 
 
 def test_errores_siempre_en_json(cliente, encargada):

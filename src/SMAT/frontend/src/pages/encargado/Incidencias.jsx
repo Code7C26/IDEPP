@@ -19,10 +19,10 @@ import { useAvisos } from '../../context/AvisosContext.jsx'
 import useDemora from '../../hooks/useDemora.js'
 import usePolling from '../../hooks/usePolling.js'
 import { botonPrimario, botonSecundario, mensajeError } from '../../utils/estilos.js'
-import { formatearFecha, haceCuanto, nombreTipo, porcentaje } from '../../utils/formato.js'
+import { TIPOS_ALERTA, formatearFecha, haceCuanto, nombreTipo, porcentaje } from '../../utils/formato.js'
 
 const POR_PAGINA = 15
-const TIPOS = ['sin_casco', 'sin_guantes', 'sin_lentes', 'sin_chaleco'].map((t) => ({ valor: t, texto: nombreTipo(t) }))
+const TIPOS = TIPOS_ALERTA.map((t) => ({ valor: t, texto: nombreTipo(t) }))
 // Columna de la tabla -> nombre del orden en la API (?orden=)
 const ORDEN_API = { timestamp: 'timestamp', zona: 'zona', empleado_nombre: 'empleado', tipo: 'tipo', confianza: 'confianza', estado: 'estado' }
 

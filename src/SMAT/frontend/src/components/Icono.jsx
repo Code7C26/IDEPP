@@ -34,7 +34,6 @@ const TRAZOS = {
   candado: <><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 018 0v4" /></>,
   // Equipo de protección personal y máquina (los usa el mapa de la fábrica)
   casco: <><path d="M4 16a8 8 0 0116 0" /><path d="M2.5 16.5h19" /><path d="M12 8V5.5M9 9.5l-1-2.5M15 9.5l1-2.5" /></>,
-  guantes: <path d="M8 21v-6.5L5.6 11a1.3 1.3 0 012.1-1.5L9 11V5a1.2 1.2 0 012.4 0v5V3.8a1.2 1.2 0 012.4 0V10V4.8a1.2 1.2 0 012.4 0V10V7a1.2 1.2 0 012.4 0v7.5L16 21z" />,
   lentes: <><path d="M3 10h18v2.5a3.5 3.5 0 01-3.5 3.5h-1.8L14 13.8h-4L8.3 16H6.5A3.5 3.5 0 013 12.5z" /><path d="M3 10l1.5-3h15L21 10" /></>,
   chaleco: <><path d="M9 3L5 6v15h5v-7h4v7h5V6l-4-3-1.5 4h-3z" /><path d="M5 12h5M14 12h5" /></>,
   maquina: <><circle cx="12" cy="12" r="3" /><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" /></>,

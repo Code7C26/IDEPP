@@ -5,9 +5,7 @@ Cumplimiento: es la misma definición que ve el empleado en su inicio (frontend/
 """
 from datetime import datetime, time, timedelta
 
-from models import db, Incidencia, Usuario, Zona
-
-TIPOS = ("sin_casco", "sin_guantes", "sin_lentes", "sin_chaleco")
+from models import TIPOS_ALERTA, db, Incidencia, Usuario, Zona
 
 
 def limites(desde, hasta):
@@ -30,17 +28,20 @@ def cumplimiento(dias_con_alerta, dias):
 
 
 def resumen_diario(desde, hasta):
-    """Alertas por día (separadas por tipo), por tipo, por zona y totales del período."""
+    """Alertas por día (separadas por tipo), por tipo, por zona y totales del período.
+    Los tipos son los que se controlan hoy; si en el período hay alertas viejas de otro tipo («sin_guantes»),
+    se suman al final, para que los totales sigan cerrando."""
     dia = db.func.date(Incidencia.timestamp)
     conteo = {}   # (fecha, tipo) -> cantidad
     for fecha, tipo, cantidad in (db.session.query(dia, Incidencia.tipo, db.func.count(Incidencia.id))
                                   .filter(en_periodo(desde, hasta)).group_by(dia, Incidencia.tipo).all()):
         conteo[(fecha, tipo)] = cantidad
+    tipos = TIPOS_ALERTA + tuple(sorted({tipo for _, tipo in conteo} - set(TIPOS_ALERTA)))
 
     dias = []
     for n in range(cantidad_de_dias(desde, hasta)):   # todos los días, aunque no tengan alertas
         fecha = desde + timedelta(days=n)
-        por_tipo = {tipo: conteo.get((fecha, tipo), 0) for tipo in TIPOS}
+        por_tipo = {tipo: conteo.get((fecha, tipo), 0) for tipo in tipos}
         dias.append({"fecha": fecha.isoformat(), **por_tipo, "total": sum(por_tipo.values())})
 
     # Todas las zonas, aunque no tengan alertas (outer join con la condición del período en el join)
@@ -52,8 +53,9 @@ def resumen_diario(desde, hasta):
     total = sum(d["total"] for d in dias)
     return {
         "desde": desde.isoformat(), "hasta": hasta.isoformat(),
+        "tipos": list(tipos),
         "dias": dias,
-        "por_tipo": [{"tipo": tipo, "total": sum(d[tipo] for d in dias)} for tipo in TIPOS],
+        "por_tipo": [{"tipo": tipo, "total": sum(d[tipo] for d in dias)} for tipo in tipos],
         "por_zona": [{"zona_id": z_id, "zona": nombre, "total": cantidad} for z_id, nombre, cantidad in zonas],
         "total": total,
         "activas": activas,

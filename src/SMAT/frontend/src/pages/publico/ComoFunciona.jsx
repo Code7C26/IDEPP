@@ -49,7 +49,7 @@ function Esquema() {
 }
 
 export default function ComoFunciona() {
-  useTituloPagina('Cómo funciona', 'Un robot con cámara recorre la planta, la IA detecta si falta el casco, los guantes, los lentes o el chaleco, avisa con foto y el robot da la alarma en esa zona.')
+  useTituloPagina('Cómo funciona', 'Un robot con cámara recorre la planta, la IA detecta si falta el casco, el chaleco o los lentes, avisa con foto y el robot da la alarma en esa zona.')
 
   return (
     <>
@@ -64,9 +64,9 @@ export default function ComoFunciona() {
 
       <Seccion antetitulo="El robot">
         <div className="mt-6"><RenderEmbebido archivo="robot" titulo="Robot DROID-E3D: modelo 3D del robot" /></div>
-        {/* Hasta que el render se actualice en Claude: muestra el robot anterior (decisión 008) */}
+        {/* La forma es la del diseño; la lista de piezas es la del robot actual desde el 25/11 (decisión 008) */}
         <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
-          Modelo de diseño: algunas piezas del robot actual son distintas. Este modelo se va a actualizar.
+          Modelo de diseño: la forma puede variar un poco; las piezas de la lista son las del robot actual.
         </p>
       </Seccion>
 

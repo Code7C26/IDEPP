@@ -10,6 +10,14 @@ db = SQLAlchemy()
 #                    database/schema.sql; hacen falta en Postgres (Supabase), donde las tablas se
 #                    crean desde estos modelos y no desde schema.sql.
 
+# Equipo de protección que controla DROID-E3D (decisión 011, 17/11/2026): casco, chaleco y lentes.
+# Los guantes se sacaron: las alertas viejas «sin_guantes» se conservan y se siguen mostrando con su nombre,
+# pero ya no se aceptan nuevas, y si una zona vieja los pedía, deja de pedirlos.
+EPP_VALIDOS = ("casco", "chaleco", "lentes")
+TIPOS_ALERTA = tuple(f"sin_{e}" for e in EPP_VALIDOS)
+NOMBRES_TIPO = {"sin_casco": "Sin casco", "sin_chaleco": "Sin chaleco", "sin_lentes": "Sin lentes",
+                "sin_guantes": "Sin guantes"}   # este último, solo para alertas de antes del 17/11
+
 
 class Zona(db.Model):
     """Una zona de la fábrica: su máquina o puesto de trabajo y el EPP obligatorio."""
@@ -18,7 +26,7 @@ class Zona(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), unique=True, nullable=False)
     maquina = db.Column(db.String(100))                        # máquina o puesto de la zona, ej. "Sierra circular"
-    epp_requerido = db.Column(db.String(200), default="", server_default="")      # texto: "casco,guantes,lentes"
+    epp_requerido = db.Column(db.String(200), default="", server_default="")      # texto: "casco,chaleco,lentes"
     # Posición en el mapa de la fábrica (grilla): x, y, ancho y alto en celdas
     grilla_x = db.Column(db.Integer, default=0, server_default="0")
     grilla_y = db.Column(db.Integer, default=0, server_default="0")
@@ -26,7 +34,7 @@ class Zona(db.Model):
     alto = db.Column(db.Integer, default=2, server_default="2")
 
     def to_dict(self):
-        epp = [e for e in (self.epp_requerido or "").split(",") if e]
+        epp = [e for e in (self.epp_requerido or "").split(",") if e in EPP_VALIDOS]   # sin lo que ya no se controla
         return {
             "id": self.id, "nombre": self.nombre, "maquina": self.maquina,
             "epp_requerido": epp,
@@ -69,7 +77,7 @@ class Incidencia(db.Model):
     __tablename__ = "incidencias"
 
     id = db.Column(db.Integer, primary_key=True)
-    tipo = db.Column(db.String(50), nullable=False)            # sin_casco, sin_guantes...
+    tipo = db.Column(db.String(50), nullable=False)            # sin_casco, sin_chaleco o sin_lentes
     timestamp = db.Column(db.DateTime, default=datetime.now, server_default=db.func.now())
     zona_id = db.Column(db.Integer, db.ForeignKey("zonas.id"), nullable=False)
     empleado_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"))

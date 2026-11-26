@@ -135,7 +135,7 @@ def test_video_en_vivo(robot_simulado, abrir):
 
 def test_una_falta_no_corta_ninguna_maquina(robot_simulado, abrir):
     """DROID-E3D no corta máquinas (decisión 010): la zona no muestra estado de máquina ni botones para reactivarla."""
-    api("/incidents", cabeceras=YOLO, datos={"tipo": "sin_guantes", "zona_id": 3, "empleado_id": 6, "confianza": 0.91})
+    api("/incidents", cabeceras=YOLO, datos={"tipo": "sin_lentes", "zona_id": 3, "empleado_id": 6, "confianza": 0.91})
     pag = abrir("maria", "/app/zonas")
     zona_c = pag.locator("article", has_text="Zona C")
     assert zona_c.is_visible()

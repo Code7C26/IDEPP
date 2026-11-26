@@ -12,14 +12,12 @@ import threading
 from flask import current_app
 
 from config import Config
-from models import db, SuscripcionPush, Usuario
+from models import NOMBRES_TIPO, db, SuscripcionPush, Usuario
 
 try:
     from pywebpush import WebPushException, webpush
 except ImportError:   # sin la librería la web sigue andando, solo que sin notificaciones
     webpush = None
-
-NOMBRES_TIPO = {"sin_casco": "Sin casco", "sin_guantes": "Sin guantes", "sin_lentes": "Sin lentes", "sin_chaleco": "Sin chaleco"}
 
 
 def push_configurado():

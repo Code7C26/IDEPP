@@ -79,8 +79,7 @@ def png(ancho, alto, pixel):
 
 
 # Dónde va el recuadro rojo según el EPP que falta (x1, y1, x2, y2 en una imagen de 320x240)
-RECUADROS = {"sin_casco": (130, 20, 190, 80), "sin_lentes": (138, 42, 182, 66),
-             "sin_guantes": (95, 140, 135, 185), "sin_chaleco": (115, 85, 205, 175)}
+RECUADROS = {"sin_casco": (130, 20, 190, 80), "sin_lentes": (138, 42, 182, 66), "sin_chaleco": (115, 85, 205, 175)}
 
 
 def foto_de_evidencia(tipo):

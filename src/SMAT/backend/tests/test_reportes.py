@@ -11,8 +11,8 @@ PERIODO = "desde=2025-01-01&hasta=2025-01-10"     # 10 días
 
 @pytest.fixture
 def enero(cliente):
-    """Juan: 3 alertas en 2 días · Carlos: 1 (el último día, a las 23:30) · 1 sin identificar ·
-    y 2 alertas justo afuera del período, que no deben contar."""
+    """Juan: 3 alertas en 2 días · Carlos: 1 (el último día, a las 23:30, una «sin guantes» de antes de la
+    decisión 011) · 1 sin identificar · y 2 alertas justo afuera del período, que no deben contar."""
     filas = [("sin_casco", "2025-01-02 09:00", 1, 1), ("sin_lentes", "2025-01-02 15:00", 1, 1),
              ("sin_casco", "2025-01-05 10:00", 1, 1), ("sin_guantes", "2025-01-10 23:30", 2, 4),
              ("sin_chaleco", "2025-01-03 11:00", 4, None),
@@ -35,11 +35,19 @@ def test_diario_cuenta_por_dia_tipo_y_zona(enero, encargada):
     r = enero.get(f"/api/reports/diario?{PERIODO}", headers=encargada).json
     assert len(r["dias"]) == 10 and r["dias"][0]["fecha"] == "2025-01-01"
     assert r["total"] == 5 and r["activas"] == 5 and r["resueltas"] == 0
-    assert r["dias"][1] == {"fecha": "2025-01-02", "sin_casco": 1, "sin_guantes": 0, "sin_lentes": 1, "sin_chaleco": 0, "total": 2}
+    assert r["dias"][1] == {"fecha": "2025-01-02", "sin_casco": 1, "sin_chaleco": 0, "sin_lentes": 1, "sin_guantes": 0, "total": 2}
     assert r["dias"][9]["sin_guantes"] == 1                                  # "hasta" incluye todo el último día
     assert {t["tipo"]: t["total"] for t in r["por_tipo"]} == {"sin_casco": 2, "sin_guantes": 1, "sin_lentes": 1, "sin_chaleco": 1}
+    # Los tres que se controlan hoy, y al final la alerta vieja de guantes, para que el total cierre
+    assert r["tipos"] == ["sin_casco", "sin_chaleco", "sin_lentes", "sin_guantes"]
     assert {z["zona"]: z["total"] for z in r["por_zona"]} == {"Zona A": 3, "Zona B": 1, "Zona C": 0, "Zona D": 1}
     assert r["zonas_con_alertas"] == 3 and r["zonas_total"] == 4
+
+
+def test_sin_alertas_viejas_solo_aparecen_los_tres_tipos(enero, encargada):
+    r = enero.get("/api/reports/diario?desde=2025-01-01&hasta=2025-01-09", headers=encargada).json
+    assert r["tipos"] == ["sin_casco", "sin_chaleco", "sin_lentes"]
+    assert "sin_guantes" not in r["dias"][0] and r["total"] == 4
 
 
 def test_ranking_de_empleados_y_zonas(enero, encargada):

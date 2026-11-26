@@ -10,7 +10,7 @@ export default function Juego() {
   return (
     <>
       <EncabezadoPagina antetitulo="Juego" titulo="Manejá el robot por la fábrica">
-        Recorré la planta y encontrá a quien le falta el casco, los guantes, los lentes o el chaleco antes de que sea
+        Recorré la planta y encontrá a quien le falta el casco, el chaleco o los lentes antes de que sea
         tarde. Cargá tu nombre y entrá al ranking.
       </EncabezadoPagina>
       <div className="mx-auto max-w-6xl px-4 py-8 md:px-8">

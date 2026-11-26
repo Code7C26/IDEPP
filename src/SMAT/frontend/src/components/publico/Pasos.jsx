@@ -6,8 +6,8 @@ import Icono from '../Icono.jsx'
 export const PASOS = [
   { icono: 'camara', titulo: 'El robot recorre', texto: 'Una cámara en el robot filma cada zona de la planta mientras recorre su ruta.',
     detalle: 'El robot, con orugas y un ESP32-S3, sigue con sus sensores una cinta en el piso o las líneas que la fábrica ya tiene pintadas, recorre la ruta que arma el encargado en la web y espera unos segundos en cada zona. Se puede iniciar, pausar o frenar en emergencia desde el celular.' },
-  { icono: 'ia', titulo: 'La IA detecta', texto: 'YOLO revisa que tengan casco, guantes, lentes y chaleco, y reconoce de quién es la cara.',
-    detalle: 'Un servidor con inteligencia artificial analiza el video. Si a alguien le falta el casco, los guantes, los lentes o el chaleco durante varios cuadros seguidos, lo marca y busca su cara entre los empleados que dieron su consentimiento.' },
+  { icono: 'ia', titulo: 'La IA detecta', texto: 'YOLO revisa que tengan casco, chaleco y lentes, y reconoce de quién es la cara.',
+    detalle: 'Un servidor con inteligencia artificial analiza el video. Si a alguien le falta el casco, el chaleco o los lentes durante varios cuadros seguidos, lo marca y busca su cara entre los empleados que dieron su consentimiento.' },
   { icono: 'alerta', titulo: 'Llega la alerta', texto: 'El encargado la ve al instante, con la foto, la zona y la confianza de la IA.',
     detalle: 'La alerta aparece en el panel con la foto del momento. El encargado la revisa y la marca como resuelta; todo queda registrado en el historial y en la auditoría.' },
   { icono: 'campana', titulo: 'El robot da la alarma', texto: 'Se detiene en la zona, muestra el signo de peligro y hace sonar la alarma.',

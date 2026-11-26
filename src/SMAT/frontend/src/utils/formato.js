@@ -1,12 +1,19 @@
 // Funciones para mostrar datos lindos en pantalla: fechas, nombres de EPP, porcentajes y colores.
 
-export const NOMBRES_EPP = { casco: 'Casco', guantes: 'Guantes', lentes: 'Lentes', chaleco: 'Chaleco' }
+// Lo que controla DROID-E3D desde el 17/11/2026 (decisión 011): casco, chaleco y lentes
+export const NOMBRES_EPP = { casco: 'Casco', chaleco: 'Chaleco', lentes: 'Lentes' }
+export const TIPOS_ALERTA = ['sin_casco', 'sin_chaleco', 'sin_lentes']
 
 const NOMBRES_TIPO = {
   sin_casco: 'Sin casco',
-  sin_guantes: 'Sin guantes',
-  sin_lentes: 'Sin lentes',
   sin_chaleco: 'Sin chaleco',
+  sin_lentes: 'Sin lentes',
+  sin_guantes: 'Sin guantes',   // solo alertas de antes del 17/11: se siguen mostrando con su nombre
+}
+
+// 'chaleco' -> 'Chaleco' (también 'guantes', de las alertas viejas)
+export function nombreEpp(epp) {
+  return NOMBRES_EPP[epp] || (epp === 'guantes' ? 'Guantes' : epp)
 }
 
 // 'sin_casco' -> 'Sin casco'

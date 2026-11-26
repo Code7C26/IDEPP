@@ -99,9 +99,9 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 | 3 · 19/10 | Fase L, 5, 6 | E.5, E.6 | YOLO + facial, prueba conjunta |
 | 4 · 26/10 | Fases 7, 8, 9 (despliegue) | E.7-E.10 | Ajustes, demo |
 
-> **Estado al 20/11/2026:** web lista (Fases 0 a 8, 9.1, 9.2, M.1 a M.5, M.7 a M.9 y M.11 a M.13) y empresa completa (E.0 a E.10).
-> Quedan publicar (9.3), conectar el robot actual (orugas y ESP32-S3) con la web (6.8, M.6 y 6.5), actualizar las piezas de los
-> renders en Claude (M.10), el README final con la dirección online (9.4) y el documento final (Fase D).
+> **Estado al 25/11/2026:** web lista (Fases 0 a 8, 9.1, 9.2, M.1 a M.5 y M.7 a M.14) y empresa completa (E.0 a E.10).
+> Quedan publicar (9.3), conectar el robot actual (orugas y ESP32-S3) con la web (6.8, M.6 y 6.5), el README final con la
+> dirección online (9.4) y el documento final (Fase D).
 
 > Si hay atraso se ajusta en la bitácora; no se borra nada del plan (decisión: no recortar).
 
@@ -206,10 +206,11 @@ La Fase E (resto) avanza en paralelo con los socios. Las tareas `P.N` urgentes d
 - [x] M.7 Textos de la web: el robot actual y lo que hoy detecta la IA (#101)
 - [x] M.8 Función bilingüe español-inglés: botón ES/EN en la página pública y en la app, con las frases clave traducidas (#101)
 - [x] M.9 Versión interactiva: asistente de preguntas frecuentes en la página pública y guía interactiva (botón «?») en todas las páginas (#101)
-- [ ] M.10 Actualizar los renders en Claude con el robot actual y volver a copiarlos (`tools/copiar_renders.py`). Ya corregido en la web: el robot no para la máquina (decisión 010, 20/11); faltan las piezas (ESP32-S3, TB6612FNG, pantalla ST7789)
+- [x] M.10 Renders con el robot actual: el robot no para la máquina (20/11, decisión 010) y la lista de piezas es la real, en el original de Claude y en la web (25/11)
 - [x] M.11 La empresa pasa a ser IDEPP: web, documentos y logos (Morena, PR #104); informe PDF, copia de los renders, «oruga» y Word (decisión 009)
 - [x] M.12 Sin corte de máquina: el robot se detiene y da la alarma; la web deja de mostrar y controlar máquinas, y los textos públicos dicen orugas (decisión 010)
-- [x] M.13 Juego para mostrar: nombre del jugador, menú con pestañas, ranking por modo y dificultad, los 4 equipos de protección, racha, cuenta regresiva y pausa automática (decisión 008, actualización)
+- [x] M.13 Juego para mostrar: nombre del jugador, menú con pestañas, ranking por modo y dificultad, los equipos de protección, racha, cuenta regresiva y pausa automática (decisión 008, actualización)
+- [x] M.14 Tres EPP: la web, los datos de ejemplo y el juego controlan casco, chaleco y lentes; sin guantes (decisión 011)
 
 ### Fase E · Empresa IDEPP desde cero (carpeta `docs/SMAT/EMPRESA-SMAT/` de la raíz, rama `SMAT-empresa`)
 Cada socio (Tiziano, Morena) escribe su parte; Claude ayuda solo en las de Tiziano y deja `TODO (socio)` donde falte una decisión.

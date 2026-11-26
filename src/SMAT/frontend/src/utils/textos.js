@@ -99,7 +99,7 @@ export const INGLES = {
   'Seguridad que recorre la planta. Un producto de IDEPP.': 'Safety that patrols the plant. A product by IDEPP.',
 
   // Página pública: inicio
-  'Detecta casco, guantes, lentes y chaleco': 'Detects helmet, gloves, goggles and vest',
+  'Detecta casco, chaleco y lentes': 'Detects helmet, vest and goggles',
   'Seguridad que': 'Safety that',
   'recorre la planta': 'patrols the plant',
   'Ver cómo funciona': 'See how it works',
@@ -138,9 +138,9 @@ export const INGLES = {
   'El robot recorre': 'The robot patrols',
   'Una cámara en el robot filma cada zona de la planta mientras recorre su ruta.': 'A camera on the robot films each area of the plant while it follows its route.',
   'La IA detecta': 'The AI detects',
-  'YOLO revisa que tengan casco, guantes, lentes y chaleco, y reconoce de quién es la cara.': 'YOLO checks for helmet, gloves, goggles and vest, and recognizes whose face it is.',
-  'Un servidor con inteligencia artificial analiza el video. Si a alguien le falta el casco, los guantes, los lentes o el chaleco durante varios cuadros seguidos, lo marca y busca su cara entre los empleados que dieron su consentimiento.':
-    'An artificial intelligence server analyzes the video. If someone is missing their helmet, gloves, goggles or vest for several frames in a row, it flags them and looks for their face among the employees who gave consent.',
+  'YOLO revisa que tengan casco, chaleco y lentes, y reconoce de quién es la cara.': 'YOLO checks for helmet, vest and goggles, and recognizes whose face it is.',
+  'Un servidor con inteligencia artificial analiza el video. Si a alguien le falta el casco, el chaleco o los lentes durante varios cuadros seguidos, lo marca y busca su cara entre los empleados que dieron su consentimiento.':
+    'An artificial intelligence server analyzes the video. If someone is missing their helmet, vest or goggles for several frames in a row, it flags them and looks for their face among the employees who gave consent.',
   'Llega la alerta': 'The alert arrives',
   'El encargado la ve al instante, con la foto, la zona y la confianza de la IA.': 'The supervisor sees it instantly, with the photo, the area and how sure the AI is.',
   'La alerta aparece en el panel con la foto del momento. El encargado la revisa y la marca como resuelta; todo queda registrado en el historial y en la auditoría.':

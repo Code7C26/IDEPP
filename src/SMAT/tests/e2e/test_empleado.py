@@ -12,8 +12,8 @@ def test_inicio_muestra_zona_epp_y_cumplimiento(base_limpia, abrir):
     pag = abrir("juan", "/app")
     assert pag.get_by_role("heading", name="Hola, Juan").is_visible()
     assert pag.get_by_role("heading", name="Zona A").is_visible() and pag.get_by_text("Sierra circular").first.is_visible()
-    assert all(pag.get_by_text(epp, exact=True).is_visible() for epp in ("Casco", "Lentes", "Guantes"))
-    assert not pag.get_by_text("Chaleco", exact=True).is_visible()
+    assert all(pag.get_by_text(epp, exact=True).is_visible() for epp in ("Casco", "Lentes"))
+    assert not any(pag.get_by_text(epp, exact=True).is_visible() for epp in ("Chaleco", "Guantes"))
     assert pag.get_by_text(f"{esperado}%", exact=True).is_visible()
     assert pag.get_by_text("Todo en orden").is_visible()
     assert not pag.errores

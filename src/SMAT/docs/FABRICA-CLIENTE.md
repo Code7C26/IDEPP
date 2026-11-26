@@ -15,9 +15,9 @@
 ## Zonas y su máquina o puesto (ejemplo)
 | Zona | Máquina | EPP obligatorio | Riesgo |
 |---|---|---|---|
-| Zona A · Corte | Sierra circular | casco, lentes, guantes | Proyección de partículas, cortes |
-| Zona B · Soldadura | Soldadora MIG | casco, lentes, guantes, chaleco | Chispas, radiación |
-| Zona C · Prensa | Prensa hidráulica | casco, guantes | Aplastamiento |
+| Zona A · Corte | Sierra circular | casco, lentes | Proyección de partículas, cortes |
+| Zona B · Soldadura | Soldadora MIG | casco, lentes, chaleco | Chispas, radiación |
+| Zona C · Prensa | Prensa hidráulica | casco, lentes | Aplastamiento, proyección de piezas |
 | Zona D · Depósito | Autoelevador | casco, chaleco | Tránsito de vehículos |
 
 ## Empleados de prueba (ejemplo)

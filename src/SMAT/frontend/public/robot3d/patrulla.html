@@ -200,7 +200,7 @@ body {
           <div><button class="link" id="btnBorrar">Borrar el ranking de este equipo</button></div>
         </div>
         <div class="panel" role="tabpanel" id="panel-ayuda" aria-labelledby="tab-ayuda" hidden>
-          <p>Andá por la calle amarilla. Cuando a alguien le falta el <b>casco</b>, los <b>guantes</b>, los <b>lentes</b> o el <b>chaleco</b>, aparece un <b>⚠</b> con un anillo naranja: acercate y escanealo.</p>
+          <p>Andá por la calle amarilla. Cuando a alguien le falta el <b>casco</b>, el <b>chaleco</b> o los <b>lentes</b>, aparece un <b>⚠</b> con un anillo naranja: acercate y escanealo.</p>
           <ul>
             <li>Moverse: <span class="kbd">↑</span><span class="kbd">↓</span><span class="kbd">←</span><span class="kbd">→</span> o <span class="kbd">WASD</span> · Escanear: <span class="kbd">R</span> · Pausa: <span class="kbd">P</span> o <span class="kbd">Esc</span>. En el celular, con los botones de la pantalla.</li>
             <li>Cada falta que encontrás suma 100 puntos, más un extra si llegás rápido.</li>
@@ -235,7 +235,7 @@ body {
   <div class="below">
     <div class="card">
       <h3>Cómo se juega</h3>
-      <p>Recorré la calle amarilla de los 6 sectores. Cuando a alguien le falta el casco, los guantes, los lentes o el chaleco, acercate y apretá R: el robot lo escanea, se detiene, da la alarma y la persona se pone su equipo. Si escaneás a alguien que tenía todo puesto, es una falsa alarma y perdés puntos. Si te salís de la ruta, suena una alerta hasta que vuelvas.</p>
+      <p>Recorré la calle amarilla de los 6 sectores. Cuando a alguien le falta el casco, el chaleco o los lentes, acercate y apretá R: el robot lo escanea, se detiene, da la alarma y la persona se pone su equipo. Si escaneás a alguien que tenía todo puesto, es una falsa alarma y perdés puntos. Si te salís de la ruta, suena una alerta hasta que vuelvas.</p>
       <p>Al empezar, cargás tu nombre: los puntajes quedan en el ranking de este equipo, por modo y dificultad.</p>
     </div>
     <div class="card">
@@ -953,12 +953,11 @@ body {
       const boot = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.28), M.black); boot.position.set(x, 0.05, 0.04); g.add(boot);
     });
     const torso = roundedBox(0.46, 0.62, 0.26, 0.06, shirt); torso.position.y = 1.2; g.add(torso);
-    const arms = [], hands = [];
-    const glovesMat = mat(0xe0c040);
+    const arms = [];
     [-1, 1].forEach(s => {
       const arm = new THREE.Group();
       const up = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.055, 0.55, 10), shirt); up.position.y = -0.27; arm.add(up);
-      const hand = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), o.gloves ? glovesMat : skin); hand.position.y = -0.58; arm.add(hand); hands.push(hand);
+      const hand = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 8), o.gloves ? mat(0xe0c040) : skin); hand.position.y = -0.58; arm.add(hand);
       arm.position.set(s * 0.29, 1.47, 0); arm.rotation.z = s * 0.08; g.add(arm); arms.push(arm);
     });
     const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.1, 10), skin); neck.position.y = 1.55; g.add(neck);
@@ -980,7 +979,7 @@ body {
     // anteojos (en el juego cualquiera se los puede sacar: se crean siempre y se muestran u ocultan)
     const glasses = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.05, 0.04), mat(0x223344, { roughness: 0.1, metalness: 0.5, transparent: true, opacity: 0.85 })); glasses.position.set(0, 1.73, 0.13); glasses.visible = !!o.glasses; g.add(glasses);
     shadowAll(g);
-    return { g, helmet, arms, vest, glasses, hands, glovesMat, skin };
+    return { g, helmet, arms, vest, glasses };
   }
 
   // etiqueta flotante (lo que "ve" la IA)
@@ -1141,7 +1140,7 @@ body {
     normal: { limit: 15, wait: [4, 9], speed: 3.2, range: 2.5, name: 'Normal' },
     dificil: { limit: 10, wait: [3, 6], speed: 3.0, range: 2.2, name: 'Difícil' }
   };
-  const EPP = ['casco', 'guantes', 'lentes', 'chaleco'];   // lo que detecta la IA de DROID-E3D
+  const EPP = ['casco', 'chaleco', 'lentes'];   // lo que controla DROID-E3D desde el 17/11 (decisión 011)
   const ROAD = 1.0;   // media calle
   const opts = { mode: 'clasico', diff: 'normal', cam: 'atras' };
   try { Object.assign(opts, JSON.parse(localStorage.getItem('smat-opts') || '{}')); } catch (e) {}
@@ -1334,7 +1333,6 @@ body {
     if (item === 'casco') s.w.helmet.visible = puesto;
     else if (item === 'chaleco') s.w.vest.visible = puesto;
     else if (item === 'lentes') s.w.glasses.visible = puesto;
-    else if (item === 'guantes') s.w.hands.forEach(h => { h.material = puesto ? s.w.glovesMat : s.w.skin; });
   }
   function resetWorker(s) {
     s.wearing = true; s.falta = null; EPP.forEach(e => ponerEquipo(s, e, true)); s.w.helmet.position.y = 1.8;

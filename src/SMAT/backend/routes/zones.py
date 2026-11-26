@@ -1,13 +1,11 @@
 from flask import Blueprint, request
 
-from models import db, Zona, Usuario, Incidencia
+from models import EPP_VALIDOS, db, Zona, Usuario, Incidencia
 from utils.auditoria import registrar
 from utils.decoradores import token_required, rol_requerido, sesion_o_api_key
 from utils.validacion import es_entero, leer_json, texto
 
 zones_bp = Blueprint("zones", __name__)
-
-EPP_VALIDOS = ("casco", "guantes", "lentes", "chaleco")
 
 
 def aplicar_datos(zona, data, es_nueva):

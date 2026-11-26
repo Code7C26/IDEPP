@@ -13,8 +13,8 @@ import requests
 URL = os.getenv("DROID_URL", "http://localhost:5000/api")
 CABECERAS = {"X-API-KEY": os.getenv("YOLO_API_KEY", "")}
 
-# Cada tipo de falta, según el EPP que falta
-TIPOS = {"casco": "sin_casco", "guantes": "sin_guantes", "lentes": "sin_lentes", "chaleco": "sin_chaleco"}
+# Cada tipo de falta, según el EPP que falta (casco, chaleco y lentes: decisión 011)
+TIPOS = {"casco": "sin_casco", "chaleco": "sin_chaleco", "lentes": "sin_lentes"}
 
 
 def zonas():
