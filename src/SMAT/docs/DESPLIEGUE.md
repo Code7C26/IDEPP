@@ -114,6 +114,12 @@ Nada a mano: cada vez que se mergea un Pull Request a `main` que cambia `src/SMA
 - El **video en vivo** de una cámara de la red local (`http://...`) no se ve desde la versión online
   (https): la página lo avisa. Se ve en la demo local.
 
+## 6.1. Publicar los cambios
+
+Si el servicio se creó con la dirección pública del repo (sin instalar la app de Render en GitHub, como se hizo el
+25/11/2026), **Render no se entera de los merges a `main`**: hay que tocar **Manual Deploy → Deploy latest commit**
+en su panel, o `POST /v1/services/<id>/deploys` con una clave de la API. Con la app de GitHub conectada es automático.
+
 ## 7. Límites del plan gratis
 
 - **Render se duerme** a los 15 minutos sin visitas: la primera visita después tarda alrededor de 1 minuto en

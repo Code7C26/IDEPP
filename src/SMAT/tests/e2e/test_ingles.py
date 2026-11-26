@@ -89,3 +89,20 @@ def test_al_volver_al_espanol_todo_vuelve_a_estar_en_espanol(base_limpia, abrir)
     pag.wait_for_timeout(800)
     assert pag.get_by_text("Plan Compra").first.is_visible()
     assert not pag.get_by_text("Purchase Plan").first.is_visible()
+
+
+def test_resolver_alertas_en_ingles(base_limpia, abrir):
+    """Marcar varias alertas, la ventana de confirmación y el detalle de una alerta, todo en inglés."""
+    pag = abrir("maria", "/app/incidencias")
+    en_ingles(pag)
+    pag.locator("table tbody input[type=checkbox]").first.check()
+    pag.get_by_role("button", name=re.compile(r"^Resolve \d+ alerts?$")).click()
+    pag.wait_for_timeout(600)
+    dialogo = pag.get_by_role("dialog")
+    assert dialogo.get_by_text(re.compile("is marked as resolved|are marked as resolved")).is_visible()
+    assert not en_espanol(pag.evaluate(TEXTOS))
+    dialogo.get_by_role("button", name="Cancel").click()
+    pag.get_by_role("button", name=re.compile("^See details")).first.click()
+    pag.wait_for_timeout(600)
+    assert pag.get_by_role("dialog").get_by_text("Alert details").is_visible()
+    assert not en_espanol(pag.evaluate(TEXTOS))
