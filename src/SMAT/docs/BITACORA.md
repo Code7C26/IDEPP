@@ -5,7 +5,7 @@
 ## Semana 8 · desde el 23/11/2026
 
 **Hecho**
-- 25/11: **La web se publica** en https://droid-e3d.onrender.com (Render, plan gratis), con la base en Supabase (región us-east-2). Probada desde afuera: página pública, ES/EN, ingreso del encargado y del empleado, sin errores. Pendiente: la clave de Storage para las fotos y el mail y WhatsApp de Contacto. Render no se actualiza solo al mergear: se publica a mano (`DESPLIEGUE.md` 6.1).
+- 25/11: **La web se publica** en https://droid-e3d.onrender.com (Render, plan gratis), con la base en Supabase (región us-east-2). Probada desde afuera: página pública, ES/EN, ingreso del encargado y del empleado, sin errores. El 26/11 se cargó la clave de Storage: las fotos de rostro y de las alertas quedan guardadas en Supabase y sobreviven a los reinicios (se probó subiendo una foto, reiniciando Render y viéndola de nuevo). Pendiente: el mail y WhatsApp de Contacto. Render no se actualiza solo al mergear: se publica a mano (`DESPLIEGUE.md` 6.1).
 - 25/11: **Todo en inglés:** con el botón EN se traduce toda la web (páginas, app, avisos, fechas, mensajes del servidor), los renders y el juego, no solo las frases clave. Una prueba recorre 17 páginas en inglés y falla si queda algo en español.
 - 24/11: **La documentación dice lo que controla el producto hoy:** casco, chaleco y lentes (decisión del 17/11). Se corrigieron la misión, la propuesta de valor, los dos Canvas, el pitch, la viabilidad, el mercado, el Match, el manual de usuario y el documento final. Donde se nombraba un relé (era del corte de máquina) ahora dice ESP32-S3.
 - 24/11: Video de IDEPP en inglés y en castellano (estilo cámara de IA, ≈1 min): la animación está lista; faltan las voces de los cinco.
